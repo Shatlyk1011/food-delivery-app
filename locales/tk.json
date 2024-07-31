@@ -1,0 +1,89 @@
+{
+  "Index": {
+    "search": "Gözle",
+    "searchPlaceholder": "Restoran gözleg...",
+    "chooseCity": "Şäheriňizi saýlaň",
+    "city": "Şäher",
+    "back": "Yza",
+    "delivery": "Eltip bermek",
+    "selfCare": "Özbaşdak almak",
+    "gr": "gr",
+    "clear": "Arassala",
+    "bucket": "Sebet",
+    "toBucket": "Sebet",
+    "noItems": "Siz entäk hic zat goşaňyzok",
+    "add": "Gosmak",
+    "phoneNumber": "Telefon belgiňiz",
+    "min": "min",
+    "now": "Häzir",
+    "show": "Görkez",
+    "account": "Akkaunt",
+    "profile": "Profil",
+    "logout": "Çyk",
+    "language": "Dil",
+    "home": "Baş sahypa",
+    "categories": "Görnüşler"
+  },
+
+  "Login": {
+    "login": "Girmek",
+    "rules": "Dowam etmek bilen, entek ýok şertlerimize razylaşýarsyňyz",
+    "noAccount": "Akkauntynyz ýokmy?",
+    "haveAccount": "Akkauntynyz barmy?",
+    "register": "Registrasiýa",
+    "resetPassword": "Paroly dikeltmek",
+    "loginViaEmail": "Email ulanyp girin",
+    "registerAccount": "E-poçtaňyzy ulanyp mugt hasap dörediň"
+  },
+
+  "MainPage": {
+    "heading": "Meşhur restoranlar",
+
+    "sortBy": "Sortlamak",
+    "whichShow": "Haýsylaryny ilki görkezmeli?",
+    "trustOne": "Size ynanýaryn",
+    "ratingOne": "Uly reýting",
+    "fastOne": "Çalt",
+    "budgetOne": "Arzanlary",
+    "expensiveOne": "Gymmatlary",
+    "average": "Ortaça",
+
+    "phone": "Telefon",
+    "email": "Email",
+    "address": "Salgy",
+    "about": "Biz barada",
+    "advertisement": "Reklama",
+    "collab": "Hyzmatdaşlyk",
+    "feedback": "Syn galdyrmak",
+    "rights": "Hukuklar goralandyr"
+  },
+
+  "RestaurantPage": {
+    "menu": "Menýu"
+  },
+
+  "BucketForm": {
+    "fillForm": "Anketany dolduryň",
+    "district": "Kiçi etrapça",
+    "houseNumber": "Jaý belgisi",
+    "kw": "Kw / Ofis",
+    "entrance": "Giriş",
+    "leaveComment": "Kurýer üçin teswir (köçäniň ady we ş.m.)",
+    "deliveryTime": "Eltip bermegiň wagty",
+    "chooseAddress": "Salgyňyzy saýlaň",
+    "addNewAddress": "Täze salgy goşmak",
+    "enterAddress": "Eltip beriş salgyňyzy giriziň",
+    "enterAddressSub": "Kurýer sizi tapyp biler ýaly",
+    "enterHome": "Köçe bilen jaýy ýazyň"
+  },
+
+  "BucketPage": {
+    "orders": "Sargydyňyz",
+    "tools": "Enjamlar",
+    "summary": "Umumy bahasy",
+    "price": "Harytlaryň bahasy",
+    "totalPrice": "Jemi",
+    "submit": "Tassykla we sargyt et",
+    "menuReturn": "Restoranlaryň sanawyna dolan"
+  }
+}

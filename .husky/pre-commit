@@ -1,0 +1,2 @@
+npx next lint
+npx prettier . --check

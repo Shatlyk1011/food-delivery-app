@@ -1,0 +1,89 @@
+{
+  "Index": {
+    "search": "Поиск",
+    "searchPlaceholder": "Поиск ресторанов...",
+    "chooseCity": "Выберите ваш город",
+    "city": "Город",
+    "back": "Назад",
+    "delivery": "Доставка",
+    "selfCare": "Самовывоз",
+    "gr": "гр",
+    "clear": "Очистить",
+    "bucket": "Корзина",
+    "toBucket": "К корзине",
+    "noItems": "Вы еще ничего не добавляли",
+    "add": "Добавить",
+    "phoneNumber": "Номер телефона",
+    "min": "мин",
+    "now": "Сейчас",
+    "show": "Показать",
+    "account": "Аккаунт",
+    "profile": "Профиль",
+    "logout": "Выйти",
+    "language": "Язык",
+    "home": "На главную",
+    "categories": "Категории"
+  },
+
+  "Login": {
+    "login": "Войти",
+    "rules": "Продолжая вы соглашаетесь с нашими условиями",
+    "noAccount": "Нету аккаунта?",
+    "haveAccount": "Есть аккаунт?",
+    "register": "Регистрация",
+    "resetPassword": "Восстановить пароль",
+    "loginViaEmail": "Войдите используя ваш email",
+    "registerAccount": "Создайте бесплатный аккаунт используя ваш email"
+  },
+
+  "MainPage": {
+    "heading": "Популярные рестораны",
+
+    "sortBy": "Сортировка",
+    "whichShow": "Какие показать сначала?",
+    "trustOne": "Доверюсь вам",
+    "ratingOne": "С высоким рейтингом",
+    "fastOne": "Быстрые",
+    "budgetOne": "Бюджетные",
+    "expensiveOne": "Дорогие",
+    "average": "В среднем",
+
+    "phone": "Телефон",
+    "email": "Email",
+    "address": "Адрес",
+    "about": "О нас",
+    "advertisement": "Реклама",
+    "collab": "Сотрудничество",
+    "feedback": "Оставить отзыв",
+    "rights": "Все права защищены"
+  },
+
+  "RestaurantPage": {
+    "menu": "Меню"
+  },
+
+  "BucketForm": {
+    "fillForm": "Заполните форму",
+    "district": "Район",
+    "houseNumber": "Номер дома",
+    "kw": "кв/офис",
+    "entrance": "Подъезд",
+    "leaveComment": "Коментарий курьеру (название улицы, и т.д)",
+    "deliveryTime": "Время доставки",
+    "chooseAddress": "Выберите адрес",
+    "addNewAddress": "Добавить новый адрес",
+    "enterAddress": "Укажите адрес доставки",
+    "enterAddressSub": "Чтобы курьер смог найти вас",
+    "enterHome": "Введите улицу и дом"
+  },
+
+  "BucketPage": {
+    "orders": "Ваш заказ",
+    "tools": "Приборы",
+    "summary": "Итого",
+    "price": "Стоимость товаров",
+    "totalPrice": "Общая стоимость",
+    "submit": "Подтвердить и заказать",
+    "menuReturn": "Вернуться к списку ресторанов"
+  }
+}
