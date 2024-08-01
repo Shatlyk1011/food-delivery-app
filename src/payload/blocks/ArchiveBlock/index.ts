@@ -1,104 +1,104 @@
-import type { Block } from 'payload/types'
+import type { Block } from "payload/types";
 
-import richText from '../../fields/richText'
+import richText from "../../fields/richText";
 
 export const Archive: Block = {
   fields: [
     richText({
-      name: 'introContent',
-      label: 'Intro Content',
+      name: "introContent",
+      label: "Intro Content",
     }),
     {
-      name: 'populateBy',
-      defaultValue: 'collection',
+      name: "populateBy",
+      defaultValue: "collection",
       options: [
         {
-          label: 'Collection',
-          value: 'collection',
+          label: "Collection",
+          value: "collection",
         },
         {
-          label: 'Individual Selection',
-          value: 'selection',
+          label: "Individual Selection",
+          value: "selection",
         },
       ],
-      type: 'select',
+      type: "select",
     },
     {
-      name: 'relationTo',
+      name: "relationTo",
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: (_, siblingData) => siblingData.populateBy === "collection",
       },
-      defaultValue: 'posts',
-      label: 'Collections To Show',
+      defaultValue: "posts",
+      label: "Collections To Show",
       options: [
         {
-          label: 'Posts',
-          value: 'posts',
+          label: "Posts",
+          value: "posts",
         },
         {
-          label: 'Projects',
-          value: 'projects',
+          label: "Projects",
+          value: "projects",
         },
       ],
-      type: 'select',
+      type: "select",
     },
     {
-      name: 'categories',
+      name: "categories",
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: (_, siblingData) => siblingData.populateBy === "collection",
       },
       hasMany: true,
-      label: 'Categories To Show',
-      relationTo: 'categories',
-      type: 'relationship',
+      label: "Categories To Show",
+      relationTo: "categories",
+      type: "relationship",
     },
     {
-      name: 'limit',
+      name: "limit",
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: (_, siblingData) => siblingData.populateBy === "collection",
         step: 1,
       },
       defaultValue: 10,
-      label: 'Limit',
-      type: 'number',
+      label: "Limit",
+      type: "number",
     },
     {
-      name: 'selectedDocs',
+      name: "selectedDocs",
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'selection',
+        condition: (_, siblingData) => siblingData.populateBy === "selection",
       },
       hasMany: true,
-      label: 'Selection',
-      relationTo: ['posts', 'projects'],
-      type: 'relationship',
+      label: "Selection",
+      relationTo: ["posts", "projects"],
+      type: "relationship",
     },
     {
-      name: 'populatedDocs',
+      name: "populatedDocs",
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
-        description: 'This field is auto-populated after-read',
+        condition: (_, siblingData) => siblingData.populateBy === "collection",
+        description: "This field is auto-populated after-read",
         disabled: true,
       },
       hasMany: true,
-      label: 'Populated Docs',
-      relationTo: ['posts', 'projects'],
-      type: 'relationship',
+      label: "Populated Docs",
+      relationTo: ["posts", "projects"],
+      type: "relationship",
     },
     {
-      name: 'populatedDocsTotal',
+      name: "populatedDocsTotal",
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
-        description: 'This field is auto-populated after-read',
+        condition: (_, siblingData) => siblingData.populateBy === "collection",
+        description: "This field is auto-populated after-read",
         disabled: true,
         step: 1,
       },
-      label: 'Populated Docs Total',
-      type: 'number',
+      label: "Populated Docs Total",
+      type: "number",
     },
   ],
   labels: {
-    plural: 'Archives',
-    singular: 'Archive',
+    plural: "Archives",
+    singular: "Archive",
   },
-  slug: 'archive',
-}
+  slug: "archive",
+};

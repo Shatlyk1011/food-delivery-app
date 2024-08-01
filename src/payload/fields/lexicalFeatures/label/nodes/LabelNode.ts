@@ -7,9 +7,9 @@
  *
  */
 
-import type { DOMExportOutput, LexicalEditor, ParagraphNode } from 'lexical'
+import type { DOMExportOutput, LexicalEditor, ParagraphNode } from "lexical";
 
-import { addClassNamesToElement } from '@lexical/utils'
+import { addClassNamesToElement } from "@lexical/utils";
 import {
   $applyNodeReplacement,
   $createParagraphNode,
@@ -20,109 +20,109 @@ import {
   type RangeSelection,
   type SerializedElementNode,
   isHTMLElement,
-} from 'lexical'
+} from "lexical";
 
-export type SerializedLabelNode = SerializedElementNode
+export type SerializedLabelNode = SerializedElementNode;
 
 /** @noInheritDoc */
 export class LabelNode extends ElementNode {
   constructor({ key }: { key?: NodeKey }) {
-    super(key)
+    super(key);
   }
 
   static clone(node: LabelNode): LabelNode {
     return new LabelNode({
       key: node.__key,
-    })
+    });
   }
 
   static getType(): string {
-    return 'label'
+    return "label";
   }
 
   static importJSON(serializedNode: SerializedLabelNode): LabelNode {
-    const node = $createLabelNode()
-    node.setFormat(serializedNode.format)
-    node.setIndent(serializedNode.indent)
-    node.setDirection(serializedNode.direction)
-    return node
+    const node = $createLabelNode();
+    node.setFormat(serializedNode.format);
+    node.setIndent(serializedNode.indent);
+    node.setDirection(serializedNode.direction);
+    return node;
   }
 
   canBeEmpty(): true {
-    return true
+    return true;
   }
 
   canInsertTextAfter(): true {
-    return true
+    return true;
   }
 
   canInsertTextBefore(): true {
-    return true
+    return true;
   }
   collapseAtStart(): true {
-    const paragraph = $createParagraphNode()
-    const children = this.getChildren()
-    children.forEach((child) => paragraph.append(child))
-    this.replace(paragraph)
-    return true
+    const paragraph = $createParagraphNode();
+    const children = this.getChildren();
+    children.forEach((child) => paragraph.append(child));
+    this.replace(paragraph);
+    return true;
   }
 
   createDOM(config: EditorConfig): HTMLElement {
-    const element = document.createElement('span')
-    addClassNamesToElement(element, 'label')
-    return element
+    const element = document.createElement("span");
+    addClassNamesToElement(element, "label");
+    return element;
   }
 
   exportDOM(editor: LexicalEditor): DOMExportOutput {
-    const { element } = super.exportDOM(editor)
+    const { element } = super.exportDOM(editor);
 
     if (element && isHTMLElement(element)) {
-      if (this.isEmpty()) element.append(document.createElement('br'))
+      if (this.isEmpty()) element.append(document.createElement("br"));
 
-      const formatType = this.getFormatType()
-      element.style.textAlign = formatType
+      const formatType = this.getFormatType();
+      element.style.textAlign = formatType;
 
-      const direction = this.getDirection()
+      const direction = this.getDirection();
       if (direction) {
-        element.dir = direction
+        element.dir = direction;
       }
     }
 
     return {
       element,
-    }
+    };
   }
 
   exportJSON(): SerializedElementNode {
     return {
       ...super.exportJSON(),
       type: this.getType(),
-    }
+    };
   }
 
   insertNewAfter(_: RangeSelection, restoreSelection?: boolean): ParagraphNode {
-    const newBlock = $createParagraphNode()
-    const direction = this.getDirection()
-    newBlock.setDirection(direction)
-    this.insertAfter(newBlock, restoreSelection)
-    return newBlock
+    const newBlock = $createParagraphNode();
+    const direction = this.getDirection();
+    newBlock.setDirection(direction);
+    this.insertAfter(newBlock, restoreSelection);
+    return newBlock;
   }
 
   // Mutation
 
   isInline(): false {
-    return false
+    return false;
   }
 
   updateDOM(prevNode: LabelNode, dom: HTMLElement): boolean {
-    return false
+    return false;
   }
 }
 
 export function $createLabelNode(): LabelNode {
-  return $applyNodeReplacement(new LabelNode({}))
+  return $applyNodeReplacement(new LabelNode({}));
 }
 
 export function $isLabelNode(node: LexicalNode | null | undefined): node is LabelNode {
-  return node instanceof LabelNode
+  return node instanceof LabelNode;
 }

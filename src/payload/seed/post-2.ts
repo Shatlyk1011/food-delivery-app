@@ -1,10 +1,10 @@
-import type { Post } from '../payload-types'
+import type { Post } from "../payload-types";
 
-import { convertSlateToLexical } from '../utilities/lexical/slateToLexical'
+import { convertSlateToLexical } from "../utilities/lexical/slateToLexical";
 
 export const post2: Partial<Post> = {
-  _status: 'published',
-  authors: ['{{AUTHOR}}'],
+  _status: "published",
+  authors: ["{{AUTHOR}}"],
   enablePremiumContent: true,
   hero: {
     links: null,
@@ -13,28 +13,28 @@ export const post2: Partial<Post> = {
       {
         children: [
           {
-            text: 'Global Gaze: Beyond the Headlines',
+            text: "Global Gaze: Beyond the Headlines",
           },
         ],
-        type: 'h1',
+        type: "h1",
       },
     ]) as any,
-    type: 'lowImpact',
+    type: "lowImpact",
   },
   layout: [
     {
-      blockName: 'The Power of Resilience',
-      blockType: 'contentMedia',
-      media: '{{IMAGE-2}}',
-      mediaPosition: 'right',
+      blockName: "The Power of Resilience",
+      blockType: "contentMedia",
+      media: "{{IMAGE-2}}",
+      mediaPosition: "right",
       richText: convertSlateToLexical([
         {
           children: [
             {
-              text: 'THE POWER OF RESILIENCE: STORIES OF RECOVERY AND HOPE',
+              text: "THE POWER OF RESILIENCE: STORIES OF RECOVERY AND HOPE",
             },
           ],
-          type: 'h6',
+          type: "h6",
         },
         {
           children: [
@@ -46,14 +46,14 @@ export const post2: Partial<Post> = {
         {
           children: [
             {
-              text: 'From neighbors forming makeshift rescue teams during floods to entire cities rallying to rebuild after economic collapse, the essence of humanity is most evident in these acts of solidarity. As we delve into these narratives, we witness the transformative power of community spirit, where adversity becomes a catalyst for growth, unity, and a brighter, rebuilt future.',
+              text: "From neighbors forming makeshift rescue teams during floods to entire cities rallying to rebuild after economic collapse, the essence of humanity is most evident in these acts of solidarity. As we delve into these narratives, we witness the transformative power of community spirit, where adversity becomes a catalyst for growth, unity, and a brighter, rebuilt future.",
             },
           ],
         },
       ]) as any,
     },
     {
-      blockType: 'content',
+      blockType: "content",
       columns: [
         {
           richText: convertSlateToLexical([
@@ -65,52 +65,52 @@ export const post2: Partial<Post> = {
               ],
             },
           ]) as any,
-          size: 'twoThirds',
+          size: "twoThirds",
         },
       ],
     },
   ],
   meta: {
     description:
-      'Explore the untold and overlooked. A magnified view into the corners of the world, where every story deserves its spotlight.',
-    image: '{{IMAGE-1}}',
-    title: 'Global Gaze: Beyond the Headlines',
+      "Explore the untold and overlooked. A magnified view into the corners of the world, where every story deserves its spotlight.",
+    image: "{{IMAGE-1}}",
+    title: "Global Gaze: Beyond the Headlines",
   },
   premiumContent: [
     {
-      blockName: 'Hidden Treasures',
-      blockType: 'content',
+      blockName: "Hidden Treasures",
+      blockType: "content",
       columns: [
         {
           richText: convertSlateToLexical([
             {
               children: [
                 {
-                  text: 'HIDDEN TREASURES: REMOTE DESTINATIONS UNVEILED',
+                  text: "HIDDEN TREASURES: REMOTE DESTINATIONS UNVEILED",
                 },
               ],
-              type: 'h6',
+              type: "h6",
             },
             {
               children: [
                 {
-                  text: 'Beyond the well-trodden tourist trails lie hidden gems waiting to be explored. From untouched beaches to ancient ruins, these remote destinations offer pristine beauty and rich history, providing a unique window into the past and present.',
+                  text: "Beyond the well-trodden tourist trails lie hidden gems waiting to be explored. From untouched beaches to ancient ruins, these remote destinations offer pristine beauty and rich history, providing a unique window into the past and present.",
                 },
               ],
             },
           ]) as any,
-          size: 'full',
+          size: "full",
         },
       ],
     },
     {
-      blockName: 'Feature Image',
-      blockType: 'mediaBlock',
-      media: '{{IMAGE-3}}',
-      position: 'default',
+      blockName: "Feature Image",
+      blockType: "mediaBlock",
+      media: "{{IMAGE-3}}",
+      position: "default",
     },
     {
-      blockType: 'content',
+      blockType: "content",
       columns: [
         {
           richText: convertSlateToLexical([
@@ -118,20 +118,20 @@ export const post2: Partial<Post> = {
               children: [
                 {
                   bold: true,
-                  text: 'This is premium content.',
+                  text: "This is premium content.",
                 },
                 {
-                  text: ' It is only available to authenticated users. This content can be anything from additional video, text, and content, to download links and more. These are simply layout building blocks configured in the CMS.',
+                  text: " It is only available to authenticated users. This content can be anything from additional video, text, and content, to download links and more. These are simply layout building blocks configured in the CMS.",
                 },
               ],
             },
           ]) as any,
-          size: 'twoThirds',
+          size: "twoThirds",
         },
       ],
     },
   ],
   relatedPosts: [], // this is populated by the seed script
-  slug: 'global-gaze',
-  title: 'Global Gaze: Beyond the Headlines',
-}
+  slug: "global-gaze",
+  title: "Global Gaze: Beyond the Headlines",
+};

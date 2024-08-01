@@ -1,50 +1,45 @@
-import type { Field } from 'payload/types'
+import type { Field } from "payload/types";
 
-import {
-  HeadingFeature,
-  LinkFeature,
-  ParagraphFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+import { HeadingFeature, LinkFeature, ParagraphFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 
-import { LabelFeature } from './lexicalFeatures/label'
-import { LargeBodyFeature } from './lexicalFeatures/largeBody'
-import linkGroup from './linkGroup'
-import richText from './richText'
+import { LabelFeature } from "./lexicalFeatures/label";
+import { LargeBodyFeature } from "./lexicalFeatures/largeBody";
+import linkGroup from "./linkGroup";
+import richText from "./richText";
 
 export const hero: Field = {
-  name: 'hero',
+  name: "hero",
   fields: [
     {
-      name: 'type',
-      defaultValue: 'lowImpact',
-      label: 'Type',
+      name: "type",
+      defaultValue: "lowImpact",
+      label: "Type",
       options: [
         {
-          label: 'None',
-          value: 'none',
+          label: "None",
+          value: "none",
         },
         {
-          label: 'High Impact',
-          value: 'highImpact',
+          label: "High Impact",
+          value: "highImpact",
         },
         {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
+          label: "Medium Impact",
+          value: "mediumImpact",
         },
         {
-          label: 'Low Impact',
-          value: 'lowImpact',
+          label: "Low Impact",
+          value: "lowImpact",
         },
       ],
       required: true,
-      type: 'select',
+      type: "select",
     },
     richText({
       editor: lexicalEditor({
         features: [
           ParagraphFeature(),
-          HeadingFeature({ enabledHeadingSizes: ['h1'] }),
+          HeadingFeature({ enabledHeadingSizes: ["h1"] }),
           LinkFeature({}),
           LabelFeature(),
           LargeBodyFeature(),
@@ -58,15 +53,15 @@ export const hero: Field = {
       },
     }),
     {
-      name: 'media',
+      name: "media",
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
+        condition: (_, { type } = {}) => ["highImpact", "mediumImpact"].includes(type),
       },
-      relationTo: 'media',
+      relationTo: "media",
       required: true,
-      type: 'upload',
+      type: "upload",
     },
   ],
   label: false,
-  type: 'group',
-}
+  type: "group",
+};

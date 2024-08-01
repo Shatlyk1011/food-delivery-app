@@ -1,179 +1,179 @@
-import type { Media } from '../payload-types'
+import type { Media } from "../payload-types";
 
-import { convertSlateToLexical } from '../utilities/lexical/slateToLexical'
+import { convertSlateToLexical } from "../utilities/lexical/slateToLexical";
 
 export const postTech1: Media = {
-  id: '',
-  alt: 'Technology',
+  id: "",
+  alt: "Technology",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Sergey Zolkin',
+              text: "Sergey Zolkin",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@szolkin?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/@szolkin?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/_UeY8aTI6d0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/photos/_UeY8aTI6d0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};
 
 export const postTechIot: Media = {
-  id: '',
-  alt: 'Internet of things',
+  id: "",
+  alt: "Internet of things",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Andres Urena',
+              text: "Andres Urena",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@andresurena?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/@andresurena?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/tsBropDpnwE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/photos/tsBropDpnwE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};
 
 export const postTechQuant: Media = {
-  id: '',
-  alt: 'Quantum computing',
+  id: "",
+  alt: "Quantum computing",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Steffen Junginger',
+              text: "Steffen Junginger",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@traumhaendler?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/@traumhaendler?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/1N2OGvrLApM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/photos/1N2OGvrLApM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};
 
 export const postTechAi: Media = {
-  id: '',
-  alt: 'Ai & Machine learning',
+  id: "",
+  alt: "Ai & Machine learning",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Kevin Ku',
+              text: "Kevin Ku",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@ikukevk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/@ikukevk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/w7ZyuGYNpRQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/photos/w7ZyuGYNpRQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};

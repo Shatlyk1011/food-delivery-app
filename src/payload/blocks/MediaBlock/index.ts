@@ -1,31 +1,31 @@
-import type { Block } from 'payload/types'
+import type { Block } from "payload/types";
 
-import { invertBackground } from '../../fields/invertBackground'
+import { invertBackground } from "../../fields/invertBackground";
 
 export const MediaBlock: Block = {
   fields: [
     invertBackground,
     {
-      name: 'position',
-      defaultValue: 'default',
+      name: "position",
+      defaultValue: "default",
       options: [
         {
-          label: 'Default',
-          value: 'default',
+          label: "Default",
+          value: "default",
         },
         {
-          label: 'Fullscreen',
-          value: 'fullscreen',
+          label: "Fullscreen",
+          value: "fullscreen",
         },
       ],
-      type: 'select',
+      type: "select",
     },
     {
-      name: 'media',
-      relationTo: 'media',
+      name: "media",
+      relationTo: "media",
       required: true,
-      type: 'upload',
+      type: "upload",
     },
   ],
-  slug: 'mediaBlock',
-}
+  slug: "mediaBlock",
+};

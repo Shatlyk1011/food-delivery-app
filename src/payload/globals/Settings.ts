@@ -1,4 +1,4 @@
-import type { GlobalConfig } from 'payload/types'
+import type { GlobalConfig } from "payload/types";
 
 export const Settings: GlobalConfig = {
   access: {
@@ -6,23 +6,23 @@ export const Settings: GlobalConfig = {
   },
   fields: [
     {
-      name: 'postsPage',
-      label: 'Posts page',
-      relationTo: 'pages',
-      type: 'relationship',
+      name: "postsPage",
+      label: "Posts page",
+      relationTo: "pages",
+      type: "relationship",
     },
     {
-      name: 'projectsPage',
-      label: 'Projects page',
-      relationTo: 'pages',
-      type: 'relationship',
+      name: "projectsPage",
+      label: "Projects page",
+      relationTo: "pages",
+      type: "relationship",
     },
   ],
   graphQL: {
-    name: 'Settings',
+    name: "Settings",
   },
-  slug: 'settings',
+  slug: "settings",
   typescript: {
-    interface: 'Settings',
+    interface: "Settings",
   },
-}
+};

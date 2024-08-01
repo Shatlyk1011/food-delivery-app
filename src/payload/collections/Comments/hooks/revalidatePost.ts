@@ -1,27 +1,25 @@
-import type { AfterChangeHook } from 'payload/dist/collections/config/types'
+import type { AfterChangeHook } from "payload/dist/collections/config/types";
 
-import { revalidate } from '../../../utilities/revalidate'
+import { revalidate } from "../../../utilities/revalidate";
 
 // Revalidate the post that is associated with this comment
 export const revalidatePost: AfterChangeHook = async ({ doc: commentDoc, req: { payload } }) => {
-  if (commentDoc._status === 'published' && commentDoc.doc) {
+  if (commentDoc._status === "published" && commentDoc.doc) {
     // lookup the full parent doc to get the slug
-    if (typeof commentDoc.doc === 'string') {
+    if (typeof commentDoc.doc === "string") {
       const parentDoc = await payload.findByID({
         id: commentDoc.doc,
-        collection: 'posts',
+        collection: "posts",
         depth: 0,
-      })
+      });
 
       if (parentDoc) {
-        void revalidate({ collection: 'posts', payload, slug: parentDoc.slug })
+        void revalidate({ collection: "posts", payload, slug: parentDoc.slug });
       } else {
-        payload.logger.error(
-          `Parent doc for comment '${commentDoc.id}' was not found, could not revalidate`,
-        )
+        payload.logger.error(`Parent doc for comment '${commentDoc.id}' was not found, could not revalidate`);
       }
     }
   }
 
-  return commentDoc
-}
+  return commentDoc;
+};

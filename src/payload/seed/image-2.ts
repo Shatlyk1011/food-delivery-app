@@ -1,47 +1,47 @@
-import type { Media } from '../payload-types'
+import type { Media } from "../payload-types";
 
-import { convertSlateToLexical } from '../utilities/lexical/slateToLexical'
+import { convertSlateToLexical } from "../utilities/lexical/slateToLexical";
 
 export const image2: Media = {
-  id: '',
-  alt: 'E-Book',
+  id: "",
+  alt: "E-Book",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Sebastian Svenson',
+              text: "Sebastian Svenson",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@sebastiansvenson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+          type: "link",
+          url: "https://unsplash.com/@sebastiansvenson?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/d2w-_1LJioQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText',
+          type: "link",
+          url: "https://unsplash.com/photos/d2w-_1LJioQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};

@@ -1,7 +1,7 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from "payload/types";
 
-import { LinkFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
+import { LinkFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
+import path from "path";
 
 export const Media: CollectionConfig = {
   access: {
@@ -11,24 +11,24 @@ export const Media: CollectionConfig = {
     update: () => false,
   },
   admin: {
-    description: 'Creating, updating, and deleting media is disabled for this demo.',
+    description: "Creating, updating, and deleting media is disabled for this demo.",
   },
   fields: [
     {
-      name: 'alt',
+      name: "alt",
       required: true,
-      type: 'text',
+      type: "text",
     },
     {
-      name: 'caption',
+      name: "caption",
       editor: lexicalEditor({
         features: ({ defaultFeatures }) => [LinkFeature({})],
       }),
-      type: 'richText',
+      type: "richText",
     },
   ],
-  slug: 'media',
+  slug: "media",
   upload: {
-    staticDir: path.resolve(__dirname, '../../../media'),
+    staticDir: path.resolve(__dirname, "../../../media"),
   },
-}
+};

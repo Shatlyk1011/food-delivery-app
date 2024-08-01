@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from "payload/types";
 
 const Categories: CollectionConfig = {
   access: {
@@ -6,15 +6,15 @@ const Categories: CollectionConfig = {
     read: () => true,
   },
   admin: {
-    useAsTitle: 'title',
+    useAsTitle: "title",
   },
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
     },
   ],
-  slug: 'categories',
-}
+  slug: "categories",
+};
 
-export default Categories
+export default Categories;

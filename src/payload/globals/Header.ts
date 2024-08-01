@@ -1,6 +1,6 @@
-import type { GlobalConfig } from 'payload/types'
+import type { GlobalConfig } from "payload/types";
 
-import link from '../fields/link'
+import link from "../fields/link";
 
 export const Header: GlobalConfig = {
   access: {
@@ -8,15 +8,15 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
-      name: 'navItems',
+      name: "navItems",
       fields: [
         link({
           appearances: false,
         }),
       ],
       maxRows: 6,
-      type: 'array',
+      type: "array",
     },
   ],
-  slug: 'header',
-}
+  slug: "header",
+};

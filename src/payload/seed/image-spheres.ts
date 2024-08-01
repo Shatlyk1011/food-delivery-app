@@ -1,47 +1,47 @@
-import type { Media } from '../payload-types'
+import type { Media } from "../payload-types";
 
-import { convertSlateToLexical } from '../utilities/lexical/slateToLexical'
+import { convertSlateToLexical } from "../utilities/lexical/slateToLexical";
 
 export const imageSpheres: Media = {
-  id: '',
-  alt: 'Abstract Spheres in Black and White',
+  id: "",
+  alt: "Abstract Spheres in Black and White",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Sebastian Svensson',
+              text: "Sebastian Svensson",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@sebastiansvenson',
+          type: "link",
+          url: "https://unsplash.com/@sebastiansvenson",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/xVRwS5fGJJQ',
+          type: "link",
+          url: "https://unsplash.com/photos/xVRwS5fGJJQ",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};

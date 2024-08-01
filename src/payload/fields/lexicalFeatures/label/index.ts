@@ -1,16 +1,12 @@
-import type { FeatureProvider } from '@payloadcms/richtext-lexical'
+import type { FeatureProvider } from "@payloadcms/richtext-lexical";
 
-import { $setBlocksType } from '@lexical/selection'
-import { $findMatchingParent } from '@lexical/utils'
-import {
-  FormatSectionWithEntries,
-  SlashMenuOption,
-  getSelectedNode,
-} from '@payloadcms/richtext-lexical'
-import { $getSelection, $isRangeSelection } from 'lexical'
+import { $setBlocksType } from "@lexical/selection";
+import { $findMatchingParent } from "@lexical/utils";
+import { FormatSectionWithEntries, SlashMenuOption, getSelectedNode } from "@payloadcms/richtext-lexical";
+import { $getSelection, $isRangeSelection } from "lexical";
 
-import { $createLabelNode, $isLabelNode, LabelNode } from './nodes/LabelNode'
-import './index.scss'
+import { $createLabelNode, $isLabelNode, LabelNode } from "./nodes/LabelNode";
+import "./index.scss";
 
 export const LabelFeature = (): FeatureProvider => {
   return {
@@ -19,26 +15,25 @@ export const LabelFeature = (): FeatureProvider => {
         sections: [
           FormatSectionWithEntries([
             {
-              ChildComponent: () =>
-                import('./Icon').then((module) => module.LabelIcon),
+              ChildComponent: () => import("./Icon").then((module) => module.LabelIcon),
               isActive: ({ selection }) => {
                 if ($isRangeSelection(selection)) {
-                  const selectedNode = getSelectedNode(selection)
-                  const labelParent = $findMatchingParent(selectedNode, $isLabelNode)
-                  return labelParent != null
+                  const selectedNode = getSelectedNode(selection);
+                  const labelParent = $findMatchingParent(selectedNode, $isLabelNode);
+                  return labelParent != null;
                 }
-                return false
+                return false;
               },
-              key: 'label',
+              key: "label",
               label: `Label`,
               onClick: ({ editor }) => {
                 //setHeading(editor, headingSize)
                 editor.update(() => {
-                  const selection = $getSelection()
+                  const selection = $getSelection();
                   if ($isRangeSelection(selection)) {
-                    $setBlocksType(selection, () => $createLabelNode())
+                    $setBlocksType(selection, () => $createLabelNode());
                   }
-                })
+                });
               },
               order: 20,
             },
@@ -57,23 +52,22 @@ export const LabelFeature = (): FeatureProvider => {
           {
             options: [
               new SlashMenuOption(`Label`, {
-                Icon: () =>
-                  import('./Icon').then((module) => module.LabelIcon),
-                keywords: ['label'],
+                Icon: () => import("./Icon").then((module) => module.LabelIcon),
+                keywords: ["label"],
                 onSelect: () => {
-                  const selection = $getSelection()
+                  const selection = $getSelection();
                   if ($isRangeSelection(selection)) {
-                    $setBlocksType(selection, () => $createLabelNode())
+                    $setBlocksType(selection, () => $createLabelNode());
                   }
                 },
               }),
             ],
-            key: 'Basic',
-            displayName: 'Basic',
+            key: "Basic",
+            displayName: "Basic",
           },
         ],
       },
     }),
-    key: 'label',
-  }
-}
+    key: "label",
+  };
+};

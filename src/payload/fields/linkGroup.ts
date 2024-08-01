@@ -1,28 +1,25 @@
-import type { ArrayField } from 'payload/dist/fields/config/types'
-import type { Field } from 'payload/types'
+import type { ArrayField } from "payload/dist/fields/config/types";
+import type { Field } from "payload/types";
 
-import type { LinkAppearances } from './link'
+import type { LinkAppearances } from "./link";
 
-import deepMerge from '../utilities/deepMerge'
-import link from './link'
+import deepMerge from "../utilities/deepMerge";
+import link from "./link";
 
-type LinkGroupType = (options?: {
-  appearances?: LinkAppearances[] | false
-  overrides?: Partial<ArrayField>
-}) => Field
+type LinkGroupType = (options?: { appearances?: LinkAppearances[] | false; overrides?: Partial<ArrayField> }) => Field;
 
 const linkGroup: LinkGroupType = ({ appearances, overrides = {} } = {}) => {
   const generatedLinkGroup: Field = {
-    name: 'links',
+    name: "links",
     fields: [
       link({
         appearances,
       }),
     ],
-    type: 'array',
-  }
+    type: "array",
+  };
 
-  return deepMerge(generatedLinkGroup, overrides)
-}
+  return deepMerge(generatedLinkGroup, overrides);
+};
 
-export default linkGroup
+export default linkGroup;

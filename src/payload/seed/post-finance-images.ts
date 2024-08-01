@@ -1,135 +1,135 @@
-import type { Media } from '../payload-types'
+import type { Media } from "../payload-types";
 
-import { convertSlateToLexical } from '../utilities/lexical/slateToLexical'
+import { convertSlateToLexical } from "../utilities/lexical/slateToLexical";
 
 export const postFinance3: Media = {
-  id: '',
-  alt: 'Finance',
+  id: "",
+  alt: "Finance",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Verne Ho',
+              text: "Verne Ho",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@verneho?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/@verneho?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/0LAJfSNa-xQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/photos/0LAJfSNa-xQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};
 
 export const postFinanceBuildings: Media = {
-  id: '',
-  alt: 'Finance Buildings',
+  id: "",
+  alt: "Finance Buildings",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Sean Pollock',
+              text: "Sean Pollock",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@seanpollock?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/@seanpollock?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/PhYq704ffdA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/photos/PhYq704ffdA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};
 
 export const postFinanceStocks: Media = {
-  id: '',
-  alt: 'Stock Market',
+  id: "",
+  alt: "Stock Market",
   caption: convertSlateToLexical([
     {
       children: [
         {
-          text: 'Photo by ',
+          text: "Photo by ",
         },
         {
           children: [
             {
-              text: 'Nick Chong',
+              text: "Nick Chong",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/@nick604?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/@nick604?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: ' on ',
+          text: " on ",
         },
         {
           children: [
             {
-              text: 'Unsplash',
+              text: "Unsplash",
             },
           ],
-          linkType: 'custom',
+          linkType: "custom",
           newTab: true,
-          type: 'link',
-          url: 'https://unsplash.com/photos/N__BnvQ_w18?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+          type: "link",
+          url: "https://unsplash.com/photos/N__BnvQ_w18?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash",
         },
         {
-          text: '.',
+          text: ".",
         },
       ],
     },
   ]) as any,
-  createdAt: '',
-  updatedAt: '',
-}
+  createdAt: "",
+  updatedAt: "",
+};

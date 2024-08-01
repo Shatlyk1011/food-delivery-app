@@ -1,9 +1,9 @@
-import type { Post } from '../payload-types'
+import type { Post } from "../payload-types";
 
-import { convertSlateToLexical } from '../utilities/lexical/slateToLexical'
+import { convertSlateToLexical } from "../utilities/lexical/slateToLexical";
 export const post1: Partial<Post> = {
-  _status: 'published',
-  authors: ['{{AUTHOR}}'],
+  _status: "published",
+  authors: ["{{AUTHOR}}"],
   enablePremiumContent: true,
   hero: {
     links: null,
@@ -12,51 +12,51 @@ export const post1: Partial<Post> = {
       {
         children: [
           {
-            text: 'Digital Horizons: A Glimpse into Tomorrow',
+            text: "Digital Horizons: A Glimpse into Tomorrow",
           },
         ],
-        type: 'h1',
+        type: "h1",
       },
     ]) as any,
-    type: 'lowImpact',
+    type: "lowImpact",
   },
   layout: [
     {
-      blockName: 'Rise of AI and Machine Learning',
-      blockType: 'contentMedia',
-      media: '{{IMAGE-2}}',
-      mediaPosition: 'left',
+      blockName: "Rise of AI and Machine Learning",
+      blockType: "contentMedia",
+      media: "{{IMAGE-2}}",
+      mediaPosition: "left",
       richText: convertSlateToLexical([
         {
           children: [
             {
-              text: 'THE RISE OF AI AND MACHINE LEARNING',
+              text: "THE RISE OF AI AND MACHINE LEARNING",
             },
           ],
-          type: 'h6',
+          type: "h6",
         },
         {
           children: [
             {
-              text: 'We find ourselves in a transformative era where artificial intelligence (AI) stands at the forefront of technological evolution. The ripple effects of its advancements are reshaping industries at an unprecedented pace. No longer are businesses bound by the limitations of tedious, manual processes. Instead, sophisticated machines, fueled by vast amounts of historical data, are now capable of making decisions previously left to human intuition. These intelligent systems are not only optimizing operations but also pioneering innovative approaches, heralding a new age of business transformation worldwide.',
+              text: "We find ourselves in a transformative era where artificial intelligence (AI) stands at the forefront of technological evolution. The ripple effects of its advancements are reshaping industries at an unprecedented pace. No longer are businesses bound by the limitations of tedious, manual processes. Instead, sophisticated machines, fueled by vast amounts of historical data, are now capable of making decisions previously left to human intuition. These intelligent systems are not only optimizing operations but also pioneering innovative approaches, heralding a new age of business transformation worldwide.",
             },
           ],
         },
       ]) as any,
     },
     {
-      blockName: 'Internet of things',
-      blockType: 'contentMedia',
-      media: '{{IMAGE-3}}',
-      mediaPosition: 'right',
+      blockName: "Internet of things",
+      blockType: "contentMedia",
+      media: "{{IMAGE-3}}",
+      mediaPosition: "right",
       richText: convertSlateToLexical([
         {
           children: [
             {
-              text: 'IOT: CONNECTING THE WORLD AROUND US',
+              text: "IOT: CONNECTING THE WORLD AROUND US",
             },
           ],
-          type: 'h6',
+          type: "h6",
         },
         {
           children: [
@@ -75,7 +75,7 @@ export const post1: Partial<Post> = {
       ]) as any,
     },
     {
-      blockType: 'content',
+      blockType: "content",
       columns: [
         {
           richText: convertSlateToLexical([
@@ -87,26 +87,26 @@ export const post1: Partial<Post> = {
               ],
             },
           ]) as any,
-          size: 'full',
+          size: "full",
         },
       ],
     },
   ],
   meta: {
     description:
-      'Dive into the marvels of modern innovation, where the only constant is change. A journey where pixels and data converge to craft the future.',
-    image: '{{IMAGE-1}}',
-    title: 'Digital Horizons: A Glimpse into Tomorrow',
+      "Dive into the marvels of modern innovation, where the only constant is change. A journey where pixels and data converge to craft the future.",
+    image: "{{IMAGE-1}}",
+    title: "Digital Horizons: A Glimpse into Tomorrow",
   },
   premiumContent: [
     {
-      blockName: 'Feature Image',
-      blockType: 'mediaBlock',
-      media: '{{IMAGE-4}}',
-      position: 'default',
+      blockName: "Feature Image",
+      blockType: "mediaBlock",
+      media: "{{IMAGE-4}}",
+      position: "default",
     },
     {
-      blockType: 'content',
+      blockType: "content",
       columns: [
         {
           richText: convertSlateToLexical([
@@ -114,20 +114,20 @@ export const post1: Partial<Post> = {
               children: [
                 {
                   bold: true,
-                  text: 'This is premium content.',
+                  text: "This is premium content.",
                 },
                 {
-                  text: ' It is only available to authenticated users. This content can be anything from additional video, text, and content, to download links and more. These are simply layout building blocks configured in the CMS.',
+                  text: " It is only available to authenticated users. This content can be anything from additional video, text, and content, to download links and more. These are simply layout building blocks configured in the CMS.",
                 },
               ],
             },
           ]) as any,
-          size: 'full',
+          size: "full",
         },
       ],
     },
   ],
   relatedPosts: [], // this is populated by the seed script
-  slug: 'digital-horizons',
-  title: 'Digital Horizons: A Glimpse into Tomorrow',
-}
+  slug: "digital-horizons",
+  title: "Digital Horizons: A Glimpse into Tomorrow",
+};

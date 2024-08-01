@@ -9,7 +9,7 @@ Core features:
 - [Payload Public Demo](#payload-public-demo)
   - [Quick Start](#quick-start)
     - [Clone](#clone)
-        - [Local installation steps:](#local-installation-steps)
+      - [Local installation steps:](#local-installation-steps)
   - [How it works](#how-it-works)
     - [Collections](#collections)
     - [Globals](#globals)

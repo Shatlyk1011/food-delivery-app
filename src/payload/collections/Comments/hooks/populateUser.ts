@@ -1,4 +1,4 @@
-import type { AfterReadHook } from 'payload/dist/collections/config/types'
+import type { AfterReadHook } from "payload/dist/collections/config/types";
 
 // The `user` collection has access control locked so that users are not publicly accessible
 // This means that we need to populate the user manually here to protect user privacy
@@ -7,16 +7,16 @@ import type { AfterReadHook } from 'payload/dist/collections/config/types'
 export const populateUser: AfterReadHook = async ({ doc, req: { payload } }) => {
   if (doc?.user) {
     const userDoc = await payload.findByID({
-      id: typeof doc.user === 'object' ? doc?.user?.id : doc?.user,
-      collection: 'users',
+      id: typeof doc.user === "object" ? doc?.user?.id : doc?.user,
+      collection: "users",
       depth: 0,
-    })
+    });
 
     doc.populatedUser = {
       id: userDoc.id,
       name: userDoc.name,
-    }
+    };
   }
 
-  return doc
-}
+  return doc;
+};

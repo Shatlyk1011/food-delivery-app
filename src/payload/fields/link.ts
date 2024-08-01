@@ -1,33 +1,33 @@
-import type { Field } from 'payload/types'
+import type { Field } from "payload/types";
 
-import deepMerge from '../utilities/deepMerge'
+import deepMerge from "../utilities/deepMerge";
 
 export const appearanceOptions = {
   default: {
-    label: 'Default',
-    value: 'default',
+    label: "Default",
+    value: "default",
   },
   primary: {
-    label: 'Primary Button',
-    value: 'primary',
+    label: "Primary Button",
+    value: "primary",
   },
   secondary: {
-    label: 'Secondary Button',
-    value: 'secondary',
+    label: "Secondary Button",
+    value: "secondary",
   },
-}
+};
 
-export type LinkAppearances = 'default' | 'primary' | 'secondary'
+export type LinkAppearances = "default" | "primary" | "secondary";
 
 type LinkType = (options?: {
-  appearances?: LinkAppearances[] | false
-  disableLabel?: boolean
-  overrides?: Record<string, unknown>
-}) => Field
+  appearances?: LinkAppearances[] | false;
+  disableLabel?: boolean;
+  overrides?: Record<string, unknown>;
+}) => Field;
 
 const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
   const linkResult: Field = {
-    name: 'link',
+    name: "link",
     admin: {
       hideGutter: true,
     },
@@ -35,116 +35,112 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       {
         fields: [
           {
-            name: 'type',
+            name: "type",
             admin: {
-              layout: 'horizontal',
-              width: '50%',
+              layout: "horizontal",
+              width: "50%",
             },
-            defaultValue: 'reference',
+            defaultValue: "reference",
             options: [
               {
-                label: 'Internal link',
-                value: 'reference',
+                label: "Internal link",
+                value: "reference",
               },
               {
-                label: 'Custom URL',
-                value: 'custom',
+                label: "Custom URL",
+                value: "custom",
               },
             ],
-            type: 'radio',
+            type: "radio",
           },
           {
-            name: 'newTab',
+            name: "newTab",
             admin: {
               style: {
-                alignSelf: 'flex-end',
+                alignSelf: "flex-end",
               },
-              width: '50%',
+              width: "50%",
             },
-            label: 'Open in new tab',
-            type: 'checkbox',
+            label: "Open in new tab",
+            type: "checkbox",
           },
         ],
-        type: 'row',
+        type: "row",
       },
     ],
-    type: 'group',
-  }
+    type: "group",
+  };
 
   const linkTypes: Field[] = [
     {
-      name: 'reference',
+      name: "reference",
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
+        condition: (_, siblingData) => siblingData?.type === "reference",
       },
-      label: 'Document to link to',
+      label: "Document to link to",
       maxDepth: 1,
-      relationTo: ['pages'],
+      relationTo: ["pages"],
       required: true,
-      type: 'relationship',
+      type: "relationship",
     },
     {
-      name: 'url',
+      name: "url",
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
+        condition: (_, siblingData) => siblingData?.type === "custom",
       },
-      label: 'Custom URL',
+      label: "Custom URL",
       required: true,
-      type: 'text',
+      type: "text",
     },
-  ]
+  ];
 
   if (!disableLabel) {
     linkTypes.map((linkType) => ({
       ...linkType,
       admin: {
         ...linkType.admin,
-        width: '50%',
+        width: "50%",
       },
-    }))
+    }));
 
     linkResult.fields.push({
       fields: [
         ...linkTypes,
         {
-          name: 'label',
+          name: "label",
           admin: {
-            width: '50%',
+            width: "50%",
           },
-          label: 'Label',
+          label: "Label",
           required: true,
-          type: 'text',
+          type: "text",
         },
       ],
-      type: 'row',
-    })
+      type: "row",
+    });
   } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes]
+    linkResult.fields = [...linkResult.fields, ...linkTypes];
   }
 
   if (appearances !== false) {
-    let appearanceOptionsToUse = [
-      appearanceOptions.default,
-      appearanceOptions.primary,
-      appearanceOptions.secondary,
-    ]
+    let appearanceOptionsToUse = [appearanceOptions.default, appearanceOptions.primary, appearanceOptions.secondary];
 
     if (appearances) {
-      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
+      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance]);
     }
 
     linkResult.fields.push({
-      name: 'appearance',
+      name: "appearance",
       admin: {
-        description: 'Choose how the link should be rendered.',
+        description: "Choose how the link should be rendered.",
       },
-      defaultValue: 'default',
+      defaultValue: "default",
       options: appearanceOptionsToUse,
-      type: 'select',
-    })
+      type: "select",
+    });
   }
 
-  return deepMerge(linkResult, overrides)
-}
+  return deepMerge(linkResult, overrides);
+};
 
-export default link
+export default link;
