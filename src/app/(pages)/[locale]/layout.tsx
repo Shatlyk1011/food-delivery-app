@@ -30,14 +30,14 @@ export default function RootLayout({ children, params: { locale } }: Props) {
     <html lang={locale}>
       <body className={inter.className}>
         <JotaiProvider>
-          <TanstackQueryProvider>
-            <NextIntlClientProvider locale={locale} messages={messages}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <TanstackQueryProvider>
               <Header />
               <Sidebar />
               <div className="mt-20 w-full md:mt-16">{children}</div>
               <Footer />
-            </NextIntlClientProvider>
-          </TanstackQueryProvider>
+            </TanstackQueryProvider>
+          </NextIntlClientProvider>
         </JotaiProvider>
       </body>
     </html>

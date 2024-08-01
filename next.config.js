@@ -3,7 +3,7 @@ const ContentSecurityPolicy = require("./csp");
 const redirects = require("./redirects");
 import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin("./src/app/i18n.ts");
+const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   images: {
     remotePatterns: [
