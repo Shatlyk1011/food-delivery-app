@@ -14,15 +14,9 @@ import { buildConfig } from "payload/config";
 import Categories from "./collections/Categories";
 import Comments from "./collections/Comments";
 import { Media } from "./collections/Media";
-import { Pages } from "./collections/Pages";
-import { Posts } from "./collections/Posts";
-import { Projects } from "./collections/Projects";
 import Users from "./collections/Users";
+
 import BeforeLogin from "./components/BeforeLogin";
-import { clearDBEndpoint, resetDBEndpoint, seedDBEndpoint } from "./endpoints/resetDB";
-import { Footer } from "./globals/Footer";
-import { Header } from "./globals/Header";
-import { Settings } from "./globals/Settings";
 
 const generateTitle: GenerateTitle = () => {
   return "Payload Public Demo";
@@ -59,17 +53,14 @@ export default buildConfig({
         alias: {
           ...config.resolve?.alias,
           express: m,
-          [path.resolve(__dirname, "./cron/reset")]: m,
         },
       },
     }),
   },
-  collections: [Pages, Posts, Projects, Media, Categories, Users, Comments],
+  collections: [Media, Categories, Users, Comments],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   editor: lexicalEditor({}),
-  endpoints: [resetDBEndpoint, seedDBEndpoint, clearDBEndpoint],
-  globals: [Settings, Header, Footer],
   graphQL: {
     disablePlaygroundInProduction: false,
     schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
@@ -90,14 +81,11 @@ export default buildConfig({
   // database-adapter-config-end
   plugins: [
     // formBuilder({}),
-    redirects({
-      collections: ["pages", "posts"],
-    }),
     nestedDocs({
       collections: ["categories"],
     }),
     seo({
-      collections: ["pages", "posts", "projects"],
+      collections: ["projects"],
       generateTitle,
       uploadsCollection: "media",
     }),

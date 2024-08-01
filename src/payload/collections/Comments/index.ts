@@ -4,7 +4,6 @@ import type { Comment } from "../../payload-types";
 
 import { checkRole } from "../Users/checkRole";
 import { populateUser } from "./hooks/populateUser";
-import { revalidatePost } from "./hooks/revalidatePost";
 
 const Comments: CollectionConfig = {
   access: {
@@ -77,19 +76,13 @@ const Comments: CollectionConfig = {
       ],
       type: "group",
     },
-    {
-      name: "doc",
-      hasMany: false,
-      relationTo: "posts",
-      type: "relationship",
-    },
+
     {
       name: "comment",
       type: "textarea",
     },
   ],
   hooks: {
-    afterChange: [revalidatePost],
     afterRead: [populateUser],
   },
   slug: "comments",

@@ -3,11 +3,9 @@ import type { CollectionConfig } from "payload/types";
 import { email as validateEmail } from "payload/dist/fields/validations";
 
 import { admins } from "../../access/admins";
-import { adminEmail } from "../../cron/shared";
 import { checkRole } from "./checkRole";
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
 import { loginAfterCreate } from "./hooks/loginAfterCreate";
-import { sanitizeDemoAdmin } from "./hooks/sanitizeDemoAdmin";
 
 const Users: CollectionConfig = {
   slug: "users",
@@ -31,13 +29,6 @@ const Users: CollectionConfig = {
       // override default email field to add a custom validate function to prevent users from changing the login email
       name: "email",
       type: "email",
-      validate: (value, args) => {
-        if (args?.user?.email === adminEmail && value !== adminEmail) {
-          return "You cannot change the admin password on the public demo!";
-        }
-        // call the payload default email validation
-        return validateEmail(value, args);
-      },
     },
     {
       name: "roles",
@@ -66,7 +57,6 @@ const Users: CollectionConfig = {
   ],
   hooks: {
     afterChange: [loginAfterCreate],
-    beforeOperation: [sanitizeDemoAdmin],
   },
   timestamps: true,
 };

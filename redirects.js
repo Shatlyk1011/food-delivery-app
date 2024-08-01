@@ -39,11 +39,11 @@ module.exports = async () => {
           destination = url.replace(process.env.NEXT_PUBLIC_SERVER_URL, "");
         }
 
-        if (type === "reference" && typeof reference.value === "object" && reference?.value?._status === "published") {
-          destination = `${process.env.NEXT_PUBLIC_SERVER_URL}/${
-            reference.relationTo !== "pages" ? `${reference.relationTo}/` : ""
-          }${reference.value.slug}`;
-        }
+        // if (type === "reference" && typeof reference.value === "object" && reference?.value?._status === "published") {
+        //   destination = `${process.env.NEXT_PUBLIC_SERVER_URL}/${
+        //     reference.relationTo !== "pages" ? `${reference.relationTo}/` : ""
+        //   }${reference.value.slug}`;
+        // }
 
         const redirect = {
           destination,

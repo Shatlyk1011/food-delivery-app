@@ -3,9 +3,6 @@ import next from "next";
 import nextBuild from "next/dist/build";
 import path from "path";
 
-import { resetScheduledJob } from "./payload/cron/jobs";
-import { seed } from "./payload/cron/reset";
-
 dotenv.config({
   path: path.resolve(__dirname, "../.env"),
 });
@@ -21,8 +18,6 @@ const start = async (): Promise<void> => {
     express: app,
     onInit: async () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
-
-      await seed();
     },
     secret: process.env.PAYLOAD_SECRET || "",
   });
@@ -50,9 +45,6 @@ const start = async (): Promise<void> => {
     .prepare()
     .then(() => {
       payload.logger.info("Starting Next.js...");
-
-      // Seed database with startup data
-      resetScheduledJob.start();
 
       app.listen(PORT, () => {
         payload.logger.info(`Next.js App URL: ${process.env.PAYLOAD_PUBLIC_SERVER_URL}`);
