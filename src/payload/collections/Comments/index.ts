@@ -1,7 +1,5 @@
 import type { CollectionConfig } from "payload/types";
 
-import type { Comment } from "../../payload-types";
-
 import { checkRole } from "../Users/checkRole";
 import { populateUser } from "./hooks/populateUser";
 
@@ -38,13 +36,7 @@ const Comments: CollectionConfig = {
     // Only admins can delete comments
     delete: ({ req: { user } }) => checkRole(["admin"], user),
   },
-  admin: {
-    preview: (comment: Partial<Comment>) =>
-      `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/posts/${
-        comment?.doc && typeof comment?.doc === "object" ? comment?.doc?.slug : (comment?.doc as string)
-      }`,
-    useAsTitle: "comment",
-  },
+
   fields: [
     {
       name: "user",
