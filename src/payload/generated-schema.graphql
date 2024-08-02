@@ -811,7 +811,8 @@ type User {
 
 enum User_roles {
   admin
-  user
+  author
+  moderator
 }
 
 """
@@ -866,7 +867,8 @@ input User_roles_operator {
 
 enum User_roles_Input {
   admin
-  user
+  author
+  moderator
 }
 
 input User_updatedAt_operator {
@@ -3487,7 +3489,8 @@ input mutationUserInput {
 
 enum User_roles_MutationInput {
   admin
-  user
+  author
+  moderator
 }
 
 input mutationUserUpdateInput {
@@ -3507,7 +3510,8 @@ input mutationUserUpdateInput {
 
 enum UserUpdate_roles_MutationInput {
   admin
-  user
+  author
+  moderator
 }
 
 type usersRefreshedUser {

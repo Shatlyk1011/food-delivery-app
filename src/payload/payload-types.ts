@@ -58,7 +58,7 @@ export interface City {
 export interface User {
   id: string;
   name?: string | null;
-  roles?: ('admin' | 'user')[] | null;
+  roles?: ('admin' | 'author' | 'moderator')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
