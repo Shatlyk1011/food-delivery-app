@@ -1,8 +1,4 @@
 type Query {
-  Media(id: String!): Media
-  allMedia(where: Media_where, limit: Int, page: Int, sort: String): allMedia
-  countallMedia(where: Media_where): countallMedia
-  docAccessMedia(id: String!): mediaDocAccess
   Category(id: String!): Category
   Categories(where: Category_where, limit: Int, page: Int, sort: String): Categories
   countCategories(where: Category_where): countCategories
@@ -13,21 +9,786 @@ type Query {
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Comment(id: String!, draft: Boolean): Comment
-  Comments(draft: Boolean, where: Comment_where, limit: Int, page: Int, sort: String): Comments
-  countComments(draft: Boolean, where: Comment_where): countComments
-  docAccessComment(id: String!): commentsDocAccess
-  versionComment(id: String): CommentVersion
-  versionsComments(where: versionsComment_where, limit: Int, page: Int, sort: String): versionsComments
+  Media(id: String!): Media
+  allMedia(where: Media_where, limit: Int, page: Int, sort: String): allMedia
+  countallMedia(where: Media_where): countallMedia
+  docAccessMedia(id: String!): mediaDocAccess
   PayloadPreference(id: String!): PayloadPreference
   PayloadPreferences(where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(where: PayloadPreference_where): countPayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
-  Header(draft: Boolean): Header
-  docAccessHeader: headerDocAccess
-  Footer(draft: Boolean): Footer
-  docAccessFooter: footerDocAccess
   Access: Access
+}
+
+type Category {
+  id: String
+  title: String
+  parent: Category
+  breadcrumbs: [Category_Breadcrumbs!]
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Category_Breadcrumbs {
+  doc: Category
+  url: String
+  label: String
+  id: String
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+type Categories {
+  docs: [Category]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Category_where {
+  title: Category_title_operator
+  parent: Category_parent_operator
+  breadcrumbs__doc: Category_breadcrumbs__doc_operator
+  breadcrumbs__url: Category_breadcrumbs__url_operator
+  breadcrumbs__label: Category_breadcrumbs__label_operator
+  breadcrumbs__id: Category_breadcrumbs__id_operator
+  updatedAt: Category_updatedAt_operator
+  createdAt: Category_createdAt_operator
+  id: Category_id_operator
+  AND: [Category_where_and]
+  OR: [Category_where_or]
+}
+
+input Category_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Category_parent_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input Category_breadcrumbs__doc_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Category_breadcrumbs__url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Category_breadcrumbs__label_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Category_breadcrumbs__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Category_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Category_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Category_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Category_where_and {
+  title: Category_title_operator
+  parent: Category_parent_operator
+  breadcrumbs__doc: Category_breadcrumbs__doc_operator
+  breadcrumbs__url: Category_breadcrumbs__url_operator
+  breadcrumbs__label: Category_breadcrumbs__label_operator
+  breadcrumbs__id: Category_breadcrumbs__id_operator
+  updatedAt: Category_updatedAt_operator
+  createdAt: Category_createdAt_operator
+  id: Category_id_operator
+  AND: [Category_where_and]
+  OR: [Category_where_or]
+}
+
+input Category_where_or {
+  title: Category_title_operator
+  parent: Category_parent_operator
+  breadcrumbs__doc: Category_breadcrumbs__doc_operator
+  breadcrumbs__url: Category_breadcrumbs__url_operator
+  breadcrumbs__label: Category_breadcrumbs__label_operator
+  breadcrumbs__id: Category_breadcrumbs__id_operator
+  updatedAt: Category_updatedAt_operator
+  createdAt: Category_createdAt_operator
+  id: Category_id_operator
+  AND: [Category_where_and]
+  OR: [Category_where_or]
+}
+
+type countCategories {
+  totalDocs: Int
+}
+
+type categoriesDocAccess {
+  fields: CategoriesDocAccessFields
+  create: CategoriesCreateDocAccess
+  read: CategoriesReadDocAccess
+  update: CategoriesUpdateDocAccess
+  delete: CategoriesDeleteDocAccess
+}
+
+type CategoriesDocAccessFields {
+  title: CategoriesDocAccessFields_title
+  parent: CategoriesDocAccessFields_parent
+  breadcrumbs: CategoriesDocAccessFields_breadcrumbs
+  updatedAt: CategoriesDocAccessFields_updatedAt
+  createdAt: CategoriesDocAccessFields_createdAt
+}
+
+type CategoriesDocAccessFields_title {
+  create: CategoriesDocAccessFields_title_Create
+  read: CategoriesDocAccessFields_title_Read
+  update: CategoriesDocAccessFields_title_Update
+  delete: CategoriesDocAccessFields_title_Delete
+}
+
+type CategoriesDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_parent {
+  create: CategoriesDocAccessFields_parent_Create
+  read: CategoriesDocAccessFields_parent_Read
+  update: CategoriesDocAccessFields_parent_Update
+  delete: CategoriesDocAccessFields_parent_Delete
+}
+
+type CategoriesDocAccessFields_parent_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_parent_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_parent_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_parent_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs {
+  create: CategoriesDocAccessFields_breadcrumbs_Create
+  read: CategoriesDocAccessFields_breadcrumbs_Read
+  update: CategoriesDocAccessFields_breadcrumbs_Update
+  delete: CategoriesDocAccessFields_breadcrumbs_Delete
+  fields: CategoriesDocAccessFields_breadcrumbs_Fields
+}
+
+type CategoriesDocAccessFields_breadcrumbs_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_Fields {
+  doc: CategoriesDocAccessFields_breadcrumbs_doc
+  url: CategoriesDocAccessFields_breadcrumbs_url
+  label: CategoriesDocAccessFields_breadcrumbs_label
+  id: CategoriesDocAccessFields_breadcrumbs_id
+}
+
+type CategoriesDocAccessFields_breadcrumbs_doc {
+  create: CategoriesDocAccessFields_breadcrumbs_doc_Create
+  read: CategoriesDocAccessFields_breadcrumbs_doc_Read
+  update: CategoriesDocAccessFields_breadcrumbs_doc_Update
+  delete: CategoriesDocAccessFields_breadcrumbs_doc_Delete
+}
+
+type CategoriesDocAccessFields_breadcrumbs_doc_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_doc_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_doc_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_doc_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_url {
+  create: CategoriesDocAccessFields_breadcrumbs_url_Create
+  read: CategoriesDocAccessFields_breadcrumbs_url_Read
+  update: CategoriesDocAccessFields_breadcrumbs_url_Update
+  delete: CategoriesDocAccessFields_breadcrumbs_url_Delete
+}
+
+type CategoriesDocAccessFields_breadcrumbs_url_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_url_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_url_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_url_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_label {
+  create: CategoriesDocAccessFields_breadcrumbs_label_Create
+  read: CategoriesDocAccessFields_breadcrumbs_label_Read
+  update: CategoriesDocAccessFields_breadcrumbs_label_Update
+  delete: CategoriesDocAccessFields_breadcrumbs_label_Delete
+}
+
+type CategoriesDocAccessFields_breadcrumbs_label_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_label_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_label_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_label_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_id {
+  create: CategoriesDocAccessFields_breadcrumbs_id_Create
+  read: CategoriesDocAccessFields_breadcrumbs_id_Read
+  update: CategoriesDocAccessFields_breadcrumbs_id_Update
+  delete: CategoriesDocAccessFields_breadcrumbs_id_Delete
+}
+
+type CategoriesDocAccessFields_breadcrumbs_id_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_id_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_id_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_breadcrumbs_id_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_updatedAt {
+  create: CategoriesDocAccessFields_updatedAt_Create
+  read: CategoriesDocAccessFields_updatedAt_Read
+  update: CategoriesDocAccessFields_updatedAt_Update
+  delete: CategoriesDocAccessFields_updatedAt_Delete
+}
+
+type CategoriesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_createdAt {
+  create: CategoriesDocAccessFields_createdAt_Create
+  read: CategoriesDocAccessFields_createdAt_Read
+  update: CategoriesDocAccessFields_createdAt_Update
+  delete: CategoriesDocAccessFields_createdAt_Delete
+}
+
+type CategoriesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CategoriesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+"""
+The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSONObject
+
+type CategoriesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type User {
+  id: String
+  name: String
+  roles: [User_roles!]
+  updatedAt: DateTime
+  createdAt: DateTime
+  email: EmailAddress!
+  resetPasswordToken: String
+  resetPasswordExpiration: DateTime
+  salt: String
+  hash: String
+  loginAttempts: Float
+  lockUntil: DateTime
+  password: String!
+}
+
+enum User_roles {
+  admin
+  user
+}
+
+"""
+A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
+"""
+scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+
+type Users {
+  docs: [User]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input User_where {
+  name: User_name_operator
+  roles: User_roles_operator
+  updatedAt: User_updatedAt_operator
+  createdAt: User_createdAt_operator
+  email: User_email_operator
+  id: User_id_operator
+  AND: [User_where_and]
+  OR: [User_where_or]
+}
+
+input User_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input User_roles_operator {
+  equals: User_roles_Input
+  not_equals: User_roles_Input
+  in: [User_roles_Input]
+  not_in: [User_roles_Input]
+  all: [User_roles_Input]
+  exists: Boolean
+}
+
+enum User_roles_Input {
+  admin
+  user
+}
+
+input User_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input User_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input User_email_operator {
+  equals: EmailAddress
+  not_equals: EmailAddress
+  like: EmailAddress
+  contains: EmailAddress
+  in: [EmailAddress]
+  not_in: [EmailAddress]
+  all: [EmailAddress]
+}
+
+input User_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input User_where_and {
+  name: User_name_operator
+  roles: User_roles_operator
+  updatedAt: User_updatedAt_operator
+  createdAt: User_createdAt_operator
+  email: User_email_operator
+  id: User_id_operator
+  AND: [User_where_and]
+  OR: [User_where_or]
+}
+
+input User_where_or {
+  name: User_name_operator
+  roles: User_roles_operator
+  updatedAt: User_updatedAt_operator
+  createdAt: User_createdAt_operator
+  email: User_email_operator
+  id: User_id_operator
+  AND: [User_where_and]
+  OR: [User_where_or]
+}
+
+type countUsers {
+  totalDocs: Int
+}
+
+type usersDocAccess {
+  fields: UsersDocAccessFields
+  create: UsersCreateDocAccess
+  read: UsersReadDocAccess
+  update: UsersUpdateDocAccess
+  delete: UsersDeleteDocAccess
+  unlock: UsersUnlockDocAccess
+}
+
+type UsersDocAccessFields {
+  name: UsersDocAccessFields_name
+  roles: UsersDocAccessFields_roles
+  updatedAt: UsersDocAccessFields_updatedAt
+  createdAt: UsersDocAccessFields_createdAt
+  email: UsersDocAccessFields_email
+  password: UsersDocAccessFields_password
+}
+
+type UsersDocAccessFields_name {
+  create: UsersDocAccessFields_name_Create
+  read: UsersDocAccessFields_name_Read
+  update: UsersDocAccessFields_name_Update
+  delete: UsersDocAccessFields_name_Delete
+}
+
+type UsersDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles {
+  create: UsersDocAccessFields_roles_Create
+  read: UsersDocAccessFields_roles_Read
+  update: UsersDocAccessFields_roles_Update
+  delete: UsersDocAccessFields_roles_Delete
+}
+
+type UsersDocAccessFields_roles_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_updatedAt {
+  create: UsersDocAccessFields_updatedAt_Create
+  read: UsersDocAccessFields_updatedAt_Read
+  update: UsersDocAccessFields_updatedAt_Update
+  delete: UsersDocAccessFields_updatedAt_Delete
+}
+
+type UsersDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_createdAt {
+  create: UsersDocAccessFields_createdAt_Create
+  read: UsersDocAccessFields_createdAt_Read
+  update: UsersDocAccessFields_createdAt_Update
+  delete: UsersDocAccessFields_createdAt_Delete
+}
+
+type UsersDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_email {
+  create: UsersDocAccessFields_email_Create
+  read: UsersDocAccessFields_email_Read
+  update: UsersDocAccessFields_email_Update
+  delete: UsersDocAccessFields_email_Delete
+}
+
+type UsersDocAccessFields_email_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_email_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_email_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_email_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_password {
+  create: UsersDocAccessFields_password_Create
+  read: UsersDocAccessFields_password_Read
+  update: UsersDocAccessFields_password_Update
+  delete: UsersDocAccessFields_password_Delete
+}
+
+type UsersDocAccessFields_password_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_password_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_password_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_password_Delete {
+  permission: Boolean!
+}
+
+type UsersCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersUnlockDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type usersMe {
+  collection: String
+  exp: Int
+  strategy: String
+  token: String
+  user: User
 }
 
 type Media {
@@ -45,16 +806,6 @@ type Media {
   focalX: Float
   focalY: Float
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
-
-"""
-A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-"""
-scalar DateTime
 
 type allMedia {
   docs: [Media]
@@ -566,11 +1317,6 @@ type MediaCreateDocAccess {
   where: JSONObject
 }
 
-"""
-The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSONObject
-
 type MediaReadDocAccess {
   permission: Boolean!
   where: JSONObject
@@ -584,1374 +1330,6 @@ type MediaUpdateDocAccess {
 type MediaDeleteDocAccess {
   permission: Boolean!
   where: JSONObject
-}
-
-type Category {
-  id: String
-  title: String
-  parent: Category
-  breadcrumbs: [Category_Breadcrumbs!]
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type Category_Breadcrumbs {
-  doc: Category
-  url: String
-  label: String
-  id: String
-}
-
-type Categories {
-  docs: [Category]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input Category_where {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
-}
-
-input Category_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_parent_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__doc_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__label_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Category_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Category_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_where_and {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
-}
-
-input Category_where_or {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
-}
-
-type countCategories {
-  totalDocs: Int
-}
-
-type categoriesDocAccess {
-  fields: CategoriesDocAccessFields
-  create: CategoriesCreateDocAccess
-  read: CategoriesReadDocAccess
-  update: CategoriesUpdateDocAccess
-  delete: CategoriesDeleteDocAccess
-}
-
-type CategoriesDocAccessFields {
-  title: CategoriesDocAccessFields_title
-  parent: CategoriesDocAccessFields_parent
-  breadcrumbs: CategoriesDocAccessFields_breadcrumbs
-  updatedAt: CategoriesDocAccessFields_updatedAt
-  createdAt: CategoriesDocAccessFields_createdAt
-}
-
-type CategoriesDocAccessFields_title {
-  create: CategoriesDocAccessFields_title_Create
-  read: CategoriesDocAccessFields_title_Read
-  update: CategoriesDocAccessFields_title_Update
-  delete: CategoriesDocAccessFields_title_Delete
-}
-
-type CategoriesDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_parent {
-  create: CategoriesDocAccessFields_parent_Create
-  read: CategoriesDocAccessFields_parent_Read
-  update: CategoriesDocAccessFields_parent_Update
-  delete: CategoriesDocAccessFields_parent_Delete
-}
-
-type CategoriesDocAccessFields_parent_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_parent_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_parent_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_parent_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs {
-  create: CategoriesDocAccessFields_breadcrumbs_Create
-  read: CategoriesDocAccessFields_breadcrumbs_Read
-  update: CategoriesDocAccessFields_breadcrumbs_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_Delete
-  fields: CategoriesDocAccessFields_breadcrumbs_Fields
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_Fields {
-  doc: CategoriesDocAccessFields_breadcrumbs_doc
-  url: CategoriesDocAccessFields_breadcrumbs_url
-  label: CategoriesDocAccessFields_breadcrumbs_label
-  id: CategoriesDocAccessFields_breadcrumbs_id
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc {
-  create: CategoriesDocAccessFields_breadcrumbs_doc_Create
-  read: CategoriesDocAccessFields_breadcrumbs_doc_Read
-  update: CategoriesDocAccessFields_breadcrumbs_doc_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_doc_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url {
-  create: CategoriesDocAccessFields_breadcrumbs_url_Create
-  read: CategoriesDocAccessFields_breadcrumbs_url_Read
-  update: CategoriesDocAccessFields_breadcrumbs_url_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_url_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_url_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label {
-  create: CategoriesDocAccessFields_breadcrumbs_label_Create
-  read: CategoriesDocAccessFields_breadcrumbs_label_Read
-  update: CategoriesDocAccessFields_breadcrumbs_label_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_label_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_label_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id {
-  create: CategoriesDocAccessFields_breadcrumbs_id_Create
-  read: CategoriesDocAccessFields_breadcrumbs_id_Read
-  update: CategoriesDocAccessFields_breadcrumbs_id_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_id_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_breadcrumbs_id_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_updatedAt {
-  create: CategoriesDocAccessFields_updatedAt_Create
-  read: CategoriesDocAccessFields_updatedAt_Read
-  update: CategoriesDocAccessFields_updatedAt_Update
-  delete: CategoriesDocAccessFields_updatedAt_Delete
-}
-
-type CategoriesDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_createdAt {
-  create: CategoriesDocAccessFields_createdAt_Create
-  read: CategoriesDocAccessFields_createdAt_Read
-  update: CategoriesDocAccessFields_createdAt_Update
-  delete: CategoriesDocAccessFields_createdAt_Delete
-}
-
-type CategoriesDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type CategoriesDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type CategoriesCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CategoriesDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type User {
-  id: String
-  name: String
-  roles: [User_roles!]
-  updatedAt: DateTime
-  createdAt: DateTime
-  email: EmailAddress!
-  resetPasswordToken: String
-  resetPasswordExpiration: DateTime
-  salt: String
-  hash: String
-  loginAttempts: Float
-  lockUntil: DateTime
-  password: String!
-}
-
-enum User_roles {
-  admin
-  user
-}
-
-"""
-A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
-"""
-scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
-
-type Users {
-  docs: [User]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input User_where {
-  name: User_name_operator
-  roles: User_roles_operator
-  updatedAt: User_updatedAt_operator
-  createdAt: User_createdAt_operator
-  email: User_email_operator
-  id: User_id_operator
-  AND: [User_where_and]
-  OR: [User_where_or]
-}
-
-input User_name_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input User_roles_operator {
-  equals: User_roles_Input
-  not_equals: User_roles_Input
-  in: [User_roles_Input]
-  not_in: [User_roles_Input]
-  all: [User_roles_Input]
-  exists: Boolean
-}
-
-enum User_roles_Input {
-  admin
-  user
-}
-
-input User_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input User_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input User_email_operator {
-  equals: EmailAddress
-  not_equals: EmailAddress
-  like: EmailAddress
-  contains: EmailAddress
-  in: [EmailAddress]
-  not_in: [EmailAddress]
-  all: [EmailAddress]
-}
-
-input User_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input User_where_and {
-  name: User_name_operator
-  roles: User_roles_operator
-  updatedAt: User_updatedAt_operator
-  createdAt: User_createdAt_operator
-  email: User_email_operator
-  id: User_id_operator
-  AND: [User_where_and]
-  OR: [User_where_or]
-}
-
-input User_where_or {
-  name: User_name_operator
-  roles: User_roles_operator
-  updatedAt: User_updatedAt_operator
-  createdAt: User_createdAt_operator
-  email: User_email_operator
-  id: User_id_operator
-  AND: [User_where_and]
-  OR: [User_where_or]
-}
-
-type countUsers {
-  totalDocs: Int
-}
-
-type usersDocAccess {
-  fields: UsersDocAccessFields
-  create: UsersCreateDocAccess
-  read: UsersReadDocAccess
-  update: UsersUpdateDocAccess
-  delete: UsersDeleteDocAccess
-  unlock: UsersUnlockDocAccess
-}
-
-type UsersDocAccessFields {
-  name: UsersDocAccessFields_name
-  roles: UsersDocAccessFields_roles
-  updatedAt: UsersDocAccessFields_updatedAt
-  createdAt: UsersDocAccessFields_createdAt
-  email: UsersDocAccessFields_email
-  password: UsersDocAccessFields_password
-}
-
-type UsersDocAccessFields_name {
-  create: UsersDocAccessFields_name_Create
-  read: UsersDocAccessFields_name_Read
-  update: UsersDocAccessFields_name_Update
-  delete: UsersDocAccessFields_name_Delete
-}
-
-type UsersDocAccessFields_name_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_name_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_name_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_name_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_roles {
-  create: UsersDocAccessFields_roles_Create
-  read: UsersDocAccessFields_roles_Read
-  update: UsersDocAccessFields_roles_Update
-  delete: UsersDocAccessFields_roles_Delete
-}
-
-type UsersDocAccessFields_roles_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_roles_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_roles_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_roles_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_updatedAt {
-  create: UsersDocAccessFields_updatedAt_Create
-  read: UsersDocAccessFields_updatedAt_Read
-  update: UsersDocAccessFields_updatedAt_Update
-  delete: UsersDocAccessFields_updatedAt_Delete
-}
-
-type UsersDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_createdAt {
-  create: UsersDocAccessFields_createdAt_Create
-  read: UsersDocAccessFields_createdAt_Read
-  update: UsersDocAccessFields_createdAt_Update
-  delete: UsersDocAccessFields_createdAt_Delete
-}
-
-type UsersDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_email {
-  create: UsersDocAccessFields_email_Create
-  read: UsersDocAccessFields_email_Read
-  update: UsersDocAccessFields_email_Update
-  delete: UsersDocAccessFields_email_Delete
-}
-
-type UsersDocAccessFields_email_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_email_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_email_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_email_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_password {
-  create: UsersDocAccessFields_password_Create
-  read: UsersDocAccessFields_password_Read
-  update: UsersDocAccessFields_password_Update
-  delete: UsersDocAccessFields_password_Delete
-}
-
-type UsersDocAccessFields_password_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_password_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_password_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_password_Delete {
-  permission: Boolean!
-}
-
-type UsersCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type UsersReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type UsersUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type UsersDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type UsersUnlockDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type usersMe {
-  collection: String
-  exp: Int
-  strategy: String
-  token: String
-  user: User
-}
-
-type Comment {
-  id: String
-  user: User
-  populatedUser: Comment_PopulatedUser
-  comment: String
-  updatedAt: DateTime
-  createdAt: DateTime
-  _status: Comment__status
-}
-
-type Comment_PopulatedUser {
-  id: String
-  name: String
-}
-
-enum Comment__status {
-  draft
-  published
-}
-
-type Comments {
-  docs: [Comment]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input Comment_where {
-  user: Comment_user_operator
-  populatedUser__id: Comment_populatedUser__id_operator
-  populatedUser__name: Comment_populatedUser__name_operator
-  comment: Comment_comment_operator
-  updatedAt: Comment_updatedAt_operator
-  createdAt: Comment_createdAt_operator
-  _status: Comment__status_operator
-  id: Comment_id_operator
-  AND: [Comment_where_and]
-  OR: [Comment_where_or]
-}
-
-input Comment_user_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Comment_populatedUser__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Comment_populatedUser__name_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Comment_comment_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  exists: Boolean
-}
-
-input Comment_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Comment_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Comment__status_operator {
-  equals: Comment__status_Input
-  not_equals: Comment__status_Input
-  in: [Comment__status_Input]
-  not_in: [Comment__status_Input]
-  all: [Comment__status_Input]
-  exists: Boolean
-}
-
-enum Comment__status_Input {
-  draft
-  published
-}
-
-input Comment_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Comment_where_and {
-  user: Comment_user_operator
-  populatedUser__id: Comment_populatedUser__id_operator
-  populatedUser__name: Comment_populatedUser__name_operator
-  comment: Comment_comment_operator
-  updatedAt: Comment_updatedAt_operator
-  createdAt: Comment_createdAt_operator
-  _status: Comment__status_operator
-  id: Comment_id_operator
-  AND: [Comment_where_and]
-  OR: [Comment_where_or]
-}
-
-input Comment_where_or {
-  user: Comment_user_operator
-  populatedUser__id: Comment_populatedUser__id_operator
-  populatedUser__name: Comment_populatedUser__name_operator
-  comment: Comment_comment_operator
-  updatedAt: Comment_updatedAt_operator
-  createdAt: Comment_createdAt_operator
-  _status: Comment__status_operator
-  id: Comment_id_operator
-  AND: [Comment_where_and]
-  OR: [Comment_where_or]
-}
-
-type countComments {
-  totalDocs: Int
-}
-
-type commentsDocAccess {
-  fields: CommentsDocAccessFields
-  create: CommentsCreateDocAccess
-  read: CommentsReadDocAccess
-  update: CommentsUpdateDocAccess
-  delete: CommentsDeleteDocAccess
-  readVersions: CommentsReadVersionsDocAccess
-}
-
-type CommentsDocAccessFields {
-  user: CommentsDocAccessFields_user
-  populatedUser: CommentsDocAccessFields_populatedUser
-  comment: CommentsDocAccessFields_comment
-  updatedAt: CommentsDocAccessFields_updatedAt
-  createdAt: CommentsDocAccessFields_createdAt
-  _status: CommentsDocAccessFields__status
-}
-
-type CommentsDocAccessFields_user {
-  create: CommentsDocAccessFields_user_Create
-  read: CommentsDocAccessFields_user_Read
-  update: CommentsDocAccessFields_user_Update
-  delete: CommentsDocAccessFields_user_Delete
-}
-
-type CommentsDocAccessFields_user_Create {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_user_Read {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_user_Update {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_user_Delete {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser {
-  create: CommentsDocAccessFields_populatedUser_Create
-  read: CommentsDocAccessFields_populatedUser_Read
-  update: CommentsDocAccessFields_populatedUser_Update
-  delete: CommentsDocAccessFields_populatedUser_Delete
-  fields: CommentsDocAccessFields_populatedUser_Fields
-}
-
-type CommentsDocAccessFields_populatedUser_Create {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_Read {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_Update {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_Delete {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_Fields {
-  id: CommentsDocAccessFields_populatedUser_id
-  name: CommentsDocAccessFields_populatedUser_name
-}
-
-type CommentsDocAccessFields_populatedUser_id {
-  create: CommentsDocAccessFields_populatedUser_id_Create
-  read: CommentsDocAccessFields_populatedUser_id_Read
-  update: CommentsDocAccessFields_populatedUser_id_Update
-  delete: CommentsDocAccessFields_populatedUser_id_Delete
-}
-
-type CommentsDocAccessFields_populatedUser_id_Create {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_id_Read {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_id_Update {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_id_Delete {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_name {
-  create: CommentsDocAccessFields_populatedUser_name_Create
-  read: CommentsDocAccessFields_populatedUser_name_Read
-  update: CommentsDocAccessFields_populatedUser_name_Update
-  delete: CommentsDocAccessFields_populatedUser_name_Delete
-}
-
-type CommentsDocAccessFields_populatedUser_name_Create {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_name_Read {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_name_Update {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_populatedUser_name_Delete {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_comment {
-  create: CommentsDocAccessFields_comment_Create
-  read: CommentsDocAccessFields_comment_Read
-  update: CommentsDocAccessFields_comment_Update
-  delete: CommentsDocAccessFields_comment_Delete
-}
-
-type CommentsDocAccessFields_comment_Create {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_comment_Read {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_comment_Update {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_comment_Delete {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_updatedAt {
-  create: CommentsDocAccessFields_updatedAt_Create
-  read: CommentsDocAccessFields_updatedAt_Read
-  update: CommentsDocAccessFields_updatedAt_Update
-  delete: CommentsDocAccessFields_updatedAt_Delete
-}
-
-type CommentsDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_createdAt {
-  create: CommentsDocAccessFields_createdAt_Create
-  read: CommentsDocAccessFields_createdAt_Read
-  update: CommentsDocAccessFields_createdAt_Update
-  delete: CommentsDocAccessFields_createdAt_Delete
-}
-
-type CommentsDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields__status {
-  create: CommentsDocAccessFields__status_Create
-  read: CommentsDocAccessFields__status_Read
-  update: CommentsDocAccessFields__status_Update
-  delete: CommentsDocAccessFields__status_Delete
-}
-
-type CommentsDocAccessFields__status_Create {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields__status_Read {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields__status_Update {
-  permission: Boolean!
-}
-
-type CommentsDocAccessFields__status_Delete {
-  permission: Boolean!
-}
-
-type CommentsCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CommentsReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CommentsUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CommentsDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CommentsReadVersionsDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CommentVersion {
-  parent(draft: Boolean): Comment
-  version: CommentVersion_Version
-  createdAt: DateTime
-  updatedAt: DateTime
-  latest: Boolean
-  id: String
-}
-
-type CommentVersion_Version {
-  user: User
-  populatedUser: CommentVersion_Version_PopulatedUser
-  comment: String
-  updatedAt: DateTime
-  createdAt: DateTime
-  _status: CommentVersion_Version__status
-}
-
-type CommentVersion_Version_PopulatedUser {
-  id: String
-  name: String
-}
-
-enum CommentVersion_Version__status {
-  draft
-  published
-}
-
-type versionsComments {
-  docs: [CommentVersion]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input versionsComment_where {
-  parent: versionsComment_parent_operator
-  version__user: versionsComment_version__user_operator
-  version__populatedUser__id: versionsComment_version__populatedUser__id_operator
-  version__populatedUser__name: versionsComment_version__populatedUser__name_operator
-  version__comment: versionsComment_version__comment_operator
-  version__updatedAt: versionsComment_version__updatedAt_operator
-  version__createdAt: versionsComment_version__createdAt_operator
-  version___status: versionsComment_version___status_operator
-  createdAt: versionsComment_createdAt_operator
-  updatedAt: versionsComment_updatedAt_operator
-  latest: versionsComment_latest_operator
-  id: versionsComment_id_operator
-  AND: [versionsComment_where_and]
-  OR: [versionsComment_where_or]
-}
-
-input versionsComment_parent_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input versionsComment_version__user_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input versionsComment_version__populatedUser__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input versionsComment_version__populatedUser__name_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input versionsComment_version__comment_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  exists: Boolean
-}
-
-input versionsComment_version__updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input versionsComment_version__createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input versionsComment_version___status_operator {
-  equals: versionsComment_version___status_Input
-  not_equals: versionsComment_version___status_Input
-  in: [versionsComment_version___status_Input]
-  not_in: [versionsComment_version___status_Input]
-  all: [versionsComment_version___status_Input]
-  exists: Boolean
-}
-
-enum versionsComment_version___status_Input {
-  draft
-  published
-}
-
-input versionsComment_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input versionsComment_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input versionsComment_latest_operator {
-  equals: Boolean
-  not_equals: Boolean
-  exists: Boolean
-}
-
-input versionsComment_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input versionsComment_where_and {
-  parent: versionsComment_parent_operator
-  version__user: versionsComment_version__user_operator
-  version__populatedUser__id: versionsComment_version__populatedUser__id_operator
-  version__populatedUser__name: versionsComment_version__populatedUser__name_operator
-  version__comment: versionsComment_version__comment_operator
-  version__updatedAt: versionsComment_version__updatedAt_operator
-  version__createdAt: versionsComment_version__createdAt_operator
-  version___status: versionsComment_version___status_operator
-  createdAt: versionsComment_createdAt_operator
-  updatedAt: versionsComment_updatedAt_operator
-  latest: versionsComment_latest_operator
-  id: versionsComment_id_operator
-  AND: [versionsComment_where_and]
-  OR: [versionsComment_where_or]
-}
-
-input versionsComment_where_or {
-  parent: versionsComment_parent_operator
-  version__user: versionsComment_version__user_operator
-  version__populatedUser__id: versionsComment_version__populatedUser__id_operator
-  version__populatedUser__name: versionsComment_version__populatedUser__name_operator
-  version__comment: versionsComment_version__comment_operator
-  version__updatedAt: versionsComment_version__updatedAt_operator
-  version__createdAt: versionsComment_version__createdAt_operator
-  version___status: versionsComment_version___status_operator
-  createdAt: versionsComment_createdAt_operator
-  updatedAt: versionsComment_updatedAt_operator
-  latest: versionsComment_latest_operator
-  id: versionsComment_id_operator
-  AND: [versionsComment_where_and]
-  OR: [versionsComment_where_or]
 }
 
 type PayloadPreference {
@@ -2239,866 +1617,12 @@ type PayloadPreferencesDeleteDocAccess {
   where: JSONObject
 }
 
-type Header {
-  navItems: [Header_NavItems!]
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type Header_NavItems {
-  link: Header_NavItems_Link
-  id: String
-}
-
-type Header_NavItems_Link {
-  type: Header_NavItems_Link_type
-  newTab: Boolean
-  url: String
-  label: String
-}
-
-enum Header_NavItems_Link_type {
-  reference
-  custom
-}
-
-type headerDocAccess {
-  fields: HeaderDocAccessFields
-  read: HeaderReadDocAccess
-  update: HeaderUpdateDocAccess
-}
-
-type HeaderDocAccessFields {
-  navItems: HeaderDocAccessFields_navItems
-  updatedAt: HeaderDocAccessFields_updatedAt
-  createdAt: HeaderDocAccessFields_createdAt
-}
-
-type HeaderDocAccessFields_navItems {
-  create: HeaderDocAccessFields_navItems_Create
-  read: HeaderDocAccessFields_navItems_Read
-  update: HeaderDocAccessFields_navItems_Update
-  delete: HeaderDocAccessFields_navItems_Delete
-  fields: HeaderDocAccessFields_navItems_Fields
-}
-
-type HeaderDocAccessFields_navItems_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_Delete {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_Fields {
-  link: HeaderDocAccessFields_navItems_link
-  id: HeaderDocAccessFields_navItems_id
-}
-
-type HeaderDocAccessFields_navItems_link {
-  create: HeaderDocAccessFields_navItems_link_Create
-  read: HeaderDocAccessFields_navItems_link_Read
-  update: HeaderDocAccessFields_navItems_link_Update
-  delete: HeaderDocAccessFields_navItems_link_Delete
-  fields: HeaderDocAccessFields_navItems_link_Fields
-}
-
-type HeaderDocAccessFields_navItems_link_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_Delete {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_Fields {
-  type: HeaderDocAccessFields_navItems_link_type
-  newTab: HeaderDocAccessFields_navItems_link_newTab
-  url: HeaderDocAccessFields_navItems_link_url
-  label: HeaderDocAccessFields_navItems_link_label
-}
-
-type HeaderDocAccessFields_navItems_link_type {
-  create: HeaderDocAccessFields_navItems_link_type_Create
-  read: HeaderDocAccessFields_navItems_link_type_Read
-  update: HeaderDocAccessFields_navItems_link_type_Update
-  delete: HeaderDocAccessFields_navItems_link_type_Delete
-}
-
-type HeaderDocAccessFields_navItems_link_type_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_type_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_type_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_type_Delete {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_newTab {
-  create: HeaderDocAccessFields_navItems_link_newTab_Create
-  read: HeaderDocAccessFields_navItems_link_newTab_Read
-  update: HeaderDocAccessFields_navItems_link_newTab_Update
-  delete: HeaderDocAccessFields_navItems_link_newTab_Delete
-}
-
-type HeaderDocAccessFields_navItems_link_newTab_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_newTab_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_newTab_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_newTab_Delete {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_url {
-  create: HeaderDocAccessFields_navItems_link_url_Create
-  read: HeaderDocAccessFields_navItems_link_url_Read
-  update: HeaderDocAccessFields_navItems_link_url_Update
-  delete: HeaderDocAccessFields_navItems_link_url_Delete
-}
-
-type HeaderDocAccessFields_navItems_link_url_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_url_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_url_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_url_Delete {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_label {
-  create: HeaderDocAccessFields_navItems_link_label_Create
-  read: HeaderDocAccessFields_navItems_link_label_Read
-  update: HeaderDocAccessFields_navItems_link_label_Update
-  delete: HeaderDocAccessFields_navItems_link_label_Delete
-}
-
-type HeaderDocAccessFields_navItems_link_label_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_label_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_label_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_link_label_Delete {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_id {
-  create: HeaderDocAccessFields_navItems_id_Create
-  read: HeaderDocAccessFields_navItems_id_Read
-  update: HeaderDocAccessFields_navItems_id_Update
-  delete: HeaderDocAccessFields_navItems_id_Delete
-}
-
-type HeaderDocAccessFields_navItems_id_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_id_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_id_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_navItems_id_Delete {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_updatedAt {
-  create: HeaderDocAccessFields_updatedAt_Create
-  read: HeaderDocAccessFields_updatedAt_Read
-  update: HeaderDocAccessFields_updatedAt_Update
-  delete: HeaderDocAccessFields_updatedAt_Delete
-}
-
-type HeaderDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_createdAt {
-  create: HeaderDocAccessFields_createdAt_Create
-  read: HeaderDocAccessFields_createdAt_Read
-  update: HeaderDocAccessFields_createdAt_Update
-  delete: HeaderDocAccessFields_createdAt_Delete
-}
-
-type HeaderDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type HeaderDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type HeaderReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type HeaderUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Footer {
-  navItems: [Footer_NavItems!]
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type Footer_NavItems {
-  link: Footer_NavItems_Link
-  id: String
-}
-
-type Footer_NavItems_Link {
-  type: Footer_NavItems_Link_type
-  newTab: Boolean
-  url: String
-  label: String
-}
-
-enum Footer_NavItems_Link_type {
-  reference
-  custom
-}
-
-type footerDocAccess {
-  fields: FooterDocAccessFields
-  read: FooterReadDocAccess
-  update: FooterUpdateDocAccess
-}
-
-type FooterDocAccessFields {
-  navItems: FooterDocAccessFields_navItems
-  updatedAt: FooterDocAccessFields_updatedAt
-  createdAt: FooterDocAccessFields_createdAt
-}
-
-type FooterDocAccessFields_navItems {
-  create: FooterDocAccessFields_navItems_Create
-  read: FooterDocAccessFields_navItems_Read
-  update: FooterDocAccessFields_navItems_Update
-  delete: FooterDocAccessFields_navItems_Delete
-  fields: FooterDocAccessFields_navItems_Fields
-}
-
-type FooterDocAccessFields_navItems_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_Fields {
-  link: FooterDocAccessFields_navItems_link
-  id: FooterDocAccessFields_navItems_id
-}
-
-type FooterDocAccessFields_navItems_link {
-  create: FooterDocAccessFields_navItems_link_Create
-  read: FooterDocAccessFields_navItems_link_Read
-  update: FooterDocAccessFields_navItems_link_Update
-  delete: FooterDocAccessFields_navItems_link_Delete
-  fields: FooterDocAccessFields_navItems_link_Fields
-}
-
-type FooterDocAccessFields_navItems_link_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_Fields {
-  type: FooterDocAccessFields_navItems_link_type
-  newTab: FooterDocAccessFields_navItems_link_newTab
-  url: FooterDocAccessFields_navItems_link_url
-  label: FooterDocAccessFields_navItems_link_label
-}
-
-type FooterDocAccessFields_navItems_link_type {
-  create: FooterDocAccessFields_navItems_link_type_Create
-  read: FooterDocAccessFields_navItems_link_type_Read
-  update: FooterDocAccessFields_navItems_link_type_Update
-  delete: FooterDocAccessFields_navItems_link_type_Delete
-}
-
-type FooterDocAccessFields_navItems_link_type_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_type_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_type_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_type_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_newTab {
-  create: FooterDocAccessFields_navItems_link_newTab_Create
-  read: FooterDocAccessFields_navItems_link_newTab_Read
-  update: FooterDocAccessFields_navItems_link_newTab_Update
-  delete: FooterDocAccessFields_navItems_link_newTab_Delete
-}
-
-type FooterDocAccessFields_navItems_link_newTab_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_newTab_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_newTab_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_newTab_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_url {
-  create: FooterDocAccessFields_navItems_link_url_Create
-  read: FooterDocAccessFields_navItems_link_url_Read
-  update: FooterDocAccessFields_navItems_link_url_Update
-  delete: FooterDocAccessFields_navItems_link_url_Delete
-}
-
-type FooterDocAccessFields_navItems_link_url_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_url_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_url_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_url_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_label {
-  create: FooterDocAccessFields_navItems_link_label_Create
-  read: FooterDocAccessFields_navItems_link_label_Read
-  update: FooterDocAccessFields_navItems_link_label_Update
-  delete: FooterDocAccessFields_navItems_link_label_Delete
-}
-
-type FooterDocAccessFields_navItems_link_label_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_label_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_label_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_link_label_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_id {
-  create: FooterDocAccessFields_navItems_id_Create
-  read: FooterDocAccessFields_navItems_id_Read
-  update: FooterDocAccessFields_navItems_id_Update
-  delete: FooterDocAccessFields_navItems_id_Delete
-}
-
-type FooterDocAccessFields_navItems_id_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_id_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_id_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_navItems_id_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_updatedAt {
-  create: FooterDocAccessFields_updatedAt_Create
-  read: FooterDocAccessFields_updatedAt_Read
-  update: FooterDocAccessFields_updatedAt_Update
-  delete: FooterDocAccessFields_updatedAt_Delete
-}
-
-type FooterDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_createdAt {
-  create: FooterDocAccessFields_createdAt_Create
-  read: FooterDocAccessFields_createdAt_Read
-  update: FooterDocAccessFields_createdAt_Update
-  delete: FooterDocAccessFields_createdAt_Delete
-}
-
-type FooterDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type FooterDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type FooterReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FooterUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type Access {
   canAccessAdmin: Boolean!
-  media: mediaAccess
   categories: categoriesAccess
   users: usersAccess
-  comments: commentsAccess
+  media: mediaAccess
   payload_preferences: payload_preferencesAccess
-  header: headerAccess
-  footer: footerAccess
-}
-
-type mediaAccess {
-  fields: MediaFields
-  create: MediaCreateAccess
-  read: MediaReadAccess
-  update: MediaUpdateAccess
-  delete: MediaDeleteAccess
-}
-
-type MediaFields {
-  alt: MediaFields_alt
-  caption: MediaFields_caption
-  updatedAt: MediaFields_updatedAt
-  createdAt: MediaFields_createdAt
-  url: MediaFields_url
-  filename: MediaFields_filename
-  mimeType: MediaFields_mimeType
-  filesize: MediaFields_filesize
-  width: MediaFields_width
-  height: MediaFields_height
-  focalX: MediaFields_focalX
-  focalY: MediaFields_focalY
-}
-
-type MediaFields_alt {
-  create: MediaFields_alt_Create
-  read: MediaFields_alt_Read
-  update: MediaFields_alt_Update
-  delete: MediaFields_alt_Delete
-}
-
-type MediaFields_alt_Create {
-  permission: Boolean!
-}
-
-type MediaFields_alt_Read {
-  permission: Boolean!
-}
-
-type MediaFields_alt_Update {
-  permission: Boolean!
-}
-
-type MediaFields_alt_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_caption {
-  create: MediaFields_caption_Create
-  read: MediaFields_caption_Read
-  update: MediaFields_caption_Update
-  delete: MediaFields_caption_Delete
-}
-
-type MediaFields_caption_Create {
-  permission: Boolean!
-}
-
-type MediaFields_caption_Read {
-  permission: Boolean!
-}
-
-type MediaFields_caption_Update {
-  permission: Boolean!
-}
-
-type MediaFields_caption_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_updatedAt {
-  create: MediaFields_updatedAt_Create
-  read: MediaFields_updatedAt_Read
-  update: MediaFields_updatedAt_Update
-  delete: MediaFields_updatedAt_Delete
-}
-
-type MediaFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type MediaFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type MediaFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type MediaFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_createdAt {
-  create: MediaFields_createdAt_Create
-  read: MediaFields_createdAt_Read
-  update: MediaFields_createdAt_Update
-  delete: MediaFields_createdAt_Delete
-}
-
-type MediaFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type MediaFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type MediaFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type MediaFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_url {
-  create: MediaFields_url_Create
-  read: MediaFields_url_Read
-  update: MediaFields_url_Update
-  delete: MediaFields_url_Delete
-}
-
-type MediaFields_url_Create {
-  permission: Boolean!
-}
-
-type MediaFields_url_Read {
-  permission: Boolean!
-}
-
-type MediaFields_url_Update {
-  permission: Boolean!
-}
-
-type MediaFields_url_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_filename {
-  create: MediaFields_filename_Create
-  read: MediaFields_filename_Read
-  update: MediaFields_filename_Update
-  delete: MediaFields_filename_Delete
-}
-
-type MediaFields_filename_Create {
-  permission: Boolean!
-}
-
-type MediaFields_filename_Read {
-  permission: Boolean!
-}
-
-type MediaFields_filename_Update {
-  permission: Boolean!
-}
-
-type MediaFields_filename_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_mimeType {
-  create: MediaFields_mimeType_Create
-  read: MediaFields_mimeType_Read
-  update: MediaFields_mimeType_Update
-  delete: MediaFields_mimeType_Delete
-}
-
-type MediaFields_mimeType_Create {
-  permission: Boolean!
-}
-
-type MediaFields_mimeType_Read {
-  permission: Boolean!
-}
-
-type MediaFields_mimeType_Update {
-  permission: Boolean!
-}
-
-type MediaFields_mimeType_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_filesize {
-  create: MediaFields_filesize_Create
-  read: MediaFields_filesize_Read
-  update: MediaFields_filesize_Update
-  delete: MediaFields_filesize_Delete
-}
-
-type MediaFields_filesize_Create {
-  permission: Boolean!
-}
-
-type MediaFields_filesize_Read {
-  permission: Boolean!
-}
-
-type MediaFields_filesize_Update {
-  permission: Boolean!
-}
-
-type MediaFields_filesize_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_width {
-  create: MediaFields_width_Create
-  read: MediaFields_width_Read
-  update: MediaFields_width_Update
-  delete: MediaFields_width_Delete
-}
-
-type MediaFields_width_Create {
-  permission: Boolean!
-}
-
-type MediaFields_width_Read {
-  permission: Boolean!
-}
-
-type MediaFields_width_Update {
-  permission: Boolean!
-}
-
-type MediaFields_width_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_height {
-  create: MediaFields_height_Create
-  read: MediaFields_height_Read
-  update: MediaFields_height_Update
-  delete: MediaFields_height_Delete
-}
-
-type MediaFields_height_Create {
-  permission: Boolean!
-}
-
-type MediaFields_height_Read {
-  permission: Boolean!
-}
-
-type MediaFields_height_Update {
-  permission: Boolean!
-}
-
-type MediaFields_height_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_focalX {
-  create: MediaFields_focalX_Create
-  read: MediaFields_focalX_Read
-  update: MediaFields_focalX_Update
-  delete: MediaFields_focalX_Delete
-}
-
-type MediaFields_focalX_Create {
-  permission: Boolean!
-}
-
-type MediaFields_focalX_Read {
-  permission: Boolean!
-}
-
-type MediaFields_focalX_Update {
-  permission: Boolean!
-}
-
-type MediaFields_focalX_Delete {
-  permission: Boolean!
-}
-
-type MediaFields_focalY {
-  create: MediaFields_focalY_Create
-  read: MediaFields_focalY_Read
-  update: MediaFields_focalY_Update
-  delete: MediaFields_focalY_Delete
-}
-
-type MediaFields_focalY_Create {
-  permission: Boolean!
-}
-
-type MediaFields_focalY_Read {
-  permission: Boolean!
-}
-
-type MediaFields_focalY_Update {
-  permission: Boolean!
-}
-
-type MediaFields_focalY_Delete {
-  permission: Boolean!
-}
-
-type MediaCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type MediaReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type MediaUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type MediaDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
 }
 
 type categoriesAccess {
@@ -3533,235 +2057,321 @@ type UsersUnlockAccess {
   where: JSONObject
 }
 
-type commentsAccess {
-  fields: CommentsFields
-  create: CommentsCreateAccess
-  read: CommentsReadAccess
-  update: CommentsUpdateAccess
-  delete: CommentsDeleteAccess
-  readVersions: CommentsReadVersionsAccess
+type mediaAccess {
+  fields: MediaFields
+  create: MediaCreateAccess
+  read: MediaReadAccess
+  update: MediaUpdateAccess
+  delete: MediaDeleteAccess
 }
 
-type CommentsFields {
-  user: CommentsFields_user
-  populatedUser: CommentsFields_populatedUser
-  comment: CommentsFields_comment
-  updatedAt: CommentsFields_updatedAt
-  createdAt: CommentsFields_createdAt
-  _status: CommentsFields__status
+type MediaFields {
+  alt: MediaFields_alt
+  caption: MediaFields_caption
+  updatedAt: MediaFields_updatedAt
+  createdAt: MediaFields_createdAt
+  url: MediaFields_url
+  filename: MediaFields_filename
+  mimeType: MediaFields_mimeType
+  filesize: MediaFields_filesize
+  width: MediaFields_width
+  height: MediaFields_height
+  focalX: MediaFields_focalX
+  focalY: MediaFields_focalY
 }
 
-type CommentsFields_user {
-  create: CommentsFields_user_Create
-  read: CommentsFields_user_Read
-  update: CommentsFields_user_Update
-  delete: CommentsFields_user_Delete
+type MediaFields_alt {
+  create: MediaFields_alt_Create
+  read: MediaFields_alt_Read
+  update: MediaFields_alt_Update
+  delete: MediaFields_alt_Delete
 }
 
-type CommentsFields_user_Create {
+type MediaFields_alt_Create {
   permission: Boolean!
 }
 
-type CommentsFields_user_Read {
+type MediaFields_alt_Read {
   permission: Boolean!
 }
 
-type CommentsFields_user_Update {
+type MediaFields_alt_Update {
   permission: Boolean!
 }
 
-type CommentsFields_user_Delete {
+type MediaFields_alt_Delete {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser {
-  create: CommentsFields_populatedUser_Create
-  read: CommentsFields_populatedUser_Read
-  update: CommentsFields_populatedUser_Update
-  delete: CommentsFields_populatedUser_Delete
-  fields: CommentsFields_populatedUser_Fields
+type MediaFields_caption {
+  create: MediaFields_caption_Create
+  read: MediaFields_caption_Read
+  update: MediaFields_caption_Update
+  delete: MediaFields_caption_Delete
 }
 
-type CommentsFields_populatedUser_Create {
+type MediaFields_caption_Create {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_Read {
+type MediaFields_caption_Read {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_Update {
+type MediaFields_caption_Update {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_Delete {
+type MediaFields_caption_Delete {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_Fields {
-  id: CommentsFields_populatedUser_id
-  name: CommentsFields_populatedUser_name
+type MediaFields_updatedAt {
+  create: MediaFields_updatedAt_Create
+  read: MediaFields_updatedAt_Read
+  update: MediaFields_updatedAt_Update
+  delete: MediaFields_updatedAt_Delete
 }
 
-type CommentsFields_populatedUser_id {
-  create: CommentsFields_populatedUser_id_Create
-  read: CommentsFields_populatedUser_id_Read
-  update: CommentsFields_populatedUser_id_Update
-  delete: CommentsFields_populatedUser_id_Delete
-}
-
-type CommentsFields_populatedUser_id_Create {
+type MediaFields_updatedAt_Create {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_id_Read {
+type MediaFields_updatedAt_Read {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_id_Update {
+type MediaFields_updatedAt_Update {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_id_Delete {
+type MediaFields_updatedAt_Delete {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_name {
-  create: CommentsFields_populatedUser_name_Create
-  read: CommentsFields_populatedUser_name_Read
-  update: CommentsFields_populatedUser_name_Update
-  delete: CommentsFields_populatedUser_name_Delete
+type MediaFields_createdAt {
+  create: MediaFields_createdAt_Create
+  read: MediaFields_createdAt_Read
+  update: MediaFields_createdAt_Update
+  delete: MediaFields_createdAt_Delete
 }
 
-type CommentsFields_populatedUser_name_Create {
+type MediaFields_createdAt_Create {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_name_Read {
+type MediaFields_createdAt_Read {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_name_Update {
+type MediaFields_createdAt_Update {
   permission: Boolean!
 }
 
-type CommentsFields_populatedUser_name_Delete {
+type MediaFields_createdAt_Delete {
   permission: Boolean!
 }
 
-type CommentsFields_comment {
-  create: CommentsFields_comment_Create
-  read: CommentsFields_comment_Read
-  update: CommentsFields_comment_Update
-  delete: CommentsFields_comment_Delete
+type MediaFields_url {
+  create: MediaFields_url_Create
+  read: MediaFields_url_Read
+  update: MediaFields_url_Update
+  delete: MediaFields_url_Delete
 }
 
-type CommentsFields_comment_Create {
+type MediaFields_url_Create {
   permission: Boolean!
 }
 
-type CommentsFields_comment_Read {
+type MediaFields_url_Read {
   permission: Boolean!
 }
 
-type CommentsFields_comment_Update {
+type MediaFields_url_Update {
   permission: Boolean!
 }
 
-type CommentsFields_comment_Delete {
+type MediaFields_url_Delete {
   permission: Boolean!
 }
 
-type CommentsFields_updatedAt {
-  create: CommentsFields_updatedAt_Create
-  read: CommentsFields_updatedAt_Read
-  update: CommentsFields_updatedAt_Update
-  delete: CommentsFields_updatedAt_Delete
+type MediaFields_filename {
+  create: MediaFields_filename_Create
+  read: MediaFields_filename_Read
+  update: MediaFields_filename_Update
+  delete: MediaFields_filename_Delete
 }
 
-type CommentsFields_updatedAt_Create {
+type MediaFields_filename_Create {
   permission: Boolean!
 }
 
-type CommentsFields_updatedAt_Read {
+type MediaFields_filename_Read {
   permission: Boolean!
 }
 
-type CommentsFields_updatedAt_Update {
+type MediaFields_filename_Update {
   permission: Boolean!
 }
 
-type CommentsFields_updatedAt_Delete {
+type MediaFields_filename_Delete {
   permission: Boolean!
 }
 
-type CommentsFields_createdAt {
-  create: CommentsFields_createdAt_Create
-  read: CommentsFields_createdAt_Read
-  update: CommentsFields_createdAt_Update
-  delete: CommentsFields_createdAt_Delete
+type MediaFields_mimeType {
+  create: MediaFields_mimeType_Create
+  read: MediaFields_mimeType_Read
+  update: MediaFields_mimeType_Update
+  delete: MediaFields_mimeType_Delete
 }
 
-type CommentsFields_createdAt_Create {
+type MediaFields_mimeType_Create {
   permission: Boolean!
 }
 
-type CommentsFields_createdAt_Read {
+type MediaFields_mimeType_Read {
   permission: Boolean!
 }
 
-type CommentsFields_createdAt_Update {
+type MediaFields_mimeType_Update {
   permission: Boolean!
 }
 
-type CommentsFields_createdAt_Delete {
+type MediaFields_mimeType_Delete {
   permission: Boolean!
 }
 
-type CommentsFields__status {
-  create: CommentsFields__status_Create
-  read: CommentsFields__status_Read
-  update: CommentsFields__status_Update
-  delete: CommentsFields__status_Delete
+type MediaFields_filesize {
+  create: MediaFields_filesize_Create
+  read: MediaFields_filesize_Read
+  update: MediaFields_filesize_Update
+  delete: MediaFields_filesize_Delete
 }
 
-type CommentsFields__status_Create {
+type MediaFields_filesize_Create {
   permission: Boolean!
 }
 
-type CommentsFields__status_Read {
+type MediaFields_filesize_Read {
   permission: Boolean!
 }
 
-type CommentsFields__status_Update {
+type MediaFields_filesize_Update {
   permission: Boolean!
 }
 
-type CommentsFields__status_Delete {
+type MediaFields_filesize_Delete {
   permission: Boolean!
 }
 
-type CommentsCreateAccess {
+type MediaFields_width {
+  create: MediaFields_width_Create
+  read: MediaFields_width_Read
+  update: MediaFields_width_Update
+  delete: MediaFields_width_Delete
+}
+
+type MediaFields_width_Create {
+  permission: Boolean!
+}
+
+type MediaFields_width_Read {
+  permission: Boolean!
+}
+
+type MediaFields_width_Update {
+  permission: Boolean!
+}
+
+type MediaFields_width_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_height {
+  create: MediaFields_height_Create
+  read: MediaFields_height_Read
+  update: MediaFields_height_Update
+  delete: MediaFields_height_Delete
+}
+
+type MediaFields_height_Create {
+  permission: Boolean!
+}
+
+type MediaFields_height_Read {
+  permission: Boolean!
+}
+
+type MediaFields_height_Update {
+  permission: Boolean!
+}
+
+type MediaFields_height_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_focalX {
+  create: MediaFields_focalX_Create
+  read: MediaFields_focalX_Read
+  update: MediaFields_focalX_Update
+  delete: MediaFields_focalX_Delete
+}
+
+type MediaFields_focalX_Create {
+  permission: Boolean!
+}
+
+type MediaFields_focalX_Read {
+  permission: Boolean!
+}
+
+type MediaFields_focalX_Update {
+  permission: Boolean!
+}
+
+type MediaFields_focalX_Delete {
+  permission: Boolean!
+}
+
+type MediaFields_focalY {
+  create: MediaFields_focalY_Create
+  read: MediaFields_focalY_Read
+  update: MediaFields_focalY_Update
+  delete: MediaFields_focalY_Delete
+}
+
+type MediaFields_focalY_Create {
+  permission: Boolean!
+}
+
+type MediaFields_focalY_Read {
+  permission: Boolean!
+}
+
+type MediaFields_focalY_Update {
+  permission: Boolean!
+}
+
+type MediaFields_focalY_Delete {
+  permission: Boolean!
+}
+
+type MediaCreateAccess {
   permission: Boolean!
   where: JSONObject
 }
 
-type CommentsReadAccess {
+type MediaReadAccess {
   permission: Boolean!
   where: JSONObject
 }
 
-type CommentsUpdateAccess {
+type MediaUpdateAccess {
   permission: Boolean!
   where: JSONObject
 }
 
-type CommentsDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CommentsReadVersionsAccess {
+type MediaDeleteAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -3917,496 +2527,7 @@ type PayloadPreferencesDeleteAccess {
   where: JSONObject
 }
 
-type headerAccess {
-  fields: HeaderFields
-  read: HeaderReadAccess
-  update: HeaderUpdateAccess
-}
-
-type HeaderFields {
-  navItems: HeaderFields_navItems
-  updatedAt: HeaderFields_updatedAt
-  createdAt: HeaderFields_createdAt
-}
-
-type HeaderFields_navItems {
-  create: HeaderFields_navItems_Create
-  read: HeaderFields_navItems_Read
-  update: HeaderFields_navItems_Update
-  delete: HeaderFields_navItems_Delete
-  fields: HeaderFields_navItems_Fields
-}
-
-type HeaderFields_navItems_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_Delete {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_Fields {
-  link: HeaderFields_navItems_link
-  id: HeaderFields_navItems_id
-}
-
-type HeaderFields_navItems_link {
-  create: HeaderFields_navItems_link_Create
-  read: HeaderFields_navItems_link_Read
-  update: HeaderFields_navItems_link_Update
-  delete: HeaderFields_navItems_link_Delete
-  fields: HeaderFields_navItems_link_Fields
-}
-
-type HeaderFields_navItems_link_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_Delete {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_Fields {
-  type: HeaderFields_navItems_link_type
-  newTab: HeaderFields_navItems_link_newTab
-  url: HeaderFields_navItems_link_url
-  label: HeaderFields_navItems_link_label
-}
-
-type HeaderFields_navItems_link_type {
-  create: HeaderFields_navItems_link_type_Create
-  read: HeaderFields_navItems_link_type_Read
-  update: HeaderFields_navItems_link_type_Update
-  delete: HeaderFields_navItems_link_type_Delete
-}
-
-type HeaderFields_navItems_link_type_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_type_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_type_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_type_Delete {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_newTab {
-  create: HeaderFields_navItems_link_newTab_Create
-  read: HeaderFields_navItems_link_newTab_Read
-  update: HeaderFields_navItems_link_newTab_Update
-  delete: HeaderFields_navItems_link_newTab_Delete
-}
-
-type HeaderFields_navItems_link_newTab_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_newTab_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_newTab_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_newTab_Delete {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_url {
-  create: HeaderFields_navItems_link_url_Create
-  read: HeaderFields_navItems_link_url_Read
-  update: HeaderFields_navItems_link_url_Update
-  delete: HeaderFields_navItems_link_url_Delete
-}
-
-type HeaderFields_navItems_link_url_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_url_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_url_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_url_Delete {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_label {
-  create: HeaderFields_navItems_link_label_Create
-  read: HeaderFields_navItems_link_label_Read
-  update: HeaderFields_navItems_link_label_Update
-  delete: HeaderFields_navItems_link_label_Delete
-}
-
-type HeaderFields_navItems_link_label_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_label_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_label_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_link_label_Delete {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_id {
-  create: HeaderFields_navItems_id_Create
-  read: HeaderFields_navItems_id_Read
-  update: HeaderFields_navItems_id_Update
-  delete: HeaderFields_navItems_id_Delete
-}
-
-type HeaderFields_navItems_id_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_id_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_id_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_navItems_id_Delete {
-  permission: Boolean!
-}
-
-type HeaderFields_updatedAt {
-  create: HeaderFields_updatedAt_Create
-  read: HeaderFields_updatedAt_Read
-  update: HeaderFields_updatedAt_Update
-  delete: HeaderFields_updatedAt_Delete
-}
-
-type HeaderFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type HeaderFields_createdAt {
-  create: HeaderFields_createdAt_Create
-  read: HeaderFields_createdAt_Read
-  update: HeaderFields_createdAt_Update
-  delete: HeaderFields_createdAt_Delete
-}
-
-type HeaderFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type HeaderFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type HeaderFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type HeaderFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type HeaderReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type HeaderUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type footerAccess {
-  fields: FooterFields
-  read: FooterReadAccess
-  update: FooterUpdateAccess
-}
-
-type FooterFields {
-  navItems: FooterFields_navItems
-  updatedAt: FooterFields_updatedAt
-  createdAt: FooterFields_createdAt
-}
-
-type FooterFields_navItems {
-  create: FooterFields_navItems_Create
-  read: FooterFields_navItems_Read
-  update: FooterFields_navItems_Update
-  delete: FooterFields_navItems_Delete
-  fields: FooterFields_navItems_Fields
-}
-
-type FooterFields_navItems_Create {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_Read {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_Update {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_Fields {
-  link: FooterFields_navItems_link
-  id: FooterFields_navItems_id
-}
-
-type FooterFields_navItems_link {
-  create: FooterFields_navItems_link_Create
-  read: FooterFields_navItems_link_Read
-  update: FooterFields_navItems_link_Update
-  delete: FooterFields_navItems_link_Delete
-  fields: FooterFields_navItems_link_Fields
-}
-
-type FooterFields_navItems_link_Create {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_Read {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_Update {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_Fields {
-  type: FooterFields_navItems_link_type
-  newTab: FooterFields_navItems_link_newTab
-  url: FooterFields_navItems_link_url
-  label: FooterFields_navItems_link_label
-}
-
-type FooterFields_navItems_link_type {
-  create: FooterFields_navItems_link_type_Create
-  read: FooterFields_navItems_link_type_Read
-  update: FooterFields_navItems_link_type_Update
-  delete: FooterFields_navItems_link_type_Delete
-}
-
-type FooterFields_navItems_link_type_Create {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_type_Read {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_type_Update {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_type_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_newTab {
-  create: FooterFields_navItems_link_newTab_Create
-  read: FooterFields_navItems_link_newTab_Read
-  update: FooterFields_navItems_link_newTab_Update
-  delete: FooterFields_navItems_link_newTab_Delete
-}
-
-type FooterFields_navItems_link_newTab_Create {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_newTab_Read {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_newTab_Update {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_newTab_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_url {
-  create: FooterFields_navItems_link_url_Create
-  read: FooterFields_navItems_link_url_Read
-  update: FooterFields_navItems_link_url_Update
-  delete: FooterFields_navItems_link_url_Delete
-}
-
-type FooterFields_navItems_link_url_Create {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_url_Read {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_url_Update {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_url_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_label {
-  create: FooterFields_navItems_link_label_Create
-  read: FooterFields_navItems_link_label_Read
-  update: FooterFields_navItems_link_label_Update
-  delete: FooterFields_navItems_link_label_Delete
-}
-
-type FooterFields_navItems_link_label_Create {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_label_Read {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_label_Update {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_link_label_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_id {
-  create: FooterFields_navItems_id_Create
-  read: FooterFields_navItems_id_Read
-  update: FooterFields_navItems_id_Update
-  delete: FooterFields_navItems_id_Delete
-}
-
-type FooterFields_navItems_id_Create {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_id_Read {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_id_Update {
-  permission: Boolean!
-}
-
-type FooterFields_navItems_id_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_updatedAt {
-  create: FooterFields_updatedAt_Create
-  read: FooterFields_updatedAt_Read
-  update: FooterFields_updatedAt_Update
-  delete: FooterFields_updatedAt_Delete
-}
-
-type FooterFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type FooterFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type FooterFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type FooterFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type FooterFields_createdAt {
-  create: FooterFields_createdAt_Create
-  read: FooterFields_createdAt_Read
-  update: FooterFields_createdAt_Update
-  delete: FooterFields_createdAt_Delete
-}
-
-type FooterFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type FooterFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type FooterFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type FooterFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type FooterReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type FooterUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type Mutation {
-  createMedia(data: mutationMediaInput!): Media
-  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
-  deleteMedia(id: String!): Media
   createCategory(data: mutationCategoryInput!): Category
   updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!): Category
   deleteCategory(id: String!): Category
@@ -4420,45 +2541,12 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
-  createComment(data: mutationCommentInput!, draft: Boolean): Comment
-  updateComment(id: String!, autosave: Boolean, data: mutationCommentUpdateInput!, draft: Boolean): Comment
-  deleteComment(id: String!): Comment
-  restoreVersionComment(id: String): Comment
+  createMedia(data: mutationMediaInput!): Media
+  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
+  deleteMedia(id: String!): Media
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
-  updateHeader(data: mutationHeaderInput!, draft: Boolean): Header
-  updateFooter(data: mutationFooterInput!, draft: Boolean): Footer
-}
-
-input mutationMediaInput {
-  alt: String!
-  caption: JSON
-  updatedAt: String
-  createdAt: String
-  url: String
-  filename: String
-  mimeType: String
-  filesize: Float
-  width: Float
-  height: Float
-  focalX: Float
-  focalY: Float
-}
-
-input mutationMediaUpdateInput {
-  alt: String
-  caption: JSON
-  updatedAt: String
-  createdAt: String
-  url: String
-  filename: String
-  mimeType: String
-  filesize: Float
-  width: Float
-  height: Float
-  focalX: Float
-  focalY: Float
 }
 
 input mutationCategoryInput {
@@ -4554,42 +2642,34 @@ type usersResetPassword {
   user: User
 }
 
-input mutationCommentInput {
-  user: String
-  populatedUser: mutationComment_PopulatedUserInput
-  comment: String
+input mutationMediaInput {
+  alt: String!
+  caption: JSON
   updatedAt: String
   createdAt: String
-  _status: Comment__status_MutationInput
+  url: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
+  focalX: Float
+  focalY: Float
 }
 
-input mutationComment_PopulatedUserInput {
-  id: String
-  name: String
-}
-
-enum Comment__status_MutationInput {
-  draft
-  published
-}
-
-input mutationCommentUpdateInput {
-  user: String
-  populatedUser: mutationCommentUpdate_PopulatedUserInput
-  comment: String
+input mutationMediaUpdateInput {
+  alt: String
+  caption: JSON
   updatedAt: String
   createdAt: String
-  _status: CommentUpdate__status_MutationInput
-}
-
-input mutationCommentUpdate_PopulatedUserInput {
-  id: String
-  name: String
-}
-
-enum CommentUpdate__status_MutationInput {
-  draft
-  published
+  url: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
+  focalX: Float
+  focalY: Float
 }
 
 input mutationPayloadPreferenceInput {
@@ -4624,40 +2704,4 @@ input PayloadPreferenceUpdate_UserRelationshipInput {
 
 enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
   users
-}
-
-input mutationHeaderInput {
-  navItems: [mutationHeader_NavItemsInput]
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationHeader_NavItemsInput {
-  link: mutationHeader_NavItems_LinkInput
-  id: String
-}
-
-input mutationHeader_NavItems_LinkInput {
-  type: String
-  newTab: Boolean
-  url: String
-  label: String!
-}
-
-input mutationFooterInput {
-  navItems: [mutationFooter_NavItemsInput]
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationFooter_NavItemsInput {
-  link: mutationFooter_NavItems_LinkInput
-  id: String
-}
-
-input mutationFooter_NavItems_LinkInput {
-  type: String
-  newTab: Boolean
-  url: String
-  label: String!
 }

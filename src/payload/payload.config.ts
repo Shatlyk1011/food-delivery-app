@@ -12,7 +12,6 @@ import path from "path";
 import { buildConfig } from "payload/config";
 
 import Categories from "./collections/Categories";
-import Comments from "./collections/Comments";
 import { Media } from "./collections/Media";
 import Users from "./collections/Users";
 
@@ -57,7 +56,7 @@ export default buildConfig({
       },
     }),
   },
-  collections: [Media, Categories, Users, Comments],
+  collections: [Categories, Users, Media],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   editor: lexicalEditor({}),
