@@ -2,18 +2,14 @@ import { webpackBundler } from "@payloadcms/bundler-webpack"; // bundler-import
 import { mongooseAdapter } from "@payloadcms/db-mongodb"; // database-adapter-import
 import type { GenerateTitle } from "@payloadcms/plugin-seo/types";
 
-import { payloadCloud } from "@payloadcms/plugin-cloud";
-// import formBuilder from '@payloadcms/plugin-form-builder'
-import nestedDocs from "@payloadcms/plugin-nested-docs";
-import redirects from "@payloadcms/plugin-redirects";
-import seo from "@payloadcms/plugin-seo";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload/config";
 
-import Categories from "./collections/Categories";
-import { Media } from "./collections/Media";
+import Media from "./collections/Media";
 import Users from "./collections/Users";
+import Cities from "./collections/Cities";
+import Restaurants from "./collections/Restaurants";
 
 import BeforeLogin from "./components/BeforeLogin";
 
@@ -34,16 +30,6 @@ export default buildConfig({
     components: {
       beforeLogin: [BeforeLogin],
     },
-    livePreview: {
-      breakpoints: [
-        {
-          name: "mobile",
-          height: 667,
-          label: "Mobile",
-          width: 375,
-        },
-      ],
-    },
     user: Users.slug,
     webpack: (config) => ({
       ...config,
@@ -56,7 +42,7 @@ export default buildConfig({
       },
     }),
   },
-  collections: [Categories, Users, Media],
+  collections: [Restaurants, Users, Media, Cities],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   editor: lexicalEditor({}),
@@ -78,16 +64,4 @@ export default buildConfig({
     url: process.env.DATABASE_URI,
   }),
   // database-adapter-config-end
-  plugins: [
-    // formBuilder({}),
-    nestedDocs({
-      collections: ["categories"],
-    }),
-    seo({
-      collections: ["projects"],
-      generateTitle,
-      uploadsCollection: "media",
-    }),
-    payloadCloud(),
-  ],
 });

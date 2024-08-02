@@ -7,9 +7,10 @@ export const useGetCategories = () => {
     queryKey: ["categories"],
     queryFn: async () => {
       const { data } = await axios({
-        url: "/categories",
-        params: { "fields[0]": "title", sort: "title" },
+        url: "/restaurants",
+        // params: { "fields[0]": "title", sort: "title" },
       });
+      console.log("datares", data);
       return data;
     },
   });

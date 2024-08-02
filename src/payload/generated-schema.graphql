@@ -1,8 +1,8 @@
 type Query {
-  Category(id: String!): Category
-  Categories(where: Category_where, limit: Int, page: Int, sort: String): Categories
-  countCategories(where: Category_where): countCategories
-  docAccessCategory(id: String!): categoriesDocAccess
+  Restaurant(id: String!): Restaurant
+  Restaurants(where: Restaurant_where, limit: Int, page: Int, sort: String): Restaurants
+  countRestaurants(where: Restaurant_where): countRestaurants
+  docAccessRestaurant(id: String!): restaurantsDocAccess
   User(id: String!): User
   Users(where: User_where, limit: Int, page: Int, sort: String): Users
   countUsers(where: User_where): countUsers
@@ -13,6 +13,10 @@ type Query {
   allMedia(where: Media_where, limit: Int, page: Int, sort: String): allMedia
   countallMedia(where: Media_where): countallMedia
   docAccessMedia(id: String!): mediaDocAccess
+  City(id: String!): City
+  Cities(where: City_where, limit: Int, page: Int, sort: String): Cities
+  countCities(where: City_where): countCities
+  docAccessCity(id: String!): citiesDocAccess
   PayloadPreference(id: String!): PayloadPreference
   PayloadPreferences(where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(where: PayloadPreference_where): countPayloadPreferences
@@ -20,20 +24,77 @@ type Query {
   Access: Access
 }
 
-type Category {
+type Restaurant {
   id: String
-  title: String
-  parent: Category
-  breadcrumbs: [Category_Breadcrumbs!]
+  title: String!
+  description: String
+  address: String!
+  isBlocked: Boolean
+  deliveryTime: Restaurant_deliveryTime!
+  isDelivery: Boolean!
+  deliveryPrice: Float!
+  freeAfterAmount: Float
+  workingHours: Restaurant_WorkingHours
+  budgetCategory: Restaurant_budgetCategory
+  cities: [City!]
+  isClosed: Boolean
   updatedAt: DateTime
   createdAt: DateTime
 }
 
-type Category_Breadcrumbs {
-  doc: Category
-  url: String
-  label: String
+enum Restaurant_deliveryTime {
+  _30
+  _45
+  _60
+  _90
+  _120
+  not_today
+}
+
+type Restaurant_WorkingHours {
+  openTime: Restaurant_WorkingHours_openTime
+  closeTime: Restaurant_WorkingHours_closeTime
+}
+
+enum Restaurant_WorkingHours_openTime {
+  _0700
+  _0730
+  _0800
+  _0830
+  _0900
+  _0930
+  _1000
+  _1030
+  _1100
+  _1130
+  _1200
+}
+
+enum Restaurant_WorkingHours_closeTime {
+  _1900
+  _1930
+  _2000
+  _2030
+  _2100
+  _2130
+  _2200
+  _2230
+  _2300
+  _2330
+  _2400
+}
+
+enum Restaurant_budgetCategory {
+  cheap
+  average
+  expensive
+}
+
+type City {
   id: String
+  title: String
+  updatedAt: DateTime
+  createdAt: DateTime
 }
 
 """
@@ -41,8 +102,8 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
-type Categories {
-  docs: [Category]
+type Restaurants {
+  docs: [Restaurant]
   hasNextPage: Boolean
   hasPrevPage: Boolean
   limit: Int
@@ -55,21 +116,28 @@ type Categories {
   totalPages: Int
 }
 
-input Category_where {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
+input Restaurant_where {
+  title: Restaurant_title_operator
+  description: Restaurant_description_operator
+  address: Restaurant_address_operator
+  isBlocked: Restaurant_isBlocked_operator
+  deliveryTime: Restaurant_deliveryTime_operator
+  isDelivery: Restaurant_isDelivery_operator
+  deliveryPrice: Restaurant_deliveryPrice_operator
+  freeAfterAmount: Restaurant_freeAfterAmount_operator
+  workingHours__openTime: Restaurant_workingHours__openTime_operator
+  workingHours__closeTime: Restaurant_workingHours__closeTime_operator
+  budgetCategory: Restaurant_budgetCategory_operator
+  cities: Restaurant_cities_operator
+  isClosed: Restaurant_isClosed_operator
+  updatedAt: Restaurant_updatedAt_operator
+  createdAt: Restaurant_createdAt_operator
+  id: Restaurant_id_operator
+  AND: [Restaurant_where_and]
+  OR: [Restaurant_where_or]
 }
 
-input Category_title_operator {
+input Restaurant_title_operator {
   equals: String
   not_equals: String
   like: String
@@ -77,10 +145,132 @@ input Category_title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input Restaurant_description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
   exists: Boolean
 }
 
-input Category_parent_operator {
+input Restaurant_address_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Restaurant_isBlocked_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Restaurant_deliveryTime_operator {
+  equals: Restaurant_deliveryTime_Input
+  not_equals: Restaurant_deliveryTime_Input
+  in: [Restaurant_deliveryTime_Input]
+  not_in: [Restaurant_deliveryTime_Input]
+  all: [Restaurant_deliveryTime_Input]
+}
+
+enum Restaurant_deliveryTime_Input {
+  _30
+  _45
+  _60
+  _90
+  _120
+  not_today
+}
+
+input Restaurant_isDelivery_operator {
+  equals: Boolean
+  not_equals: Boolean
+}
+
+input Restaurant_deliveryPrice_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Restaurant_freeAfterAmount_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Restaurant_workingHours__openTime_operator {
+  equals: Restaurant_workingHours__openTime_Input
+  not_equals: Restaurant_workingHours__openTime_Input
+  in: [Restaurant_workingHours__openTime_Input]
+  not_in: [Restaurant_workingHours__openTime_Input]
+  all: [Restaurant_workingHours__openTime_Input]
+}
+
+enum Restaurant_workingHours__openTime_Input {
+  _0700
+  _0730
+  _0800
+  _0830
+  _0900
+  _0930
+  _1000
+  _1030
+  _1100
+  _1130
+  _1200
+}
+
+input Restaurant_workingHours__closeTime_operator {
+  equals: Restaurant_workingHours__closeTime_Input
+  not_equals: Restaurant_workingHours__closeTime_Input
+  in: [Restaurant_workingHours__closeTime_Input]
+  not_in: [Restaurant_workingHours__closeTime_Input]
+  all: [Restaurant_workingHours__closeTime_Input]
+}
+
+enum Restaurant_workingHours__closeTime_Input {
+  _1900
+  _1930
+  _2000
+  _2030
+  _2100
+  _2130
+  _2200
+  _2230
+  _2300
+  _2330
+  _2400
+}
+
+input Restaurant_budgetCategory_operator {
+  equals: Restaurant_budgetCategory_Input
+  not_equals: Restaurant_budgetCategory_Input
+  like: Restaurant_budgetCategory_Input
+  contains: Restaurant_budgetCategory_Input
+  exists: Boolean
+}
+
+enum Restaurant_budgetCategory_Input {
+  cheap
+  average
+  expensive
+}
+
+input Restaurant_cities_operator {
   equals: JSON
   not_equals: JSON
   in: [JSON]
@@ -94,49 +284,13 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
-input Category_breadcrumbs__doc_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
+input Restaurant_isClosed_operator {
+  equals: Boolean
+  not_equals: Boolean
   exists: Boolean
 }
 
-input Category_breadcrumbs__url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__label_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_breadcrumbs__id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Category_updatedAt_operator {
+input Restaurant_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
   greater_than_equal: DateTime
@@ -147,7 +301,7 @@ input Category_updatedAt_operator {
   exists: Boolean
 }
 
-input Category_createdAt_operator {
+input Restaurant_createdAt_operator {
   equals: DateTime
   not_equals: DateTime
   greater_than_equal: DateTime
@@ -158,7 +312,7 @@ input Category_createdAt_operator {
   exists: Boolean
 }
 
-input Category_id_operator {
+input Restaurant_id_operator {
   equals: String
   not_equals: String
   like: String
@@ -169,270 +323,452 @@ input Category_id_operator {
   exists: Boolean
 }
 
-input Category_where_and {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
+input Restaurant_where_and {
+  title: Restaurant_title_operator
+  description: Restaurant_description_operator
+  address: Restaurant_address_operator
+  isBlocked: Restaurant_isBlocked_operator
+  deliveryTime: Restaurant_deliveryTime_operator
+  isDelivery: Restaurant_isDelivery_operator
+  deliveryPrice: Restaurant_deliveryPrice_operator
+  freeAfterAmount: Restaurant_freeAfterAmount_operator
+  workingHours__openTime: Restaurant_workingHours__openTime_operator
+  workingHours__closeTime: Restaurant_workingHours__closeTime_operator
+  budgetCategory: Restaurant_budgetCategory_operator
+  cities: Restaurant_cities_operator
+  isClosed: Restaurant_isClosed_operator
+  updatedAt: Restaurant_updatedAt_operator
+  createdAt: Restaurant_createdAt_operator
+  id: Restaurant_id_operator
+  AND: [Restaurant_where_and]
+  OR: [Restaurant_where_or]
 }
 
-input Category_where_or {
-  title: Category_title_operator
-  parent: Category_parent_operator
-  breadcrumbs__doc: Category_breadcrumbs__doc_operator
-  breadcrumbs__url: Category_breadcrumbs__url_operator
-  breadcrumbs__label: Category_breadcrumbs__label_operator
-  breadcrumbs__id: Category_breadcrumbs__id_operator
-  updatedAt: Category_updatedAt_operator
-  createdAt: Category_createdAt_operator
-  id: Category_id_operator
-  AND: [Category_where_and]
-  OR: [Category_where_or]
+input Restaurant_where_or {
+  title: Restaurant_title_operator
+  description: Restaurant_description_operator
+  address: Restaurant_address_operator
+  isBlocked: Restaurant_isBlocked_operator
+  deliveryTime: Restaurant_deliveryTime_operator
+  isDelivery: Restaurant_isDelivery_operator
+  deliveryPrice: Restaurant_deliveryPrice_operator
+  freeAfterAmount: Restaurant_freeAfterAmount_operator
+  workingHours__openTime: Restaurant_workingHours__openTime_operator
+  workingHours__closeTime: Restaurant_workingHours__closeTime_operator
+  budgetCategory: Restaurant_budgetCategory_operator
+  cities: Restaurant_cities_operator
+  isClosed: Restaurant_isClosed_operator
+  updatedAt: Restaurant_updatedAt_operator
+  createdAt: Restaurant_createdAt_operator
+  id: Restaurant_id_operator
+  AND: [Restaurant_where_and]
+  OR: [Restaurant_where_or]
 }
 
-type countCategories {
+type countRestaurants {
   totalDocs: Int
 }
 
-type categoriesDocAccess {
-  fields: CategoriesDocAccessFields
-  create: CategoriesCreateDocAccess
-  read: CategoriesReadDocAccess
-  update: CategoriesUpdateDocAccess
-  delete: CategoriesDeleteDocAccess
+type restaurantsDocAccess {
+  fields: RestaurantsDocAccessFields
+  create: RestaurantsCreateDocAccess
+  read: RestaurantsReadDocAccess
+  update: RestaurantsUpdateDocAccess
+  delete: RestaurantsDeleteDocAccess
 }
 
-type CategoriesDocAccessFields {
-  title: CategoriesDocAccessFields_title
-  parent: CategoriesDocAccessFields_parent
-  breadcrumbs: CategoriesDocAccessFields_breadcrumbs
-  updatedAt: CategoriesDocAccessFields_updatedAt
-  createdAt: CategoriesDocAccessFields_createdAt
+type RestaurantsDocAccessFields {
+  title: RestaurantsDocAccessFields_title
+  description: RestaurantsDocAccessFields_description
+  address: RestaurantsDocAccessFields_address
+  isBlocked: RestaurantsDocAccessFields_isBlocked
+  deliveryTime: RestaurantsDocAccessFields_deliveryTime
+  isDelivery: RestaurantsDocAccessFields_isDelivery
+  deliveryPrice: RestaurantsDocAccessFields_deliveryPrice
+  freeAfterAmount: RestaurantsDocAccessFields_freeAfterAmount
+  workingHours: RestaurantsDocAccessFields_workingHours
+  budgetCategory: RestaurantsDocAccessFields_budgetCategory
+  cities: RestaurantsDocAccessFields_cities
+  isClosed: RestaurantsDocAccessFields_isClosed
+  updatedAt: RestaurantsDocAccessFields_updatedAt
+  createdAt: RestaurantsDocAccessFields_createdAt
 }
 
-type CategoriesDocAccessFields_title {
-  create: CategoriesDocAccessFields_title_Create
-  read: CategoriesDocAccessFields_title_Read
-  update: CategoriesDocAccessFields_title_Update
-  delete: CategoriesDocAccessFields_title_Delete
+type RestaurantsDocAccessFields_title {
+  create: RestaurantsDocAccessFields_title_Create
+  read: RestaurantsDocAccessFields_title_Read
+  update: RestaurantsDocAccessFields_title_Update
+  delete: RestaurantsDocAccessFields_title_Delete
 }
 
-type CategoriesDocAccessFields_title_Create {
+type RestaurantsDocAccessFields_title_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_title_Read {
+type RestaurantsDocAccessFields_title_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_title_Update {
+type RestaurantsDocAccessFields_title_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_title_Delete {
+type RestaurantsDocAccessFields_title_Delete {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_parent {
-  create: CategoriesDocAccessFields_parent_Create
-  read: CategoriesDocAccessFields_parent_Read
-  update: CategoriesDocAccessFields_parent_Update
-  delete: CategoriesDocAccessFields_parent_Delete
+type RestaurantsDocAccessFields_description {
+  create: RestaurantsDocAccessFields_description_Create
+  read: RestaurantsDocAccessFields_description_Read
+  update: RestaurantsDocAccessFields_description_Update
+  delete: RestaurantsDocAccessFields_description_Delete
 }
 
-type CategoriesDocAccessFields_parent_Create {
+type RestaurantsDocAccessFields_description_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_parent_Read {
+type RestaurantsDocAccessFields_description_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_parent_Update {
+type RestaurantsDocAccessFields_description_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_parent_Delete {
+type RestaurantsDocAccessFields_description_Delete {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs {
-  create: CategoriesDocAccessFields_breadcrumbs_Create
-  read: CategoriesDocAccessFields_breadcrumbs_Read
-  update: CategoriesDocAccessFields_breadcrumbs_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_Delete
-  fields: CategoriesDocAccessFields_breadcrumbs_Fields
+type RestaurantsDocAccessFields_address {
+  create: RestaurantsDocAccessFields_address_Create
+  read: RestaurantsDocAccessFields_address_Read
+  update: RestaurantsDocAccessFields_address_Update
+  delete: RestaurantsDocAccessFields_address_Delete
 }
 
-type CategoriesDocAccessFields_breadcrumbs_Create {
+type RestaurantsDocAccessFields_address_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_Read {
+type RestaurantsDocAccessFields_address_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_Update {
+type RestaurantsDocAccessFields_address_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_Delete {
+type RestaurantsDocAccessFields_address_Delete {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_Fields {
-  doc: CategoriesDocAccessFields_breadcrumbs_doc
-  url: CategoriesDocAccessFields_breadcrumbs_url
-  label: CategoriesDocAccessFields_breadcrumbs_label
-  id: CategoriesDocAccessFields_breadcrumbs_id
+type RestaurantsDocAccessFields_isBlocked {
+  create: RestaurantsDocAccessFields_isBlocked_Create
+  read: RestaurantsDocAccessFields_isBlocked_Read
+  update: RestaurantsDocAccessFields_isBlocked_Update
+  delete: RestaurantsDocAccessFields_isBlocked_Delete
 }
 
-type CategoriesDocAccessFields_breadcrumbs_doc {
-  create: CategoriesDocAccessFields_breadcrumbs_doc_Create
-  read: CategoriesDocAccessFields_breadcrumbs_doc_Read
-  update: CategoriesDocAccessFields_breadcrumbs_doc_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_doc_Delete
-}
-
-type CategoriesDocAccessFields_breadcrumbs_doc_Create {
+type RestaurantsDocAccessFields_isBlocked_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_doc_Read {
+type RestaurantsDocAccessFields_isBlocked_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_doc_Update {
+type RestaurantsDocAccessFields_isBlocked_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_doc_Delete {
+type RestaurantsDocAccessFields_isBlocked_Delete {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_url {
-  create: CategoriesDocAccessFields_breadcrumbs_url_Create
-  read: CategoriesDocAccessFields_breadcrumbs_url_Read
-  update: CategoriesDocAccessFields_breadcrumbs_url_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_url_Delete
+type RestaurantsDocAccessFields_deliveryTime {
+  create: RestaurantsDocAccessFields_deliveryTime_Create
+  read: RestaurantsDocAccessFields_deliveryTime_Read
+  update: RestaurantsDocAccessFields_deliveryTime_Update
+  delete: RestaurantsDocAccessFields_deliveryTime_Delete
 }
 
-type CategoriesDocAccessFields_breadcrumbs_url_Create {
+type RestaurantsDocAccessFields_deliveryTime_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_url_Read {
+type RestaurantsDocAccessFields_deliveryTime_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_url_Update {
+type RestaurantsDocAccessFields_deliveryTime_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_url_Delete {
+type RestaurantsDocAccessFields_deliveryTime_Delete {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_label {
-  create: CategoriesDocAccessFields_breadcrumbs_label_Create
-  read: CategoriesDocAccessFields_breadcrumbs_label_Read
-  update: CategoriesDocAccessFields_breadcrumbs_label_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_label_Delete
+type RestaurantsDocAccessFields_isDelivery {
+  create: RestaurantsDocAccessFields_isDelivery_Create
+  read: RestaurantsDocAccessFields_isDelivery_Read
+  update: RestaurantsDocAccessFields_isDelivery_Update
+  delete: RestaurantsDocAccessFields_isDelivery_Delete
 }
 
-type CategoriesDocAccessFields_breadcrumbs_label_Create {
+type RestaurantsDocAccessFields_isDelivery_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_label_Read {
+type RestaurantsDocAccessFields_isDelivery_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_label_Update {
+type RestaurantsDocAccessFields_isDelivery_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_label_Delete {
+type RestaurantsDocAccessFields_isDelivery_Delete {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_id {
-  create: CategoriesDocAccessFields_breadcrumbs_id_Create
-  read: CategoriesDocAccessFields_breadcrumbs_id_Read
-  update: CategoriesDocAccessFields_breadcrumbs_id_Update
-  delete: CategoriesDocAccessFields_breadcrumbs_id_Delete
+type RestaurantsDocAccessFields_deliveryPrice {
+  create: RestaurantsDocAccessFields_deliveryPrice_Create
+  read: RestaurantsDocAccessFields_deliveryPrice_Read
+  update: RestaurantsDocAccessFields_deliveryPrice_Update
+  delete: RestaurantsDocAccessFields_deliveryPrice_Delete
 }
 
-type CategoriesDocAccessFields_breadcrumbs_id_Create {
+type RestaurantsDocAccessFields_deliveryPrice_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_id_Read {
+type RestaurantsDocAccessFields_deliveryPrice_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_id_Update {
+type RestaurantsDocAccessFields_deliveryPrice_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_breadcrumbs_id_Delete {
+type RestaurantsDocAccessFields_deliveryPrice_Delete {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_updatedAt {
-  create: CategoriesDocAccessFields_updatedAt_Create
-  read: CategoriesDocAccessFields_updatedAt_Read
-  update: CategoriesDocAccessFields_updatedAt_Update
-  delete: CategoriesDocAccessFields_updatedAt_Delete
+type RestaurantsDocAccessFields_freeAfterAmount {
+  create: RestaurantsDocAccessFields_freeAfterAmount_Create
+  read: RestaurantsDocAccessFields_freeAfterAmount_Read
+  update: RestaurantsDocAccessFields_freeAfterAmount_Update
+  delete: RestaurantsDocAccessFields_freeAfterAmount_Delete
 }
 
-type CategoriesDocAccessFields_updatedAt_Create {
+type RestaurantsDocAccessFields_freeAfterAmount_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_updatedAt_Read {
+type RestaurantsDocAccessFields_freeAfterAmount_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_updatedAt_Update {
+type RestaurantsDocAccessFields_freeAfterAmount_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_updatedAt_Delete {
+type RestaurantsDocAccessFields_freeAfterAmount_Delete {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_createdAt {
-  create: CategoriesDocAccessFields_createdAt_Create
-  read: CategoriesDocAccessFields_createdAt_Read
-  update: CategoriesDocAccessFields_createdAt_Update
-  delete: CategoriesDocAccessFields_createdAt_Delete
+type RestaurantsDocAccessFields_workingHours {
+  create: RestaurantsDocAccessFields_workingHours_Create
+  read: RestaurantsDocAccessFields_workingHours_Read
+  update: RestaurantsDocAccessFields_workingHours_Update
+  delete: RestaurantsDocAccessFields_workingHours_Delete
+  fields: RestaurantsDocAccessFields_workingHours_Fields
 }
 
-type CategoriesDocAccessFields_createdAt_Create {
+type RestaurantsDocAccessFields_workingHours_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_createdAt_Read {
+type RestaurantsDocAccessFields_workingHours_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_createdAt_Update {
+type RestaurantsDocAccessFields_workingHours_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_createdAt_Delete {
+type RestaurantsDocAccessFields_workingHours_Delete {
   permission: Boolean!
 }
 
-type CategoriesCreateDocAccess {
+type RestaurantsDocAccessFields_workingHours_Fields {
+  openTime: RestaurantsDocAccessFields_workingHours_openTime
+  closeTime: RestaurantsDocAccessFields_workingHours_closeTime
+}
+
+type RestaurantsDocAccessFields_workingHours_openTime {
+  create: RestaurantsDocAccessFields_workingHours_openTime_Create
+  read: RestaurantsDocAccessFields_workingHours_openTime_Read
+  update: RestaurantsDocAccessFields_workingHours_openTime_Update
+  delete: RestaurantsDocAccessFields_workingHours_openTime_Delete
+}
+
+type RestaurantsDocAccessFields_workingHours_openTime_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_workingHours_openTime_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_workingHours_openTime_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_workingHours_openTime_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_workingHours_closeTime {
+  create: RestaurantsDocAccessFields_workingHours_closeTime_Create
+  read: RestaurantsDocAccessFields_workingHours_closeTime_Read
+  update: RestaurantsDocAccessFields_workingHours_closeTime_Update
+  delete: RestaurantsDocAccessFields_workingHours_closeTime_Delete
+}
+
+type RestaurantsDocAccessFields_workingHours_closeTime_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_workingHours_closeTime_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_workingHours_closeTime_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_workingHours_closeTime_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_budgetCategory {
+  create: RestaurantsDocAccessFields_budgetCategory_Create
+  read: RestaurantsDocAccessFields_budgetCategory_Read
+  update: RestaurantsDocAccessFields_budgetCategory_Update
+  delete: RestaurantsDocAccessFields_budgetCategory_Delete
+}
+
+type RestaurantsDocAccessFields_budgetCategory_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_budgetCategory_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_budgetCategory_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_budgetCategory_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_cities {
+  create: RestaurantsDocAccessFields_cities_Create
+  read: RestaurantsDocAccessFields_cities_Read
+  update: RestaurantsDocAccessFields_cities_Update
+  delete: RestaurantsDocAccessFields_cities_Delete
+}
+
+type RestaurantsDocAccessFields_cities_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_cities_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_cities_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_cities_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isClosed {
+  create: RestaurantsDocAccessFields_isClosed_Create
+  read: RestaurantsDocAccessFields_isClosed_Read
+  update: RestaurantsDocAccessFields_isClosed_Update
+  delete: RestaurantsDocAccessFields_isClosed_Delete
+}
+
+type RestaurantsDocAccessFields_isClosed_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isClosed_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isClosed_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isClosed_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_updatedAt {
+  create: RestaurantsDocAccessFields_updatedAt_Create
+  read: RestaurantsDocAccessFields_updatedAt_Read
+  update: RestaurantsDocAccessFields_updatedAt_Update
+  delete: RestaurantsDocAccessFields_updatedAt_Delete
+}
+
+type RestaurantsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_createdAt {
+  create: RestaurantsDocAccessFields_createdAt_Create
+  read: RestaurantsDocAccessFields_createdAt_Read
+  update: RestaurantsDocAccessFields_createdAt_Update
+  delete: RestaurantsDocAccessFields_createdAt_Delete
+}
+
+type RestaurantsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsCreateDocAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -442,17 +778,17 @@ The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](
 """
 scalar JSONObject
 
-type CategoriesReadDocAccess {
+type RestaurantsReadDocAccess {
   permission: Boolean!
   where: JSONObject
 }
 
-type CategoriesUpdateDocAccess {
+type RestaurantsUpdateDocAccess {
   permission: Boolean!
   where: JSONObject
 }
 
-type CategoriesDeleteDocAccess {
+type RestaurantsDeleteDocAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -1332,6 +1668,198 @@ type MediaDeleteDocAccess {
   where: JSONObject
 }
 
+type Cities {
+  docs: [City]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input City_where {
+  title: City_title_operator
+  updatedAt: City_updatedAt_operator
+  createdAt: City_createdAt_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+input City_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input City_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input City_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input City_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input City_where_and {
+  title: City_title_operator
+  updatedAt: City_updatedAt_operator
+  createdAt: City_createdAt_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+input City_where_or {
+  title: City_title_operator
+  updatedAt: City_updatedAt_operator
+  createdAt: City_createdAt_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+type countCities {
+  totalDocs: Int
+}
+
+type citiesDocAccess {
+  fields: CitiesDocAccessFields
+  create: CitiesCreateDocAccess
+  read: CitiesReadDocAccess
+  update: CitiesUpdateDocAccess
+  delete: CitiesDeleteDocAccess
+}
+
+type CitiesDocAccessFields {
+  title: CitiesDocAccessFields_title
+  updatedAt: CitiesDocAccessFields_updatedAt
+  createdAt: CitiesDocAccessFields_createdAt
+}
+
+type CitiesDocAccessFields_title {
+  create: CitiesDocAccessFields_title_Create
+  read: CitiesDocAccessFields_title_Read
+  update: CitiesDocAccessFields_title_Update
+  delete: CitiesDocAccessFields_title_Delete
+}
+
+type CitiesDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_updatedAt {
+  create: CitiesDocAccessFields_updatedAt_Create
+  read: CitiesDocAccessFields_updatedAt_Read
+  update: CitiesDocAccessFields_updatedAt_Update
+  delete: CitiesDocAccessFields_updatedAt_Delete
+}
+
+type CitiesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_createdAt {
+  create: CitiesDocAccessFields_createdAt_Create
+  read: CitiesDocAccessFields_createdAt_Read
+  update: CitiesDocAccessFields_createdAt_Update
+  delete: CitiesDocAccessFields_createdAt_Delete
+}
+
+type CitiesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CitiesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadPreference {
   id: String
   user: PayloadPreference_User_Relationship!
@@ -1619,259 +2147,428 @@ type PayloadPreferencesDeleteDocAccess {
 
 type Access {
   canAccessAdmin: Boolean!
-  categories: categoriesAccess
+  restaurants: restaurantsAccess
   users: usersAccess
   media: mediaAccess
+  cities: citiesAccess
   payload_preferences: payload_preferencesAccess
 }
 
-type categoriesAccess {
-  fields: CategoriesFields
-  create: CategoriesCreateAccess
-  read: CategoriesReadAccess
-  update: CategoriesUpdateAccess
-  delete: CategoriesDeleteAccess
+type restaurantsAccess {
+  fields: RestaurantsFields
+  create: RestaurantsCreateAccess
+  read: RestaurantsReadAccess
+  update: RestaurantsUpdateAccess
+  delete: RestaurantsDeleteAccess
 }
 
-type CategoriesFields {
-  title: CategoriesFields_title
-  parent: CategoriesFields_parent
-  breadcrumbs: CategoriesFields_breadcrumbs
-  updatedAt: CategoriesFields_updatedAt
-  createdAt: CategoriesFields_createdAt
+type RestaurantsFields {
+  title: RestaurantsFields_title
+  description: RestaurantsFields_description
+  address: RestaurantsFields_address
+  isBlocked: RestaurantsFields_isBlocked
+  deliveryTime: RestaurantsFields_deliveryTime
+  isDelivery: RestaurantsFields_isDelivery
+  deliveryPrice: RestaurantsFields_deliveryPrice
+  freeAfterAmount: RestaurantsFields_freeAfterAmount
+  workingHours: RestaurantsFields_workingHours
+  budgetCategory: RestaurantsFields_budgetCategory
+  cities: RestaurantsFields_cities
+  isClosed: RestaurantsFields_isClosed
+  updatedAt: RestaurantsFields_updatedAt
+  createdAt: RestaurantsFields_createdAt
 }
 
-type CategoriesFields_title {
-  create: CategoriesFields_title_Create
-  read: CategoriesFields_title_Read
-  update: CategoriesFields_title_Update
-  delete: CategoriesFields_title_Delete
+type RestaurantsFields_title {
+  create: RestaurantsFields_title_Create
+  read: RestaurantsFields_title_Read
+  update: RestaurantsFields_title_Update
+  delete: RestaurantsFields_title_Delete
 }
 
-type CategoriesFields_title_Create {
+type RestaurantsFields_title_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_title_Read {
+type RestaurantsFields_title_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_title_Update {
+type RestaurantsFields_title_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_title_Delete {
+type RestaurantsFields_title_Delete {
   permission: Boolean!
 }
 
-type CategoriesFields_parent {
-  create: CategoriesFields_parent_Create
-  read: CategoriesFields_parent_Read
-  update: CategoriesFields_parent_Update
-  delete: CategoriesFields_parent_Delete
+type RestaurantsFields_description {
+  create: RestaurantsFields_description_Create
+  read: RestaurantsFields_description_Read
+  update: RestaurantsFields_description_Update
+  delete: RestaurantsFields_description_Delete
 }
 
-type CategoriesFields_parent_Create {
+type RestaurantsFields_description_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_parent_Read {
+type RestaurantsFields_description_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_parent_Update {
+type RestaurantsFields_description_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_parent_Delete {
+type RestaurantsFields_description_Delete {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs {
-  create: CategoriesFields_breadcrumbs_Create
-  read: CategoriesFields_breadcrumbs_Read
-  update: CategoriesFields_breadcrumbs_Update
-  delete: CategoriesFields_breadcrumbs_Delete
-  fields: CategoriesFields_breadcrumbs_Fields
+type RestaurantsFields_address {
+  create: RestaurantsFields_address_Create
+  read: RestaurantsFields_address_Read
+  update: RestaurantsFields_address_Update
+  delete: RestaurantsFields_address_Delete
 }
 
-type CategoriesFields_breadcrumbs_Create {
+type RestaurantsFields_address_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_Read {
+type RestaurantsFields_address_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_Update {
+type RestaurantsFields_address_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_Delete {
+type RestaurantsFields_address_Delete {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_Fields {
-  doc: CategoriesFields_breadcrumbs_doc
-  url: CategoriesFields_breadcrumbs_url
-  label: CategoriesFields_breadcrumbs_label
-  id: CategoriesFields_breadcrumbs_id
+type RestaurantsFields_isBlocked {
+  create: RestaurantsFields_isBlocked_Create
+  read: RestaurantsFields_isBlocked_Read
+  update: RestaurantsFields_isBlocked_Update
+  delete: RestaurantsFields_isBlocked_Delete
 }
 
-type CategoriesFields_breadcrumbs_doc {
-  create: CategoriesFields_breadcrumbs_doc_Create
-  read: CategoriesFields_breadcrumbs_doc_Read
-  update: CategoriesFields_breadcrumbs_doc_Update
-  delete: CategoriesFields_breadcrumbs_doc_Delete
-}
-
-type CategoriesFields_breadcrumbs_doc_Create {
+type RestaurantsFields_isBlocked_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_doc_Read {
+type RestaurantsFields_isBlocked_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_doc_Update {
+type RestaurantsFields_isBlocked_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_doc_Delete {
+type RestaurantsFields_isBlocked_Delete {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_url {
-  create: CategoriesFields_breadcrumbs_url_Create
-  read: CategoriesFields_breadcrumbs_url_Read
-  update: CategoriesFields_breadcrumbs_url_Update
-  delete: CategoriesFields_breadcrumbs_url_Delete
+type RestaurantsFields_deliveryTime {
+  create: RestaurantsFields_deliveryTime_Create
+  read: RestaurantsFields_deliveryTime_Read
+  update: RestaurantsFields_deliveryTime_Update
+  delete: RestaurantsFields_deliveryTime_Delete
 }
 
-type CategoriesFields_breadcrumbs_url_Create {
+type RestaurantsFields_deliveryTime_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_url_Read {
+type RestaurantsFields_deliveryTime_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_url_Update {
+type RestaurantsFields_deliveryTime_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_url_Delete {
+type RestaurantsFields_deliveryTime_Delete {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_label {
-  create: CategoriesFields_breadcrumbs_label_Create
-  read: CategoriesFields_breadcrumbs_label_Read
-  update: CategoriesFields_breadcrumbs_label_Update
-  delete: CategoriesFields_breadcrumbs_label_Delete
+type RestaurantsFields_isDelivery {
+  create: RestaurantsFields_isDelivery_Create
+  read: RestaurantsFields_isDelivery_Read
+  update: RestaurantsFields_isDelivery_Update
+  delete: RestaurantsFields_isDelivery_Delete
 }
 
-type CategoriesFields_breadcrumbs_label_Create {
+type RestaurantsFields_isDelivery_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_label_Read {
+type RestaurantsFields_isDelivery_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_label_Update {
+type RestaurantsFields_isDelivery_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_label_Delete {
+type RestaurantsFields_isDelivery_Delete {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_id {
-  create: CategoriesFields_breadcrumbs_id_Create
-  read: CategoriesFields_breadcrumbs_id_Read
-  update: CategoriesFields_breadcrumbs_id_Update
-  delete: CategoriesFields_breadcrumbs_id_Delete
+type RestaurantsFields_deliveryPrice {
+  create: RestaurantsFields_deliveryPrice_Create
+  read: RestaurantsFields_deliveryPrice_Read
+  update: RestaurantsFields_deliveryPrice_Update
+  delete: RestaurantsFields_deliveryPrice_Delete
 }
 
-type CategoriesFields_breadcrumbs_id_Create {
+type RestaurantsFields_deliveryPrice_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_id_Read {
+type RestaurantsFields_deliveryPrice_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_id_Update {
+type RestaurantsFields_deliveryPrice_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_breadcrumbs_id_Delete {
+type RestaurantsFields_deliveryPrice_Delete {
   permission: Boolean!
 }
 
-type CategoriesFields_updatedAt {
-  create: CategoriesFields_updatedAt_Create
-  read: CategoriesFields_updatedAt_Read
-  update: CategoriesFields_updatedAt_Update
-  delete: CategoriesFields_updatedAt_Delete
+type RestaurantsFields_freeAfterAmount {
+  create: RestaurantsFields_freeAfterAmount_Create
+  read: RestaurantsFields_freeAfterAmount_Read
+  update: RestaurantsFields_freeAfterAmount_Update
+  delete: RestaurantsFields_freeAfterAmount_Delete
 }
 
-type CategoriesFields_updatedAt_Create {
+type RestaurantsFields_freeAfterAmount_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_updatedAt_Read {
+type RestaurantsFields_freeAfterAmount_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_updatedAt_Update {
+type RestaurantsFields_freeAfterAmount_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_updatedAt_Delete {
+type RestaurantsFields_freeAfterAmount_Delete {
   permission: Boolean!
 }
 
-type CategoriesFields_createdAt {
-  create: CategoriesFields_createdAt_Create
-  read: CategoriesFields_createdAt_Read
-  update: CategoriesFields_createdAt_Update
-  delete: CategoriesFields_createdAt_Delete
+type RestaurantsFields_workingHours {
+  create: RestaurantsFields_workingHours_Create
+  read: RestaurantsFields_workingHours_Read
+  update: RestaurantsFields_workingHours_Update
+  delete: RestaurantsFields_workingHours_Delete
+  fields: RestaurantsFields_workingHours_Fields
 }
 
-type CategoriesFields_createdAt_Create {
+type RestaurantsFields_workingHours_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_createdAt_Read {
+type RestaurantsFields_workingHours_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_createdAt_Update {
+type RestaurantsFields_workingHours_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_createdAt_Delete {
+type RestaurantsFields_workingHours_Delete {
   permission: Boolean!
 }
 
-type CategoriesCreateAccess {
+type RestaurantsFields_workingHours_Fields {
+  openTime: RestaurantsFields_workingHours_openTime
+  closeTime: RestaurantsFields_workingHours_closeTime
+}
+
+type RestaurantsFields_workingHours_openTime {
+  create: RestaurantsFields_workingHours_openTime_Create
+  read: RestaurantsFields_workingHours_openTime_Read
+  update: RestaurantsFields_workingHours_openTime_Update
+  delete: RestaurantsFields_workingHours_openTime_Delete
+}
+
+type RestaurantsFields_workingHours_openTime_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_workingHours_openTime_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_workingHours_openTime_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_workingHours_openTime_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_workingHours_closeTime {
+  create: RestaurantsFields_workingHours_closeTime_Create
+  read: RestaurantsFields_workingHours_closeTime_Read
+  update: RestaurantsFields_workingHours_closeTime_Update
+  delete: RestaurantsFields_workingHours_closeTime_Delete
+}
+
+type RestaurantsFields_workingHours_closeTime_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_workingHours_closeTime_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_workingHours_closeTime_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_workingHours_closeTime_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_budgetCategory {
+  create: RestaurantsFields_budgetCategory_Create
+  read: RestaurantsFields_budgetCategory_Read
+  update: RestaurantsFields_budgetCategory_Update
+  delete: RestaurantsFields_budgetCategory_Delete
+}
+
+type RestaurantsFields_budgetCategory_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_budgetCategory_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_budgetCategory_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_budgetCategory_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_cities {
+  create: RestaurantsFields_cities_Create
+  read: RestaurantsFields_cities_Read
+  update: RestaurantsFields_cities_Update
+  delete: RestaurantsFields_cities_Delete
+}
+
+type RestaurantsFields_cities_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_cities_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_cities_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_cities_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isClosed {
+  create: RestaurantsFields_isClosed_Create
+  read: RestaurantsFields_isClosed_Read
+  update: RestaurantsFields_isClosed_Update
+  delete: RestaurantsFields_isClosed_Delete
+}
+
+type RestaurantsFields_isClosed_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isClosed_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isClosed_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isClosed_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_updatedAt {
+  create: RestaurantsFields_updatedAt_Create
+  read: RestaurantsFields_updatedAt_Read
+  update: RestaurantsFields_updatedAt_Update
+  delete: RestaurantsFields_updatedAt_Delete
+}
+
+type RestaurantsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_createdAt {
+  create: RestaurantsFields_createdAt_Create
+  read: RestaurantsFields_createdAt_Read
+  update: RestaurantsFields_createdAt_Update
+  delete: RestaurantsFields_createdAt_Delete
+}
+
+type RestaurantsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsCreateAccess {
   permission: Boolean!
   where: JSONObject
 }
 
-type CategoriesReadAccess {
+type RestaurantsReadAccess {
   permission: Boolean!
   where: JSONObject
 }
 
-type CategoriesUpdateAccess {
+type RestaurantsUpdateAccess {
   permission: Boolean!
   where: JSONObject
 }
 
-type CategoriesDeleteAccess {
+type RestaurantsDeleteAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -2376,6 +3073,109 @@ type MediaDeleteAccess {
   where: JSONObject
 }
 
+type citiesAccess {
+  fields: CitiesFields
+  create: CitiesCreateAccess
+  read: CitiesReadAccess
+  update: CitiesUpdateAccess
+  delete: CitiesDeleteAccess
+}
+
+type CitiesFields {
+  title: CitiesFields_title
+  updatedAt: CitiesFields_updatedAt
+  createdAt: CitiesFields_createdAt
+}
+
+type CitiesFields_title {
+  create: CitiesFields_title_Create
+  read: CitiesFields_title_Read
+  update: CitiesFields_title_Update
+  delete: CitiesFields_title_Delete
+}
+
+type CitiesFields_title_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_title_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_title_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_title_Delete {
+  permission: Boolean!
+}
+
+type CitiesFields_updatedAt {
+  create: CitiesFields_updatedAt_Create
+  read: CitiesFields_updatedAt_Read
+  update: CitiesFields_updatedAt_Update
+  delete: CitiesFields_updatedAt_Delete
+}
+
+type CitiesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CitiesFields_createdAt {
+  create: CitiesFields_createdAt_Create
+  read: CitiesFields_createdAt_Read
+  update: CitiesFields_createdAt_Update
+  delete: CitiesFields_createdAt_Delete
+}
+
+type CitiesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CitiesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CitiesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CitiesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CitiesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_preferencesAccess {
   fields: PayloadPreferencesFields
   create: PayloadPreferencesCreateAccess
@@ -2528,9 +3328,9 @@ type PayloadPreferencesDeleteAccess {
 }
 
 type Mutation {
-  createCategory(data: mutationCategoryInput!): Category
-  updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!): Category
-  deleteCategory(id: String!): Category
+  createRestaurant(data: mutationRestaurantInput!): Restaurant
+  updateRestaurant(id: String!, autosave: Boolean, data: mutationRestaurantUpdateInput!): Restaurant
+  deleteRestaurant(id: String!): Restaurant
   createUser(data: mutationUserInput!): User
   updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!): User
   deleteUser(id: String!): User
@@ -2544,39 +3344,130 @@ type Mutation {
   createMedia(data: mutationMediaInput!): Media
   updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
   deleteMedia(id: String!): Media
+  createCity(data: mutationCityInput!): City
+  updateCity(id: String!, autosave: Boolean, data: mutationCityUpdateInput!): City
+  deleteCity(id: String!): City
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
 }
 
-input mutationCategoryInput {
-  title: String
-  parent: String
-  breadcrumbs: [mutationCategory_BreadcrumbsInput]
+input mutationRestaurantInput {
+  title: String!
+  description: String
+  address: String!
+  isBlocked: Boolean
+  deliveryTime: Restaurant_deliveryTime_MutationInput!
+  isDelivery: Boolean
+  deliveryPrice: Float!
+  freeAfterAmount: Float
+  workingHours: mutationRestaurant_WorkingHoursInput!
+  budgetCategory: String
+  cities: [String]
+  isClosed: Boolean
   updatedAt: String
   createdAt: String
 }
 
-input mutationCategory_BreadcrumbsInput {
-  doc: String
-  url: String
-  label: String
-  id: String
+enum Restaurant_deliveryTime_MutationInput {
+  _30
+  _45
+  _60
+  _90
+  _120
+  not_today
 }
 
-input mutationCategoryUpdateInput {
+input mutationRestaurant_WorkingHoursInput {
+  openTime: Restaurant_WorkingHours_openTime_MutationInput!
+  closeTime: Restaurant_WorkingHours_closeTime_MutationInput!
+}
+
+enum Restaurant_WorkingHours_openTime_MutationInput {
+  _0700
+  _0730
+  _0800
+  _0830
+  _0900
+  _0930
+  _1000
+  _1030
+  _1100
+  _1130
+  _1200
+}
+
+enum Restaurant_WorkingHours_closeTime_MutationInput {
+  _1900
+  _1930
+  _2000
+  _2030
+  _2100
+  _2130
+  _2200
+  _2230
+  _2300
+  _2330
+  _2400
+}
+
+input mutationRestaurantUpdateInput {
   title: String
-  parent: String
-  breadcrumbs: [mutationCategoryUpdate_BreadcrumbsInput]
+  description: String
+  address: String
+  isBlocked: Boolean
+  deliveryTime: RestaurantUpdate_deliveryTime_MutationInput
+  isDelivery: Boolean
+  deliveryPrice: Float
+  freeAfterAmount: Float
+  workingHours: mutationRestaurantUpdate_WorkingHoursInput!
+  budgetCategory: String
+  cities: [String]
+  isClosed: Boolean
   updatedAt: String
   createdAt: String
 }
 
-input mutationCategoryUpdate_BreadcrumbsInput {
-  doc: String
-  url: String
-  label: String
-  id: String
+enum RestaurantUpdate_deliveryTime_MutationInput {
+  _30
+  _45
+  _60
+  _90
+  _120
+  not_today
+}
+
+input mutationRestaurantUpdate_WorkingHoursInput {
+  openTime: RestaurantUpdate_WorkingHours_openTime_MutationInput!
+  closeTime: RestaurantUpdate_WorkingHours_closeTime_MutationInput!
+}
+
+enum RestaurantUpdate_WorkingHours_openTime_MutationInput {
+  _0700
+  _0730
+  _0800
+  _0830
+  _0900
+  _0930
+  _1000
+  _1030
+  _1100
+  _1130
+  _1200
+}
+
+enum RestaurantUpdate_WorkingHours_closeTime_MutationInput {
+  _1900
+  _1930
+  _2000
+  _2030
+  _2100
+  _2130
+  _2200
+  _2230
+  _2300
+  _2330
+  _2400
 }
 
 input mutationUserInput {
@@ -2670,6 +3561,18 @@ input mutationMediaUpdateInput {
   height: Float
   focalX: Float
   focalY: Float
+}
+
+input mutationCityInput {
+  title: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationCityUpdateInput {
+  title: String
+  updatedAt: String
+  createdAt: String
 }
 
 input mutationPayloadPreferenceInput {

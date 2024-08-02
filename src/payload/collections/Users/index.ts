@@ -1,7 +1,5 @@
 import type { CollectionConfig } from "payload/types";
 
-import { email as validateEmail } from "payload/dist/fields/validations";
-
 import { admins } from "../../access/admins";
 import { checkRole } from "./checkRole";
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";

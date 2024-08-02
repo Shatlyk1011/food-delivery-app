@@ -8,9 +8,10 @@
 
 export interface Config {
   collections: {
-    categories: Category;
+    restaurants: Restaurant;
     users: User;
     media: Media;
+    cities: City;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -18,20 +19,35 @@ export interface Config {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "restaurants".
  */
-export interface Category {
+export interface Restaurant {
+  id: string;
+  title: string;
+  description?: string | null;
+  address: string;
+  isBlocked?: boolean | null;
+  deliveryTime: '30' | '45' | '60' | '90' | '120' | 'not_today';
+  isDelivery: boolean;
+  deliveryPrice: number;
+  freeAfterAmount?: number | null;
+  workingHours: {
+    openTime: '0700' | '0730' | '0800' | '0830' | '0900' | '0930' | '1000' | '1030' | '1100' | '1130' | '1200';
+    closeTime: '1900' | '1930' | '2000' | '2030' | '2100' | '2130' | '2200' | '2230' | '2300' | '2330' | '2400';
+  };
+  budgetCategory?: ('cheap' | 'average' | 'expensive') | null;
+  cities?: (string | City)[] | null;
+  isClosed?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities".
+ */
+export interface City {
   id: string;
   title?: string | null;
-  parent?: (string | null) | Category;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Category;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
