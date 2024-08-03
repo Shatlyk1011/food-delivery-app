@@ -1,24 +1,28 @@
-import { admins } from "../../access/admins";
-import { adminsOrPublished } from "../../access/adminsOrPublished";
 import type { CollectionConfig } from "payload/types";
 
-const Restaurants: CollectionConfig = {
-  slug: "restaurants",
+import { admins } from "../../access/admins";
+import { adminsOrPublished } from "../../access/adminsOrPublished";
+import { checkRole } from "../Users/checkRole";
 
+const Restaurants: CollectionConfig = {
   access: {
     create: admins,
     delete: () => false,
-    update: adminsOrPublished,
+    update: ({ req: { user } }) => checkRole(["admin", "author"], user),
   },
+
   admin: {
     useAsTitle: "title",
   },
   fields: [
     {
       name: "title",
+      access: {
+        update: admins,
+      },
       label: "Название ресторана",
-      type: "text",
       required: true,
+      type: "text",
     },
     {
       name: "description",
@@ -28,25 +32,26 @@ const Restaurants: CollectionConfig = {
     {
       name: "address",
       label: "Адрес ресторана",
-      type: "text",
       required: true,
+      type: "text",
     },
     {
       name: "isBlocked",
-      label: "Заблокировано",
-      type: "checkbox",
-      required: false,
-      defaultValue: false,
       access: {
+        create: admins,
         read: admins,
         update: admins,
       },
+      defaultValue: false,
+      label: "Заблокировано",
+      required: false,
+      type: "checkbox",
     },
 
     {
       name: "deliveryTime",
+      defaultValue: "60",
       label: "Время доставки ",
-      type: "select",
       options: [
         {
           label: "30 - мин",
@@ -73,40 +78,37 @@ const Restaurants: CollectionConfig = {
           value: "not_today",
         },
       ],
-      defaultValue: "60",
       required: true,
+      type: "select",
     },
     {
       name: "isDelivery",
-      label: "Доступна ли доставка?",
-      type: "checkbox",
       defaultValue: false,
+      label: "Доступна ли доставка?",
       required: true,
+      type: "checkbox",
     },
     {
       name: "deliveryPrice",
-      label: "Цена доставки (в манатах)",
-      type: "number",
-      required: true,
       defaultValue: 5,
+      label: "Цена доставки (в манатах)",
+      required: true,
+      type: "number",
     },
     {
       name: "freeAfterAmount",
-      label: "Бесплатно после (в манатах)",
-      type: "number",
-      required: false,
       defaultValue: 150,
+      label: "Бесплатно после (в манатах)",
+      required: false,
+      type: "number",
     },
     //open times close times
     {
       name: "workingHours",
-      label: "Режим работы",
-      type: "group",
       fields: [
         {
           name: "openTime",
           label: "Время открытия",
-          type: "select",
           options: [
             {
               label: "07:00",
@@ -154,11 +156,11 @@ const Restaurants: CollectionConfig = {
             },
           ],
           required: true,
+          type: "select",
         },
         {
           name: "closeTime",
           label: "Время закрытия",
-          type: "select",
           options: [
             {
               label: "19:00",
@@ -206,16 +208,27 @@ const Restaurants: CollectionConfig = {
             },
           ],
           required: true,
+          type: "select",
         },
       ],
+      label: "Режим работы",
+      type: "group",
     },
-
+    {
+      name: "isClosed",
+      defaultValue: false,
+      label: "Закрыто",
+      required: false,
+      type: "checkbox",
+    },
     {
       name: "budgetCategory",
-      label: "Ценовая категория",
-      type: "radio",
-      required: false,
+      access: {
+        read: admins,
+        update: admins,
+      },
       defaultValue: "cheap",
+      label: "Ценовая категория",
       options: [
         {
           label: "Не дорогой",
@@ -230,28 +243,24 @@ const Restaurants: CollectionConfig = {
           value: "expensive",
         },
       ],
+      required: false,
+      type: "radio",
     },
     {
       name: "cities",
-      label: "В каких городах есть этот ресторан?",
-      required: false,
-      type: "relationship",
-      relationTo: "cities",
-      hasMany: true,
-
       access: {
         read: admins,
         update: admins,
       },
-    },
-    {
-      name: "isClosed",
-      label: "Закрыто",
-      type: "checkbox",
+      hasMany: true,
+      label: "В каких городах есть этот ресторан?",
+      relationTo: "cities",
       required: false,
-      defaultValue: false,
+
+      type: "relationship",
     },
   ],
+  slug: "restaurants",
 };
 
 export default Restaurants;

@@ -19,7 +19,7 @@ app.get("/", (_, res) => {
 const start = async (): Promise<void> => {
   await payload.init({
     express: app,
-    onInit: async () => {
+    onInit: () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
     },
     secret: process.env.PAYLOAD_SECRET || "",

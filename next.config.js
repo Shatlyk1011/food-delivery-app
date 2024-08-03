@@ -5,19 +5,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        port: "",
-      },
-    ],
-  },
   eslint: {
     ignoreDuringBuilds: true, // HYB
   },
-
   async headers() {
     const headers = [];
 
@@ -58,9 +48,9 @@ const nextConfig = {
       .map((url) => url.replace(/https?:\/\//, "")),
     remotePatterns: [
       {
-        protocol: "https",
         hostname: "images.unsplash.com",
         port: "",
+        protocol: "https",
       },
     ],
   },

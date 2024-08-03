@@ -35,9 +35,9 @@ type Restaurant {
   deliveryPrice: Float!
   freeAfterAmount: Float
   workingHours: Restaurant_WorkingHours
+  isClosed: Boolean
   budgetCategory: Restaurant_budgetCategory
   cities: [City!]
-  isClosed: Boolean
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -127,9 +127,9 @@ input Restaurant_where {
   freeAfterAmount: Restaurant_freeAfterAmount_operator
   workingHours__openTime: Restaurant_workingHours__openTime_operator
   workingHours__closeTime: Restaurant_workingHours__closeTime_operator
+  isClosed: Restaurant_isClosed_operator
   budgetCategory: Restaurant_budgetCategory_operator
   cities: Restaurant_cities_operator
-  isClosed: Restaurant_isClosed_operator
   updatedAt: Restaurant_updatedAt_operator
   createdAt: Restaurant_createdAt_operator
   id: Restaurant_id_operator
@@ -256,6 +256,12 @@ enum Restaurant_workingHours__closeTime_Input {
   _2400
 }
 
+input Restaurant_isClosed_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
 input Restaurant_budgetCategory_operator {
   equals: Restaurant_budgetCategory_Input
   not_equals: Restaurant_budgetCategory_Input
@@ -283,12 +289,6 @@ input Restaurant_cities_operator {
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
-
-input Restaurant_isClosed_operator {
-  equals: Boolean
-  not_equals: Boolean
-  exists: Boolean
-}
 
 input Restaurant_updatedAt_operator {
   equals: DateTime
@@ -334,9 +334,9 @@ input Restaurant_where_and {
   freeAfterAmount: Restaurant_freeAfterAmount_operator
   workingHours__openTime: Restaurant_workingHours__openTime_operator
   workingHours__closeTime: Restaurant_workingHours__closeTime_operator
+  isClosed: Restaurant_isClosed_operator
   budgetCategory: Restaurant_budgetCategory_operator
   cities: Restaurant_cities_operator
-  isClosed: Restaurant_isClosed_operator
   updatedAt: Restaurant_updatedAt_operator
   createdAt: Restaurant_createdAt_operator
   id: Restaurant_id_operator
@@ -355,9 +355,9 @@ input Restaurant_where_or {
   freeAfterAmount: Restaurant_freeAfterAmount_operator
   workingHours__openTime: Restaurant_workingHours__openTime_operator
   workingHours__closeTime: Restaurant_workingHours__closeTime_operator
+  isClosed: Restaurant_isClosed_operator
   budgetCategory: Restaurant_budgetCategory_operator
   cities: Restaurant_cities_operator
-  isClosed: Restaurant_isClosed_operator
   updatedAt: Restaurant_updatedAt_operator
   createdAt: Restaurant_createdAt_operator
   id: Restaurant_id_operator
@@ -387,9 +387,9 @@ type RestaurantsDocAccessFields {
   deliveryPrice: RestaurantsDocAccessFields_deliveryPrice
   freeAfterAmount: RestaurantsDocAccessFields_freeAfterAmount
   workingHours: RestaurantsDocAccessFields_workingHours
+  isClosed: RestaurantsDocAccessFields_isClosed
   budgetCategory: RestaurantsDocAccessFields_budgetCategory
   cities: RestaurantsDocAccessFields_cities
-  isClosed: RestaurantsDocAccessFields_isClosed
   updatedAt: RestaurantsDocAccessFields_updatedAt
   createdAt: RestaurantsDocAccessFields_createdAt
 }
@@ -653,6 +653,29 @@ type RestaurantsDocAccessFields_workingHours_closeTime_Delete {
   permission: Boolean!
 }
 
+type RestaurantsDocAccessFields_isClosed {
+  create: RestaurantsDocAccessFields_isClosed_Create
+  read: RestaurantsDocAccessFields_isClosed_Read
+  update: RestaurantsDocAccessFields_isClosed_Update
+  delete: RestaurantsDocAccessFields_isClosed_Delete
+}
+
+type RestaurantsDocAccessFields_isClosed_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isClosed_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isClosed_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isClosed_Delete {
+  permission: Boolean!
+}
+
 type RestaurantsDocAccessFields_budgetCategory {
   create: RestaurantsDocAccessFields_budgetCategory_Create
   read: RestaurantsDocAccessFields_budgetCategory_Read
@@ -696,29 +719,6 @@ type RestaurantsDocAccessFields_cities_Update {
 }
 
 type RestaurantsDocAccessFields_cities_Delete {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isClosed {
-  create: RestaurantsDocAccessFields_isClosed_Create
-  read: RestaurantsDocAccessFields_isClosed_Read
-  update: RestaurantsDocAccessFields_isClosed_Update
-  delete: RestaurantsDocAccessFields_isClosed_Delete
-}
-
-type RestaurantsDocAccessFields_isClosed_Create {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isClosed_Read {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isClosed_Update {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isClosed_Delete {
   permission: Boolean!
 }
 
@@ -796,6 +796,7 @@ type RestaurantsDeleteDocAccess {
 type User {
   id: String
   name: String
+  restaurant: Restaurant
   roles: [User_roles!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -836,6 +837,7 @@ type Users {
 
 input User_where {
   name: User_name_operator
+  restaurant: User_restaurant_operator
   roles: User_roles_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -853,6 +855,15 @@ input User_name_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
+}
+
+input User_restaurant_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
   exists: Boolean
 }
 
@@ -916,6 +927,7 @@ input User_id_operator {
 
 input User_where_and {
   name: User_name_operator
+  restaurant: User_restaurant_operator
   roles: User_roles_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -927,6 +939,7 @@ input User_where_and {
 
 input User_where_or {
   name: User_name_operator
+  restaurant: User_restaurant_operator
   roles: User_roles_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
@@ -951,6 +964,7 @@ type usersDocAccess {
 
 type UsersDocAccessFields {
   name: UsersDocAccessFields_name
+  restaurant: UsersDocAccessFields_restaurant
   roles: UsersDocAccessFields_roles
   updatedAt: UsersDocAccessFields_updatedAt
   createdAt: UsersDocAccessFields_createdAt
@@ -978,6 +992,29 @@ type UsersDocAccessFields_name_Update {
 }
 
 type UsersDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_restaurant {
+  create: UsersDocAccessFields_restaurant_Create
+  read: UsersDocAccessFields_restaurant_Read
+  update: UsersDocAccessFields_restaurant_Update
+  delete: UsersDocAccessFields_restaurant_Delete
+}
+
+type UsersDocAccessFields_restaurant_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_restaurant_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_restaurant_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_restaurant_Delete {
   permission: Boolean!
 }
 
@@ -2174,9 +2211,9 @@ type RestaurantsFields {
   deliveryPrice: RestaurantsFields_deliveryPrice
   freeAfterAmount: RestaurantsFields_freeAfterAmount
   workingHours: RestaurantsFields_workingHours
+  isClosed: RestaurantsFields_isClosed
   budgetCategory: RestaurantsFields_budgetCategory
   cities: RestaurantsFields_cities
-  isClosed: RestaurantsFields_isClosed
   updatedAt: RestaurantsFields_updatedAt
   createdAt: RestaurantsFields_createdAt
 }
@@ -2440,6 +2477,29 @@ type RestaurantsFields_workingHours_closeTime_Delete {
   permission: Boolean!
 }
 
+type RestaurantsFields_isClosed {
+  create: RestaurantsFields_isClosed_Create
+  read: RestaurantsFields_isClosed_Read
+  update: RestaurantsFields_isClosed_Update
+  delete: RestaurantsFields_isClosed_Delete
+}
+
+type RestaurantsFields_isClosed_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isClosed_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isClosed_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isClosed_Delete {
+  permission: Boolean!
+}
+
 type RestaurantsFields_budgetCategory {
   create: RestaurantsFields_budgetCategory_Create
   read: RestaurantsFields_budgetCategory_Read
@@ -2483,29 +2543,6 @@ type RestaurantsFields_cities_Update {
 }
 
 type RestaurantsFields_cities_Delete {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isClosed {
-  create: RestaurantsFields_isClosed_Create
-  read: RestaurantsFields_isClosed_Read
-  update: RestaurantsFields_isClosed_Update
-  delete: RestaurantsFields_isClosed_Delete
-}
-
-type RestaurantsFields_isClosed_Create {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isClosed_Read {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isClosed_Update {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isClosed_Delete {
   permission: Boolean!
 }
 
@@ -2586,6 +2623,7 @@ type usersAccess {
 
 type UsersFields {
   name: UsersFields_name
+  restaurant: UsersFields_restaurant
   roles: UsersFields_roles
   updatedAt: UsersFields_updatedAt
   createdAt: UsersFields_createdAt
@@ -2613,6 +2651,29 @@ type UsersFields_name_Update {
 }
 
 type UsersFields_name_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_restaurant {
+  create: UsersFields_restaurant_Create
+  read: UsersFields_restaurant_Read
+  update: UsersFields_restaurant_Update
+  delete: UsersFields_restaurant_Delete
+}
+
+type UsersFields_restaurant_Create {
+  permission: Boolean!
+}
+
+type UsersFields_restaurant_Read {
+  permission: Boolean!
+}
+
+type UsersFields_restaurant_Update {
+  permission: Boolean!
+}
+
+type UsersFields_restaurant_Delete {
   permission: Boolean!
 }
 
@@ -3364,9 +3425,9 @@ input mutationRestaurantInput {
   deliveryPrice: Float!
   freeAfterAmount: Float
   workingHours: mutationRestaurant_WorkingHoursInput!
+  isClosed: Boolean
   budgetCategory: String
   cities: [String]
-  isClosed: Boolean
   updatedAt: String
   createdAt: String
 }
@@ -3423,9 +3484,9 @@ input mutationRestaurantUpdateInput {
   deliveryPrice: Float
   freeAfterAmount: Float
   workingHours: mutationRestaurantUpdate_WorkingHoursInput!
+  isClosed: Boolean
   budgetCategory: String
   cities: [String]
-  isClosed: Boolean
   updatedAt: String
   createdAt: String
 }
@@ -3474,6 +3535,7 @@ enum RestaurantUpdate_WorkingHours_closeTime_MutationInput {
 
 input mutationUserInput {
   name: String
+  restaurant: String
   roles: [User_roles_MutationInput]
   updatedAt: String
   createdAt: String
@@ -3495,6 +3557,7 @@ enum User_roles_MutationInput {
 
 input mutationUserUpdateInput {
   name: String
+  restaurant: String
   roles: [UserUpdate_roles_MutationInput]
   updatedAt: String
   createdAt: String

@@ -4,14 +4,13 @@ import { LinkFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 
 const Media: CollectionConfig = {
-  slug: "media",
-
   access: {
     create: () => false,
     delete: () => false,
     read: () => true,
     update: () => false,
   },
+
   admin: {
     description: "Creating, updating, and deleting media is disabled for this demo.",
   },
@@ -29,6 +28,7 @@ const Media: CollectionConfig = {
       type: "richText",
     },
   ],
+  slug: "media",
   upload: {
     staticDir: path.resolve(__dirname, "../../../media"),
   },

@@ -35,9 +35,9 @@ export interface Restaurant {
     openTime: '0700' | '0730' | '0800' | '0830' | '0900' | '0930' | '1000' | '1030' | '1100' | '1130' | '1200';
     closeTime: '1900' | '1930' | '2000' | '2030' | '2100' | '2130' | '2200' | '2230' | '2300' | '2330' | '2400';
   };
+  isClosed?: boolean | null;
   budgetCategory?: ('cheap' | 'average' | 'expensive') | null;
   cities?: (string | City)[] | null;
-  isClosed?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -58,6 +58,7 @@ export interface City {
 export interface User {
   id: string;
   name?: string | null;
+  restaurant?: (string | null) | Restaurant;
   roles?: ('admin' | 'author' | 'moderator')[] | null;
   updatedAt: string;
   createdAt: string;

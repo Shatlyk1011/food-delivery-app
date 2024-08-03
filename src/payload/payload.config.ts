@@ -1,35 +1,26 @@
 import { webpackBundler } from "@payloadcms/bundler-webpack"; // bundler-import
 import { mongooseAdapter } from "@payloadcms/db-mongodb"; // database-adapter-import
-import type { GenerateTitle } from "@payloadcms/plugin-seo/types";
 
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload/config";
 
-import Media from "./collections/Media";
-import Users from "./collections/Users";
 import Cities from "./collections/Cities";
+import Media from "./collections/Media";
 import Restaurants from "./collections/Restaurants";
-
-import BeforeLogin from "./components/BeforeLogin";
-
-const generateTitle: GenerateTitle = () => {
-  return "Payload Public Demo";
-};
+import Users from "./collections/Users";
 
 const m = path.resolve(__dirname, "./emptyModuleMock.js");
 
 export default buildConfig({
   admin: {
-    autoLogin: {
-      email: "demo@payloadcms.com",
-      password: "demo",
-      prefillOnly: true,
-    },
+    // autoLogin: {
+    //   email: "demo@payloadcms.com",
+    //   password: "demo",
+    //   prefillOnly: true,
+    // },
+
     bundler: webpackBundler(), // bundler-config
-    components: {
-      beforeLogin: [BeforeLogin],
-    },
     user: Users.slug,
     webpack: (config) => ({
       ...config,
