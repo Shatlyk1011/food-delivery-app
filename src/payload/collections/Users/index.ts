@@ -1,16 +1,26 @@
 import type { CollectionConfig } from "payload/types";
 
 import { admins } from "../../access/admins";
-import { checkRole } from "./checkRole";
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
-import { loginAfterCreate } from "./hooks/loginAfterCreate";
 
 const Users: CollectionConfig = {
   access: {
-    admin: ({ req: { user } }) => checkRole(["admin", "author", "moderator"], user),
+    admin: () => true,
     create: admins,
     delete: admins,
-    read: ({ req: { user } }) => checkRole(["admin", "author", "moderator"], user),
+    read: ({ req: { user } }) => {
+      if (user) {
+        if (user.roles.includes("admin")) {
+          return true;
+        }
+        return {
+          id: {
+            equals: user.id || null,
+          },
+        };
+      }
+    },
+    update: admins,
   },
 
   admin: {
@@ -63,9 +73,6 @@ const Users: CollectionConfig = {
       type: "select",
     },
   ],
-  hooks: {
-    afterChange: [loginAfterCreate],
-  },
 
   slug: "users",
   timestamps: true,

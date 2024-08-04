@@ -1,13 +1,24 @@
 import type { CollectionConfig } from "payload/types";
 
 import { admins } from "../../access/admins";
-import { adminsOrPublished } from "../../access/adminsOrPublished";
 import { checkRole } from "../Users/checkRole";
 
 const Restaurants: CollectionConfig = {
   access: {
     create: admins,
     delete: () => false,
+    read: ({ req: { user } }) => {
+      if (user) {
+        if (user.roles.includes("admin")) {
+          return true;
+        }
+        return {
+          relatedToUser: {
+            equals: user.id || null,
+          },
+        };
+      }
+    },
     update: ({ req: { user } }) => checkRole(["admin", "author"], user),
   },
 
@@ -35,19 +46,6 @@ const Restaurants: CollectionConfig = {
       required: true,
       type: "text",
     },
-    {
-      name: "isBlocked",
-      access: {
-        create: admins,
-        read: admins,
-        update: admins,
-      },
-      defaultValue: false,
-      label: "Заблокировано",
-      required: false,
-      type: "checkbox",
-    },
-
     {
       name: "deliveryTime",
       defaultValue: "60",
@@ -81,13 +79,7 @@ const Restaurants: CollectionConfig = {
       required: true,
       type: "select",
     },
-    {
-      name: "isDelivery",
-      defaultValue: false,
-      label: "Доступна ли доставка?",
-      required: true,
-      type: "checkbox",
-    },
+
     {
       name: "deliveryPrice",
       defaultValue: 5,
@@ -222,6 +214,20 @@ const Restaurants: CollectionConfig = {
       type: "checkbox",
     },
     {
+      name: "isDelivery",
+      defaultValue: false,
+      label: "Доступна ли доставка?",
+      required: true,
+      type: "checkbox",
+    },
+    {
+      name: "bannerImage",
+      label: "Фото ",
+      relationTo: "media",
+      required: true,
+      type: "upload",
+    },
+    {
       name: "budgetCategory",
       access: {
         read: admins,
@@ -245,6 +251,25 @@ const Restaurants: CollectionConfig = {
       ],
       required: false,
       type: "radio",
+    },
+    {
+      name: "isBlocked",
+      access: {
+        create: admins,
+        read: admins,
+        update: admins,
+      },
+      defaultValue: false,
+      label: "Заблокировано",
+      required: false,
+      type: "checkbox",
+    },
+    {
+      name: "relatedToUser",
+      label: "Чей ресторан?",
+      relationTo: "users",
+      required: true,
+      type: "relationship",
     },
     {
       name: "cities",

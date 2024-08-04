@@ -7,11 +7,11 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 console.log(API_URL);
 
 const instance = axios.create({
+  baseURL: `${API_URL}`,
   headers: {
     "Content-Type": "application/json",
   },
   method: "GET",
-  baseURL: `${API_URL}`,
 });
 
 instance.interceptors.request.use(

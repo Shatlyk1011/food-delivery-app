@@ -1,36 +1,65 @@
 import type { CollectionConfig } from "payload/types";
 
-import { LinkFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
+
+import { admins } from "../access/admins";
 
 const Media: CollectionConfig = {
   access: {
-    create: () => false,
-    delete: () => false,
-    read: () => true,
-    update: () => false,
-  },
-
-  admin: {
-    description: "Creating, updating, and deleting media is disabled for this demo.",
+    create: ({ req: { user } }) => !!user,
+    delete: admins,
+    read: ({ req: { user } }) => {
+      if (user) {
+        if (user.roles.includes("admin")) {
+          return true;
+        }
+        return {
+          createdBy: {
+            equals: user.id || null,
+          },
+        };
+      }
+      return false;
+    },
+    update: admins,
   },
   fields: [
     {
       name: "alt",
+      label: "Альтернативный текст",
       required: true,
       type: "text",
     },
     {
-      name: "caption",
-      editor: lexicalEditor({
-        features: ({ defaultFeatures }) => [LinkFeature({})],
-      }),
-      type: "richText",
+      name: "createdBy",
+      admin: {
+        position: "sidebar",
+      },
+      relationTo: "users",
+      type: "relationship",
     },
   ],
+  hooks: {
+    beforeValidate: [
+      ({ data, req }) => {
+        if (req.user && !data.createdBy) {
+          data.createdBy = req.user.id;
+        }
+        return data;
+      },
+    ],
+  },
   slug: "media",
   upload: {
+    formatOptions: {
+      format: "webp",
+      options: {
+        quality: 70,
+      },
+    },
+    mimeTypes: ["image/*"],
     staticDir: path.resolve(__dirname, "../../../media"),
+    staticURL: "/media",
   },
 };
 

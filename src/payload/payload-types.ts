@@ -26,9 +26,7 @@ export interface Restaurant {
   title: string;
   description?: string | null;
   address: string;
-  isBlocked?: boolean | null;
   deliveryTime: '30' | '45' | '60' | '90' | '120' | 'not_today';
-  isDelivery: boolean;
   deliveryPrice: number;
   freeAfterAmount?: number | null;
   workingHours: {
@@ -36,20 +34,33 @@ export interface Restaurant {
     closeTime: '1900' | '1930' | '2000' | '2030' | '2100' | '2130' | '2200' | '2230' | '2300' | '2330' | '2400';
   };
   isClosed?: boolean | null;
+  isDelivery: boolean;
+  bannerImage: string | Media;
   budgetCategory?: ('cheap' | 'average' | 'expensive') | null;
+  isBlocked?: boolean | null;
+  relatedToUser: string | User;
   cities?: (string | City)[] | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cities".
+ * via the `definition` "media".
  */
-export interface City {
+export interface Media {
   id: string;
-  title?: string | null;
+  alt: string;
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -73,36 +84,11 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "cities".
  */
-export interface Media {
+export interface City {
   id: string;
-  alt: string;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+  title?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

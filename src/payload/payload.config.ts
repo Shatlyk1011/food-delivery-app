@@ -33,7 +33,7 @@ export default buildConfig({
       },
     }),
   },
-  collections: [Restaurants, Users, Media, Cities],
+  collections: [Restaurants, Media, Cities, Users],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   editor: lexicalEditor({}),

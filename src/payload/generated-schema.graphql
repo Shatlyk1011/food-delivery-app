@@ -3,12 +3,6 @@ type Query {
   Restaurants(where: Restaurant_where, limit: Int, page: Int, sort: String): Restaurants
   countRestaurants(where: Restaurant_where): countRestaurants
   docAccessRestaurant(id: String!): restaurantsDocAccess
-  User(id: String!): User
-  Users(where: User_where, limit: Int, page: Int, sort: String): Users
-  countUsers(where: User_where): countUsers
-  docAccessUser(id: String!): usersDocAccess
-  meUser: usersMe
-  initializedUser: Boolean
   Media(id: String!): Media
   allMedia(where: Media_where, limit: Int, page: Int, sort: String): allMedia
   countallMedia(where: Media_where): countallMedia
@@ -17,6 +11,12 @@ type Query {
   Cities(where: City_where, limit: Int, page: Int, sort: String): Cities
   countCities(where: City_where): countCities
   docAccessCity(id: String!): citiesDocAccess
+  User(id: String!): User
+  Users(where: User_where, limit: Int, page: Int, sort: String): Users
+  countUsers(where: User_where): countUsers
+  docAccessUser(id: String!): usersDocAccess
+  meUser: usersMe
+  initializedUser: Boolean
   PayloadPreference(id: String!): PayloadPreference
   PayloadPreferences(where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(where: PayloadPreference_where): countPayloadPreferences
@@ -29,14 +29,16 @@ type Restaurant {
   title: String!
   description: String
   address: String!
-  isBlocked: Boolean
   deliveryTime: Restaurant_deliveryTime!
-  isDelivery: Boolean!
   deliveryPrice: Float!
   freeAfterAmount: Float
   workingHours: Restaurant_WorkingHours
   isClosed: Boolean
+  isDelivery: Boolean!
+  bannerImage(where: Restaurant_BannerImage_where): Media!
   budgetCategory: Restaurant_budgetCategory
+  isBlocked: Boolean
+  relatedToUser: User!
   cities: [City!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -84,6 +86,249 @@ enum Restaurant_WorkingHours_closeTime {
   _2400
 }
 
+type Media {
+  id: String
+  alt: String!
+  createdBy: User
+  updatedAt: DateTime
+  createdAt: DateTime
+  url: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
+  focalX: Float
+  focalY: Float
+}
+
+type User {
+  id: String
+  name: String
+  restaurant: Restaurant
+  roles: [User_roles!]
+  updatedAt: DateTime
+  createdAt: DateTime
+  email: EmailAddress!
+  resetPasswordToken: String
+  resetPasswordExpiration: DateTime
+  salt: String
+  hash: String
+  loginAttempts: Float
+  lockUntil: DateTime
+  password: String!
+}
+
+enum User_roles {
+  admin
+  author
+  moderator
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""
+A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
+"""
+scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+
+input Restaurant_BannerImage_where {
+  alt: Restaurant_BannerImage_alt_operator
+  createdBy: Restaurant_BannerImage_createdBy_operator
+  updatedAt: Restaurant_BannerImage_updatedAt_operator
+  createdAt: Restaurant_BannerImage_createdAt_operator
+  url: Restaurant_BannerImage_url_operator
+  filename: Restaurant_BannerImage_filename_operator
+  mimeType: Restaurant_BannerImage_mimeType_operator
+  filesize: Restaurant_BannerImage_filesize_operator
+  width: Restaurant_BannerImage_width_operator
+  height: Restaurant_BannerImage_height_operator
+  focalX: Restaurant_BannerImage_focalX_operator
+  focalY: Restaurant_BannerImage_focalY_operator
+  id: Restaurant_BannerImage_id_operator
+  AND: [Restaurant_BannerImage_where_and]
+  OR: [Restaurant_BannerImage_where_or]
+}
+
+input Restaurant_BannerImage_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Restaurant_BannerImage_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input Restaurant_BannerImage_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_focalX_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_focalY_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Restaurant_BannerImage_where_and {
+  alt: Restaurant_BannerImage_alt_operator
+  createdBy: Restaurant_BannerImage_createdBy_operator
+  updatedAt: Restaurant_BannerImage_updatedAt_operator
+  createdAt: Restaurant_BannerImage_createdAt_operator
+  url: Restaurant_BannerImage_url_operator
+  filename: Restaurant_BannerImage_filename_operator
+  mimeType: Restaurant_BannerImage_mimeType_operator
+  filesize: Restaurant_BannerImage_filesize_operator
+  width: Restaurant_BannerImage_width_operator
+  height: Restaurant_BannerImage_height_operator
+  focalX: Restaurant_BannerImage_focalX_operator
+  focalY: Restaurant_BannerImage_focalY_operator
+  id: Restaurant_BannerImage_id_operator
+  AND: [Restaurant_BannerImage_where_and]
+  OR: [Restaurant_BannerImage_where_or]
+}
+
+input Restaurant_BannerImage_where_or {
+  alt: Restaurant_BannerImage_alt_operator
+  createdBy: Restaurant_BannerImage_createdBy_operator
+  updatedAt: Restaurant_BannerImage_updatedAt_operator
+  createdAt: Restaurant_BannerImage_createdAt_operator
+  url: Restaurant_BannerImage_url_operator
+  filename: Restaurant_BannerImage_filename_operator
+  mimeType: Restaurant_BannerImage_mimeType_operator
+  filesize: Restaurant_BannerImage_filesize_operator
+  width: Restaurant_BannerImage_width_operator
+  height: Restaurant_BannerImage_height_operator
+  focalX: Restaurant_BannerImage_focalX_operator
+  focalY: Restaurant_BannerImage_focalY_operator
+  id: Restaurant_BannerImage_id_operator
+  AND: [Restaurant_BannerImage_where_and]
+  OR: [Restaurant_BannerImage_where_or]
+}
+
 enum Restaurant_budgetCategory {
   cheap
   average
@@ -93,14 +338,7 @@ enum Restaurant_budgetCategory {
 type City {
   id: String
   title: String
-  updatedAt: DateTime
-  createdAt: DateTime
 }
-
-"""
-A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
-"""
-scalar DateTime
 
 type Restaurants {
   docs: [Restaurant]
@@ -120,15 +358,17 @@ input Restaurant_where {
   title: Restaurant_title_operator
   description: Restaurant_description_operator
   address: Restaurant_address_operator
-  isBlocked: Restaurant_isBlocked_operator
   deliveryTime: Restaurant_deliveryTime_operator
-  isDelivery: Restaurant_isDelivery_operator
   deliveryPrice: Restaurant_deliveryPrice_operator
   freeAfterAmount: Restaurant_freeAfterAmount_operator
   workingHours__openTime: Restaurant_workingHours__openTime_operator
   workingHours__closeTime: Restaurant_workingHours__closeTime_operator
   isClosed: Restaurant_isClosed_operator
+  isDelivery: Restaurant_isDelivery_operator
+  bannerImage: Restaurant_bannerImage_operator
   budgetCategory: Restaurant_budgetCategory_operator
+  isBlocked: Restaurant_isBlocked_operator
+  relatedToUser: Restaurant_relatedToUser_operator
   cities: Restaurant_cities_operator
   updatedAt: Restaurant_updatedAt_operator
   createdAt: Restaurant_createdAt_operator
@@ -165,12 +405,6 @@ input Restaurant_address_operator {
   all: [String]
 }
 
-input Restaurant_isBlocked_operator {
-  equals: Boolean
-  not_equals: Boolean
-  exists: Boolean
-}
-
 input Restaurant_deliveryTime_operator {
   equals: Restaurant_deliveryTime_Input
   not_equals: Restaurant_deliveryTime_Input
@@ -186,11 +420,6 @@ enum Restaurant_deliveryTime_Input {
   _90
   _120
   not_today
-}
-
-input Restaurant_isDelivery_operator {
-  equals: Boolean
-  not_equals: Boolean
 }
 
 input Restaurant_deliveryPrice_operator {
@@ -262,6 +491,16 @@ input Restaurant_isClosed_operator {
   exists: Boolean
 }
 
+input Restaurant_isDelivery_operator {
+  equals: Boolean
+  not_equals: Boolean
+}
+
+input Restaurant_bannerImage_operator {
+  equals: String
+  not_equals: String
+}
+
 input Restaurant_budgetCategory_operator {
   equals: Restaurant_budgetCategory_Input
   not_equals: Restaurant_budgetCategory_Input
@@ -276,6 +515,20 @@ enum Restaurant_budgetCategory_Input {
   expensive
 }
 
+input Restaurant_isBlocked_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Restaurant_relatedToUser_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
 input Restaurant_cities_operator {
   equals: JSON
   not_equals: JSON
@@ -284,11 +537,6 @@ input Restaurant_cities_operator {
   all: [JSON]
   exists: Boolean
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
 
 input Restaurant_updatedAt_operator {
   equals: DateTime
@@ -327,15 +575,17 @@ input Restaurant_where_and {
   title: Restaurant_title_operator
   description: Restaurant_description_operator
   address: Restaurant_address_operator
-  isBlocked: Restaurant_isBlocked_operator
   deliveryTime: Restaurant_deliveryTime_operator
-  isDelivery: Restaurant_isDelivery_operator
   deliveryPrice: Restaurant_deliveryPrice_operator
   freeAfterAmount: Restaurant_freeAfterAmount_operator
   workingHours__openTime: Restaurant_workingHours__openTime_operator
   workingHours__closeTime: Restaurant_workingHours__closeTime_operator
   isClosed: Restaurant_isClosed_operator
+  isDelivery: Restaurant_isDelivery_operator
+  bannerImage: Restaurant_bannerImage_operator
   budgetCategory: Restaurant_budgetCategory_operator
+  isBlocked: Restaurant_isBlocked_operator
+  relatedToUser: Restaurant_relatedToUser_operator
   cities: Restaurant_cities_operator
   updatedAt: Restaurant_updatedAt_operator
   createdAt: Restaurant_createdAt_operator
@@ -348,15 +598,17 @@ input Restaurant_where_or {
   title: Restaurant_title_operator
   description: Restaurant_description_operator
   address: Restaurant_address_operator
-  isBlocked: Restaurant_isBlocked_operator
   deliveryTime: Restaurant_deliveryTime_operator
-  isDelivery: Restaurant_isDelivery_operator
   deliveryPrice: Restaurant_deliveryPrice_operator
   freeAfterAmount: Restaurant_freeAfterAmount_operator
   workingHours__openTime: Restaurant_workingHours__openTime_operator
   workingHours__closeTime: Restaurant_workingHours__closeTime_operator
   isClosed: Restaurant_isClosed_operator
+  isDelivery: Restaurant_isDelivery_operator
+  bannerImage: Restaurant_bannerImage_operator
   budgetCategory: Restaurant_budgetCategory_operator
+  isBlocked: Restaurant_isBlocked_operator
+  relatedToUser: Restaurant_relatedToUser_operator
   cities: Restaurant_cities_operator
   updatedAt: Restaurant_updatedAt_operator
   createdAt: Restaurant_createdAt_operator
@@ -381,14 +633,16 @@ type RestaurantsDocAccessFields {
   title: RestaurantsDocAccessFields_title
   description: RestaurantsDocAccessFields_description
   address: RestaurantsDocAccessFields_address
-  isBlocked: RestaurantsDocAccessFields_isBlocked
   deliveryTime: RestaurantsDocAccessFields_deliveryTime
-  isDelivery: RestaurantsDocAccessFields_isDelivery
   deliveryPrice: RestaurantsDocAccessFields_deliveryPrice
   freeAfterAmount: RestaurantsDocAccessFields_freeAfterAmount
   workingHours: RestaurantsDocAccessFields_workingHours
   isClosed: RestaurantsDocAccessFields_isClosed
+  isDelivery: RestaurantsDocAccessFields_isDelivery
+  bannerImage: RestaurantsDocAccessFields_bannerImage
   budgetCategory: RestaurantsDocAccessFields_budgetCategory
+  isBlocked: RestaurantsDocAccessFields_isBlocked
+  relatedToUser: RestaurantsDocAccessFields_relatedToUser
   cities: RestaurantsDocAccessFields_cities
   updatedAt: RestaurantsDocAccessFields_updatedAt
   createdAt: RestaurantsDocAccessFields_createdAt
@@ -463,29 +717,6 @@ type RestaurantsDocAccessFields_address_Delete {
   permission: Boolean!
 }
 
-type RestaurantsDocAccessFields_isBlocked {
-  create: RestaurantsDocAccessFields_isBlocked_Create
-  read: RestaurantsDocAccessFields_isBlocked_Read
-  update: RestaurantsDocAccessFields_isBlocked_Update
-  delete: RestaurantsDocAccessFields_isBlocked_Delete
-}
-
-type RestaurantsDocAccessFields_isBlocked_Create {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isBlocked_Read {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isBlocked_Update {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isBlocked_Delete {
-  permission: Boolean!
-}
-
 type RestaurantsDocAccessFields_deliveryTime {
   create: RestaurantsDocAccessFields_deliveryTime_Create
   read: RestaurantsDocAccessFields_deliveryTime_Read
@@ -506,29 +737,6 @@ type RestaurantsDocAccessFields_deliveryTime_Update {
 }
 
 type RestaurantsDocAccessFields_deliveryTime_Delete {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isDelivery {
-  create: RestaurantsDocAccessFields_isDelivery_Create
-  read: RestaurantsDocAccessFields_isDelivery_Read
-  update: RestaurantsDocAccessFields_isDelivery_Update
-  delete: RestaurantsDocAccessFields_isDelivery_Delete
-}
-
-type RestaurantsDocAccessFields_isDelivery_Create {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isDelivery_Read {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isDelivery_Update {
-  permission: Boolean!
-}
-
-type RestaurantsDocAccessFields_isDelivery_Delete {
   permission: Boolean!
 }
 
@@ -676,6 +884,52 @@ type RestaurantsDocAccessFields_isClosed_Delete {
   permission: Boolean!
 }
 
+type RestaurantsDocAccessFields_isDelivery {
+  create: RestaurantsDocAccessFields_isDelivery_Create
+  read: RestaurantsDocAccessFields_isDelivery_Read
+  update: RestaurantsDocAccessFields_isDelivery_Update
+  delete: RestaurantsDocAccessFields_isDelivery_Delete
+}
+
+type RestaurantsDocAccessFields_isDelivery_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isDelivery_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isDelivery_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isDelivery_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_bannerImage {
+  create: RestaurantsDocAccessFields_bannerImage_Create
+  read: RestaurantsDocAccessFields_bannerImage_Read
+  update: RestaurantsDocAccessFields_bannerImage_Update
+  delete: RestaurantsDocAccessFields_bannerImage_Delete
+}
+
+type RestaurantsDocAccessFields_bannerImage_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_bannerImage_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_bannerImage_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_bannerImage_Delete {
+  permission: Boolean!
+}
+
 type RestaurantsDocAccessFields_budgetCategory {
   create: RestaurantsDocAccessFields_budgetCategory_Create
   read: RestaurantsDocAccessFields_budgetCategory_Read
@@ -696,6 +950,52 @@ type RestaurantsDocAccessFields_budgetCategory_Update {
 }
 
 type RestaurantsDocAccessFields_budgetCategory_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isBlocked {
+  create: RestaurantsDocAccessFields_isBlocked_Create
+  read: RestaurantsDocAccessFields_isBlocked_Read
+  update: RestaurantsDocAccessFields_isBlocked_Update
+  delete: RestaurantsDocAccessFields_isBlocked_Delete
+}
+
+type RestaurantsDocAccessFields_isBlocked_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isBlocked_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isBlocked_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_isBlocked_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_relatedToUser {
+  create: RestaurantsDocAccessFields_relatedToUser_Create
+  read: RestaurantsDocAccessFields_relatedToUser_Read
+  update: RestaurantsDocAccessFields_relatedToUser_Update
+  delete: RestaurantsDocAccessFields_relatedToUser_Delete
+}
+
+type RestaurantsDocAccessFields_relatedToUser_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_relatedToUser_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_relatedToUser_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_relatedToUser_Delete {
   permission: Boolean!
 }
 
@@ -793,33 +1093,647 @@ type RestaurantsDeleteDocAccess {
   where: JSONObject
 }
 
-type User {
-  id: String
-  name: String
-  restaurant: Restaurant
-  roles: [User_roles!]
-  updatedAt: DateTime
-  createdAt: DateTime
-  email: EmailAddress!
-  resetPasswordToken: String
-  resetPasswordExpiration: DateTime
-  salt: String
-  hash: String
-  loginAttempts: Float
-  lockUntil: DateTime
-  password: String!
+type allMedia {
+  docs: [Media]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
 }
 
-enum User_roles {
-  admin
-  author
-  moderator
+input Media_where {
+  alt: Media_alt_operator
+  createdBy: Media_createdBy_operator
+  updatedAt: Media_updatedAt_operator
+  createdAt: Media_createdAt_operator
+  url: Media_url_operator
+  filename: Media_filename_operator
+  mimeType: Media_mimeType_operator
+  filesize: Media_filesize_operator
+  width: Media_width_operator
+  height: Media_height_operator
+  focalX: Media_focalX_operator
+  focalY: Media_focalY_operator
+  id: Media_id_operator
+  AND: [Media_where_and]
+  OR: [Media_where_or]
 }
 
-"""
-A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
-"""
-scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+input Media_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Media_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Media_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Media_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Media_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Media_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Media_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Media_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Media_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Media_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Media_focalX_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Media_focalY_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Media_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Media_where_and {
+  alt: Media_alt_operator
+  createdBy: Media_createdBy_operator
+  updatedAt: Media_updatedAt_operator
+  createdAt: Media_createdAt_operator
+  url: Media_url_operator
+  filename: Media_filename_operator
+  mimeType: Media_mimeType_operator
+  filesize: Media_filesize_operator
+  width: Media_width_operator
+  height: Media_height_operator
+  focalX: Media_focalX_operator
+  focalY: Media_focalY_operator
+  id: Media_id_operator
+  AND: [Media_where_and]
+  OR: [Media_where_or]
+}
+
+input Media_where_or {
+  alt: Media_alt_operator
+  createdBy: Media_createdBy_operator
+  updatedAt: Media_updatedAt_operator
+  createdAt: Media_createdAt_operator
+  url: Media_url_operator
+  filename: Media_filename_operator
+  mimeType: Media_mimeType_operator
+  filesize: Media_filesize_operator
+  width: Media_width_operator
+  height: Media_height_operator
+  focalX: Media_focalX_operator
+  focalY: Media_focalY_operator
+  id: Media_id_operator
+  AND: [Media_where_and]
+  OR: [Media_where_or]
+}
+
+type countallMedia {
+  totalDocs: Int
+}
+
+type mediaDocAccess {
+  fields: MediaDocAccessFields
+  create: MediaCreateDocAccess
+  read: MediaReadDocAccess
+  update: MediaUpdateDocAccess
+  delete: MediaDeleteDocAccess
+}
+
+type MediaDocAccessFields {
+  alt: MediaDocAccessFields_alt
+  createdBy: MediaDocAccessFields_createdBy
+  updatedAt: MediaDocAccessFields_updatedAt
+  createdAt: MediaDocAccessFields_createdAt
+  url: MediaDocAccessFields_url
+  filename: MediaDocAccessFields_filename
+  mimeType: MediaDocAccessFields_mimeType
+  filesize: MediaDocAccessFields_filesize
+  width: MediaDocAccessFields_width
+  height: MediaDocAccessFields_height
+  focalX: MediaDocAccessFields_focalX
+  focalY: MediaDocAccessFields_focalY
+}
+
+type MediaDocAccessFields_alt {
+  create: MediaDocAccessFields_alt_Create
+  read: MediaDocAccessFields_alt_Read
+  update: MediaDocAccessFields_alt_Update
+  delete: MediaDocAccessFields_alt_Delete
+}
+
+type MediaDocAccessFields_alt_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_alt_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_alt_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_alt_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdBy {
+  create: MediaDocAccessFields_createdBy_Create
+  read: MediaDocAccessFields_createdBy_Read
+  update: MediaDocAccessFields_createdBy_Update
+  delete: MediaDocAccessFields_createdBy_Delete
+}
+
+type MediaDocAccessFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_updatedAt {
+  create: MediaDocAccessFields_updatedAt_Create
+  read: MediaDocAccessFields_updatedAt_Read
+  update: MediaDocAccessFields_updatedAt_Update
+  delete: MediaDocAccessFields_updatedAt_Delete
+}
+
+type MediaDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdAt {
+  create: MediaDocAccessFields_createdAt_Create
+  read: MediaDocAccessFields_createdAt_Read
+  update: MediaDocAccessFields_createdAt_Update
+  delete: MediaDocAccessFields_createdAt_Delete
+}
+
+type MediaDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_url {
+  create: MediaDocAccessFields_url_Create
+  read: MediaDocAccessFields_url_Read
+  update: MediaDocAccessFields_url_Update
+  delete: MediaDocAccessFields_url_Delete
+}
+
+type MediaDocAccessFields_url_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_url_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_url_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_url_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filename {
+  create: MediaDocAccessFields_filename_Create
+  read: MediaDocAccessFields_filename_Read
+  update: MediaDocAccessFields_filename_Update
+  delete: MediaDocAccessFields_filename_Delete
+}
+
+type MediaDocAccessFields_filename_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filename_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filename_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filename_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_mimeType {
+  create: MediaDocAccessFields_mimeType_Create
+  read: MediaDocAccessFields_mimeType_Read
+  update: MediaDocAccessFields_mimeType_Update
+  delete: MediaDocAccessFields_mimeType_Delete
+}
+
+type MediaDocAccessFields_mimeType_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_mimeType_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_mimeType_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_mimeType_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filesize {
+  create: MediaDocAccessFields_filesize_Create
+  read: MediaDocAccessFields_filesize_Read
+  update: MediaDocAccessFields_filesize_Update
+  delete: MediaDocAccessFields_filesize_Delete
+}
+
+type MediaDocAccessFields_filesize_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filesize_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filesize_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_filesize_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_width {
+  create: MediaDocAccessFields_width_Create
+  read: MediaDocAccessFields_width_Read
+  update: MediaDocAccessFields_width_Update
+  delete: MediaDocAccessFields_width_Delete
+}
+
+type MediaDocAccessFields_width_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_width_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_width_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_width_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_height {
+  create: MediaDocAccessFields_height_Create
+  read: MediaDocAccessFields_height_Read
+  update: MediaDocAccessFields_height_Update
+  delete: MediaDocAccessFields_height_Delete
+}
+
+type MediaDocAccessFields_height_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_height_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_height_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_height_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalX {
+  create: MediaDocAccessFields_focalX_Create
+  read: MediaDocAccessFields_focalX_Read
+  update: MediaDocAccessFields_focalX_Update
+  delete: MediaDocAccessFields_focalX_Delete
+}
+
+type MediaDocAccessFields_focalX_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalX_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalX_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalX_Delete {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalY {
+  create: MediaDocAccessFields_focalY_Create
+  read: MediaDocAccessFields_focalY_Read
+  update: MediaDocAccessFields_focalY_Update
+  delete: MediaDocAccessFields_focalY_Delete
+}
+
+type MediaDocAccessFields_focalY_Create {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalY_Read {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalY_Update {
+  permission: Boolean!
+}
+
+type MediaDocAccessFields_focalY_Delete {
+  permission: Boolean!
+}
+
+type MediaCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MediaDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Cities {
+  docs: [City]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input City_where {
+  title: City_title_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+input City_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input City_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input City_where_and {
+  title: City_title_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+input City_where_or {
+  title: City_title_operator
+  id: City_id_operator
+  AND: [City_where_and]
+  OR: [City_where_or]
+}
+
+type countCities {
+  totalDocs: Int
+}
+
+type citiesDocAccess {
+  fields: CitiesDocAccessFields
+  create: CitiesCreateDocAccess
+  read: CitiesReadDocAccess
+  update: CitiesUpdateDocAccess
+  delete: CitiesDeleteDocAccess
+}
+
+type CitiesDocAccessFields {
+  title: CitiesDocAccessFields_title
+}
+
+type CitiesDocAccessFields_title {
+  create: CitiesDocAccessFields_title_Create
+  read: CitiesDocAccessFields_title_Read
+  update: CitiesDocAccessFields_title_Update
+  delete: CitiesDocAccessFields_title_Delete
+}
+
+type CitiesDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type CitiesDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type CitiesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CitiesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
 
 type Users {
   docs: [User]
@@ -1166,739 +2080,6 @@ type usersMe {
   user: User
 }
 
-type Media {
-  id: String
-  alt: String!
-  caption(depth: Int): JSON
-  updatedAt: DateTime
-  createdAt: DateTime
-  url: String
-  filename: String
-  mimeType: String
-  filesize: Float
-  width: Float
-  height: Float
-  focalX: Float
-  focalY: Float
-}
-
-type allMedia {
-  docs: [Media]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input Media_where {
-  alt: Media_alt_operator
-  caption: Media_caption_operator
-  updatedAt: Media_updatedAt_operator
-  createdAt: Media_createdAt_operator
-  url: Media_url_operator
-  filename: Media_filename_operator
-  mimeType: Media_mimeType_operator
-  filesize: Media_filesize_operator
-  width: Media_width_operator
-  height: Media_height_operator
-  focalX: Media_focalX_operator
-  focalY: Media_focalY_operator
-  id: Media_id_operator
-  AND: [Media_where_and]
-  OR: [Media_where_or]
-}
-
-input Media_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Media_caption_operator {
-  equals: JSON
-  not_equals: JSON
-  like: JSON
-  contains: JSON
-  exists: Boolean
-}
-
-input Media_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Media_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Media_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Media_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Media_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Media_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Media_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Media_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Media_focalX_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Media_focalY_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Media_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Media_where_and {
-  alt: Media_alt_operator
-  caption: Media_caption_operator
-  updatedAt: Media_updatedAt_operator
-  createdAt: Media_createdAt_operator
-  url: Media_url_operator
-  filename: Media_filename_operator
-  mimeType: Media_mimeType_operator
-  filesize: Media_filesize_operator
-  width: Media_width_operator
-  height: Media_height_operator
-  focalX: Media_focalX_operator
-  focalY: Media_focalY_operator
-  id: Media_id_operator
-  AND: [Media_where_and]
-  OR: [Media_where_or]
-}
-
-input Media_where_or {
-  alt: Media_alt_operator
-  caption: Media_caption_operator
-  updatedAt: Media_updatedAt_operator
-  createdAt: Media_createdAt_operator
-  url: Media_url_operator
-  filename: Media_filename_operator
-  mimeType: Media_mimeType_operator
-  filesize: Media_filesize_operator
-  width: Media_width_operator
-  height: Media_height_operator
-  focalX: Media_focalX_operator
-  focalY: Media_focalY_operator
-  id: Media_id_operator
-  AND: [Media_where_and]
-  OR: [Media_where_or]
-}
-
-type countallMedia {
-  totalDocs: Int
-}
-
-type mediaDocAccess {
-  fields: MediaDocAccessFields
-  create: MediaCreateDocAccess
-  read: MediaReadDocAccess
-  update: MediaUpdateDocAccess
-  delete: MediaDeleteDocAccess
-}
-
-type MediaDocAccessFields {
-  alt: MediaDocAccessFields_alt
-  caption: MediaDocAccessFields_caption
-  updatedAt: MediaDocAccessFields_updatedAt
-  createdAt: MediaDocAccessFields_createdAt
-  url: MediaDocAccessFields_url
-  filename: MediaDocAccessFields_filename
-  mimeType: MediaDocAccessFields_mimeType
-  filesize: MediaDocAccessFields_filesize
-  width: MediaDocAccessFields_width
-  height: MediaDocAccessFields_height
-  focalX: MediaDocAccessFields_focalX
-  focalY: MediaDocAccessFields_focalY
-}
-
-type MediaDocAccessFields_alt {
-  create: MediaDocAccessFields_alt_Create
-  read: MediaDocAccessFields_alt_Read
-  update: MediaDocAccessFields_alt_Update
-  delete: MediaDocAccessFields_alt_Delete
-}
-
-type MediaDocAccessFields_alt_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_alt_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_alt_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_alt_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_caption {
-  create: MediaDocAccessFields_caption_Create
-  read: MediaDocAccessFields_caption_Read
-  update: MediaDocAccessFields_caption_Update
-  delete: MediaDocAccessFields_caption_Delete
-}
-
-type MediaDocAccessFields_caption_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_caption_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_caption_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_caption_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_updatedAt {
-  create: MediaDocAccessFields_updatedAt_Create
-  read: MediaDocAccessFields_updatedAt_Read
-  update: MediaDocAccessFields_updatedAt_Update
-  delete: MediaDocAccessFields_updatedAt_Delete
-}
-
-type MediaDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_createdAt {
-  create: MediaDocAccessFields_createdAt_Create
-  read: MediaDocAccessFields_createdAt_Read
-  update: MediaDocAccessFields_createdAt_Update
-  delete: MediaDocAccessFields_createdAt_Delete
-}
-
-type MediaDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_url {
-  create: MediaDocAccessFields_url_Create
-  read: MediaDocAccessFields_url_Read
-  update: MediaDocAccessFields_url_Update
-  delete: MediaDocAccessFields_url_Delete
-}
-
-type MediaDocAccessFields_url_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_url_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_url_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_url_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_filename {
-  create: MediaDocAccessFields_filename_Create
-  read: MediaDocAccessFields_filename_Read
-  update: MediaDocAccessFields_filename_Update
-  delete: MediaDocAccessFields_filename_Delete
-}
-
-type MediaDocAccessFields_filename_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_filename_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_filename_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_filename_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_mimeType {
-  create: MediaDocAccessFields_mimeType_Create
-  read: MediaDocAccessFields_mimeType_Read
-  update: MediaDocAccessFields_mimeType_Update
-  delete: MediaDocAccessFields_mimeType_Delete
-}
-
-type MediaDocAccessFields_mimeType_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_mimeType_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_mimeType_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_mimeType_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_filesize {
-  create: MediaDocAccessFields_filesize_Create
-  read: MediaDocAccessFields_filesize_Read
-  update: MediaDocAccessFields_filesize_Update
-  delete: MediaDocAccessFields_filesize_Delete
-}
-
-type MediaDocAccessFields_filesize_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_filesize_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_filesize_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_filesize_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_width {
-  create: MediaDocAccessFields_width_Create
-  read: MediaDocAccessFields_width_Read
-  update: MediaDocAccessFields_width_Update
-  delete: MediaDocAccessFields_width_Delete
-}
-
-type MediaDocAccessFields_width_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_width_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_width_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_width_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_height {
-  create: MediaDocAccessFields_height_Create
-  read: MediaDocAccessFields_height_Read
-  update: MediaDocAccessFields_height_Update
-  delete: MediaDocAccessFields_height_Delete
-}
-
-type MediaDocAccessFields_height_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_height_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_height_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_height_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_focalX {
-  create: MediaDocAccessFields_focalX_Create
-  read: MediaDocAccessFields_focalX_Read
-  update: MediaDocAccessFields_focalX_Update
-  delete: MediaDocAccessFields_focalX_Delete
-}
-
-type MediaDocAccessFields_focalX_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_focalX_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_focalX_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_focalX_Delete {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_focalY {
-  create: MediaDocAccessFields_focalY_Create
-  read: MediaDocAccessFields_focalY_Read
-  update: MediaDocAccessFields_focalY_Update
-  delete: MediaDocAccessFields_focalY_Delete
-}
-
-type MediaDocAccessFields_focalY_Create {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_focalY_Read {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_focalY_Update {
-  permission: Boolean!
-}
-
-type MediaDocAccessFields_focalY_Delete {
-  permission: Boolean!
-}
-
-type MediaCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type MediaReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type MediaUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type MediaDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type Cities {
-  docs: [City]
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  limit: Int
-  nextPage: Int
-  offset: Int
-  page: Int
-  pagingCounter: Int
-  prevPage: Int
-  totalDocs: Int
-  totalPages: Int
-}
-
-input City_where {
-  title: City_title_operator
-  updatedAt: City_updatedAt_operator
-  createdAt: City_createdAt_operator
-  id: City_id_operator
-  AND: [City_where_and]
-  OR: [City_where_or]
-}
-
-input City_title_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input City_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input City_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input City_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input City_where_and {
-  title: City_title_operator
-  updatedAt: City_updatedAt_operator
-  createdAt: City_createdAt_operator
-  id: City_id_operator
-  AND: [City_where_and]
-  OR: [City_where_or]
-}
-
-input City_where_or {
-  title: City_title_operator
-  updatedAt: City_updatedAt_operator
-  createdAt: City_createdAt_operator
-  id: City_id_operator
-  AND: [City_where_and]
-  OR: [City_where_or]
-}
-
-type countCities {
-  totalDocs: Int
-}
-
-type citiesDocAccess {
-  fields: CitiesDocAccessFields
-  create: CitiesCreateDocAccess
-  read: CitiesReadDocAccess
-  update: CitiesUpdateDocAccess
-  delete: CitiesDeleteDocAccess
-}
-
-type CitiesDocAccessFields {
-  title: CitiesDocAccessFields_title
-  updatedAt: CitiesDocAccessFields_updatedAt
-  createdAt: CitiesDocAccessFields_createdAt
-}
-
-type CitiesDocAccessFields_title {
-  create: CitiesDocAccessFields_title_Create
-  read: CitiesDocAccessFields_title_Read
-  update: CitiesDocAccessFields_title_Update
-  delete: CitiesDocAccessFields_title_Delete
-}
-
-type CitiesDocAccessFields_title_Create {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_title_Read {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_title_Update {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_title_Delete {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_updatedAt {
-  create: CitiesDocAccessFields_updatedAt_Create
-  read: CitiesDocAccessFields_updatedAt_Read
-  update: CitiesDocAccessFields_updatedAt_Update
-  delete: CitiesDocAccessFields_updatedAt_Delete
-}
-
-type CitiesDocAccessFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_createdAt {
-  create: CitiesDocAccessFields_createdAt_Create
-  read: CitiesDocAccessFields_createdAt_Read
-  update: CitiesDocAccessFields_createdAt_Update
-  delete: CitiesDocAccessFields_createdAt_Delete
-}
-
-type CitiesDocAccessFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type CitiesDocAccessFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type CitiesCreateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CitiesReadDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CitiesUpdateDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type CitiesDeleteDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type PayloadPreference {
   id: String
   user: PayloadPreference_User_Relationship!
@@ -2187,9 +2368,9 @@ type PayloadPreferencesDeleteDocAccess {
 type Access {
   canAccessAdmin: Boolean!
   restaurants: restaurantsAccess
-  users: usersAccess
   media: mediaAccess
   cities: citiesAccess
+  users: usersAccess
   payload_preferences: payload_preferencesAccess
 }
 
@@ -2205,14 +2386,16 @@ type RestaurantsFields {
   title: RestaurantsFields_title
   description: RestaurantsFields_description
   address: RestaurantsFields_address
-  isBlocked: RestaurantsFields_isBlocked
   deliveryTime: RestaurantsFields_deliveryTime
-  isDelivery: RestaurantsFields_isDelivery
   deliveryPrice: RestaurantsFields_deliveryPrice
   freeAfterAmount: RestaurantsFields_freeAfterAmount
   workingHours: RestaurantsFields_workingHours
   isClosed: RestaurantsFields_isClosed
+  isDelivery: RestaurantsFields_isDelivery
+  bannerImage: RestaurantsFields_bannerImage
   budgetCategory: RestaurantsFields_budgetCategory
+  isBlocked: RestaurantsFields_isBlocked
+  relatedToUser: RestaurantsFields_relatedToUser
   cities: RestaurantsFields_cities
   updatedAt: RestaurantsFields_updatedAt
   createdAt: RestaurantsFields_createdAt
@@ -2287,29 +2470,6 @@ type RestaurantsFields_address_Delete {
   permission: Boolean!
 }
 
-type RestaurantsFields_isBlocked {
-  create: RestaurantsFields_isBlocked_Create
-  read: RestaurantsFields_isBlocked_Read
-  update: RestaurantsFields_isBlocked_Update
-  delete: RestaurantsFields_isBlocked_Delete
-}
-
-type RestaurantsFields_isBlocked_Create {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isBlocked_Read {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isBlocked_Update {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isBlocked_Delete {
-  permission: Boolean!
-}
-
 type RestaurantsFields_deliveryTime {
   create: RestaurantsFields_deliveryTime_Create
   read: RestaurantsFields_deliveryTime_Read
@@ -2330,29 +2490,6 @@ type RestaurantsFields_deliveryTime_Update {
 }
 
 type RestaurantsFields_deliveryTime_Delete {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isDelivery {
-  create: RestaurantsFields_isDelivery_Create
-  read: RestaurantsFields_isDelivery_Read
-  update: RestaurantsFields_isDelivery_Update
-  delete: RestaurantsFields_isDelivery_Delete
-}
-
-type RestaurantsFields_isDelivery_Create {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isDelivery_Read {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isDelivery_Update {
-  permission: Boolean!
-}
-
-type RestaurantsFields_isDelivery_Delete {
   permission: Boolean!
 }
 
@@ -2500,6 +2637,52 @@ type RestaurantsFields_isClosed_Delete {
   permission: Boolean!
 }
 
+type RestaurantsFields_isDelivery {
+  create: RestaurantsFields_isDelivery_Create
+  read: RestaurantsFields_isDelivery_Read
+  update: RestaurantsFields_isDelivery_Update
+  delete: RestaurantsFields_isDelivery_Delete
+}
+
+type RestaurantsFields_isDelivery_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isDelivery_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isDelivery_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isDelivery_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_bannerImage {
+  create: RestaurantsFields_bannerImage_Create
+  read: RestaurantsFields_bannerImage_Read
+  update: RestaurantsFields_bannerImage_Update
+  delete: RestaurantsFields_bannerImage_Delete
+}
+
+type RestaurantsFields_bannerImage_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_bannerImage_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_bannerImage_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_bannerImage_Delete {
+  permission: Boolean!
+}
+
 type RestaurantsFields_budgetCategory {
   create: RestaurantsFields_budgetCategory_Create
   read: RestaurantsFields_budgetCategory_Read
@@ -2520,6 +2703,52 @@ type RestaurantsFields_budgetCategory_Update {
 }
 
 type RestaurantsFields_budgetCategory_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isBlocked {
+  create: RestaurantsFields_isBlocked_Create
+  read: RestaurantsFields_isBlocked_Read
+  update: RestaurantsFields_isBlocked_Update
+  delete: RestaurantsFields_isBlocked_Delete
+}
+
+type RestaurantsFields_isBlocked_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isBlocked_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isBlocked_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_isBlocked_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_relatedToUser {
+  create: RestaurantsFields_relatedToUser_Create
+  read: RestaurantsFields_relatedToUser_Read
+  update: RestaurantsFields_relatedToUser_Update
+  delete: RestaurantsFields_relatedToUser_Delete
+}
+
+type RestaurantsFields_relatedToUser_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_relatedToUser_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_relatedToUser_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_relatedToUser_Delete {
   permission: Boolean!
 }
 
@@ -2612,211 +2841,6 @@ type RestaurantsDeleteAccess {
   where: JSONObject
 }
 
-type usersAccess {
-  fields: UsersFields
-  create: UsersCreateAccess
-  read: UsersReadAccess
-  update: UsersUpdateAccess
-  delete: UsersDeleteAccess
-  unlock: UsersUnlockAccess
-}
-
-type UsersFields {
-  name: UsersFields_name
-  restaurant: UsersFields_restaurant
-  roles: UsersFields_roles
-  updatedAt: UsersFields_updatedAt
-  createdAt: UsersFields_createdAt
-  email: UsersFields_email
-  password: UsersFields_password
-}
-
-type UsersFields_name {
-  create: UsersFields_name_Create
-  read: UsersFields_name_Read
-  update: UsersFields_name_Update
-  delete: UsersFields_name_Delete
-}
-
-type UsersFields_name_Create {
-  permission: Boolean!
-}
-
-type UsersFields_name_Read {
-  permission: Boolean!
-}
-
-type UsersFields_name_Update {
-  permission: Boolean!
-}
-
-type UsersFields_name_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_restaurant {
-  create: UsersFields_restaurant_Create
-  read: UsersFields_restaurant_Read
-  update: UsersFields_restaurant_Update
-  delete: UsersFields_restaurant_Delete
-}
-
-type UsersFields_restaurant_Create {
-  permission: Boolean!
-}
-
-type UsersFields_restaurant_Read {
-  permission: Boolean!
-}
-
-type UsersFields_restaurant_Update {
-  permission: Boolean!
-}
-
-type UsersFields_restaurant_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_roles {
-  create: UsersFields_roles_Create
-  read: UsersFields_roles_Read
-  update: UsersFields_roles_Update
-  delete: UsersFields_roles_Delete
-}
-
-type UsersFields_roles_Create {
-  permission: Boolean!
-}
-
-type UsersFields_roles_Read {
-  permission: Boolean!
-}
-
-type UsersFields_roles_Update {
-  permission: Boolean!
-}
-
-type UsersFields_roles_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_updatedAt {
-  create: UsersFields_updatedAt_Create
-  read: UsersFields_updatedAt_Read
-  update: UsersFields_updatedAt_Update
-  delete: UsersFields_updatedAt_Delete
-}
-
-type UsersFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type UsersFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type UsersFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type UsersFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_createdAt {
-  create: UsersFields_createdAt_Create
-  read: UsersFields_createdAt_Read
-  update: UsersFields_createdAt_Update
-  delete: UsersFields_createdAt_Delete
-}
-
-type UsersFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type UsersFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type UsersFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type UsersFields_createdAt_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_email {
-  create: UsersFields_email_Create
-  read: UsersFields_email_Read
-  update: UsersFields_email_Update
-  delete: UsersFields_email_Delete
-}
-
-type UsersFields_email_Create {
-  permission: Boolean!
-}
-
-type UsersFields_email_Read {
-  permission: Boolean!
-}
-
-type UsersFields_email_Update {
-  permission: Boolean!
-}
-
-type UsersFields_email_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_password {
-  create: UsersFields_password_Create
-  read: UsersFields_password_Read
-  update: UsersFields_password_Update
-  delete: UsersFields_password_Delete
-}
-
-type UsersFields_password_Create {
-  permission: Boolean!
-}
-
-type UsersFields_password_Read {
-  permission: Boolean!
-}
-
-type UsersFields_password_Update {
-  permission: Boolean!
-}
-
-type UsersFields_password_Delete {
-  permission: Boolean!
-}
-
-type UsersCreateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type UsersReadAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type UsersUpdateAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type UsersDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type UsersUnlockAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
 type mediaAccess {
   fields: MediaFields
   create: MediaCreateAccess
@@ -2827,7 +2851,7 @@ type mediaAccess {
 
 type MediaFields {
   alt: MediaFields_alt
-  caption: MediaFields_caption
+  createdBy: MediaFields_createdBy
   updatedAt: MediaFields_updatedAt
   createdAt: MediaFields_createdAt
   url: MediaFields_url
@@ -2863,26 +2887,26 @@ type MediaFields_alt_Delete {
   permission: Boolean!
 }
 
-type MediaFields_caption {
-  create: MediaFields_caption_Create
-  read: MediaFields_caption_Read
-  update: MediaFields_caption_Update
-  delete: MediaFields_caption_Delete
+type MediaFields_createdBy {
+  create: MediaFields_createdBy_Create
+  read: MediaFields_createdBy_Read
+  update: MediaFields_createdBy_Update
+  delete: MediaFields_createdBy_Delete
 }
 
-type MediaFields_caption_Create {
+type MediaFields_createdBy_Create {
   permission: Boolean!
 }
 
-type MediaFields_caption_Read {
+type MediaFields_createdBy_Read {
   permission: Boolean!
 }
 
-type MediaFields_caption_Update {
+type MediaFields_createdBy_Update {
   permission: Boolean!
 }
 
-type MediaFields_caption_Delete {
+type MediaFields_createdBy_Delete {
   permission: Boolean!
 }
 
@@ -3146,8 +3170,6 @@ type citiesAccess {
 
 type CitiesFields {
   title: CitiesFields_title
-  updatedAt: CitiesFields_updatedAt
-  createdAt: CitiesFields_createdAt
 }
 
 type CitiesFields_title {
@@ -3173,52 +3195,6 @@ type CitiesFields_title_Delete {
   permission: Boolean!
 }
 
-type CitiesFields_updatedAt {
-  create: CitiesFields_updatedAt_Create
-  read: CitiesFields_updatedAt_Read
-  update: CitiesFields_updatedAt_Update
-  delete: CitiesFields_updatedAt_Delete
-}
-
-type CitiesFields_updatedAt_Create {
-  permission: Boolean!
-}
-
-type CitiesFields_updatedAt_Read {
-  permission: Boolean!
-}
-
-type CitiesFields_updatedAt_Update {
-  permission: Boolean!
-}
-
-type CitiesFields_updatedAt_Delete {
-  permission: Boolean!
-}
-
-type CitiesFields_createdAt {
-  create: CitiesFields_createdAt_Create
-  read: CitiesFields_createdAt_Read
-  update: CitiesFields_createdAt_Update
-  delete: CitiesFields_createdAt_Delete
-}
-
-type CitiesFields_createdAt_Create {
-  permission: Boolean!
-}
-
-type CitiesFields_createdAt_Read {
-  permission: Boolean!
-}
-
-type CitiesFields_createdAt_Update {
-  permission: Boolean!
-}
-
-type CitiesFields_createdAt_Delete {
-  permission: Boolean!
-}
-
 type CitiesCreateAccess {
   permission: Boolean!
   where: JSONObject
@@ -3235,6 +3211,211 @@ type CitiesUpdateAccess {
 }
 
 type CitiesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type usersAccess {
+  fields: UsersFields
+  create: UsersCreateAccess
+  read: UsersReadAccess
+  update: UsersUpdateAccess
+  delete: UsersDeleteAccess
+  unlock: UsersUnlockAccess
+}
+
+type UsersFields {
+  name: UsersFields_name
+  restaurant: UsersFields_restaurant
+  roles: UsersFields_roles
+  updatedAt: UsersFields_updatedAt
+  createdAt: UsersFields_createdAt
+  email: UsersFields_email
+  password: UsersFields_password
+}
+
+type UsersFields_name {
+  create: UsersFields_name_Create
+  read: UsersFields_name_Read
+  update: UsersFields_name_Update
+  delete: UsersFields_name_Delete
+}
+
+type UsersFields_name_Create {
+  permission: Boolean!
+}
+
+type UsersFields_name_Read {
+  permission: Boolean!
+}
+
+type UsersFields_name_Update {
+  permission: Boolean!
+}
+
+type UsersFields_name_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_restaurant {
+  create: UsersFields_restaurant_Create
+  read: UsersFields_restaurant_Read
+  update: UsersFields_restaurant_Update
+  delete: UsersFields_restaurant_Delete
+}
+
+type UsersFields_restaurant_Create {
+  permission: Boolean!
+}
+
+type UsersFields_restaurant_Read {
+  permission: Boolean!
+}
+
+type UsersFields_restaurant_Update {
+  permission: Boolean!
+}
+
+type UsersFields_restaurant_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_roles {
+  create: UsersFields_roles_Create
+  read: UsersFields_roles_Read
+  update: UsersFields_roles_Update
+  delete: UsersFields_roles_Delete
+}
+
+type UsersFields_roles_Create {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Read {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Update {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_updatedAt {
+  create: UsersFields_updatedAt_Create
+  read: UsersFields_updatedAt_Read
+  update: UsersFields_updatedAt_Update
+  delete: UsersFields_updatedAt_Delete
+}
+
+type UsersFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type UsersFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type UsersFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type UsersFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_createdAt {
+  create: UsersFields_createdAt_Create
+  read: UsersFields_createdAt_Read
+  update: UsersFields_createdAt_Update
+  delete: UsersFields_createdAt_Delete
+}
+
+type UsersFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type UsersFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type UsersFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type UsersFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_email {
+  create: UsersFields_email_Create
+  read: UsersFields_email_Read
+  update: UsersFields_email_Update
+  delete: UsersFields_email_Delete
+}
+
+type UsersFields_email_Create {
+  permission: Boolean!
+}
+
+type UsersFields_email_Read {
+  permission: Boolean!
+}
+
+type UsersFields_email_Update {
+  permission: Boolean!
+}
+
+type UsersFields_email_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_password {
+  create: UsersFields_password_Create
+  read: UsersFields_password_Read
+  update: UsersFields_password_Update
+  delete: UsersFields_password_Delete
+}
+
+type UsersFields_password_Create {
+  permission: Boolean!
+}
+
+type UsersFields_password_Read {
+  permission: Boolean!
+}
+
+type UsersFields_password_Update {
+  permission: Boolean!
+}
+
+type UsersFields_password_Delete {
+  permission: Boolean!
+}
+
+type UsersCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type UsersUnlockAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -3394,6 +3575,12 @@ type Mutation {
   createRestaurant(data: mutationRestaurantInput!): Restaurant
   updateRestaurant(id: String!, autosave: Boolean, data: mutationRestaurantUpdateInput!): Restaurant
   deleteRestaurant(id: String!): Restaurant
+  createMedia(data: mutationMediaInput!): Media
+  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
+  deleteMedia(id: String!): Media
+  createCity(data: mutationCityInput!): City
+  updateCity(id: String!, autosave: Boolean, data: mutationCityUpdateInput!): City
+  deleteCity(id: String!): City
   createUser(data: mutationUserInput!): User
   updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!): User
   deleteUser(id: String!): User
@@ -3404,12 +3591,6 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
-  createMedia(data: mutationMediaInput!): Media
-  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
-  deleteMedia(id: String!): Media
-  createCity(data: mutationCityInput!): City
-  updateCity(id: String!, autosave: Boolean, data: mutationCityUpdateInput!): City
-  deleteCity(id: String!): City
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
@@ -3419,14 +3600,16 @@ input mutationRestaurantInput {
   title: String!
   description: String
   address: String!
-  isBlocked: Boolean
   deliveryTime: Restaurant_deliveryTime_MutationInput!
-  isDelivery: Boolean
   deliveryPrice: Float!
   freeAfterAmount: Float
   workingHours: mutationRestaurant_WorkingHoursInput!
   isClosed: Boolean
+  isDelivery: Boolean
+  bannerImage: String!
   budgetCategory: String
+  isBlocked: Boolean
+  relatedToUser: String
   cities: [String]
   updatedAt: String
   createdAt: String
@@ -3478,14 +3661,16 @@ input mutationRestaurantUpdateInput {
   title: String
   description: String
   address: String
-  isBlocked: Boolean
   deliveryTime: RestaurantUpdate_deliveryTime_MutationInput
-  isDelivery: Boolean
   deliveryPrice: Float
   freeAfterAmount: Float
   workingHours: mutationRestaurantUpdate_WorkingHoursInput!
   isClosed: Boolean
+  isDelivery: Boolean
+  bannerImage: String
   budgetCategory: String
+  isBlocked: Boolean
+  relatedToUser: String
   cities: [String]
   updatedAt: String
   createdAt: String
@@ -3531,6 +3716,44 @@ enum RestaurantUpdate_WorkingHours_closeTime_MutationInput {
   _2300
   _2330
   _2400
+}
+
+input mutationMediaInput {
+  alt: String!
+  createdBy: String
+  updatedAt: String
+  createdAt: String
+  url: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
+  focalX: Float
+  focalY: Float
+}
+
+input mutationMediaUpdateInput {
+  alt: String
+  createdBy: String
+  updatedAt: String
+  createdAt: String
+  url: String
+  filename: String
+  mimeType: String
+  filesize: Float
+  width: Float
+  height: Float
+  focalX: Float
+  focalY: Float
+}
+
+input mutationCityInput {
+  title: String
+}
+
+input mutationCityUpdateInput {
+  title: String
 }
 
 input mutationUserInput {
@@ -3598,48 +3821,6 @@ type usersLoginResult {
 type usersResetPassword {
   token: String
   user: User
-}
-
-input mutationMediaInput {
-  alt: String!
-  caption: JSON
-  updatedAt: String
-  createdAt: String
-  url: String
-  filename: String
-  mimeType: String
-  filesize: Float
-  width: Float
-  height: Float
-  focalX: Float
-  focalY: Float
-}
-
-input mutationMediaUpdateInput {
-  alt: String
-  caption: JSON
-  updatedAt: String
-  createdAt: String
-  url: String
-  filename: String
-  mimeType: String
-  filesize: Float
-  width: Float
-  height: Float
-  focalX: Float
-  focalY: Float
-}
-
-input mutationCityInput {
-  title: String
-  updatedAt: String
-  createdAt: String
-}
-
-input mutationCityUpdateInput {
-  title: String
-  updatedAt: String
-  createdAt: String
 }
 
 input mutationPayloadPreferenceInput {

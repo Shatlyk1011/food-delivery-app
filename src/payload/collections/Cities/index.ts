@@ -1,18 +1,18 @@
-import { admins } from "../../access/admins";
 import type { CollectionConfig } from "payload/types";
 
-const Cities: CollectionConfig = {
-  slug: "cities",
+import { admins } from "../../access/admins";
 
+const Cities: CollectionConfig = {
   access: {
     create: admins,
     delete: admins,
     read: admins,
     update: admins,
   },
+
   admin: {
-    useAsTitle: "title",
     defaultColumns: ["title", "createdAt"],
+    useAsTitle: "title",
   },
   fields: [
     {
@@ -20,6 +20,8 @@ const Cities: CollectionConfig = {
       type: "text",
     },
   ],
+  slug: "cities",
+  timestamps: false,
 };
 
 export default Cities;

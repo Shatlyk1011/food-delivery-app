@@ -1,10 +1,9 @@
-import axios from "../shared/lib/axios";
-
 import { useQuery } from "@tanstack/react-query";
+
+import axios from "../shared/lib/axios";
 
 export const useGetCategories = () => {
   const { data } = useQuery<CategoryResponse>({
-    queryKey: ["categories"],
     queryFn: async () => {
       const { data } = await axios({
         url: "/restaurants",
@@ -13,6 +12,7 @@ export const useGetCategories = () => {
       console.log("datares", data);
       return data;
     },
+    queryKey: ["categories"],
   });
 
   return { categories: data?.data };
