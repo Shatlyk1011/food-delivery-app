@@ -6,7 +6,7 @@ import { checkRole } from "../Users/checkRole";
 const Restaurants: CollectionConfig = {
   access: {
     create: admins,
-    delete: () => false,
+    delete: admins,
     read: ({ req: { user } }) => {
       if (user) {
         if (user.roles.includes("admin")) {
@@ -38,7 +38,7 @@ const Restaurants: CollectionConfig = {
     {
       name: "description",
       label: "Описание ресторана",
-      type: "textarea",
+      type: "text",
     },
     {
       name: "address",

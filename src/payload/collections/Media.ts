@@ -3,25 +3,18 @@ import type { CollectionConfig } from "payload/types";
 import path from "path";
 
 import { admins } from "../access/admins";
+import adminAndCreatedByUser from "./Users/access/adminAndCreatedByUser";
+import adminsAndUser from "./Users/access/adminsAndUser";
 
 const Media: CollectionConfig = {
   access: {
-    create: ({ req: { user } }) => !!user,
+    create: adminsAndUser,
     delete: admins,
-    read: ({ req: { user } }) => {
-      if (user) {
-        if (user.roles.includes("admin")) {
-          return true;
-        }
-        return {
-          createdBy: {
-            equals: user.id || null,
-          },
-        };
-      }
-      return false;
-    },
+    read: adminAndCreatedByUser,
     update: admins,
+  },
+  admin: {
+    defaultColumns: ["title", "createdBy", "createdAt"],
   },
   fields: [
     {
@@ -35,6 +28,7 @@ const Media: CollectionConfig = {
       admin: {
         position: "sidebar",
       },
+      label: "Пользователь",
       relationTo: "users",
       type: "relationship",
     },
@@ -50,6 +44,7 @@ const Media: CollectionConfig = {
     ],
   },
   slug: "media",
+
   upload: {
     formatOptions: {
       format: "webp",

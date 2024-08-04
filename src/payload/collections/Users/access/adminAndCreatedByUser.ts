@@ -2,15 +2,15 @@ import type { Access } from "payload/types";
 
 import { checkRole } from "../checkRole";
 
-const adminsAndUser: Access = ({ req: { user } }) => {
+const adminAndCreatedByUser: Access = ({ req: { user } }) => {
   if (user) {
     if (checkRole(["admin"], user)) {
       return true;
     }
 
     return {
-      id: {
-        equals: user.id || null,
+      createdBy: {
+        equals: user.id,
       },
     };
   }
@@ -18,4 +18,4 @@ const adminsAndUser: Access = ({ req: { user } }) => {
   return false;
 };
 
-export default adminsAndUser;
+export default adminAndCreatedByUser;

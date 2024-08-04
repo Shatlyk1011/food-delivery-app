@@ -9,9 +9,10 @@
 export interface Config {
   collections: {
     restaurants: Restaurant;
-    users: User;
     media: Media;
     cities: City;
+    users: User;
+    dishes: Dish;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -89,6 +90,25 @@ export interface User {
 export interface City {
   id: string;
   title?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dishes".
+ */
+export interface Dish {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  gram: number;
+  availableAmount?: number | null;
+  cookTime: number;
+  image?: string | Media | null;
+  restaurant: string | Restaurant;
+  createdBy?: (string | null) | User;
+  isBlocked?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -17,6 +17,10 @@ type Query {
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
+  Dish(id: String!): Dish
+  Dishes(where: Dish_where, limit: Int, page: Int, sort: String): Dishes
+  countDishes(where: Dish_where): countDishes
+  docAccessDish(id: String!): dishesDocAccess
   PayloadPreference(id: String!): PayloadPreference
   PayloadPreferences(where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(where: PayloadPreference_where): countPayloadPreferences
@@ -392,6 +396,9 @@ input Restaurant_description_operator {
   not_equals: String
   like: String
   contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -2080,6 +2087,718 @@ type usersMe {
   user: User
 }
 
+type Dish {
+  id: String
+  title: String!
+  description: String!
+  price: Float!
+  gram: Float!
+  availableAmount: Float
+  cookTime: Float!
+  image(where: Dish_Image_where): Media
+  restaurant: Restaurant!
+  createdBy: User
+  isBlocked: Boolean
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+input Dish_Image_where {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
+input Dish_Image_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Dish_Image_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Dish_Image_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dish_Image_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dish_Image_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_focalX_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_focalY_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_where_and {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
+input Dish_Image_where_or {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
+type Dishes {
+  docs: [Dish]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Dish_where {
+  title: Dish_title_operator
+  description: Dish_description_operator
+  price: Dish_price_operator
+  gram: Dish_gram_operator
+  availableAmount: Dish_availableAmount_operator
+  cookTime: Dish_cookTime_operator
+  image: Dish_image_operator
+  restaurant: Dish_restaurant_operator
+  createdBy: Dish_createdBy_operator
+  isBlocked: Dish_isBlocked_operator
+  updatedAt: Dish_updatedAt_operator
+  createdAt: Dish_createdAt_operator
+  id: Dish_id_operator
+  AND: [Dish_where_and]
+  OR: [Dish_where_or]
+}
+
+input Dish_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Dish_description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+}
+
+input Dish_price_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Dish_gram_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Dish_availableAmount_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_cookTime_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Dish_image_operator {
+  equals: String
+  not_equals: String
+  exists: Boolean
+}
+
+input Dish_restaurant_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Dish_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Dish_isBlocked_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Dish_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dish_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dish_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_where_and {
+  title: Dish_title_operator
+  description: Dish_description_operator
+  price: Dish_price_operator
+  gram: Dish_gram_operator
+  availableAmount: Dish_availableAmount_operator
+  cookTime: Dish_cookTime_operator
+  image: Dish_image_operator
+  restaurant: Dish_restaurant_operator
+  createdBy: Dish_createdBy_operator
+  isBlocked: Dish_isBlocked_operator
+  updatedAt: Dish_updatedAt_operator
+  createdAt: Dish_createdAt_operator
+  id: Dish_id_operator
+  AND: [Dish_where_and]
+  OR: [Dish_where_or]
+}
+
+input Dish_where_or {
+  title: Dish_title_operator
+  description: Dish_description_operator
+  price: Dish_price_operator
+  gram: Dish_gram_operator
+  availableAmount: Dish_availableAmount_operator
+  cookTime: Dish_cookTime_operator
+  image: Dish_image_operator
+  restaurant: Dish_restaurant_operator
+  createdBy: Dish_createdBy_operator
+  isBlocked: Dish_isBlocked_operator
+  updatedAt: Dish_updatedAt_operator
+  createdAt: Dish_createdAt_operator
+  id: Dish_id_operator
+  AND: [Dish_where_and]
+  OR: [Dish_where_or]
+}
+
+type countDishes {
+  totalDocs: Int
+}
+
+type dishesDocAccess {
+  fields: DishesDocAccessFields
+  create: DishesCreateDocAccess
+  read: DishesReadDocAccess
+  update: DishesUpdateDocAccess
+  delete: DishesDeleteDocAccess
+}
+
+type DishesDocAccessFields {
+  title: DishesDocAccessFields_title
+  description: DishesDocAccessFields_description
+  price: DishesDocAccessFields_price
+  gram: DishesDocAccessFields_gram
+  availableAmount: DishesDocAccessFields_availableAmount
+  cookTime: DishesDocAccessFields_cookTime
+  image: DishesDocAccessFields_image
+  restaurant: DishesDocAccessFields_restaurant
+  createdBy: DishesDocAccessFields_createdBy
+  isBlocked: DishesDocAccessFields_isBlocked
+  updatedAt: DishesDocAccessFields_updatedAt
+  createdAt: DishesDocAccessFields_createdAt
+}
+
+type DishesDocAccessFields_title {
+  create: DishesDocAccessFields_title_Create
+  read: DishesDocAccessFields_title_Read
+  update: DishesDocAccessFields_title_Update
+  delete: DishesDocAccessFields_title_Delete
+}
+
+type DishesDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_description {
+  create: DishesDocAccessFields_description_Create
+  read: DishesDocAccessFields_description_Read
+  update: DishesDocAccessFields_description_Update
+  delete: DishesDocAccessFields_description_Delete
+}
+
+type DishesDocAccessFields_description_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_description_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_description_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_description_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_price {
+  create: DishesDocAccessFields_price_Create
+  read: DishesDocAccessFields_price_Read
+  update: DishesDocAccessFields_price_Update
+  delete: DishesDocAccessFields_price_Delete
+}
+
+type DishesDocAccessFields_price_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_price_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_price_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_price_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_gram {
+  create: DishesDocAccessFields_gram_Create
+  read: DishesDocAccessFields_gram_Read
+  update: DishesDocAccessFields_gram_Update
+  delete: DishesDocAccessFields_gram_Delete
+}
+
+type DishesDocAccessFields_gram_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_gram_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_gram_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_gram_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_availableAmount {
+  create: DishesDocAccessFields_availableAmount_Create
+  read: DishesDocAccessFields_availableAmount_Read
+  update: DishesDocAccessFields_availableAmount_Update
+  delete: DishesDocAccessFields_availableAmount_Delete
+}
+
+type DishesDocAccessFields_availableAmount_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_availableAmount_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_availableAmount_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_availableAmount_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_cookTime {
+  create: DishesDocAccessFields_cookTime_Create
+  read: DishesDocAccessFields_cookTime_Read
+  update: DishesDocAccessFields_cookTime_Update
+  delete: DishesDocAccessFields_cookTime_Delete
+}
+
+type DishesDocAccessFields_cookTime_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_cookTime_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_cookTime_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_cookTime_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_image {
+  create: DishesDocAccessFields_image_Create
+  read: DishesDocAccessFields_image_Read
+  update: DishesDocAccessFields_image_Update
+  delete: DishesDocAccessFields_image_Delete
+}
+
+type DishesDocAccessFields_image_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_image_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_image_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_image_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_restaurant {
+  create: DishesDocAccessFields_restaurant_Create
+  read: DishesDocAccessFields_restaurant_Read
+  update: DishesDocAccessFields_restaurant_Update
+  delete: DishesDocAccessFields_restaurant_Delete
+}
+
+type DishesDocAccessFields_restaurant_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_restaurant_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_restaurant_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_restaurant_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_createdBy {
+  create: DishesDocAccessFields_createdBy_Create
+  read: DishesDocAccessFields_createdBy_Read
+  update: DishesDocAccessFields_createdBy_Update
+  delete: DishesDocAccessFields_createdBy_Delete
+}
+
+type DishesDocAccessFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_isBlocked {
+  create: DishesDocAccessFields_isBlocked_Create
+  read: DishesDocAccessFields_isBlocked_Read
+  update: DishesDocAccessFields_isBlocked_Update
+  delete: DishesDocAccessFields_isBlocked_Delete
+}
+
+type DishesDocAccessFields_isBlocked_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_isBlocked_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_isBlocked_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_isBlocked_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_updatedAt {
+  create: DishesDocAccessFields_updatedAt_Create
+  read: DishesDocAccessFields_updatedAt_Read
+  update: DishesDocAccessFields_updatedAt_Update
+  delete: DishesDocAccessFields_updatedAt_Delete
+}
+
+type DishesDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_createdAt {
+  create: DishesDocAccessFields_createdAt_Create
+  read: DishesDocAccessFields_createdAt_Read
+  update: DishesDocAccessFields_createdAt_Update
+  delete: DishesDocAccessFields_createdAt_Delete
+}
+
+type DishesDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type DishesDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type DishesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DishesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DishesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DishesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadPreference {
   id: String
   user: PayloadPreference_User_Relationship!
@@ -2371,6 +3090,7 @@ type Access {
   media: mediaAccess
   cities: citiesAccess
   users: usersAccess
+  dishes: dishesAccess
   payload_preferences: payload_preferencesAccess
 }
 
@@ -3420,6 +4140,325 @@ type UsersUnlockAccess {
   where: JSONObject
 }
 
+type dishesAccess {
+  fields: DishesFields
+  create: DishesCreateAccess
+  read: DishesReadAccess
+  update: DishesUpdateAccess
+  delete: DishesDeleteAccess
+}
+
+type DishesFields {
+  title: DishesFields_title
+  description: DishesFields_description
+  price: DishesFields_price
+  gram: DishesFields_gram
+  availableAmount: DishesFields_availableAmount
+  cookTime: DishesFields_cookTime
+  image: DishesFields_image
+  restaurant: DishesFields_restaurant
+  createdBy: DishesFields_createdBy
+  isBlocked: DishesFields_isBlocked
+  updatedAt: DishesFields_updatedAt
+  createdAt: DishesFields_createdAt
+}
+
+type DishesFields_title {
+  create: DishesFields_title_Create
+  read: DishesFields_title_Read
+  update: DishesFields_title_Update
+  delete: DishesFields_title_Delete
+}
+
+type DishesFields_title_Create {
+  permission: Boolean!
+}
+
+type DishesFields_title_Read {
+  permission: Boolean!
+}
+
+type DishesFields_title_Update {
+  permission: Boolean!
+}
+
+type DishesFields_title_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_description {
+  create: DishesFields_description_Create
+  read: DishesFields_description_Read
+  update: DishesFields_description_Update
+  delete: DishesFields_description_Delete
+}
+
+type DishesFields_description_Create {
+  permission: Boolean!
+}
+
+type DishesFields_description_Read {
+  permission: Boolean!
+}
+
+type DishesFields_description_Update {
+  permission: Boolean!
+}
+
+type DishesFields_description_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_price {
+  create: DishesFields_price_Create
+  read: DishesFields_price_Read
+  update: DishesFields_price_Update
+  delete: DishesFields_price_Delete
+}
+
+type DishesFields_price_Create {
+  permission: Boolean!
+}
+
+type DishesFields_price_Read {
+  permission: Boolean!
+}
+
+type DishesFields_price_Update {
+  permission: Boolean!
+}
+
+type DishesFields_price_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_gram {
+  create: DishesFields_gram_Create
+  read: DishesFields_gram_Read
+  update: DishesFields_gram_Update
+  delete: DishesFields_gram_Delete
+}
+
+type DishesFields_gram_Create {
+  permission: Boolean!
+}
+
+type DishesFields_gram_Read {
+  permission: Boolean!
+}
+
+type DishesFields_gram_Update {
+  permission: Boolean!
+}
+
+type DishesFields_gram_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_availableAmount {
+  create: DishesFields_availableAmount_Create
+  read: DishesFields_availableAmount_Read
+  update: DishesFields_availableAmount_Update
+  delete: DishesFields_availableAmount_Delete
+}
+
+type DishesFields_availableAmount_Create {
+  permission: Boolean!
+}
+
+type DishesFields_availableAmount_Read {
+  permission: Boolean!
+}
+
+type DishesFields_availableAmount_Update {
+  permission: Boolean!
+}
+
+type DishesFields_availableAmount_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_cookTime {
+  create: DishesFields_cookTime_Create
+  read: DishesFields_cookTime_Read
+  update: DishesFields_cookTime_Update
+  delete: DishesFields_cookTime_Delete
+}
+
+type DishesFields_cookTime_Create {
+  permission: Boolean!
+}
+
+type DishesFields_cookTime_Read {
+  permission: Boolean!
+}
+
+type DishesFields_cookTime_Update {
+  permission: Boolean!
+}
+
+type DishesFields_cookTime_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_image {
+  create: DishesFields_image_Create
+  read: DishesFields_image_Read
+  update: DishesFields_image_Update
+  delete: DishesFields_image_Delete
+}
+
+type DishesFields_image_Create {
+  permission: Boolean!
+}
+
+type DishesFields_image_Read {
+  permission: Boolean!
+}
+
+type DishesFields_image_Update {
+  permission: Boolean!
+}
+
+type DishesFields_image_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_restaurant {
+  create: DishesFields_restaurant_Create
+  read: DishesFields_restaurant_Read
+  update: DishesFields_restaurant_Update
+  delete: DishesFields_restaurant_Delete
+}
+
+type DishesFields_restaurant_Create {
+  permission: Boolean!
+}
+
+type DishesFields_restaurant_Read {
+  permission: Boolean!
+}
+
+type DishesFields_restaurant_Update {
+  permission: Boolean!
+}
+
+type DishesFields_restaurant_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_createdBy {
+  create: DishesFields_createdBy_Create
+  read: DishesFields_createdBy_Read
+  update: DishesFields_createdBy_Update
+  delete: DishesFields_createdBy_Delete
+}
+
+type DishesFields_createdBy_Create {
+  permission: Boolean!
+}
+
+type DishesFields_createdBy_Read {
+  permission: Boolean!
+}
+
+type DishesFields_createdBy_Update {
+  permission: Boolean!
+}
+
+type DishesFields_createdBy_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_isBlocked {
+  create: DishesFields_isBlocked_Create
+  read: DishesFields_isBlocked_Read
+  update: DishesFields_isBlocked_Update
+  delete: DishesFields_isBlocked_Delete
+}
+
+type DishesFields_isBlocked_Create {
+  permission: Boolean!
+}
+
+type DishesFields_isBlocked_Read {
+  permission: Boolean!
+}
+
+type DishesFields_isBlocked_Update {
+  permission: Boolean!
+}
+
+type DishesFields_isBlocked_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_updatedAt {
+  create: DishesFields_updatedAt_Create
+  read: DishesFields_updatedAt_Read
+  update: DishesFields_updatedAt_Update
+  delete: DishesFields_updatedAt_Delete
+}
+
+type DishesFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type DishesFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type DishesFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type DishesFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type DishesFields_createdAt {
+  create: DishesFields_createdAt_Create
+  read: DishesFields_createdAt_Read
+  update: DishesFields_createdAt_Update
+  delete: DishesFields_createdAt_Delete
+}
+
+type DishesFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type DishesFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type DishesFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type DishesFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type DishesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DishesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DishesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type DishesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_preferencesAccess {
   fields: PayloadPreferencesFields
   create: PayloadPreferencesCreateAccess
@@ -3591,6 +4630,9 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
+  createDish(data: mutationDishInput!): Dish
+  updateDish(id: String!, autosave: Boolean, data: mutationDishUpdateInput!): Dish
+  deleteDish(id: String!): Dish
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
@@ -3821,6 +4863,36 @@ type usersLoginResult {
 type usersResetPassword {
   token: String
   user: User
+}
+
+input mutationDishInput {
+  title: String!
+  description: String!
+  price: Float!
+  gram: Float!
+  availableAmount: Float
+  cookTime: Float!
+  image: String
+  restaurant: String
+  createdBy: String
+  isBlocked: Boolean
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationDishUpdateInput {
+  title: String
+  description: String
+  price: Float
+  gram: Float
+  availableAmount: Float
+  cookTime: Float
+  image: String
+  restaurant: String
+  createdBy: String
+  isBlocked: Boolean
+  updatedAt: String
+  createdAt: String
 }
 
 input mutationPayloadPreferenceInput {

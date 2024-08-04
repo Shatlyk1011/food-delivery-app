@@ -6,6 +6,7 @@ import path from "path";
 import { buildConfig } from "payload/config";
 
 import Cities from "./collections/Cities";
+import Dishes from "./collections/Dishes";
 import Media from "./collections/Media";
 import Restaurants from "./collections/Restaurants";
 import Users from "./collections/Users";
@@ -33,7 +34,7 @@ export default buildConfig({
       },
     }),
   },
-  collections: [Restaurants, Media, Cities, Users],
+  collections: [Restaurants, Media, Cities, Users, Dishes],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   editor: lexicalEditor({}),

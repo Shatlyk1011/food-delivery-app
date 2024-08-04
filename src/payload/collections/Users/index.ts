@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload/types";
 
 import { admins } from "../../access/admins";
+import adminsAndUser from "./access/adminsAndUser";
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
 
 const Users: CollectionConfig = {
@@ -8,18 +9,7 @@ const Users: CollectionConfig = {
     admin: () => true,
     create: admins,
     delete: admins,
-    read: ({ req: { user } }) => {
-      if (user) {
-        if (user.roles.includes("admin")) {
-          return true;
-        }
-        return {
-          id: {
-            equals: user.id || null,
-          },
-        };
-      }
-    },
+    read: adminsAndUser,
     update: admins,
   },
 
@@ -40,11 +30,6 @@ const Users: CollectionConfig = {
     },
     {
       name: "restaurant",
-      access: {
-        create: admins,
-        read: () => true,
-        update: () => true,
-      },
       relationTo: "restaurants",
       type: "relationship",
     },
