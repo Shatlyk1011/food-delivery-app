@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { NextIntlClientProvider, useMessages } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { Provider as JotaiProvider } from "jotai";
 import { Inter } from "next/font/google";
 
@@ -23,8 +24,8 @@ export const metadata: Metadata = {
   title: "Food Delivery App",
 };
 
-export default function RootLayout({ children, params: { locale } }: Props) {
-  const messages = useMessages();
+export default async function RootLayout({ children, params: { locale } }: Props) {
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>

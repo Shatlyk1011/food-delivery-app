@@ -85,5 +85,10 @@
     "totalPrice": "Jemi",
     "submit": "Tassykla we sargyt et",
     "menuReturn": "Restoranlaryň sanawyna dolan"
+  },
+
+  "Placeholder": {
+    "email": "Email",
+    "password": "Parol"
   }
 }

@@ -21,7 +21,7 @@ const useSidebar = (isAuth = true) => {
 
   const { languageTitle, handleChange } = useChangeLanguage();
 
-  const t = useTranslations();
+  const t = useTranslations("Index");
 
   function handleToProfile() {
     // router.push("/profile");
@@ -49,37 +49,37 @@ const useSidebar = (isAuth = true) => {
 
   const list = [
     {
-      title: t("Index.home"),
+      title: t("home"),
       icon: <HomeIcon className="h-5 w-5" />,
       onClick: handleHome,
       authRequired: true,
     },
     {
-      title: t("Index.profile"),
+      title: t("profile"),
       icon: <ProfileIcon className="h-5 w-5" />,
       onClick: handleToProfile,
       authRequired: true,
     },
     {
-      title: t("Index.bucket"),
+      title: t("bucket"),
       icon: <BucketIcon className="h-5 w-5" />,
       onClick: handleToBucket,
       authRequired: true,
       miniDishesCount: <MiniDishesCount className="right-0staging relative" />,
     },
     {
-      title: selectedCity ? `${t("Index.city")}: ${selectedCity}` : t("Index.chooseCity"),
+      title: selectedCity ? `${t("city")}: ${selectedCity}` : t("chooseCity"),
       icon: <LocationIcon className="h-5 w-5" />,
       onClick: () => setOverlap("cities"),
       authRequired: false,
     },
     {
-      title: `${t("Index.language")}: ${languageTitle}`,
+      title: `${t("language")}: ${languageTitle}`,
       icon: <EarthIcon className="h-5 w-5" />,
       onClick: () => setOverlap("language"),
       authRequired: false,
     },
-    { title: t("Index.logout"), icon: <ExitIcon className="h-5 w-5" />, onClick: handleClose, authRequired: true },
+    { title: t("logout"), icon: <ExitIcon className="h-5 w-5" />, onClick: handleClose, authRequired: true },
   ];
   const sidebarList = (() => (!isAuth ? list.filter((item) => item.authRequired === false) : list))();
   const overlapList = overlap === "language" ? LANGUAGES : CITIES;

@@ -24,7 +24,7 @@ const Index: FC<Props> = ({ t, classes }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder={key} {...field} className="h-12 w-full px-[14px]" />
+                  <Input placeholder={t(`Placeholder.${key}`)} {...field} className="h-12 w-full px-[14px]" />
                 </FormControl>
                 <FormMessage className="mt-1" />
               </FormItem>

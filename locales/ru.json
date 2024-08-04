@@ -85,5 +85,10 @@
     "totalPrice": "Общая стоимость",
     "submit": "Подтвердить и заказать",
     "menuReturn": "Вернуться к списку ресторанов"
+  },
+
+  "Placeholder": {
+    "email": "Email",
+    "password": "Пароль"
   }
 }

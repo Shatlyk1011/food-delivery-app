@@ -69,7 +69,7 @@ const restaurantItems = [
 ];
 
 export default function Home() {
-  const t = useTranslations();
+  const t = useTranslations("MainPage");
 
   const [filters, setFilters] = useState<RestaurantFilters>({
     deliveryTime: null,
@@ -129,7 +129,7 @@ export default function Home() {
   return (
     <main className="min-h-[calc(100vh-336px)]">
       <div className="mx-auto box-content max-w-[1440px] px-8 pt-12 2xl:pt-8 xl:px-5 xl:pt-6 md:px-3 md:pt-4">
-        <h1 className="mb-8 text-5xl font-bold 2xl:mb-6 2xl:text-4xl md:mb-3 md:text-2xl">{t("MainPage.heading")}</h1>
+        <h1 className="mb-8 text-5xl font-bold 2xl:mb-6 2xl:text-4xl md:mb-3 md:text-2xl">{t("heading")}</h1>
         <div>
           <CategoriesBar categories={categories} handleFilters={handleFilters} />
           <div className="manual_grid_300 -mx-4 mt-8 md:-mx-2 md:mt-5">
