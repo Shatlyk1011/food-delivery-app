@@ -46,7 +46,7 @@ const Index: FC<Props> = ({ t }) => {
             </button>
           </div>
           <div className="perfect-scrollbar h-96 space-y-6">
-            {selectedItems.map((item) => (
+            {selectedItems?.dishes?.map((item) => (
               <MiniItem
                 key={item.id}
                 item={item}
@@ -54,7 +54,7 @@ const Index: FC<Props> = ({ t }) => {
                 increase={() => increaseItem(item)}
               />
             ))}
-            {!selectedItems.length && <EmptyBucket title={t("Index.noItems")} />}
+            {!selectedItems?.dishes?.length && <EmptyBucket title={t("Index.noItems")} />}
           </div>
           <PopoverClose
             onClick={handleToBucket}

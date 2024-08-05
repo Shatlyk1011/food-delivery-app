@@ -93,7 +93,7 @@ importers:
         specifier: ^0.11.1
         version: 0.11.2(@lexical/clipboard@0.13.1(lexical@0.13.1))(payload@2.25.0(@swc/helpers@0.5.5)(@types/react@18.3.3)(typescript@5.2.2)(webpack@5.93.0(@swc/core@1.7.3(@swc/helpers@0.5.5))(webpack-cli@4.10.0)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.2.2)(yjs@13.6.18)
       '@radix-ui/react-dialog':
-        specifier: ^1.0.5
+        specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-label':
         specifier: ^2.0.2

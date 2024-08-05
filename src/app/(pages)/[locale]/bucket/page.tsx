@@ -1,16 +1,16 @@
 "use client";
 import { useTranslations } from "next-intl";
 
+//jotai
+import { useAtomValue } from "jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
+
 //widgets
 import BucketForm from "@/app/widgets/BucketPage/BucketForm";
 import TotalPrice from "@/app/widgets/BucketPage/TotalPrice";
 import Orders from "@/app/widgets/BucketPage/Orders";
 
 import { Form } from "@/app/components/shared-ui/Form/form";
-
-//jotai
-import { useAtom } from "jotai";
-import atoms from "@/app/(pages)/_providers/jotai";
 
 //hooks
 import { useBucketFormScheme } from "@/app/hooks/formSchemes";
@@ -20,7 +20,7 @@ export default function Bucket() {
   const { form, onSubmit } = useBucketFormScheme();
   const { totalPrice } = useProductItem();
 
-  const [isDelivery, setIsDelivery] = useAtom(atoms.isDelivery);
+  const isDelivery = useAtomValue(atoms.isDelivery);
 
   const t = useTranslations();
   return (

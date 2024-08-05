@@ -22,7 +22,9 @@
     "logout": "Выйти",
     "language": "Язык",
     "home": "На главную",
-    "categories": "Категории"
+    "categories": "Категории",
+    "cancel": "Отмена",
+    "continue": "Продолжить"
   },
 
   "Login": {
@@ -59,7 +61,10 @@
   },
 
   "RestaurantPage": {
-    "menu": "Меню"
+    "menu": "Меню",
+    "currentRestaurant": "Текущий ресторан",
+    "changeRestaurant1": "Все ранее добавленные блюда из ресторанa",
+    "changeRestaurant2": "будут удалены из корзины."
   },
 
   "BucketForm": {
@@ -85,7 +90,9 @@
     "totalPrice": "Общая стоимость",
     "submit": "Подтвердить и заказать",
     "menuReturn": "Вернуться к списку ресторанов",
-    "clearTrash": "Очистить корзину"
+    "clearTrash": "Очистить корзину",
+    "yesClear": "Очистить",
+    "noClear": "Нет, оставить"
   },
 
   "Placeholder": {

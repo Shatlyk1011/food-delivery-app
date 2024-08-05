@@ -3,12 +3,19 @@ import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
+//atoms
+import { useAtom, useAtomValue } from "jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
+
 import useProductItem from "@/app/hooks/useProductItem";
+
 //widgets
 import Banner from "@/app/widgets/RestaurantPage/Banner";
 import MenuSidebar from "@/app/widgets/RestaurantPage/MenuSidebar";
 import Product from "@/app/widgets/RestaurantPage/Product";
 const Cart = dynamic(() => import("@/app/widgets/RestaurantPage/Cart"), { ssr: false });
+const ClearCartModal = dynamic(() => import("@/app/widgets/RestaurantPage/ClearCartModal"), { ssr: false });
+
 import ProductSkeleton from "@/app/widgets/RestaurantPage/Product/Skeleton";
 
 const foodDescriptions = [
@@ -87,9 +94,21 @@ const dishes = [
   },
 ];
 
-export default function Home() {
+export default function Home({ params: { id } }) {
   const t = useTranslations();
   const [isLoading, setIsLoading] = useState(true);
+  const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
+  const selectedItems = useAtomValue(atoms.selectedItems);
+
+  const { addItem, clearItems } = useProductItem();
+
+  const closeModal = () => {
+    setIsClearModal(false);
+  };
+  const handleClear = () => {
+    clearItems();
+    closeModal();
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -97,8 +116,6 @@ export default function Home() {
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
-
-  const { addItem } = useProductItem();
 
   return (
     <main className="box-content bg-bg-2">
@@ -116,7 +133,7 @@ export default function Home() {
                     <Product
                       key={Math.random() + 1000}
                       item={item}
-                      addItem={() => addItem(item)}
+                      addItem={() => addItem(item, { id, name: "Los Pollas" })}
                       addTitle={t("Index.add")}
                     />
                   ))
@@ -126,11 +143,20 @@ export default function Home() {
           </div>
           <aside className="right-32 top-48 ml-8 w-80 2xl:ml-4  xl:hidden">
             <div className="sticky right-0 top-24">
-              <Cart t={t} />
+              <Cart t={t} restaurantTitle={selectedItems.restaurantInfo.name || "backend name"} />
             </div>
           </aside>
         </div>
       </div>
+      {isClearModal && (
+        <ClearCartModal
+          t={t}
+          handleClear={handleClear}
+          close={closeModal}
+          selectedRest={selectedItems.restaurantInfo.name}
+          currentRest={"Los Pollos2"}
+        />
+      )}
     </main>
   );
 }

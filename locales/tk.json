@@ -22,7 +22,9 @@
     "logout": "Çyk",
     "language": "Dil",
     "home": "Baş sahypa",
-    "categories": "Görnüşler"
+    "categories": "Görnüşler",
+    "cancel": "Ýatyr",
+    "continue": "Dowam et"
   },
 
   "Login": {
@@ -59,7 +61,10 @@
   },
 
   "RestaurantPage": {
-    "menu": "Menýu"
+    "menu": "Menýu",
+    "currentRestaurant": "Häzirki restoran",
+    "changeRestaurant1": "Ozalky",
+    "changeRestaurant2": "restorandan goşulan naharlaryň hemmesi arabadan aýrylar."
   },
 
   "BucketForm": {
@@ -85,7 +90,9 @@
     "totalPrice": "Jemi",
     "submit": "Tassykla we sargyt et",
     "menuReturn": "Restoranlaryň sanawyna dolan",
-    "clearTrash": "Sebeti arrassala"
+    "clearTrash": "Sebeti arrassala",
+    "yesClear": "Arrassala",
+    "noClear": "Ýok, islämok"
   },
 
   "Placeholder": {
