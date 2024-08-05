@@ -224,8 +224,14 @@ const Restaurants: CollectionConfig = {
       name: "bannerImage",
       label: "Фото ",
       relationTo: "media",
-      required: true,
+      required: false,
       type: "upload",
+    },
+    {
+      name: "dishes",
+      type: "relationship",
+      relationTo: "dishes",
+      hasMany: true,
     },
     {
       name: "budgetCategory",

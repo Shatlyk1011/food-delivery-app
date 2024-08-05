@@ -39,7 +39,8 @@ type Restaurant {
   workingHours: Restaurant_WorkingHours
   isClosed: Boolean
   isDelivery: Boolean!
-  bannerImage(where: Restaurant_BannerImage_where): Media!
+  bannerImage(where: Restaurant_BannerImage_where): Media
+  dishes: [Dish!]
   budgetCategory: Restaurant_budgetCategory
   isBlocked: Boolean
   relatedToUser: User!
@@ -333,6 +334,211 @@ input Restaurant_BannerImage_where_or {
   OR: [Restaurant_BannerImage_where_or]
 }
 
+type Dish {
+  id: String
+  title: String!
+  description: String!
+  price: Float!
+  gram: Float!
+  availableAmount: Float
+  cookTime: Float!
+  image(where: Dish_Image_where): Media
+  restaurant: Restaurant!
+  createdBy: User
+  isBlocked: Boolean
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+input Dish_Image_where {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
+input Dish_Image_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Dish_Image_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Dish_Image_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dish_Image_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dish_Image_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_focalX_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_focalY_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_where_and {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
+input Dish_Image_where_or {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
 enum Restaurant_budgetCategory {
   cheap
   average
@@ -370,6 +576,7 @@ input Restaurant_where {
   isClosed: Restaurant_isClosed_operator
   isDelivery: Restaurant_isDelivery_operator
   bannerImage: Restaurant_bannerImage_operator
+  dishes: Restaurant_dishes_operator
   budgetCategory: Restaurant_budgetCategory_operator
   isBlocked: Restaurant_isBlocked_operator
   relatedToUser: Restaurant_relatedToUser_operator
@@ -506,6 +713,16 @@ input Restaurant_isDelivery_operator {
 input Restaurant_bannerImage_operator {
   equals: String
   not_equals: String
+  exists: Boolean
+}
+
+input Restaurant_dishes_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
 }
 
 input Restaurant_budgetCategory_operator {
@@ -590,6 +807,7 @@ input Restaurant_where_and {
   isClosed: Restaurant_isClosed_operator
   isDelivery: Restaurant_isDelivery_operator
   bannerImage: Restaurant_bannerImage_operator
+  dishes: Restaurant_dishes_operator
   budgetCategory: Restaurant_budgetCategory_operator
   isBlocked: Restaurant_isBlocked_operator
   relatedToUser: Restaurant_relatedToUser_operator
@@ -613,6 +831,7 @@ input Restaurant_where_or {
   isClosed: Restaurant_isClosed_operator
   isDelivery: Restaurant_isDelivery_operator
   bannerImage: Restaurant_bannerImage_operator
+  dishes: Restaurant_dishes_operator
   budgetCategory: Restaurant_budgetCategory_operator
   isBlocked: Restaurant_isBlocked_operator
   relatedToUser: Restaurant_relatedToUser_operator
@@ -647,6 +866,7 @@ type RestaurantsDocAccessFields {
   isClosed: RestaurantsDocAccessFields_isClosed
   isDelivery: RestaurantsDocAccessFields_isDelivery
   bannerImage: RestaurantsDocAccessFields_bannerImage
+  dishes: RestaurantsDocAccessFields_dishes
   budgetCategory: RestaurantsDocAccessFields_budgetCategory
   isBlocked: RestaurantsDocAccessFields_isBlocked
   relatedToUser: RestaurantsDocAccessFields_relatedToUser
@@ -934,6 +1154,29 @@ type RestaurantsDocAccessFields_bannerImage_Update {
 }
 
 type RestaurantsDocAccessFields_bannerImage_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_dishes {
+  create: RestaurantsDocAccessFields_dishes_Create
+  read: RestaurantsDocAccessFields_dishes_Read
+  update: RestaurantsDocAccessFields_dishes_Update
+  delete: RestaurantsDocAccessFields_dishes_Delete
+}
+
+type RestaurantsDocAccessFields_dishes_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_dishes_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_dishes_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_dishes_Delete {
   permission: Boolean!
 }
 
@@ -2087,211 +2330,6 @@ type usersMe {
   user: User
 }
 
-type Dish {
-  id: String
-  title: String!
-  description: String!
-  price: Float!
-  gram: Float!
-  availableAmount: Float
-  cookTime: Float!
-  image(where: Dish_Image_where): Media
-  restaurant: Restaurant!
-  createdBy: User
-  isBlocked: Boolean
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-input Dish_Image_where {
-  alt: Dish_Image_alt_operator
-  createdBy: Dish_Image_createdBy_operator
-  updatedAt: Dish_Image_updatedAt_operator
-  createdAt: Dish_Image_createdAt_operator
-  url: Dish_Image_url_operator
-  filename: Dish_Image_filename_operator
-  mimeType: Dish_Image_mimeType_operator
-  filesize: Dish_Image_filesize_operator
-  width: Dish_Image_width_operator
-  height: Dish_Image_height_operator
-  focalX: Dish_Image_focalX_operator
-  focalY: Dish_Image_focalY_operator
-  id: Dish_Image_id_operator
-  AND: [Dish_Image_where_and]
-  OR: [Dish_Image_where_or]
-}
-
-input Dish_Image_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Dish_Image_createdBy_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Dish_Image_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Dish_Image_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Dish_Image_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Dish_Image_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Dish_Image_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Dish_Image_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_focalX_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_focalY_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Dish_Image_where_and {
-  alt: Dish_Image_alt_operator
-  createdBy: Dish_Image_createdBy_operator
-  updatedAt: Dish_Image_updatedAt_operator
-  createdAt: Dish_Image_createdAt_operator
-  url: Dish_Image_url_operator
-  filename: Dish_Image_filename_operator
-  mimeType: Dish_Image_mimeType_operator
-  filesize: Dish_Image_filesize_operator
-  width: Dish_Image_width_operator
-  height: Dish_Image_height_operator
-  focalX: Dish_Image_focalX_operator
-  focalY: Dish_Image_focalY_operator
-  id: Dish_Image_id_operator
-  AND: [Dish_Image_where_and]
-  OR: [Dish_Image_where_or]
-}
-
-input Dish_Image_where_or {
-  alt: Dish_Image_alt_operator
-  createdBy: Dish_Image_createdBy_operator
-  updatedAt: Dish_Image_updatedAt_operator
-  createdAt: Dish_Image_createdAt_operator
-  url: Dish_Image_url_operator
-  filename: Dish_Image_filename_operator
-  mimeType: Dish_Image_mimeType_operator
-  filesize: Dish_Image_filesize_operator
-  width: Dish_Image_width_operator
-  height: Dish_Image_height_operator
-  focalX: Dish_Image_focalX_operator
-  focalY: Dish_Image_focalY_operator
-  id: Dish_Image_id_operator
-  AND: [Dish_Image_where_and]
-  OR: [Dish_Image_where_or]
-}
-
 type Dishes {
   docs: [Dish]
   hasNextPage: Boolean
@@ -3113,6 +3151,7 @@ type RestaurantsFields {
   isClosed: RestaurantsFields_isClosed
   isDelivery: RestaurantsFields_isDelivery
   bannerImage: RestaurantsFields_bannerImage
+  dishes: RestaurantsFields_dishes
   budgetCategory: RestaurantsFields_budgetCategory
   isBlocked: RestaurantsFields_isBlocked
   relatedToUser: RestaurantsFields_relatedToUser
@@ -3400,6 +3439,29 @@ type RestaurantsFields_bannerImage_Update {
 }
 
 type RestaurantsFields_bannerImage_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_dishes {
+  create: RestaurantsFields_dishes_Create
+  read: RestaurantsFields_dishes_Read
+  update: RestaurantsFields_dishes_Update
+  delete: RestaurantsFields_dishes_Delete
+}
+
+type RestaurantsFields_dishes_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_dishes_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_dishes_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_dishes_Delete {
   permission: Boolean!
 }
 
@@ -4648,7 +4710,8 @@ input mutationRestaurantInput {
   workingHours: mutationRestaurant_WorkingHoursInput!
   isClosed: Boolean
   isDelivery: Boolean
-  bannerImage: String!
+  bannerImage: String
+  dishes: [String]
   budgetCategory: String
   isBlocked: Boolean
   relatedToUser: String
@@ -4710,6 +4773,7 @@ input mutationRestaurantUpdateInput {
   isClosed: Boolean
   isDelivery: Boolean
   bannerImage: String
+  dishes: [String]
   budgetCategory: String
   isBlocked: Boolean
   relatedToUser: String

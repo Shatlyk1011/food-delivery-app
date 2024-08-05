@@ -36,7 +36,8 @@ export interface Restaurant {
   };
   isClosed?: boolean | null;
   isDelivery: boolean;
-  bannerImage: string | Media;
+  bannerImage?: string | Media | null;
+  dishes?: (string | Dish)[] | null;
   budgetCategory?: ('cheap' | 'average' | 'expensive') | null;
   isBlocked?: boolean | null;
   relatedToUser: string | User;
@@ -85,14 +86,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cities".
- */
-export interface City {
-  id: string;
-  title?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "dishes".
  */
 export interface Dish {
@@ -109,6 +102,14 @@ export interface Dish {
   isBlocked?: boolean | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities".
+ */
+export interface City {
+  id: string;
+  title?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
