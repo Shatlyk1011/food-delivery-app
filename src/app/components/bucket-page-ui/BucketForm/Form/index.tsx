@@ -3,8 +3,6 @@ import { FC, useState } from "react";
 
 //components
 import { FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
-import ModalWrapper from "@/app/components/shared-ui/ModalWrapper";
-import SelectAddressModal from "../../SelectAddressModal";
 import Input from "@/app/components/shared-ui/Input";
 import CitySelect from "./CitySelect";
 
@@ -17,10 +15,6 @@ interface Props {
 
 const Index: FC<Props> = ({ form, t }) => {
   const [showCitySelect, setShowCitySelect] = useState(false);
-
-  const handleCitySelect = (newAddress: string) => {
-    setShowCitySelect(!showCitySelect);
-  };
 
   return (
     <div>
@@ -62,12 +56,6 @@ const Index: FC<Props> = ({ form, t }) => {
             )}
           />
         ))}
-
-        {showCitySelect && (
-          <ModalWrapper>
-            <SelectAddressModal handleCitySelect={handleCitySelect} t={t} />
-          </ModalWrapper>
-        )}
       </div>
     </div>
   );

@@ -14,21 +14,23 @@ const Index: FC<Props> = ({ item, decrease, increase }) => {
   return (
     <div className="py-2.5">
       <div className="flex flex-wrap space-x-2">
-        <div className="relative h-16 w-16 overflow-hidden rounded-xl">
+        <div className="relative h-20 w-20 overflow-hidden rounded-xl">
           <Image src={item.imgSrc} objectFit="cover" fill={true} alt="alt name" />
         </div>
-        <div className="flex-1 flex-col justify-between space-y-1">
-          <h5 className="line-clamp-2  text-base font-medium">{item.description}</h5>
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-text-4">{item.gramm}gr</p>
-            <div className="flex items-center space-x-2">
+        <div className="flex flex-1 justify-between space-y-1">
+          <div>
+            <h5 className="line-clamp-2  text-base font-medium">{item.description}</h5>
+            <p className="mt-1 text-sm font-medium text-text-4">{item.gramm}gr</p>
+          </div>
+          <div className="ml-2 flex items-center justify-between">
+            <div className="flex items-center space-x-4 sm:flex-col sm:space-x-0 sm:space-y-2">
               <IncreaseDecrease
                 count={item.count}
                 increase={increase}
                 decrease={decrease}
                 className="w-20 space-x-3 xl:w-24 md:w-[68px] md:space-x-1"
               />
-              <p className="text-base font-medium">{item.price}TMT</p>
+              <p className="text-base font-medium md:text-sm">{item.price}TMT</p>
             </div>
           </div>
         </div>

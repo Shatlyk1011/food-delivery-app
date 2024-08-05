@@ -27,3 +27,4 @@ export * from "./ThumbIcon";
 export * from "./UsdIcon";
 export * from "./WalkIcon";
 export * from "./WarningIcon";
+export * from "./TrashIcon";

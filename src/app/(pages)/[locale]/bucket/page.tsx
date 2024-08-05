@@ -31,7 +31,7 @@ export default function Bucket() {
             className="flex justify-between space-x-10 xl:flex-col xl:space-x-0 xl:space-y-8 md:space-y-6 sm:space-y-4"
             onSubmit={form.handleSubmit(onSubmit)}
           >
-            <div className="flex basis-[574px] flex-col justify-between space-y-8 xl:basis-full md:space-y-6 sm:space-y-4">
+            <div className="flex basis-[600px] flex-col justify-between space-y-8 xl:basis-full md:space-y-6 sm:space-y-4">
               <div className="rounded-[32px] bg-bg-1 p-8 shadow-sm md:rounded-3xl md:p-6 sm:p-4 ">
                 <BucketForm form={form} t={t} isDelivery={isDelivery} />
               </div>

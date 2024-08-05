@@ -4,6 +4,7 @@ import { useAtom } from "jotai";
 
 const useProductItem = () => {
   const [selectedItems, setSelectedItems] = useAtom(atoms.selectedItems);
+  console.log("selectedItems", selectedItems);
 
   const increaseItem = (itemToIncrease: any) => {
     const increasedCount = selectedItems.map((item) =>
@@ -31,7 +32,9 @@ const useProductItem = () => {
     const exists = selectedItems.find((item) => item.id === itemToAdd.id);
     if (exists) {
       increaseItem(itemToAdd);
-    } else setSelectedItems([...selectedItems, { ...itemToAdd, count: 1 }]);
+    } else {
+      setSelectedItems([...selectedItems, { ...itemToAdd, count: 1 }]);
+    }
   };
 
   const clearItems = () => {
