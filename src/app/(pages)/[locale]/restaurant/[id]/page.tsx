@@ -143,7 +143,7 @@ export default function Home({ params: { id } }) {
           </div>
           <aside className="right-32 top-48 ml-8 w-80 2xl:ml-4  xl:hidden">
             <div className="sticky right-0 top-24">
-              <Cart t={t} restaurantTitle={selectedItems.restaurantInfo.name || "backend name"} />
+              <Cart t={t} restaurantTitle={selectedItems.restaurantInfo?.name || "backend name"} />
             </div>
           </aside>
         </div>
