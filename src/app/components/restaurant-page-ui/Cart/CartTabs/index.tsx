@@ -13,7 +13,7 @@ const Index: FC<Props> = ({ t, handleChange, isDelivery }) => {
   ];
   return (
     <div className="space-x mx-2.5 mb-4 flex rounded-xl bg-gray-2 px-4 py-2 text-text-4 ">
-      {tabs.map(({ title, value }, idx) => (
+      {tabs.map(({ title, value }) => (
         <button
           onClick={() => handleChange(value)}
           key={title}

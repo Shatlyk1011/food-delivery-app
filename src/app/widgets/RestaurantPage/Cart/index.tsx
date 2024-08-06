@@ -6,10 +6,6 @@ import AddedItem from "@/app/components/restaurant-page-ui/Cart/AddedItem";
 import CartInfo from "@/app/components/restaurant-page-ui/Cart/CartInfo";
 import CartButton from "@/app/components/restaurant-page-ui/Cart/CartButton";
 
-//jotai
-import { useAtom } from "jotai";
-import atoms from "@/app/(pages)/_providers/jotai";
-
 import useProductItem from "@/app/hooks/useProductItem";
 
 interface Props {
@@ -18,10 +14,8 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ restaurantTitle, t }) => {
-  const [isDelivery, setIsDevelivy] = useAtom(atoms.isDelivery);
-  const { selectedItems, increaseItem, decreaseItem, clearItems, totalPrice } = useProductItem();
-
-  const handleChange = (val: boolean) => setIsDevelivy(val);
+  const { selectedItems, increaseItem, decreaseItem, clearItems, totalPrice, toggleDelivery, isDelivery } =
+    useProductItem();
 
   return (
     <div className="h-[calc(100vh-140px)] overflow-hidden rounded-[16px] bg-bg-1">
@@ -32,7 +26,7 @@ const Index: FC<Props> = ({ restaurantTitle, t }) => {
         </button>
       </div>
 
-      <CartTabs t={t} handleChange={handleChange} isDelivery={isDelivery} />
+      <CartTabs t={t} handleChange={toggleDelivery} isDelivery={isDelivery} />
 
       <ul className="perfect-scrollbar h-[calc(100vh-430px)] space-y-4 p-4 pt-0">
         {selectedItems?.dishes?.map((item, index) => (

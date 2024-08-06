@@ -133,7 +133,7 @@ export default function Home({ params: { id } }) {
                     <Product
                       key={Math.random() + 1000}
                       item={item}
-                      addItem={() => addItem(item, { id, name: "Los Pollas" })}
+                      addItem={() => addItem(item, { id, name: "Los Pollas", deliveryPrice: 14, isDelivery: true })}
                       addTitle={t("Index.add")}
                     />
                   ))

@@ -1,9 +1,4 @@
-export const CITIES = [
-  { title: "Moscow", value: "moscow" },
-  { title: "New York", value: "new-york" },
-  { title: "Delhi", value: "Delhi" },
-  { title: "Kiev", value: "Kiev" },
-];
+export const CITIES = [{ title: "Turkmenabat", value: "turkmenabat" }];
 
 export const LANGUAGES = [
   { title: "Русский", value: "ru" },
@@ -13,7 +8,7 @@ export const LANGUAGES = [
 export const BUCKET_INPUTS = [
   { name: "district", placeholder: "BucketForm.district", styles: "sm:row-start-1 sm:col-span-2", type: "text" },
   {
-    name: "house_number",
+    name: "houseNumber",
     placeholder: "BucketForm.houseNumber",
     styles: "sm:row-start-1 sm:col-span-2",
     type: "number",
@@ -21,10 +16,11 @@ export const BUCKET_INPUTS = [
   { name: "apartment", placeholder: "BucketForm.kw", styles: "sm:row-start-2 sm:col-span-2", type: "number" },
   { name: "entrance", placeholder: "BucketForm.entrance", styles: "sm:row-start-2 sm:col-span-2", type: "number" },
   {
-    name: "phone_number",
+    name: "phoneNumber",
     placeholder: "Index.phoneNumber",
     styles: "row-start-2 sm:row-start-3 col-span-4",
     type: "tel",
+    maxLength: 8,
   },
   {
     name: "comment",
@@ -33,3 +29,8 @@ export const BUCKET_INPUTS = [
     type: "text",
   },
 ];
+
+export const DEFAULT_RESTAURANT_INFO: RestaurantWithDishesInfo = {
+  dishes: [],
+  restaurantInfo: { id: "", name: "", deliveryPrice: 0, isDelivery: true },
+};

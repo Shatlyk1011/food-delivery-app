@@ -1,29 +1,20 @@
 import { FC } from "react";
 
 //components
-import { HomeIcon, PlusIcon } from "@/app/icons";
+import { HomeIcon } from "@/app/icons";
 import { ChevronDown } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 import { PopoverClose } from "@radix-ui/react-popover";
 
+import { CITIES } from "@/app/data";
+
 interface Props {
-  handleCitySelect: () => void;
   className?: string;
   t: any;
   value: string;
   onChange: (city: string) => void;
 }
-const Index: FC<Props> = ({ handleCitySelect, className, t, ...props }) => {
-  const addresses = [
-    {
-      id: 24,
-      address: "Парижской коммуны, 58",
-    },
-    {
-      id: 34,
-      address: "Химик, 24",
-    },
-  ];
+const Index: FC<Props> = ({ className, t, ...props }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -38,26 +29,15 @@ const Index: FC<Props> = ({ handleCitySelect, className, t, ...props }) => {
         </button>
       </PopoverTrigger>
       <PopoverContent className="max-w-fit overflow-hidden rounded-[14px] p-0 shadow-xl">
-        <div>
-          <ul className="cursor-pointer">
-            <li>
-              <PopoverClose
-                className="flex w-full items-center justify-between space-x-2.5 border-b border-b-gray-2 px-6 py-5 text-base font-medium hover:bg-onHover md:px-5  md:py-4 sm:px-4 sm:py-3 sm:text-sm"
-                onClick={handleCitySelect}
-              >
-                <p>{t("BucketForm.addNewAddress")}</p>
-                <PlusIcon />
+        <ul className="cursor-pointer ">
+          {CITIES.map(({ title, value }) => (
+            <li key={value} onClick={() => props.onChange(title)}>
+              <PopoverClose className="line-clamp-2 w-full px-6 py-5 text-start hover:bg-onHover md:px-5 md:py-4 sm:px-4 sm:py-3">
+                {title}
               </PopoverClose>
             </li>
-            {addresses.map(({ address, id }) => (
-              <li key={id} onClick={() => props.onChange(address)}>
-                <PopoverClose className="line-clamp-2 w-full px-6 py-5 text-start hover:bg-onHover md:px-5 md:py-4 sm:px-4 sm:py-3">
-                  {address}
-                </PopoverClose>
-              </li>
-            ))}
-          </ul>
-        </div>
+          ))}
+        </ul>
       </PopoverContent>
     </Popover>
   );

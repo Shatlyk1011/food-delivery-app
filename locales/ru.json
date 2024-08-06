@@ -76,10 +76,7 @@
     "leaveComment": "Коментарий курьеру (название улицы, и т.д)",
     "deliveryTime": "Время доставки",
     "chooseAddress": "Выберите адрес",
-    "addNewAddress": "Добавить новый адрес",
-    "enterAddress": "Укажите адрес доставки",
-    "enterAddressSub": "Чтобы курьер смог найти вас",
-    "enterHome": "Введите улицу и дом"
+    "addNewAddress": "Добавить новый адрес"
   },
 
   "BucketPage": {
@@ -98,5 +95,20 @@
   "Placeholder": {
     "email": "Email",
     "password": "Пароль"
+  },
+
+  "Zod": {
+    "invalidEmail": "Пожалуйста, напишите правльный email.",
+    "invalidPassLength": "Минимальная длина пароля 8 символов.",
+
+    "invalidUsername": "Минимальная длина имени 4 символов.",
+    "invalidPhone": "Последние 8 символов номера телефона",
+
+    "invalidAddress": "Выберите ваш город для доставки",
+    "invalidDistrict": "Напишите район доставки",
+    "invalidHome": "Напишите номер дома",
+    "invalidApartment": "Напишите квартиру",
+    "invalidEntrance": "Напишите подъезд (если есть)",
+    "invalidComment": "Оставьте коментарий курьеру что бы Вас было легче найти"
   }
 }

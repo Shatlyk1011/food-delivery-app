@@ -1,23 +1,20 @@
 import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
+import { DEFAULT_RESTAURANT_INFO } from "@/app/data";
+
 const isClearBucketModal = atom(false);
 const isSidebarOpen = atom(false);
-const isDelivery = atom(true);
 const isAuth = atom(false);
 
-const selectedCity = atomWithStorage("CITY", "");
+const selectedCity = atomWithStorage("CITY", "Turkmenabat");
 const selectedLanguage = atomWithStorage("LANGUAGE", "ru");
-const selectedItems = atomWithStorage<{ dishes: any[]; restaurantInfo: { id: string; name: string } }>("DISHES", {
-  dishes: [],
-  restaurantInfo: { id: "", name: "" },
-});
+const selectedItems = atomWithStorage<RestaurantWithDishesInfo>("DISHES", DEFAULT_RESTAURANT_INFO);
 
 const atoms = {
   isSidebarOpen,
   selectedLanguage,
   selectedItems,
-  isDelivery,
   isAuth,
   selectedCity,
   isClearBucketModal,

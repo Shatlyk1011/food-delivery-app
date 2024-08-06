@@ -3,11 +3,11 @@ import { FC } from "react";
 interface Props {
   onSubmit: any;
   t: any;
-  total: string;
-  delivery?: string;
+  totalPrice: string;
+  delivery: number;
 }
 
-const Index: FC<Props> = ({ t, total, delivery = 20, onSubmit }) => {
+const Index: FC<Props> = ({ t, totalPrice, delivery, onSubmit }) => {
   return (
     <div className="w-full rounded-[32px] bg-bg-1 p-8 md:rounded-3xl md:p-6 sm:p-4">
       <h5 className="mb-2.5 border-b border-gray-1 pb-2.5 text-xl font-medium leading-6 sm:text-lg">
@@ -16,7 +16,7 @@ const Index: FC<Props> = ({ t, total, delivery = 20, onSubmit }) => {
       <ul className="mb-3 space-y-3">
         <li className="flex justify-between sm:text-sm">
           {t("BucketPage.price")}
-          <span>{total}TMT</span>
+          <span>{totalPrice}TMT</span>
         </li>
         <li className="flex justify-between sm:text-sm">
           {t("Index.delivery")}
@@ -26,7 +26,7 @@ const Index: FC<Props> = ({ t, total, delivery = 20, onSubmit }) => {
         <li className="flex justify-between py-2.5 font-medium">
           {t("BucketPage.totalPrice")}
           <span className="rounded-[14px] border border-primary bg-onHover px-2.5 py-1 leading-4 sm:text-sm">
-            {Number(total) + Number(delivery)}тмт
+            {Number(totalPrice) + Number(delivery)}тмт
           </span>
         </li>
       </ul>

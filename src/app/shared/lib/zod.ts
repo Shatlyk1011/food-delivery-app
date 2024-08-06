@@ -1,52 +1,61 @@
 import { z } from "zod";
 
 // Login Scheme
-export const loginScheme = z.object({
-  email: z.string().email({
-    message: "Username must be at least 2 characters.",
-  }),
-  password: z.string().min(8, {
-    message: "password at least 8 characters.",
-  }),
-});
+export const loginScheme = (t: (arg: string) => string) =>
+  z.object({
+    email: z.string().email({
+      message: t("Zod.invalidEmail"),
+    }),
+    password: z.string().min(8, {
+      message: t("Zod.invalidPassLength"),
+    }),
+  });
 
 // Register Scheme
-export const registerScheme = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  email: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  password: z.string().min(8, {
-    message: "password at least 8 characters.",
-  }),
-  phone: z.string().min(11, {
-    message: "enter valid phone number",
-  }),
-});
+export const registerScheme = (t: (arg: string) => string) =>
+  z.object({
+    username: z.string().min(4, {
+      message: t("Zod.invalidUsername"),
+    }),
+    email: z.string().min(2, {
+      message: t("Zod.invalidEmail"),
+    }),
+    password: z.string().min(8, {
+      message: t("Zod.invalidPassLength"),
+    }),
+    phone: z
+      .string()
+      .max(8)
+      .min(8, {
+        message: t("Zod.invalidPhone"),
+      }),
+  });
 
 // Bucket form scheme
-export const buckerFormScheme = z.object({
-  city: z.string().min(2, {
-    message: "city must be at least 2 characters.",
-  }),
-  district: z.string().min(4, {
-    message: "district at least 8 characters.",
-  }),
-  house_number: z.string().min(1, {
-    message: "House number at least 8 characters.",
-  }),
-  apartment: z.string().min(1, {
-    message: "Apartment at least 8 characters.",
-  }),
-  entrance: z.string().min(1, {
-    message: "Entrance at least 8 characters.",
-  }),
-  phone_number: z.string().min(8, {
-    message: "Phone Number at least 8 characters.",
-  }),
-  comment: z.string().min(0, {
-    message: "comment at least 8 characters.",
-  }),
-});
+export const buckerFormScheme = (t: (arg: string) => string) =>
+  z.object({
+    city: z.string().min(6, {
+      message: t("Zod.invalidAddress"),
+    }),
+    district: z.string().min(4, {
+      message: t("Zod.invalidDistrict"),
+    }),
+    houseNumber: z.string().min(2, {
+      message: t("Zod.invalidHome"),
+    }),
+    apartment: z.string().min(1, {
+      message: t("Zod.invalidApartment"),
+    }),
+    entrance: z.string().min(0, {
+      message: t("Zod.invalidEntrance"),
+    }),
+    phoneNumber: z
+      .string()
+      .max(8)
+      .min(8, {
+        message: t("Zod.invalidPhone"),
+      }),
+    comment: z.string().min(0, {
+      message: t("Zod.invalidComment"),
+    }),
+  });

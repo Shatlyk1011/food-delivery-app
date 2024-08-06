@@ -7,14 +7,25 @@ import { ClockIcon } from "@/app/icons";
 interface Props {
   form: any;
   isDelivery: boolean;
+  deliveryPrice: number;
   t: any;
 }
 
-const Index: FC<Props> = ({ form, isDelivery, t }) => {
+const Index: FC<Props> = ({ form, isDelivery, deliveryPrice, t }) => {
   return (
     <div className="">
       <h2 className="mb-2.5 text-2xl font-bold leading-6 md:text-base">{t("BucketForm.fillForm")}</h2>
-      <h3 className="mb-2.5 text-base font-medium leading-5 text-warning md:text-sm">{t("Index.delivery")} 20 TMT</h3>
+      <h3
+        className={`mb-2.5 text-base font-medium leading-5 md:text-sm ${isDelivery ? "text-warning" : "text-success"}`}
+      >
+        {isDelivery ? (
+          <p>
+            {t("Index.delivery")} {deliveryPrice} TMT
+          </p>
+        ) : (
+          <p>{t("Index.selfCare")} 45min</p>
+        )}
+      </h3>
       <BucketFormComponent form={form} t={t} />
 
       <div className="mt-8">

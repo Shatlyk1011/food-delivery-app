@@ -76,10 +76,7 @@
     "leaveComment": "Kurýer üçin teswir (köçäniň ady we ş.m.)",
     "deliveryTime": "Eltip bermegiň wagty",
     "chooseAddress": "Salgyňyzy saýlaň",
-    "addNewAddress": "Täze salgy goşmak",
-    "enterAddress": "Eltip beriş salgyňyzy giriziň",
-    "enterAddressSub": "Kurýer sizi tapyp biler ýaly",
-    "enterHome": "Köçe bilen jaýy ýazyň"
+    "addNewAddress": "Täze salgy goşmak"
   },
 
   "BucketPage": {
@@ -98,5 +95,20 @@
   "Placeholder": {
     "email": "Email",
     "password": "Parol"
+  },
+
+  "Zod": {
+    "invalidEmail": "Dogry e-poçtaňyzy ýazmagy haýyş edýäris.",
+    "invalidPassLength": "Parolyň iň az uzynlygy 8 simwol",
+
+    "invalidUsername": "Adyň iň az uzynlygy 4 simwoldan ybarat.",
+    "invalidPhone": "Telefon belgiňiziň soňky 8 sanyny giriziň",
+
+    "invalidAddress": "Şäheriňizi saýlaň",
+    "invalidDistrict": "Kiçi etrapçanyň adyny ýazyň",
+    "invalidHome": "Jaý belgiňizi ýazyň",
+    "invalidApartment": "Kwartirňyzy ýazyň",
+    "invalidEntrance": "Podyezdy girelge ýazyň (bar bolsa)",
+    "invalidComment": "Salgyny tapmagy aňsatlaşdyrmak üçin kurýerde teswir ýazyň"
   }
 }

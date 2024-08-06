@@ -1,5 +1,4 @@
-"use client";
-import { FC, useState } from "react";
+import { FC } from "react";
 
 //components
 import { FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
@@ -14,8 +13,6 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ form, t }) => {
-  const [showCitySelect, setShowCitySelect] = useState(false);
-
   return (
     <div>
       <FormField
@@ -24,19 +21,14 @@ const Index: FC<Props> = ({ form, t }) => {
         render={({ field }) => (
           <FormItem>
             <FormControl>
-              <CitySelect
-                {...field}
-                className="mb-3"
-                handleCitySelect={() => setShowCitySelect(!showCitySelect)}
-                t={t}
-              />
+              <CitySelect {...field} onChange={field.onChange} value={field.value} className="mb-3" t={t} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
       <div className="my-3 grid grid-cols-4 grid-rows-3 gap-3 md:grid-rows-4">
-        {BUCKET_INPUTS.map(({ name, placeholder, styles, type }) => (
+        {BUCKET_INPUTS.map(({ name, placeholder, styles, maxLength, type }) => (
           <FormField
             key={name}
             control={form.control}
@@ -46,6 +38,7 @@ const Index: FC<Props> = ({ form, t }) => {
                 <FormControl>
                   <Input
                     {...field}
+                    maxLength={maxLength}
                     type={type}
                     placeholder={t(placeholder)}
                     className="rounded-xl placeholder:font-[inherit] placeholder:text-sm placeholder:text-text-4 sm:rounded-[10px]"

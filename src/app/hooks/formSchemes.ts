@@ -1,4 +1,5 @@
 import { buckerFormScheme, loginScheme, registerScheme } from "../shared/lib/zod";
+import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -7,26 +8,33 @@ import { useSetAtom } from "jotai";
 import atoms from "@/app/(pages)/_providers/jotai";
 
 export const useLoginScheme = () => {
+  const t = useTranslations();
+  const formSchema = loginScheme(t);
+
   const setIsLogin = useSetAtom(atoms.isAuth);
-  const form = useForm<z.infer<typeof loginScheme>>({
-    resolver: zodResolver(loginScheme),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginScheme>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     setIsLogin(true);
   }
 
   return { form, onSubmit };
 };
+
 export const useRegisterScheme = () => {
+  const t = useTranslations();
+  const formSchema = registerScheme(t);
+
   const setIsLogin = useSetAtom(atoms.isAuth);
-  const form = useForm<z.infer<typeof registerScheme>>({
-    resolver: zodResolver(registerScheme),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
       email: "",
@@ -35,7 +43,7 @@ export const useRegisterScheme = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof registerScheme>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     setIsLogin(true);
   }
@@ -44,20 +52,23 @@ export const useRegisterScheme = () => {
 };
 
 export const useBucketFormScheme = () => {
-  const form = useForm<z.infer<typeof buckerFormScheme>>({
-    resolver: zodResolver(buckerFormScheme),
+  const t = useTranslations();
+  const formSchema = buckerFormScheme(t);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       city: "",
       district: "",
-      house_number: "",
+      houseNumber: "",
       apartment: "",
       entrance: "",
-      phone_number: "",
+      phoneNumber: "",
       comment: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof buckerFormScheme>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
 

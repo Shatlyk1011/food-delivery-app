@@ -2,6 +2,8 @@
 import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom, useSetAtom } from "jotai";
 
+import { DEFAULT_RESTAURANT_INFO } from "../data";
+
 const useProductItem = () => {
   const [selectedItems, setSelectedItems] = useAtom(atoms.selectedItems);
   const setClearModal = useSetAtom(atoms.isClearBucketModal);
@@ -28,7 +30,7 @@ const useProductItem = () => {
     setSelectedItems((prev) => ({ ...prev, dishes: updatedItems }));
   };
 
-  const addItem = (itemToAdd: any, restaurantInfo: { id: string; name: string }) => {
+  const addItem = (itemToAdd: any, restaurantInfo: RestaurantLocalInfo) => {
     if (selectedItems.restaurantInfo.id && selectedItems.restaurantInfo.id !== restaurantInfo.id) {
       setClearModal(true);
       return;
@@ -39,16 +41,42 @@ const useProductItem = () => {
     } else {
       setSelectedItems({ restaurantInfo, dishes: [...selectedItems.dishes, { ...itemToAdd, count: 1 }] });
     }
+    if (selectedItems.dishes.length > 0 && !selectedItems.restaurantInfo.id) {
+      clearItems();
+    }
+  };
+
+  const toggleDelivery = (isDelivery: boolean) => {
+    setSelectedItems((prev) => ({
+      ...prev,
+      restaurantInfo: { ...prev.restaurantInfo, isDelivery },
+    }));
   };
 
   const clearItems = () => {
-    setSelectedItems({ dishes: [], restaurantInfo: { id: "", name: "" } });
+    setSelectedItems(DEFAULT_RESTAURANT_INFO);
   };
 
   const totalPrice = (() => selectedItems?.dishes?.reduce((prev, curr) => prev + curr.price * curr.count || 1, 0))();
 
   const totalDishes = (() => selectedItems?.dishes?.reduce((curr, item) => curr + item.count || 1, 0))();
-  return { selectedItems, increaseItem, decreaseItem, addItem, clearItems, totalPrice, totalDishes };
+
+  const isDelivery = selectedItems.restaurantInfo.isDelivery;
+
+  const deliveryPrice = selectedItems.restaurantInfo.deliveryPrice;
+
+  return {
+    selectedItems,
+    increaseItem,
+    decreaseItem,
+    addItem,
+    clearItems,
+    totalPrice,
+    totalDishes,
+    toggleDelivery,
+    isDelivery,
+    deliveryPrice,
+  };
 };
 
 export default useProductItem;

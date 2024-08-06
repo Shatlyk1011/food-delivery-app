@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { FC, Suspense, useState } from "react";
 
 //components
-import { Dialog, DialogContent, DialogTrigger } from "@/app/components/shared-ui/Dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
 const LoginForm = dynamic(() => import("./LoginForm"));
 const RegisterForm = dynamic(() => import("./RegisterForm"));
 
@@ -20,7 +20,9 @@ const Index: FC<Props> = ({ t }) => {
       </DialogTrigger>
 
       <DialogContent className="gap-0 rounded-md p-0 text-center">
-        <h2 className="mb-[6px] mt-8 text-3xl font-bold">{isLogin ? t("Login.login") : t("Login.register")}</h2>
+        <DialogTitle className="mb-[6px] mt-8 text-3xl font-bold">
+          {isLogin ? t("Login.login") : t("Login.register")}
+        </DialogTitle>
         <p className="mb-[18px] text-text-3">{isLogin ? t("Login.loginViaEmail") : t("Login.registerAccount")}</p>
 
         <Suspense fallback={"Loading..."}>

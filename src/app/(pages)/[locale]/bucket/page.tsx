@@ -1,10 +1,6 @@
 "use client";
 import { useTranslations } from "next-intl";
 
-//jotai
-import { useAtomValue } from "jotai";
-import atoms from "@/app/(pages)/_providers/jotai";
-
 //widgets
 import BucketForm from "@/app/widgets/BucketPage/BucketForm";
 import TotalPrice from "@/app/widgets/BucketPage/TotalPrice";
@@ -18,9 +14,7 @@ import useProductItem from "@/app/hooks/useProductItem";
 
 export default function Bucket() {
   const { form, onSubmit } = useBucketFormScheme();
-  const { totalPrice } = useProductItem();
-
-  const isDelivery = useAtomValue(atoms.isDelivery);
+  const { totalPrice, isDelivery, deliveryPrice } = useProductItem();
 
   const t = useTranslations();
   return (
@@ -33,7 +27,7 @@ export default function Bucket() {
           >
             <div className="flex basis-[600px] flex-col justify-between space-y-8 xl:basis-full md:space-y-6 sm:space-y-4">
               <div className="rounded-[32px] bg-bg-1 p-8 shadow-sm md:rounded-3xl md:p-6 sm:p-4 ">
-                <BucketForm form={form} t={t} isDelivery={isDelivery} />
+                <BucketForm form={form} t={t} isDelivery={isDelivery} deliveryPrice={deliveryPrice} />
               </div>
               <div className="">
                 <Orders t={t} />
@@ -41,7 +35,7 @@ export default function Bucket() {
             </div>
 
             <div className="basis-[448px] ">
-              <TotalPrice onSubmit={onSubmit} t={t} total={totalPrice} />
+              <TotalPrice onSubmit={onSubmit} t={t} totalPrice={totalPrice} delivery={deliveryPrice} />
             </div>
           </form>
         </div>

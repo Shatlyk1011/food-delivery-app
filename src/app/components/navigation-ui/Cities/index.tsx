@@ -1,7 +1,9 @@
 import { FC } from "react";
+
 //jotai
 import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom } from "jotai";
+
 //components
 import { PopoverClose } from "@radix-ui/react-popover";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
@@ -38,6 +40,7 @@ const Index: FC<Props> = ({ cities, regionsTitle, regionTitle }) => {
               </PopoverClose>
             </li>
           ))}
+          <li className="h-12 w-full px-4 py-3 text-text-3">Coming soon...</li>
         </ul>
       </PopoverContent>
     </Popover>
