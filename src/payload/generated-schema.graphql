@@ -3,6 +3,10 @@ type Query {
   Restaurants(where: Restaurant_where, limit: Int, page: Int, sort: String): Restaurants
   countRestaurants(where: Restaurant_where): countRestaurants
   docAccessRestaurant(id: String!): restaurantsDocAccess
+  Order(id: String!): Order
+  Orders(where: Order_where, limit: Int, page: Int, sort: String): Orders
+  countOrders(where: Order_where): countOrders
+  docAccessOrder(id: String!): ordersDocAccess
   Media(id: String!): Media
   allMedia(where: Media_where, limit: Int, page: Int, sort: String): allMedia
   countallMedia(where: Media_where): countallMedia
@@ -110,7 +114,7 @@ type Media {
 type User {
   id: String
   name: String
-  restaurant: Restaurant
+  restaurant: [Restaurant!]
   roles: [User_roles!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -1339,6 +1343,725 @@ type RestaurantsUpdateDocAccess {
 }
 
 type RestaurantsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type Order {
+  id: String
+  city: String
+  district: String!
+  apartment: String!
+  houseNumber: String!
+  entrance: String
+  phoneNumber: Float!
+  commentToCourier: String
+  commentToRestaurant: String
+  restaurantID: Restaurant!
+  isDelivery: Boolean!
+  dishes: [Order_Dishes!]!
+  user: User
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Order_Dishes {
+  dish: Dish
+  quantity: Float
+  id: String
+}
+
+type Orders {
+  docs: [Order]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Order_where {
+  city: Order_city_operator
+  district: Order_district_operator
+  apartment: Order_apartment_operator
+  houseNumber: Order_houseNumber_operator
+  entrance: Order_entrance_operator
+  phoneNumber: Order_phoneNumber_operator
+  commentToCourier: Order_commentToCourier_operator
+  commentToRestaurant: Order_commentToRestaurant_operator
+  restaurantID: Order_restaurantID_operator
+  isDelivery: Order_isDelivery_operator
+  dishes__dish: Order_dishes__dish_operator
+  dishes__quantity: Order_dishes__quantity_operator
+  dishes__id: Order_dishes__id_operator
+  user: Order_user_operator
+  updatedAt: Order_updatedAt_operator
+  createdAt: Order_createdAt_operator
+  id: Order_id_operator
+  AND: [Order_where_and]
+  OR: [Order_where_or]
+}
+
+input Order_city_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_district_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_apartment_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_houseNumber_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Order_entrance_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_phoneNumber_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input Order_commentToCourier_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_commentToRestaurant_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_restaurantID_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+}
+
+input Order_isDelivery_operator {
+  equals: Boolean
+  not_equals: Boolean
+}
+
+input Order_dishes__dish_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Order_dishes__quantity_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Order_dishes__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_user_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Order_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Order_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Order_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Order_where_and {
+  city: Order_city_operator
+  district: Order_district_operator
+  apartment: Order_apartment_operator
+  houseNumber: Order_houseNumber_operator
+  entrance: Order_entrance_operator
+  phoneNumber: Order_phoneNumber_operator
+  commentToCourier: Order_commentToCourier_operator
+  commentToRestaurant: Order_commentToRestaurant_operator
+  restaurantID: Order_restaurantID_operator
+  isDelivery: Order_isDelivery_operator
+  dishes__dish: Order_dishes__dish_operator
+  dishes__quantity: Order_dishes__quantity_operator
+  dishes__id: Order_dishes__id_operator
+  user: Order_user_operator
+  updatedAt: Order_updatedAt_operator
+  createdAt: Order_createdAt_operator
+  id: Order_id_operator
+  AND: [Order_where_and]
+  OR: [Order_where_or]
+}
+
+input Order_where_or {
+  city: Order_city_operator
+  district: Order_district_operator
+  apartment: Order_apartment_operator
+  houseNumber: Order_houseNumber_operator
+  entrance: Order_entrance_operator
+  phoneNumber: Order_phoneNumber_operator
+  commentToCourier: Order_commentToCourier_operator
+  commentToRestaurant: Order_commentToRestaurant_operator
+  restaurantID: Order_restaurantID_operator
+  isDelivery: Order_isDelivery_operator
+  dishes__dish: Order_dishes__dish_operator
+  dishes__quantity: Order_dishes__quantity_operator
+  dishes__id: Order_dishes__id_operator
+  user: Order_user_operator
+  updatedAt: Order_updatedAt_operator
+  createdAt: Order_createdAt_operator
+  id: Order_id_operator
+  AND: [Order_where_and]
+  OR: [Order_where_or]
+}
+
+type countOrders {
+  totalDocs: Int
+}
+
+type ordersDocAccess {
+  fields: OrdersDocAccessFields
+  create: OrdersCreateDocAccess
+  read: OrdersReadDocAccess
+  update: OrdersUpdateDocAccess
+  delete: OrdersDeleteDocAccess
+}
+
+type OrdersDocAccessFields {
+  city: OrdersDocAccessFields_city
+  district: OrdersDocAccessFields_district
+  apartment: OrdersDocAccessFields_apartment
+  houseNumber: OrdersDocAccessFields_houseNumber
+  entrance: OrdersDocAccessFields_entrance
+  phoneNumber: OrdersDocAccessFields_phoneNumber
+  commentToCourier: OrdersDocAccessFields_commentToCourier
+  commentToRestaurant: OrdersDocAccessFields_commentToRestaurant
+  restaurantID: OrdersDocAccessFields_restaurantID
+  isDelivery: OrdersDocAccessFields_isDelivery
+  dishes: OrdersDocAccessFields_dishes
+  user: OrdersDocAccessFields_user
+  updatedAt: OrdersDocAccessFields_updatedAt
+  createdAt: OrdersDocAccessFields_createdAt
+}
+
+type OrdersDocAccessFields_city {
+  create: OrdersDocAccessFields_city_Create
+  read: OrdersDocAccessFields_city_Read
+  update: OrdersDocAccessFields_city_Update
+  delete: OrdersDocAccessFields_city_Delete
+}
+
+type OrdersDocAccessFields_city_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_city_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_city_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_city_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_district {
+  create: OrdersDocAccessFields_district_Create
+  read: OrdersDocAccessFields_district_Read
+  update: OrdersDocAccessFields_district_Update
+  delete: OrdersDocAccessFields_district_Delete
+}
+
+type OrdersDocAccessFields_district_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_district_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_district_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_district_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_apartment {
+  create: OrdersDocAccessFields_apartment_Create
+  read: OrdersDocAccessFields_apartment_Read
+  update: OrdersDocAccessFields_apartment_Update
+  delete: OrdersDocAccessFields_apartment_Delete
+}
+
+type OrdersDocAccessFields_apartment_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_apartment_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_apartment_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_apartment_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_houseNumber {
+  create: OrdersDocAccessFields_houseNumber_Create
+  read: OrdersDocAccessFields_houseNumber_Read
+  update: OrdersDocAccessFields_houseNumber_Update
+  delete: OrdersDocAccessFields_houseNumber_Delete
+}
+
+type OrdersDocAccessFields_houseNumber_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_houseNumber_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_houseNumber_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_houseNumber_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_entrance {
+  create: OrdersDocAccessFields_entrance_Create
+  read: OrdersDocAccessFields_entrance_Read
+  update: OrdersDocAccessFields_entrance_Update
+  delete: OrdersDocAccessFields_entrance_Delete
+}
+
+type OrdersDocAccessFields_entrance_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_entrance_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_entrance_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_entrance_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phoneNumber {
+  create: OrdersDocAccessFields_phoneNumber_Create
+  read: OrdersDocAccessFields_phoneNumber_Read
+  update: OrdersDocAccessFields_phoneNumber_Update
+  delete: OrdersDocAccessFields_phoneNumber_Delete
+}
+
+type OrdersDocAccessFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_commentToCourier {
+  create: OrdersDocAccessFields_commentToCourier_Create
+  read: OrdersDocAccessFields_commentToCourier_Read
+  update: OrdersDocAccessFields_commentToCourier_Update
+  delete: OrdersDocAccessFields_commentToCourier_Delete
+}
+
+type OrdersDocAccessFields_commentToCourier_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_commentToCourier_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_commentToCourier_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_commentToCourier_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_commentToRestaurant {
+  create: OrdersDocAccessFields_commentToRestaurant_Create
+  read: OrdersDocAccessFields_commentToRestaurant_Read
+  update: OrdersDocAccessFields_commentToRestaurant_Update
+  delete: OrdersDocAccessFields_commentToRestaurant_Delete
+}
+
+type OrdersDocAccessFields_commentToRestaurant_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_commentToRestaurant_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_commentToRestaurant_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_commentToRestaurant_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_restaurantID {
+  create: OrdersDocAccessFields_restaurantID_Create
+  read: OrdersDocAccessFields_restaurantID_Read
+  update: OrdersDocAccessFields_restaurantID_Update
+  delete: OrdersDocAccessFields_restaurantID_Delete
+}
+
+type OrdersDocAccessFields_restaurantID_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_restaurantID_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_restaurantID_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_restaurantID_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_isDelivery {
+  create: OrdersDocAccessFields_isDelivery_Create
+  read: OrdersDocAccessFields_isDelivery_Read
+  update: OrdersDocAccessFields_isDelivery_Update
+  delete: OrdersDocAccessFields_isDelivery_Delete
+}
+
+type OrdersDocAccessFields_isDelivery_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_isDelivery_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_isDelivery_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_isDelivery_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes {
+  create: OrdersDocAccessFields_dishes_Create
+  read: OrdersDocAccessFields_dishes_Read
+  update: OrdersDocAccessFields_dishes_Update
+  delete: OrdersDocAccessFields_dishes_Delete
+  fields: OrdersDocAccessFields_dishes_Fields
+}
+
+type OrdersDocAccessFields_dishes_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_Fields {
+  dish: OrdersDocAccessFields_dishes_dish
+  quantity: OrdersDocAccessFields_dishes_quantity
+  id: OrdersDocAccessFields_dishes_id
+}
+
+type OrdersDocAccessFields_dishes_dish {
+  create: OrdersDocAccessFields_dishes_dish_Create
+  read: OrdersDocAccessFields_dishes_dish_Read
+  update: OrdersDocAccessFields_dishes_dish_Update
+  delete: OrdersDocAccessFields_dishes_dish_Delete
+}
+
+type OrdersDocAccessFields_dishes_dish_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_dish_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_dish_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_dish_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_quantity {
+  create: OrdersDocAccessFields_dishes_quantity_Create
+  read: OrdersDocAccessFields_dishes_quantity_Read
+  update: OrdersDocAccessFields_dishes_quantity_Update
+  delete: OrdersDocAccessFields_dishes_quantity_Delete
+}
+
+type OrdersDocAccessFields_dishes_quantity_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_quantity_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_quantity_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_quantity_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_id {
+  create: OrdersDocAccessFields_dishes_id_Create
+  read: OrdersDocAccessFields_dishes_id_Read
+  update: OrdersDocAccessFields_dishes_id_Update
+  delete: OrdersDocAccessFields_dishes_id_Delete
+}
+
+type OrdersDocAccessFields_dishes_id_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_id_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_id_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_dishes_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_user {
+  create: OrdersDocAccessFields_user_Create
+  read: OrdersDocAccessFields_user_Read
+  update: OrdersDocAccessFields_user_Update
+  delete: OrdersDocAccessFields_user_Delete
+}
+
+type OrdersDocAccessFields_user_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_user_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_user_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_user_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_updatedAt {
+  create: OrdersDocAccessFields_updatedAt_Create
+  read: OrdersDocAccessFields_updatedAt_Read
+  update: OrdersDocAccessFields_updatedAt_Update
+  delete: OrdersDocAccessFields_updatedAt_Delete
+}
+
+type OrdersDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_createdAt {
+  create: OrdersDocAccessFields_createdAt_Create
+  read: OrdersDocAccessFields_createdAt_Read
+  update: OrdersDocAccessFields_createdAt_Update
+  delete: OrdersDocAccessFields_createdAt_Delete
+}
+
+type OrdersDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type OrdersCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type OrdersReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type OrdersUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type OrdersDeleteDocAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -3125,6 +3848,7 @@ type PayloadPreferencesDeleteDocAccess {
 type Access {
   canAccessAdmin: Boolean!
   restaurants: restaurantsAccess
+  orders: ordersAccess
   media: mediaAccess
   cities: citiesAccess
   users: usersAccess
@@ -3619,6 +4343,449 @@ type RestaurantsUpdateAccess {
 }
 
 type RestaurantsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type ordersAccess {
+  fields: OrdersFields
+  create: OrdersCreateAccess
+  read: OrdersReadAccess
+  update: OrdersUpdateAccess
+  delete: OrdersDeleteAccess
+}
+
+type OrdersFields {
+  city: OrdersFields_city
+  district: OrdersFields_district
+  apartment: OrdersFields_apartment
+  houseNumber: OrdersFields_houseNumber
+  entrance: OrdersFields_entrance
+  phoneNumber: OrdersFields_phoneNumber
+  commentToCourier: OrdersFields_commentToCourier
+  commentToRestaurant: OrdersFields_commentToRestaurant
+  restaurantID: OrdersFields_restaurantID
+  isDelivery: OrdersFields_isDelivery
+  dishes: OrdersFields_dishes
+  user: OrdersFields_user
+  updatedAt: OrdersFields_updatedAt
+  createdAt: OrdersFields_createdAt
+}
+
+type OrdersFields_city {
+  create: OrdersFields_city_Create
+  read: OrdersFields_city_Read
+  update: OrdersFields_city_Update
+  delete: OrdersFields_city_Delete
+}
+
+type OrdersFields_city_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_city_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_city_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_city_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_district {
+  create: OrdersFields_district_Create
+  read: OrdersFields_district_Read
+  update: OrdersFields_district_Update
+  delete: OrdersFields_district_Delete
+}
+
+type OrdersFields_district_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_district_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_district_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_district_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_apartment {
+  create: OrdersFields_apartment_Create
+  read: OrdersFields_apartment_Read
+  update: OrdersFields_apartment_Update
+  delete: OrdersFields_apartment_Delete
+}
+
+type OrdersFields_apartment_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_apartment_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_apartment_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_apartment_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_houseNumber {
+  create: OrdersFields_houseNumber_Create
+  read: OrdersFields_houseNumber_Read
+  update: OrdersFields_houseNumber_Update
+  delete: OrdersFields_houseNumber_Delete
+}
+
+type OrdersFields_houseNumber_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_houseNumber_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_houseNumber_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_houseNumber_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_entrance {
+  create: OrdersFields_entrance_Create
+  read: OrdersFields_entrance_Read
+  update: OrdersFields_entrance_Update
+  delete: OrdersFields_entrance_Delete
+}
+
+type OrdersFields_entrance_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_entrance_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_entrance_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_entrance_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_phoneNumber {
+  create: OrdersFields_phoneNumber_Create
+  read: OrdersFields_phoneNumber_Read
+  update: OrdersFields_phoneNumber_Update
+  delete: OrdersFields_phoneNumber_Delete
+}
+
+type OrdersFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_commentToCourier {
+  create: OrdersFields_commentToCourier_Create
+  read: OrdersFields_commentToCourier_Read
+  update: OrdersFields_commentToCourier_Update
+  delete: OrdersFields_commentToCourier_Delete
+}
+
+type OrdersFields_commentToCourier_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_commentToCourier_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_commentToCourier_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_commentToCourier_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_commentToRestaurant {
+  create: OrdersFields_commentToRestaurant_Create
+  read: OrdersFields_commentToRestaurant_Read
+  update: OrdersFields_commentToRestaurant_Update
+  delete: OrdersFields_commentToRestaurant_Delete
+}
+
+type OrdersFields_commentToRestaurant_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_commentToRestaurant_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_commentToRestaurant_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_commentToRestaurant_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_restaurantID {
+  create: OrdersFields_restaurantID_Create
+  read: OrdersFields_restaurantID_Read
+  update: OrdersFields_restaurantID_Update
+  delete: OrdersFields_restaurantID_Delete
+}
+
+type OrdersFields_restaurantID_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_restaurantID_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_restaurantID_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_restaurantID_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_isDelivery {
+  create: OrdersFields_isDelivery_Create
+  read: OrdersFields_isDelivery_Read
+  update: OrdersFields_isDelivery_Update
+  delete: OrdersFields_isDelivery_Delete
+}
+
+type OrdersFields_isDelivery_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_isDelivery_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_isDelivery_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_isDelivery_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes {
+  create: OrdersFields_dishes_Create
+  read: OrdersFields_dishes_Read
+  update: OrdersFields_dishes_Update
+  delete: OrdersFields_dishes_Delete
+  fields: OrdersFields_dishes_Fields
+}
+
+type OrdersFields_dishes_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_Fields {
+  dish: OrdersFields_dishes_dish
+  quantity: OrdersFields_dishes_quantity
+  id: OrdersFields_dishes_id
+}
+
+type OrdersFields_dishes_dish {
+  create: OrdersFields_dishes_dish_Create
+  read: OrdersFields_dishes_dish_Read
+  update: OrdersFields_dishes_dish_Update
+  delete: OrdersFields_dishes_dish_Delete
+}
+
+type OrdersFields_dishes_dish_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_dish_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_dish_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_dish_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_quantity {
+  create: OrdersFields_dishes_quantity_Create
+  read: OrdersFields_dishes_quantity_Read
+  update: OrdersFields_dishes_quantity_Update
+  delete: OrdersFields_dishes_quantity_Delete
+}
+
+type OrdersFields_dishes_quantity_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_quantity_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_quantity_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_quantity_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_id {
+  create: OrdersFields_dishes_id_Create
+  read: OrdersFields_dishes_id_Read
+  update: OrdersFields_dishes_id_Update
+  delete: OrdersFields_dishes_id_Delete
+}
+
+type OrdersFields_dishes_id_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_id_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_id_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_dishes_id_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_user {
+  create: OrdersFields_user_Create
+  read: OrdersFields_user_Read
+  update: OrdersFields_user_Update
+  delete: OrdersFields_user_Delete
+}
+
+type OrdersFields_user_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_user_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_user_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_user_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_updatedAt {
+  create: OrdersFields_updatedAt_Create
+  read: OrdersFields_updatedAt_Read
+  update: OrdersFields_updatedAt_Update
+  delete: OrdersFields_updatedAt_Delete
+}
+
+type OrdersFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_createdAt {
+  create: OrdersFields_createdAt_Create
+  read: OrdersFields_createdAt_Read
+  update: OrdersFields_createdAt_Update
+  delete: OrdersFields_createdAt_Delete
+}
+
+type OrdersFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type OrdersCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type OrdersReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type OrdersUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type OrdersDeleteAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -4676,6 +5843,9 @@ type Mutation {
   createRestaurant(data: mutationRestaurantInput!): Restaurant
   updateRestaurant(id: String!, autosave: Boolean, data: mutationRestaurantUpdateInput!): Restaurant
   deleteRestaurant(id: String!): Restaurant
+  createOrder(data: mutationOrderInput!): Order
+  updateOrder(id: String!, autosave: Boolean, data: mutationOrderUpdateInput!): Order
+  deleteOrder(id: String!): Order
   createMedia(data: mutationMediaInput!): Media
   updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
   deleteMedia(id: String!): Media
@@ -4824,6 +5994,52 @@ enum RestaurantUpdate_WorkingHours_closeTime_MutationInput {
   _2400
 }
 
+input mutationOrderInput {
+  city: String
+  district: String!
+  apartment: String!
+  houseNumber: String!
+  entrance: String
+  phoneNumber: Float!
+  commentToCourier: String
+  commentToRestaurant: String
+  restaurantID: String
+  isDelivery: Boolean
+  dishes: [mutationOrder_DishesInput!]
+  user: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationOrder_DishesInput {
+  dish: String
+  quantity: Float
+  id: String
+}
+
+input mutationOrderUpdateInput {
+  city: String
+  district: String
+  apartment: String
+  houseNumber: String
+  entrance: String
+  phoneNumber: Float
+  commentToCourier: String
+  commentToRestaurant: String
+  restaurantID: String
+  isDelivery: Boolean
+  dishes: [mutationOrderUpdate_DishesInput]
+  user: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationOrderUpdate_DishesInput {
+  dish: String
+  quantity: Float
+  id: String
+}
+
 input mutationMediaInput {
   alt: String!
   createdBy: String
@@ -4864,7 +6080,7 @@ input mutationCityUpdateInput {
 
 input mutationUserInput {
   name: String
-  restaurant: String
+  restaurant: [String]
   roles: [User_roles_MutationInput]
   updatedAt: String
   createdAt: String
@@ -4886,7 +6102,7 @@ enum User_roles_MutationInput {
 
 input mutationUserUpdateInput {
   name: String
-  restaurant: String
+  restaurant: [String]
   roles: [UserUpdate_roles_MutationInput]
   updatedAt: String
   createdAt: String

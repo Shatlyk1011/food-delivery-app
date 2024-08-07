@@ -19,6 +19,7 @@
 - fix all form translates, validations
 - profile page (with add/remove addresses)
 - connect with backend;
+- komentary restoranu (input)
 
 ## backlog
 

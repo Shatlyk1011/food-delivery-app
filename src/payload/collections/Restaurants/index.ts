@@ -1,7 +1,7 @@
 import type { CollectionConfig } from "payload/types";
 
 import { admins } from "../../access/admins";
-import { checkRole } from "../Users/checkRole";
+import { checkRole } from "../../access/checkRole";
 
 const Restaurants: CollectionConfig = {
   access: {
@@ -14,7 +14,7 @@ const Restaurants: CollectionConfig = {
         }
         return {
           relatedToUser: {
-            equals: user.id || null,
+            equals: user.id,
           },
         };
       }

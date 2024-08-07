@@ -1,15 +1,14 @@
 import type { Access } from "payload/types";
 
-import { checkRole } from "../../../access/checkRole";
+import { checkRole } from "./checkRole";
 
-const adminsAndUser: Access = ({ req: { user } }) => {
+const adminOrRestaurantOwner: Access = ({ req: { user } }) => {
   if (user) {
     if (checkRole(["admin"], user)) {
       return true;
     }
-
     return {
-      id: {
+      restaurantID: {
         equals: user.id,
       },
     };
@@ -18,4 +17,4 @@ const adminsAndUser: Access = ({ req: { user } }) => {
   return false;
 };
 
-export default adminsAndUser;
+export default adminOrRestaurantOwner;

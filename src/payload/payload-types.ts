@@ -9,6 +9,7 @@
 export interface Config {
   collections: {
     restaurants: Restaurant;
+    orders: Order;
     media: Media;
     cities: City;
     users: User;
@@ -71,7 +72,7 @@ export interface Media {
 export interface User {
   id: string;
   name?: string | null;
-  restaurant?: (string | null) | Restaurant;
+  restaurant?: (string | Restaurant)[] | null;
   roles?: ('admin' | 'author' | 'moderator')[] | null;
   updatedAt: string;
   createdAt: string;
@@ -110,6 +111,31 @@ export interface Dish {
 export interface City {
   id: string;
   title?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: string;
+  city?: string | null;
+  district: string;
+  apartment: string;
+  houseNumber: string;
+  entrance?: string | null;
+  phoneNumber: number;
+  commentToCourier?: string | null;
+  commentToRestaurant?: string | null;
+  restaurantID: string | Restaurant;
+  isDelivery: boolean;
+  dishes: {
+    dish?: (string | null) | Dish;
+    quantity?: number | null;
+    id?: string | null;
+  }[];
+  user?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -18,7 +18,10 @@ const Users: CollectionConfig = {
     useAsTitle: "name",
   },
 
-  auth: true,
+  auth: {
+    depth: 0,
+    maxLoginAttempts: 10,
+  },
   fields: [
     {
       name: "name",
@@ -31,6 +34,7 @@ const Users: CollectionConfig = {
     {
       name: "restaurant",
       relationTo: "restaurants",
+      hasMany: true,
       type: "relationship",
     },
 

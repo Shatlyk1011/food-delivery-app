@@ -3,7 +3,7 @@ import type { CollectionConfig } from "payload/types";
 import path from "path";
 
 import { admins } from "../access/admins";
-import adminAndCreatedByUser from "./Users/access/adminAndCreatedByUser";
+import adminAndCreatedByUser from "../access/adminAndCreatedByUser";
 import adminsAndUser from "./Users/access/adminsAndUser";
 
 const Media: CollectionConfig = {
@@ -11,7 +11,7 @@ const Media: CollectionConfig = {
     create: adminsAndUser,
     delete: admins,
     read: adminAndCreatedByUser,
-    update: admins,
+    update: adminsAndUser,
   },
   admin: {
     defaultColumns: ["title", "createdBy", "createdAt"],
@@ -26,7 +26,7 @@ const Media: CollectionConfig = {
     {
       name: "createdBy",
       admin: {
-        position: "sidebar",
+        hidden: true,
       },
       label: "Пользователь",
       relationTo: "users",

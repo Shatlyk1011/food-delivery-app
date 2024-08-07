@@ -1,6 +1,6 @@
 import type { CollectionConfig } from "payload/types";
 
-import adminAndCreatedByUser from "../Users/access/adminAndCreatedByUser";
+import adminAndCreatedByUser from "../../access/adminAndCreatedByUser";
 
 const Dishes: CollectionConfig = {
   access: {
@@ -12,6 +12,7 @@ const Dishes: CollectionConfig = {
 
   admin: {
     defaultColumns: ["title", "price", "availableAmount", "cookTime"],
+    hideAPIURL: true,
     useAsTitle: "title",
   },
   fields: [
