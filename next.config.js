@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const ContentSecurityPolicy = require("./csp");
 const redirects = require("./redirects");
-import createNextIntlPlugin from "next-intl/plugin";
+const createNextIntlPlugin = require("next-intl/plugin");
 
 const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
