@@ -8,16 +8,29 @@ const Orders: CollectionConfig = {
   access: {
     create: () => true,
     delete: admins,
-    read: async ({ req: { user } }) => {
-      if (user) {
-        if (checkRole(["admin"], user)) {
+    read: ({ req }) => {
+      console.log("userrr", req.user);
+      if (req.user) {
+        if (checkRole(["admin"], req.user)) {
           return true;
+        }
+        //IT WORKS: WHEN creating order, include restaurant id as well
+        if (req.headers.referer.includes("/admin/collections/orders")) {
+          return {
+            restaurantID: {
+              in: "req.user.restaurant",
+            },
+          };
         }
       }
 
       return false;
     },
     update: adminAndCreatedByUser,
+  },
+
+  auth: {
+    depth: 1,
   },
 
   admin: {
@@ -78,8 +91,7 @@ const Orders: CollectionConfig = {
       name: "restaurantID",
       label: "ID ресторана",
       required: true,
-      type: "relationship",
-      relationTo: "restaurants",
+      type: "text",
     },
     {
       name: "isDelivery",
@@ -105,33 +117,7 @@ const Orders: CollectionConfig = {
         },
       ],
     },
-    {
-      name: "user",
-      type: "relationship",
-      relationTo: "users",
-    },
   ],
-  hooks: {
-    afterChange: [
-      async ({ doc, req, previousDoc }) => {
-        console.log("");
-        const user = req.user;
-        console.log("previousDoc", previousDoc);
-
-        if (user) {
-          const userRestaurants = user.restaurants;
-
-          // Check if the order's restaurant is in the user's restaurant list
-          if (userRestaurants.includes(doc.restaurant)) {
-            // Perform any actions or validations needed
-            console.log(`Order ${doc.id} is associated with the user's restaurant.`);
-          } else {
-            console.log(`Order ${doc.id} is NOT associated with the user's restaurant.`);
-          }
-        }
-      },
-    ],
-  },
   slug: "orders",
   timestamps: true,
 };

@@ -7,24 +7,30 @@ const Restaurants: CollectionConfig = {
   access: {
     create: admins,
     delete: admins,
-    read: ({ req: { user } }) => {
-      if (user) {
-        if (user.roles.includes("admin")) {
-          return true;
+    read: ({ req }) => {
+      if (req.user) {
+        if (req.user.roles.includes("admin")) return true;
+
+        if (req.headers.referer?.includes("/admin")) {
+          return {
+            relatedToUser: {
+              equals: req.user.id,
+            },
+          };
         }
-        return {
-          relatedToUser: {
-            equals: user.id,
-          },
-        };
       }
+      return true;
     },
-    update: ({ req: { user } }) => checkRole(["admin", "author"], user),
+    update: ({ req: { user } }) => {
+      return checkRole(["admin", "author"], user);
+    },
   },
 
   admin: {
     useAsTitle: "title",
+    defaultColumns: ["title", "deliveryTime", "deliveryPrice", "isBlocked"],
   },
+
   fields: [
     {
       name: "title",
@@ -291,6 +297,20 @@ const Restaurants: CollectionConfig = {
       type: "relationship",
     },
   ],
+  hooks: {
+    beforeRead: [
+      ({ req, query }) => {
+        if (req.user && req.headers.referer?.includes("/admin")) {
+          // Apply the filter only in the admin panel
+          if (!checkRole(["admin"], req.user)) {
+            query.relatedToUser = {
+              equals: req.user.id,
+            };
+          }
+        }
+      },
+    ],
+  },
   slug: "restaurants",
 };
 

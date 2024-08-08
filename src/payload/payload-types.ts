@@ -126,16 +126,23 @@ export interface Order {
   phoneNumber: number;
   commentToCourier?: string | null;
   commentToRestaurant?: string | null;
-  restaurantID: string | Restaurant;
+  restaurantID: string;
   isDelivery: boolean;
   dishes: {
     dish?: (string | null) | Dish;
     quantity?: number | null;
     id?: string | null;
   }[];
-  user?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -143,10 +150,15 @@ export interface Order {
  */
 export interface PayloadPreference {
   id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'orders';
+        value: string | Order;
+      }
+    | {
+        relationTo: 'users';
+        value: string | User;
+      };
   key?: string | null;
   value?:
     | {
