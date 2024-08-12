@@ -13,6 +13,7 @@ export interface Config {
     media: Media;
     cities: City;
     users: User;
+    customers: Customer;
     dishes: Dish;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -41,7 +42,7 @@ export interface Restaurant {
   dishes?: (string | Dish)[] | null;
   budgetCategory?: ('cheap' | 'average' | 'expensive') | null;
   isBlocked?: boolean | null;
-  relatedToUser: string | User;
+  relatedToUser: string | Customer;
   cities?: (string | City)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -53,7 +54,7 @@ export interface Restaurant {
 export interface Media {
   id: string;
   alt: string;
-  createdBy?: (string | null) | User;
+  createdBy?: (string | null) | Customer;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -67,13 +68,16 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "customers".
  */
-export interface User {
+export interface Customer {
   id: string;
   name?: string | null;
+  phone?: string | null;
   restaurant?: (string | Restaurant)[] | null;
-  roles?: ('admin' | 'author' | 'moderator')[] | null;
+  orders?: (string | Order)[] | null;
+  isBlocked?: boolean | null;
+  roles?: ('admin' | 'author')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -84,33 +88,6 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "dishes".
- */
-export interface Dish {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  gram: number;
-  availableAmount?: number | null;
-  cookTime: number;
-  image?: string | Media | null;
-  restaurant: string | Restaurant;
-  createdBy?: (string | null) | User;
-  isBlocked?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cities".
- */
-export interface City {
-  id: string;
-  title?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -146,6 +123,62 @@ export interface Order {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dishes".
+ */
+export interface Dish {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  gram: number;
+  availableAmount?: number | null;
+  cookTime: number;
+  image?: string | Media | null;
+  restaurant: string | Restaurant;
+  createdBy?: (string | null) | Customer;
+  isBlocked?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities".
+ */
+export interface City {
+  id: string;
+  title?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: string;
+  name?: string | null;
+  addresses?:
+    | {
+        city?: string | null;
+        district: string;
+        apartment: string;
+        houseNumber: string;
+        entrance?: string | null;
+        phoneNumber: number;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
@@ -158,6 +191,10 @@ export interface PayloadPreference {
     | {
         relationTo: 'users';
         value: string | User;
+      }
+    | {
+        relationTo: 'customers';
+        value: string | Customer;
       };
   key?: string | null;
   value?:

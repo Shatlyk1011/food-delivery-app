@@ -1,15 +1,13 @@
 import type { CollectionConfig } from "payload/types";
 
 import { admins } from "../../access/admins";
-import adminsAndUser from "./access/adminsAndUser";
-import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
 
 const Users: CollectionConfig = {
   access: {
-    admin: () => true,
+    admin: () => false,
     create: admins,
     delete: admins,
-    read: adminsAndUser,
+    read: admins,
     update: admins,
   },
 
@@ -18,10 +16,7 @@ const Users: CollectionConfig = {
     useAsTitle: "name",
   },
 
-  auth: {
-    depth: 0,
-    maxLoginAttempts: 10,
-  },
+  auth: true,
   fields: [
     {
       name: "name",
@@ -32,34 +27,48 @@ const Users: CollectionConfig = {
       type: "email",
     },
     {
-      name: "restaurant",
-      relationTo: "restaurants",
-      hasMany: true,
-      type: "relationship",
-    },
-
-    {
-      name: "roles",
-      defaultValue: ["author"],
-      hasMany: true,
-      hooks: {
-        beforeChange: [ensureFirstUserIsAdmin],
-      },
-      options: [
+      name: "addresses",
+      fields: [
         {
-          label: "admin",
-          value: "admin",
+          name: "city",
+          label: "Город",
+          required: false,
+          type: "text",
         },
         {
-          label: "author",
-          value: "author",
+          name: "district",
+          label: "Район",
+          required: true,
+          type: "text",
         },
         {
-          label: "moderator",
-          value: "moderator",
+          name: "apartment",
+          label: "Квартира",
+          required: true,
+          type: "text",
+        },
+        {
+          name: "houseNumber",
+          label: "Номер дома",
+          required: true,
+          type: "text",
+        },
+        {
+          name: "entrance",
+          label: "Подъезд",
+          required: false,
+          type: "text",
+        },
+        {
+          name: "phoneNumber",
+          label: "Номер телефана",
+          required: true,
+          type: "number",
         },
       ],
-      type: "select",
+      label: "Адреса",
+      required: false,
+      type: "array",
     },
   ],
 

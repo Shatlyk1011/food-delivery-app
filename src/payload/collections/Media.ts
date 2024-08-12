@@ -2,9 +2,9 @@ import type { CollectionConfig } from "payload/types";
 
 import path from "path";
 
-import { admins } from "../access/admins";
 import adminAndCreatedByUser from "../access/adminAndCreatedByUser";
-import adminsAndUser from "./Users/access/adminsAndUser";
+import { admins } from "../access/admins";
+import adminsAndUser from "../access/adminsAndUser";
 
 const Media: CollectionConfig = {
   access: {
@@ -29,7 +29,7 @@ const Media: CollectionConfig = {
         hidden: true,
       },
       label: "Пользователь",
-      relationTo: "users",
+      relationTo: "customers",
       type: "relationship",
     },
   ],

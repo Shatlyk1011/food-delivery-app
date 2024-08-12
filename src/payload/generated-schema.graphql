@@ -23,6 +23,12 @@ type Query {
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
+  Customer(id: String!): Customer
+  Customers(where: Customer_where, limit: Int, page: Int, sort: String): Customers
+  countCustomers(where: Customer_where): countCustomers
+  docAccessCustomer(id: String!): customersDocAccess
+  meCustomer: customersMe
+  initializedCustomer: Boolean
   Dish(id: String!): Dish
   Dishes(where: Dish_where, limit: Int, page: Int, sort: String): Dishes
   countDishes(where: Dish_where): countDishes
@@ -49,7 +55,7 @@ type Restaurant {
   dishes: [Dish!]
   budgetCategory: Restaurant_budgetCategory
   isBlocked: Boolean
-  relatedToUser: User!
+  relatedToUser: Customer!
   cities: [City!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -100,7 +106,7 @@ enum Restaurant_WorkingHours_closeTime {
 type Media {
   id: String
   alt: String!
-  createdBy: User
+  createdBy: Customer
   updatedAt: DateTime
   createdAt: DateTime
   url: String
@@ -113,11 +119,14 @@ type Media {
   focalY: Float
 }
 
-type User {
+type Customer {
   id: String
   name: String
+  phone: String
   restaurant: [Restaurant!]
-  roles: [User_roles!]
+  orders: [Order!]
+  isBlocked: Boolean
+  roles: [Customer_roles!]
   updatedAt: DateTime
   createdAt: DateTime
   email: EmailAddress!
@@ -130,10 +139,104 @@ type User {
   password: String!
 }
 
-enum User_roles {
-  admin
-  author
-  moderator
+type Order {
+  id: String
+  city: String
+  district: String!
+  apartment: String!
+  houseNumber: String!
+  entrance: String
+  phoneNumber: Float!
+  commentToCourier: String
+  commentToRestaurant: String
+  restaurantID: String!
+  isDelivery: Boolean!
+  dishes: [Order_Dishes!]!
+  updatedAt: DateTime
+  createdAt: DateTime
+  email: EmailAddress!
+  resetPasswordToken: String
+  resetPasswordExpiration: DateTime
+  salt: String
+  hash: String
+  loginAttempts: Float
+  lockUntil: DateTime
+  password: String!
+}
+
+type Order_Dishes {
+  dish: Dish
+  quantity: Float
+  id: String
+}
+
+type Dish {
+  id: String
+  title: String!
+  description: String!
+  price: Float!
+  gram: Float!
+  availableAmount: Float
+  cookTime: Float!
+  image(where: Dish_Image_where): Media
+  restaurant: Restaurant!
+  createdBy: Customer
+  isBlocked: Boolean
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+input Dish_Image_where {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
+input Dish_Image_alt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Dish_Image_createdBy_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input Dish_Image_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
 }
 
 """
@@ -141,10 +244,156 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+input Dish_Image_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Dish_Image_url_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_filename_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_mimeType_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_filesize_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_width_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_height_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_focalX_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_focalY_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Dish_Image_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Dish_Image_where_and {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
+input Dish_Image_where_or {
+  alt: Dish_Image_alt_operator
+  createdBy: Dish_Image_createdBy_operator
+  updatedAt: Dish_Image_updatedAt_operator
+  createdAt: Dish_Image_createdAt_operator
+  url: Dish_Image_url_operator
+  filename: Dish_Image_filename_operator
+  mimeType: Dish_Image_mimeType_operator
+  filesize: Dish_Image_filesize_operator
+  width: Dish_Image_width_operator
+  height: Dish_Image_height_operator
+  focalX: Dish_Image_focalX_operator
+  focalY: Dish_Image_focalY_operator
+  id: Dish_Image_id_operator
+  AND: [Dish_Image_where_and]
+  OR: [Dish_Image_where_or]
+}
+
 """
 A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
 """
 scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
+
+enum Customer_roles {
+  admin
+  author
+}
 
 input Restaurant_BannerImage_where {
   alt: Restaurant_BannerImage_alt_operator
@@ -182,11 +431,6 @@ input Restaurant_BannerImage_createdBy_operator {
   all: [JSON]
   exists: Boolean
 }
-
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
 
 input Restaurant_BannerImage_updatedAt_operator {
   equals: DateTime
@@ -338,211 +582,6 @@ input Restaurant_BannerImage_where_or {
   id: Restaurant_BannerImage_id_operator
   AND: [Restaurant_BannerImage_where_and]
   OR: [Restaurant_BannerImage_where_or]
-}
-
-type Dish {
-  id: String
-  title: String!
-  description: String!
-  price: Float!
-  gram: Float!
-  availableAmount: Float
-  cookTime: Float!
-  image(where: Dish_Image_where): Media
-  restaurant: Restaurant!
-  createdBy: User
-  isBlocked: Boolean
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-input Dish_Image_where {
-  alt: Dish_Image_alt_operator
-  createdBy: Dish_Image_createdBy_operator
-  updatedAt: Dish_Image_updatedAt_operator
-  createdAt: Dish_Image_createdAt_operator
-  url: Dish_Image_url_operator
-  filename: Dish_Image_filename_operator
-  mimeType: Dish_Image_mimeType_operator
-  filesize: Dish_Image_filesize_operator
-  width: Dish_Image_width_operator
-  height: Dish_Image_height_operator
-  focalX: Dish_Image_focalX_operator
-  focalY: Dish_Image_focalY_operator
-  id: Dish_Image_id_operator
-  AND: [Dish_Image_where_and]
-  OR: [Dish_Image_where_or]
-}
-
-input Dish_Image_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Dish_Image_createdBy_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
-  exists: Boolean
-}
-
-input Dish_Image_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Dish_Image_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Dish_Image_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Dish_Image_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Dish_Image_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Dish_Image_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_focalX_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_focalY_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Dish_Image_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Dish_Image_where_and {
-  alt: Dish_Image_alt_operator
-  createdBy: Dish_Image_createdBy_operator
-  updatedAt: Dish_Image_updatedAt_operator
-  createdAt: Dish_Image_createdAt_operator
-  url: Dish_Image_url_operator
-  filename: Dish_Image_filename_operator
-  mimeType: Dish_Image_mimeType_operator
-  filesize: Dish_Image_filesize_operator
-  width: Dish_Image_width_operator
-  height: Dish_Image_height_operator
-  focalX: Dish_Image_focalX_operator
-  focalY: Dish_Image_focalY_operator
-  id: Dish_Image_id_operator
-  AND: [Dish_Image_where_and]
-  OR: [Dish_Image_where_or]
-}
-
-input Dish_Image_where_or {
-  alt: Dish_Image_alt_operator
-  createdBy: Dish_Image_createdBy_operator
-  updatedAt: Dish_Image_updatedAt_operator
-  createdAt: Dish_Image_createdAt_operator
-  url: Dish_Image_url_operator
-  filename: Dish_Image_filename_operator
-  mimeType: Dish_Image_mimeType_operator
-  filesize: Dish_Image_filesize_operator
-  width: Dish_Image_width_operator
-  height: Dish_Image_height_operator
-  focalX: Dish_Image_focalX_operator
-  focalY: Dish_Image_focalY_operator
-  id: Dish_Image_id_operator
-  AND: [Dish_Image_where_and]
-  OR: [Dish_Image_where_or]
 }
 
 enum Restaurant_budgetCategory {
@@ -1349,37 +1388,6 @@ type RestaurantsDeleteDocAccess {
   where: JSONObject
 }
 
-type Order {
-  id: String
-  city: String
-  district: String!
-  apartment: String!
-  houseNumber: String!
-  entrance: String
-  phoneNumber: Float!
-  commentToCourier: String
-  commentToRestaurant: String
-  restaurantID: Restaurant!
-  isDelivery: Boolean!
-  dishes: [Order_Dishes!]!
-  updatedAt: DateTime
-  createdAt: DateTime
-  email: EmailAddress!
-  resetPasswordToken: String
-  resetPasswordExpiration: DateTime
-  salt: String
-  hash: String
-  loginAttempts: Float
-  lockUntil: DateTime
-  password: String!
-}
-
-type Order_Dishes {
-  dish: Dish
-  quantity: Float
-  id: String
-}
-
 type Orders {
   docs: [Order]
   hasNextPage: Boolean
@@ -1500,11 +1508,13 @@ input Order_commentToRestaurant_operator {
 }
 
 input Order_restaurantID_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input Order_isDelivery_operator {
@@ -2756,6 +2766,32 @@ type CitiesDeleteDocAccess {
   where: JSONObject
 }
 
+type User {
+  id: String
+  name: String
+  addresses: [User_Addresses!]
+  updatedAt: DateTime
+  createdAt: DateTime
+  email: EmailAddress!
+  resetPasswordToken: String
+  resetPasswordExpiration: DateTime
+  salt: String
+  hash: String
+  loginAttempts: Float
+  lockUntil: DateTime
+  password: String!
+}
+
+type User_Addresses {
+  city: String
+  district: String
+  apartment: String
+  houseNumber: String
+  entrance: String
+  phoneNumber: Float
+  id: String
+}
+
 type Users {
   docs: [User]
   hasNextPage: Boolean
@@ -2772,8 +2808,13 @@ type Users {
 
 input User_where {
   name: User_name_operator
-  restaurant: User_restaurant_operator
-  roles: User_roles_operator
+  addresses__city: User_addresses__city_operator
+  addresses__district: User_addresses__district_operator
+  addresses__apartment: User_addresses__apartment_operator
+  addresses__houseNumber: User_addresses__houseNumber_operator
+  addresses__entrance: User_addresses__entrance_operator
+  addresses__phoneNumber: User_addresses__phoneNumber_operator
+  addresses__id: User_addresses__id_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
@@ -2793,28 +2834,76 @@ input User_name_operator {
   exists: Boolean
 }
 
-input User_restaurant_operator {
-  equals: JSON
-  not_equals: JSON
-  in: [JSON]
-  not_in: [JSON]
-  all: [JSON]
+input User_addresses__city_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
-input User_roles_operator {
-  equals: User_roles_Input
-  not_equals: User_roles_Input
-  in: [User_roles_Input]
-  not_in: [User_roles_Input]
-  all: [User_roles_Input]
+input User_addresses__district_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input User_addresses__apartment_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input User_addresses__houseNumber_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input User_addresses__entrance_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
-enum User_roles_Input {
-  admin
-  author
-  moderator
+input User_addresses__phoneNumber_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+}
+
+input User_addresses__id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
 }
 
 input User_updatedAt_operator {
@@ -2862,8 +2951,13 @@ input User_id_operator {
 
 input User_where_and {
   name: User_name_operator
-  restaurant: User_restaurant_operator
-  roles: User_roles_operator
+  addresses__city: User_addresses__city_operator
+  addresses__district: User_addresses__district_operator
+  addresses__apartment: User_addresses__apartment_operator
+  addresses__houseNumber: User_addresses__houseNumber_operator
+  addresses__entrance: User_addresses__entrance_operator
+  addresses__phoneNumber: User_addresses__phoneNumber_operator
+  addresses__id: User_addresses__id_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
@@ -2874,8 +2968,13 @@ input User_where_and {
 
 input User_where_or {
   name: User_name_operator
-  restaurant: User_restaurant_operator
-  roles: User_roles_operator
+  addresses__city: User_addresses__city_operator
+  addresses__district: User_addresses__district_operator
+  addresses__apartment: User_addresses__apartment_operator
+  addresses__houseNumber: User_addresses__houseNumber_operator
+  addresses__entrance: User_addresses__entrance_operator
+  addresses__phoneNumber: User_addresses__phoneNumber_operator
+  addresses__id: User_addresses__id_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
@@ -2899,8 +2998,7 @@ type usersDocAccess {
 
 type UsersDocAccessFields {
   name: UsersDocAccessFields_name
-  restaurant: UsersDocAccessFields_restaurant
-  roles: UsersDocAccessFields_roles
+  addresses: UsersDocAccessFields_addresses
   updatedAt: UsersDocAccessFields_updatedAt
   createdAt: UsersDocAccessFields_createdAt
   email: UsersDocAccessFields_email
@@ -2930,49 +3028,198 @@ type UsersDocAccessFields_name_Delete {
   permission: Boolean!
 }
 
-type UsersDocAccessFields_restaurant {
-  create: UsersDocAccessFields_restaurant_Create
-  read: UsersDocAccessFields_restaurant_Read
-  update: UsersDocAccessFields_restaurant_Update
-  delete: UsersDocAccessFields_restaurant_Delete
+type UsersDocAccessFields_addresses {
+  create: UsersDocAccessFields_addresses_Create
+  read: UsersDocAccessFields_addresses_Read
+  update: UsersDocAccessFields_addresses_Update
+  delete: UsersDocAccessFields_addresses_Delete
+  fields: UsersDocAccessFields_addresses_Fields
 }
 
-type UsersDocAccessFields_restaurant_Create {
+type UsersDocAccessFields_addresses_Create {
   permission: Boolean!
 }
 
-type UsersDocAccessFields_restaurant_Read {
+type UsersDocAccessFields_addresses_Read {
   permission: Boolean!
 }
 
-type UsersDocAccessFields_restaurant_Update {
+type UsersDocAccessFields_addresses_Update {
   permission: Boolean!
 }
 
-type UsersDocAccessFields_restaurant_Delete {
+type UsersDocAccessFields_addresses_Delete {
   permission: Boolean!
 }
 
-type UsersDocAccessFields_roles {
-  create: UsersDocAccessFields_roles_Create
-  read: UsersDocAccessFields_roles_Read
-  update: UsersDocAccessFields_roles_Update
-  delete: UsersDocAccessFields_roles_Delete
+type UsersDocAccessFields_addresses_Fields {
+  city: UsersDocAccessFields_addresses_city
+  district: UsersDocAccessFields_addresses_district
+  apartment: UsersDocAccessFields_addresses_apartment
+  houseNumber: UsersDocAccessFields_addresses_houseNumber
+  entrance: UsersDocAccessFields_addresses_entrance
+  phoneNumber: UsersDocAccessFields_addresses_phoneNumber
+  id: UsersDocAccessFields_addresses_id
 }
 
-type UsersDocAccessFields_roles_Create {
+type UsersDocAccessFields_addresses_city {
+  create: UsersDocAccessFields_addresses_city_Create
+  read: UsersDocAccessFields_addresses_city_Read
+  update: UsersDocAccessFields_addresses_city_Update
+  delete: UsersDocAccessFields_addresses_city_Delete
+}
+
+type UsersDocAccessFields_addresses_city_Create {
   permission: Boolean!
 }
 
-type UsersDocAccessFields_roles_Read {
+type UsersDocAccessFields_addresses_city_Read {
   permission: Boolean!
 }
 
-type UsersDocAccessFields_roles_Update {
+type UsersDocAccessFields_addresses_city_Update {
   permission: Boolean!
 }
 
-type UsersDocAccessFields_roles_Delete {
+type UsersDocAccessFields_addresses_city_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_district {
+  create: UsersDocAccessFields_addresses_district_Create
+  read: UsersDocAccessFields_addresses_district_Read
+  update: UsersDocAccessFields_addresses_district_Update
+  delete: UsersDocAccessFields_addresses_district_Delete
+}
+
+type UsersDocAccessFields_addresses_district_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_district_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_district_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_district_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_apartment {
+  create: UsersDocAccessFields_addresses_apartment_Create
+  read: UsersDocAccessFields_addresses_apartment_Read
+  update: UsersDocAccessFields_addresses_apartment_Update
+  delete: UsersDocAccessFields_addresses_apartment_Delete
+}
+
+type UsersDocAccessFields_addresses_apartment_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_apartment_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_apartment_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_apartment_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_houseNumber {
+  create: UsersDocAccessFields_addresses_houseNumber_Create
+  read: UsersDocAccessFields_addresses_houseNumber_Read
+  update: UsersDocAccessFields_addresses_houseNumber_Update
+  delete: UsersDocAccessFields_addresses_houseNumber_Delete
+}
+
+type UsersDocAccessFields_addresses_houseNumber_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_houseNumber_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_houseNumber_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_houseNumber_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_entrance {
+  create: UsersDocAccessFields_addresses_entrance_Create
+  read: UsersDocAccessFields_addresses_entrance_Read
+  update: UsersDocAccessFields_addresses_entrance_Update
+  delete: UsersDocAccessFields_addresses_entrance_Delete
+}
+
+type UsersDocAccessFields_addresses_entrance_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_entrance_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_entrance_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_entrance_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_phoneNumber {
+  create: UsersDocAccessFields_addresses_phoneNumber_Create
+  read: UsersDocAccessFields_addresses_phoneNumber_Read
+  update: UsersDocAccessFields_addresses_phoneNumber_Update
+  delete: UsersDocAccessFields_addresses_phoneNumber_Delete
+}
+
+type UsersDocAccessFields_addresses_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_id {
+  create: UsersDocAccessFields_addresses_id_Create
+  read: UsersDocAccessFields_addresses_id_Read
+  update: UsersDocAccessFields_addresses_id_Update
+  delete: UsersDocAccessFields_addresses_id_Delete
+}
+
+type UsersDocAccessFields_addresses_id_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_id_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_id_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_addresses_id_Delete {
   permission: Boolean!
 }
 
@@ -3099,6 +3346,457 @@ type usersMe {
   strategy: String
   token: String
   user: User
+}
+
+type Customers {
+  docs: [Customer]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Customer_where {
+  name: Customer_name_operator
+  phone: Customer_phone_operator
+  restaurant: Customer_restaurant_operator
+  orders: Customer_orders_operator
+  isBlocked: Customer_isBlocked_operator
+  roles: Customer_roles_operator
+  updatedAt: Customer_updatedAt_operator
+  createdAt: Customer_createdAt_operator
+  email: Customer_email_operator
+  id: Customer_id_operator
+  AND: [Customer_where_and]
+  OR: [Customer_where_or]
+}
+
+input Customer_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Customer_phone_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Customer_restaurant_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Customer_orders_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
+input Customer_isBlocked_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Customer_roles_operator {
+  equals: Customer_roles_Input
+  not_equals: Customer_roles_Input
+  in: [Customer_roles_Input]
+  not_in: [Customer_roles_Input]
+  all: [Customer_roles_Input]
+  exists: Boolean
+}
+
+enum Customer_roles_Input {
+  admin
+  author
+}
+
+input Customer_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Customer_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Customer_email_operator {
+  equals: EmailAddress
+  not_equals: EmailAddress
+  like: EmailAddress
+  contains: EmailAddress
+  in: [EmailAddress]
+  not_in: [EmailAddress]
+  all: [EmailAddress]
+}
+
+input Customer_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Customer_where_and {
+  name: Customer_name_operator
+  phone: Customer_phone_operator
+  restaurant: Customer_restaurant_operator
+  orders: Customer_orders_operator
+  isBlocked: Customer_isBlocked_operator
+  roles: Customer_roles_operator
+  updatedAt: Customer_updatedAt_operator
+  createdAt: Customer_createdAt_operator
+  email: Customer_email_operator
+  id: Customer_id_operator
+  AND: [Customer_where_and]
+  OR: [Customer_where_or]
+}
+
+input Customer_where_or {
+  name: Customer_name_operator
+  phone: Customer_phone_operator
+  restaurant: Customer_restaurant_operator
+  orders: Customer_orders_operator
+  isBlocked: Customer_isBlocked_operator
+  roles: Customer_roles_operator
+  updatedAt: Customer_updatedAt_operator
+  createdAt: Customer_createdAt_operator
+  email: Customer_email_operator
+  id: Customer_id_operator
+  AND: [Customer_where_and]
+  OR: [Customer_where_or]
+}
+
+type countCustomers {
+  totalDocs: Int
+}
+
+type customersDocAccess {
+  fields: CustomersDocAccessFields
+  create: CustomersCreateDocAccess
+  read: CustomersReadDocAccess
+  update: CustomersUpdateDocAccess
+  delete: CustomersDeleteDocAccess
+  unlock: CustomersUnlockDocAccess
+}
+
+type CustomersDocAccessFields {
+  name: CustomersDocAccessFields_name
+  phone: CustomersDocAccessFields_phone
+  restaurant: CustomersDocAccessFields_restaurant
+  orders: CustomersDocAccessFields_orders
+  isBlocked: CustomersDocAccessFields_isBlocked
+  roles: CustomersDocAccessFields_roles
+  updatedAt: CustomersDocAccessFields_updatedAt
+  createdAt: CustomersDocAccessFields_createdAt
+  email: CustomersDocAccessFields_email
+  password: CustomersDocAccessFields_password
+}
+
+type CustomersDocAccessFields_name {
+  create: CustomersDocAccessFields_name_Create
+  read: CustomersDocAccessFields_name_Read
+  update: CustomersDocAccessFields_name_Update
+  delete: CustomersDocAccessFields_name_Delete
+}
+
+type CustomersDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_phone {
+  create: CustomersDocAccessFields_phone_Create
+  read: CustomersDocAccessFields_phone_Read
+  update: CustomersDocAccessFields_phone_Update
+  delete: CustomersDocAccessFields_phone_Delete
+}
+
+type CustomersDocAccessFields_phone_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_phone_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_phone_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_phone_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_restaurant {
+  create: CustomersDocAccessFields_restaurant_Create
+  read: CustomersDocAccessFields_restaurant_Read
+  update: CustomersDocAccessFields_restaurant_Update
+  delete: CustomersDocAccessFields_restaurant_Delete
+}
+
+type CustomersDocAccessFields_restaurant_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_restaurant_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_restaurant_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_restaurant_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_orders {
+  create: CustomersDocAccessFields_orders_Create
+  read: CustomersDocAccessFields_orders_Read
+  update: CustomersDocAccessFields_orders_Update
+  delete: CustomersDocAccessFields_orders_Delete
+}
+
+type CustomersDocAccessFields_orders_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_orders_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_orders_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_orders_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_isBlocked {
+  create: CustomersDocAccessFields_isBlocked_Create
+  read: CustomersDocAccessFields_isBlocked_Read
+  update: CustomersDocAccessFields_isBlocked_Update
+  delete: CustomersDocAccessFields_isBlocked_Delete
+}
+
+type CustomersDocAccessFields_isBlocked_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_isBlocked_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_isBlocked_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_isBlocked_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_roles {
+  create: CustomersDocAccessFields_roles_Create
+  read: CustomersDocAccessFields_roles_Read
+  update: CustomersDocAccessFields_roles_Update
+  delete: CustomersDocAccessFields_roles_Delete
+}
+
+type CustomersDocAccessFields_roles_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_roles_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_roles_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_roles_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_updatedAt {
+  create: CustomersDocAccessFields_updatedAt_Create
+  read: CustomersDocAccessFields_updatedAt_Read
+  update: CustomersDocAccessFields_updatedAt_Update
+  delete: CustomersDocAccessFields_updatedAt_Delete
+}
+
+type CustomersDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_createdAt {
+  create: CustomersDocAccessFields_createdAt_Create
+  read: CustomersDocAccessFields_createdAt_Read
+  update: CustomersDocAccessFields_createdAt_Update
+  delete: CustomersDocAccessFields_createdAt_Delete
+}
+
+type CustomersDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_email {
+  create: CustomersDocAccessFields_email_Create
+  read: CustomersDocAccessFields_email_Read
+  update: CustomersDocAccessFields_email_Update
+  delete: CustomersDocAccessFields_email_Delete
+}
+
+type CustomersDocAccessFields_email_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_email_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_email_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_email_Delete {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_password {
+  create: CustomersDocAccessFields_password_Create
+  read: CustomersDocAccessFields_password_Read
+  update: CustomersDocAccessFields_password_Update
+  delete: CustomersDocAccessFields_password_Delete
+}
+
+type CustomersDocAccessFields_password_Create {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_password_Read {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_password_Update {
+  permission: Boolean!
+}
+
+type CustomersDocAccessFields_password_Delete {
+  permission: Boolean!
+}
+
+type CustomersCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CustomersReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CustomersUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CustomersDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CustomersUnlockDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type customersMe {
+  collection: String
+  exp: Int
+  strategy: String
+  token: String
+  user: Customer
 }
 
 type Dishes {
@@ -3625,9 +4323,10 @@ type PayloadPreference_User_Relationship {
 enum PayloadPreference_User_RelationTo {
   orders
   users
+  customers
 }
 
-union PayloadPreference_User = Order | User
+union PayloadPreference_User = Order | User | Customer
 
 type PayloadPreferences {
   docs: [PayloadPreference]
@@ -3662,6 +4361,7 @@ input PayloadPreference_user_Relation {
 enum PayloadPreference_user_Relation_RelationTo {
   orders
   users
+  customers
 }
 
 input PayloadPreference_key_operator {
@@ -3902,6 +4602,7 @@ type Access {
   media: mediaAccess
   cities: citiesAccess
   users: usersAccess
+  customers: customersAccess
   dishes: dishesAccess
   payload_preferences: payload_preferencesAccess
 }
@@ -5255,8 +5956,7 @@ type usersAccess {
 
 type UsersFields {
   name: UsersFields_name
-  restaurant: UsersFields_restaurant
-  roles: UsersFields_roles
+  addresses: UsersFields_addresses
   updatedAt: UsersFields_updatedAt
   createdAt: UsersFields_createdAt
   email: UsersFields_email
@@ -5286,49 +5986,198 @@ type UsersFields_name_Delete {
   permission: Boolean!
 }
 
-type UsersFields_restaurant {
-  create: UsersFields_restaurant_Create
-  read: UsersFields_restaurant_Read
-  update: UsersFields_restaurant_Update
-  delete: UsersFields_restaurant_Delete
+type UsersFields_addresses {
+  create: UsersFields_addresses_Create
+  read: UsersFields_addresses_Read
+  update: UsersFields_addresses_Update
+  delete: UsersFields_addresses_Delete
+  fields: UsersFields_addresses_Fields
 }
 
-type UsersFields_restaurant_Create {
+type UsersFields_addresses_Create {
   permission: Boolean!
 }
 
-type UsersFields_restaurant_Read {
+type UsersFields_addresses_Read {
   permission: Boolean!
 }
 
-type UsersFields_restaurant_Update {
+type UsersFields_addresses_Update {
   permission: Boolean!
 }
 
-type UsersFields_restaurant_Delete {
+type UsersFields_addresses_Delete {
   permission: Boolean!
 }
 
-type UsersFields_roles {
-  create: UsersFields_roles_Create
-  read: UsersFields_roles_Read
-  update: UsersFields_roles_Update
-  delete: UsersFields_roles_Delete
+type UsersFields_addresses_Fields {
+  city: UsersFields_addresses_city
+  district: UsersFields_addresses_district
+  apartment: UsersFields_addresses_apartment
+  houseNumber: UsersFields_addresses_houseNumber
+  entrance: UsersFields_addresses_entrance
+  phoneNumber: UsersFields_addresses_phoneNumber
+  id: UsersFields_addresses_id
 }
 
-type UsersFields_roles_Create {
+type UsersFields_addresses_city {
+  create: UsersFields_addresses_city_Create
+  read: UsersFields_addresses_city_Read
+  update: UsersFields_addresses_city_Update
+  delete: UsersFields_addresses_city_Delete
+}
+
+type UsersFields_addresses_city_Create {
   permission: Boolean!
 }
 
-type UsersFields_roles_Read {
+type UsersFields_addresses_city_Read {
   permission: Boolean!
 }
 
-type UsersFields_roles_Update {
+type UsersFields_addresses_city_Update {
   permission: Boolean!
 }
 
-type UsersFields_roles_Delete {
+type UsersFields_addresses_city_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_district {
+  create: UsersFields_addresses_district_Create
+  read: UsersFields_addresses_district_Read
+  update: UsersFields_addresses_district_Update
+  delete: UsersFields_addresses_district_Delete
+}
+
+type UsersFields_addresses_district_Create {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_district_Read {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_district_Update {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_district_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_apartment {
+  create: UsersFields_addresses_apartment_Create
+  read: UsersFields_addresses_apartment_Read
+  update: UsersFields_addresses_apartment_Update
+  delete: UsersFields_addresses_apartment_Delete
+}
+
+type UsersFields_addresses_apartment_Create {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_apartment_Read {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_apartment_Update {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_apartment_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_houseNumber {
+  create: UsersFields_addresses_houseNumber_Create
+  read: UsersFields_addresses_houseNumber_Read
+  update: UsersFields_addresses_houseNumber_Update
+  delete: UsersFields_addresses_houseNumber_Delete
+}
+
+type UsersFields_addresses_houseNumber_Create {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_houseNumber_Read {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_houseNumber_Update {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_houseNumber_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_entrance {
+  create: UsersFields_addresses_entrance_Create
+  read: UsersFields_addresses_entrance_Read
+  update: UsersFields_addresses_entrance_Update
+  delete: UsersFields_addresses_entrance_Delete
+}
+
+type UsersFields_addresses_entrance_Create {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_entrance_Read {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_entrance_Update {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_entrance_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_phoneNumber {
+  create: UsersFields_addresses_phoneNumber_Create
+  read: UsersFields_addresses_phoneNumber_Read
+  update: UsersFields_addresses_phoneNumber_Update
+  delete: UsersFields_addresses_phoneNumber_Delete
+}
+
+type UsersFields_addresses_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_id {
+  create: UsersFields_addresses_id_Create
+  read: UsersFields_addresses_id_Read
+  update: UsersFields_addresses_id_Update
+  delete: UsersFields_addresses_id_Delete
+}
+
+type UsersFields_addresses_id_Create {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_id_Read {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_id_Update {
+  permission: Boolean!
+}
+
+type UsersFields_addresses_id_Delete {
   permission: Boolean!
 }
 
@@ -5445,6 +6294,283 @@ type UsersDeleteAccess {
 }
 
 type UsersUnlockAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type customersAccess {
+  fields: CustomersFields
+  create: CustomersCreateAccess
+  read: CustomersReadAccess
+  update: CustomersUpdateAccess
+  delete: CustomersDeleteAccess
+  unlock: CustomersUnlockAccess
+}
+
+type CustomersFields {
+  name: CustomersFields_name
+  phone: CustomersFields_phone
+  restaurant: CustomersFields_restaurant
+  orders: CustomersFields_orders
+  isBlocked: CustomersFields_isBlocked
+  roles: CustomersFields_roles
+  updatedAt: CustomersFields_updatedAt
+  createdAt: CustomersFields_createdAt
+  email: CustomersFields_email
+  password: CustomersFields_password
+}
+
+type CustomersFields_name {
+  create: CustomersFields_name_Create
+  read: CustomersFields_name_Read
+  update: CustomersFields_name_Update
+  delete: CustomersFields_name_Delete
+}
+
+type CustomersFields_name_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_name_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_name_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_name_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_phone {
+  create: CustomersFields_phone_Create
+  read: CustomersFields_phone_Read
+  update: CustomersFields_phone_Update
+  delete: CustomersFields_phone_Delete
+}
+
+type CustomersFields_phone_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_phone_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_phone_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_phone_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_restaurant {
+  create: CustomersFields_restaurant_Create
+  read: CustomersFields_restaurant_Read
+  update: CustomersFields_restaurant_Update
+  delete: CustomersFields_restaurant_Delete
+}
+
+type CustomersFields_restaurant_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_restaurant_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_restaurant_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_restaurant_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_orders {
+  create: CustomersFields_orders_Create
+  read: CustomersFields_orders_Read
+  update: CustomersFields_orders_Update
+  delete: CustomersFields_orders_Delete
+}
+
+type CustomersFields_orders_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_orders_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_orders_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_orders_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_isBlocked {
+  create: CustomersFields_isBlocked_Create
+  read: CustomersFields_isBlocked_Read
+  update: CustomersFields_isBlocked_Update
+  delete: CustomersFields_isBlocked_Delete
+}
+
+type CustomersFields_isBlocked_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_isBlocked_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_isBlocked_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_isBlocked_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_roles {
+  create: CustomersFields_roles_Create
+  read: CustomersFields_roles_Read
+  update: CustomersFields_roles_Update
+  delete: CustomersFields_roles_Delete
+}
+
+type CustomersFields_roles_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_roles_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_roles_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_roles_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_updatedAt {
+  create: CustomersFields_updatedAt_Create
+  read: CustomersFields_updatedAt_Read
+  update: CustomersFields_updatedAt_Update
+  delete: CustomersFields_updatedAt_Delete
+}
+
+type CustomersFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_createdAt {
+  create: CustomersFields_createdAt_Create
+  read: CustomersFields_createdAt_Read
+  update: CustomersFields_createdAt_Update
+  delete: CustomersFields_createdAt_Delete
+}
+
+type CustomersFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_email {
+  create: CustomersFields_email_Create
+  read: CustomersFields_email_Read
+  update: CustomersFields_email_Update
+  delete: CustomersFields_email_Delete
+}
+
+type CustomersFields_email_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_email_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_email_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_email_Delete {
+  permission: Boolean!
+}
+
+type CustomersFields_password {
+  create: CustomersFields_password_Create
+  read: CustomersFields_password_Read
+  update: CustomersFields_password_Update
+  delete: CustomersFields_password_Delete
+}
+
+type CustomersFields_password_Create {
+  permission: Boolean!
+}
+
+type CustomersFields_password_Read {
+  permission: Boolean!
+}
+
+type CustomersFields_password_Update {
+  permission: Boolean!
+}
+
+type CustomersFields_password_Delete {
+  permission: Boolean!
+}
+
+type CustomersCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CustomersReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CustomersUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CustomersDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CustomersUnlockAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -5949,6 +7075,16 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
+  createCustomer(data: mutationCustomerInput!): Customer
+  updateCustomer(id: String!, autosave: Boolean, data: mutationCustomerUpdateInput!): Customer
+  deleteCustomer(id: String!): Customer
+  refreshTokenCustomer: customersRefreshedCustomer
+  logoutCustomer: String
+  unlockCustomer(email: String!): Boolean!
+  loginCustomer(email: String, password: String): customersLoginResult
+  forgotPasswordCustomer(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
+  resetPasswordCustomer(password: String, token: String): customersResetPassword
+  verifyEmailCustomer(token: String): Boolean
   createDish(data: mutationDishInput!): Dish
   updateDish(id: String!, autosave: Boolean, data: mutationDishUpdateInput!): Dish
   deleteDish(id: String!): Dish
@@ -6090,7 +7226,7 @@ input mutationOrderInput {
   phoneNumber: Float!
   commentToCourier: String
   commentToRestaurant: String
-  restaurantID: String
+  restaurantID: String!
   isDelivery: Boolean
   dishes: [mutationOrder_DishesInput!]
   updatedAt: String
@@ -6204,8 +7340,7 @@ input mutationCityUpdateInput {
 
 input mutationUserInput {
   name: String
-  restaurant: [String]
-  roles: [User_roles_MutationInput]
+  addresses: [mutationUser_AddressesInput]
   updatedAt: String
   createdAt: String
   email: String!
@@ -6218,16 +7353,19 @@ input mutationUserInput {
   password: String!
 }
 
-enum User_roles_MutationInput {
-  admin
-  author
-  moderator
+input mutationUser_AddressesInput {
+  city: String
+  district: String!
+  apartment: String!
+  houseNumber: String!
+  entrance: String
+  phoneNumber: Float!
+  id: String
 }
 
 input mutationUserUpdateInput {
   name: String
-  restaurant: [String]
-  roles: [UserUpdate_roles_MutationInput]
+  addresses: [mutationUserUpdate_AddressesInput]
   updatedAt: String
   createdAt: String
   email: String
@@ -6240,10 +7378,14 @@ input mutationUserUpdateInput {
   password: String
 }
 
-enum UserUpdate_roles_MutationInput {
-  admin
-  author
-  moderator
+input mutationUserUpdate_AddressesInput {
+  city: String
+  district: String!
+  apartment: String!
+  houseNumber: String!
+  entrance: String
+  phoneNumber: Float!
+  id: String
 }
 
 type usersRefreshedUser {
@@ -6267,6 +7409,77 @@ type usersLoginResult {
 type usersResetPassword {
   token: String
   user: User
+}
+
+input mutationCustomerInput {
+  name: String
+  phone: String
+  restaurant: [String]
+  orders: [String]
+  isBlocked: Boolean
+  roles: [Customer_roles_MutationInput]
+  updatedAt: String
+  createdAt: String
+  email: String!
+  resetPasswordToken: String
+  resetPasswordExpiration: String
+  salt: String
+  hash: String
+  loginAttempts: Float
+  lockUntil: String
+  password: String!
+}
+
+enum Customer_roles_MutationInput {
+  admin
+  author
+}
+
+input mutationCustomerUpdateInput {
+  name: String
+  phone: String
+  restaurant: [String]
+  orders: [String]
+  isBlocked: Boolean
+  roles: [CustomerUpdate_roles_MutationInput]
+  updatedAt: String
+  createdAt: String
+  email: String
+  resetPasswordToken: String
+  resetPasswordExpiration: String
+  salt: String
+  hash: String
+  loginAttempts: Float
+  lockUntil: String
+  password: String
+}
+
+enum CustomerUpdate_roles_MutationInput {
+  admin
+  author
+}
+
+type customersRefreshedCustomer {
+  exp: Int
+  refreshedToken: String
+  strategy: String
+  user: customersJWT
+}
+
+type customersJWT {
+  email: EmailAddress!
+  collection: String!
+}
+
+type customersLoginResult {
+  exp: Int
+  token: String
+  user: Customer
+}
+
+type customersResetPassword {
+  token: String
+  user: Customer
 }
 
 input mutationDishInput {
@@ -6315,6 +7528,7 @@ input PayloadPreference_UserRelationshipInput {
 enum PayloadPreference_UserRelationshipInputRelationTo {
   orders
   users
+  customers
 }
 
 input mutationPayloadPreferenceUpdateInput {
@@ -6333,4 +7547,5 @@ input PayloadPreferenceUpdate_UserRelationshipInput {
 enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
   orders
   users
+  customers
 }

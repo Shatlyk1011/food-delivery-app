@@ -77,7 +77,7 @@ const Dishes: CollectionConfig = {
         hidden: true,
       },
       label: "Пользователь",
-      relationTo: "users",
+      relationTo: "customers",
       type: "relationship",
     },
     {

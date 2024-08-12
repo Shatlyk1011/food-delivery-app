@@ -9,16 +9,15 @@ const Orders: CollectionConfig = {
     create: () => true,
     delete: admins,
     read: ({ req }) => {
-      console.log("userrr", req.user);
       if (req.user) {
         if (checkRole(["admin"], req.user)) {
           return true;
         }
         //IT WORKS: WHEN creating order, include restaurant id as well
-        if (req.headers.referer.includes("/admin/collections/orders")) {
+        if (req.headers.referer.includes("/admin/")) {
           return {
             restaurantID: {
-              in: "req.user.restaurant",
+              in: req.user.restaurant,
             },
           };
         }
@@ -29,13 +28,13 @@ const Orders: CollectionConfig = {
     update: adminAndCreatedByUser,
   },
 
-  auth: {
-    depth: 1,
-  },
-
   admin: {
     defaultColumns: ["title", "price", "availableAmount", "cookTime"],
     useAsTitle: "title",
+  },
+  // is it needed?
+  auth: {
+    depth: 1,
   },
   fields: [
     {
@@ -101,21 +100,21 @@ const Orders: CollectionConfig = {
     },
     {
       name: "dishes",
-      label: "Заказ",
-      required: true,
-      type: "array",
       fields: [
         {
           name: "dish",
           label: "Блюдо",
-          type: "relationship",
           relationTo: "dishes",
+          type: "relationship",
         },
         {
           name: "quantity",
           type: "number",
         },
       ],
+      label: "Заказ",
+      required: true,
+      type: "array",
     },
   ],
   slug: "orders",

@@ -27,8 +27,8 @@ const Restaurants: CollectionConfig = {
   },
 
   admin: {
-    useAsTitle: "title",
     defaultColumns: ["title", "deliveryTime", "deliveryPrice", "isBlocked"],
+    useAsTitle: "title",
   },
 
   fields: [
@@ -54,6 +54,9 @@ const Restaurants: CollectionConfig = {
     },
     {
       name: "deliveryTime",
+      admin: {
+        position: "sidebar",
+      },
       defaultValue: "60",
       label: "Время доставки ",
       options: [
@@ -235,9 +238,9 @@ const Restaurants: CollectionConfig = {
     },
     {
       name: "dishes",
-      type: "relationship",
-      relationTo: "dishes",
       hasMany: true,
+      relationTo: "dishes",
+      type: "relationship",
     },
     {
       name: "budgetCategory",
@@ -279,7 +282,7 @@ const Restaurants: CollectionConfig = {
     {
       name: "relatedToUser",
       label: "Чей ресторан?",
-      relationTo: "users",
+      relationTo: "customers",
       required: true,
       type: "relationship",
     },
@@ -297,20 +300,6 @@ const Restaurants: CollectionConfig = {
       type: "relationship",
     },
   ],
-  hooks: {
-    beforeRead: [
-      ({ req, query }) => {
-        if (req.user && req.headers.referer?.includes("/admin")) {
-          // Apply the filter only in the admin panel
-          if (!checkRole(["admin"], req.user)) {
-            query.relatedToUser = {
-              equals: req.user.id,
-            };
-          }
-        }
-      },
-    ],
-  },
   slug: "restaurants",
 };
 

@@ -11,6 +11,8 @@
 - create Orders collection. learn how to work with forms with payload.
 - add fields to user collection: addresses, isBlocked, history of Orders
 
+- make restaurant blockable
+
 - test test test
 
 ## client
