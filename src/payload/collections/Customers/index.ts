@@ -13,7 +13,7 @@ const Customers: CollectionConfig = {
       if (checkRole(["admin"], req.user)) {
         return true;
       }
-      if (req.user.isBlocked) {
+      if (req.user?.isBlocked) {
         return false;
       }
 
