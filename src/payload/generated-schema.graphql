@@ -29,6 +29,10 @@ type Query {
   docAccessCustomer(id: String!): customersDocAccess
   meCustomer: customersMe
   initializedCustomer: Boolean
+  Category(id: String!): Category
+  Categories(where: Category_where, limit: Int, page: Int, sort: String): Categories
+  countCategories(where: Category_where): countCategories
+  docAccessCategory(id: String!): categoriesDocAccess
   Dish(id: String!): Dish
   Dishes(where: Dish_where, limit: Int, page: Int, sort: String): Dishes
   countDishes(where: Dish_where): countDishes
@@ -52,6 +56,7 @@ type Restaurant {
   isClosed: Boolean
   isDelivery: Boolean!
   bannerImage(where: Restaurant_BannerImage_where): Media
+  categories: [Category!]
   dishes: [Dish!]
   budgetCategory: Restaurant_budgetCategory
   isBlocked: Boolean
@@ -584,6 +589,11 @@ input Restaurant_BannerImage_where_or {
   OR: [Restaurant_BannerImage_where_or]
 }
 
+type Category {
+  id: String
+  title: String
+}
+
 enum Restaurant_budgetCategory {
   cheap
   average
@@ -621,6 +631,7 @@ input Restaurant_where {
   isClosed: Restaurant_isClosed_operator
   isDelivery: Restaurant_isDelivery_operator
   bannerImage: Restaurant_bannerImage_operator
+  categories: Restaurant_categories_operator
   dishes: Restaurant_dishes_operator
   budgetCategory: Restaurant_budgetCategory_operator
   isBlocked: Restaurant_isBlocked_operator
@@ -761,6 +772,15 @@ input Restaurant_bannerImage_operator {
   exists: Boolean
 }
 
+input Restaurant_categories_operator {
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
+  exists: Boolean
+}
+
 input Restaurant_dishes_operator {
   equals: JSON
   not_equals: JSON
@@ -852,6 +872,7 @@ input Restaurant_where_and {
   isClosed: Restaurant_isClosed_operator
   isDelivery: Restaurant_isDelivery_operator
   bannerImage: Restaurant_bannerImage_operator
+  categories: Restaurant_categories_operator
   dishes: Restaurant_dishes_operator
   budgetCategory: Restaurant_budgetCategory_operator
   isBlocked: Restaurant_isBlocked_operator
@@ -876,6 +897,7 @@ input Restaurant_where_or {
   isClosed: Restaurant_isClosed_operator
   isDelivery: Restaurant_isDelivery_operator
   bannerImage: Restaurant_bannerImage_operator
+  categories: Restaurant_categories_operator
   dishes: Restaurant_dishes_operator
   budgetCategory: Restaurant_budgetCategory_operator
   isBlocked: Restaurant_isBlocked_operator
@@ -911,6 +933,7 @@ type RestaurantsDocAccessFields {
   isClosed: RestaurantsDocAccessFields_isClosed
   isDelivery: RestaurantsDocAccessFields_isDelivery
   bannerImage: RestaurantsDocAccessFields_bannerImage
+  categories: RestaurantsDocAccessFields_categories
   dishes: RestaurantsDocAccessFields_dishes
   budgetCategory: RestaurantsDocAccessFields_budgetCategory
   isBlocked: RestaurantsDocAccessFields_isBlocked
@@ -1199,6 +1222,29 @@ type RestaurantsDocAccessFields_bannerImage_Update {
 }
 
 type RestaurantsDocAccessFields_bannerImage_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_categories {
+  create: RestaurantsDocAccessFields_categories_Create
+  read: RestaurantsDocAccessFields_categories_Read
+  update: RestaurantsDocAccessFields_categories_Update
+  delete: RestaurantsDocAccessFields_categories_Delete
+}
+
+type RestaurantsDocAccessFields_categories_Create {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_categories_Read {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_categories_Update {
+  permission: Boolean!
+}
+
+type RestaurantsDocAccessFields_categories_Delete {
   permission: Boolean!
 }
 
@@ -3799,6 +3845,122 @@ type customersMe {
   user: Customer
 }
 
+type Categories {
+  docs: [Category]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Category_where {
+  title: Category_title_operator
+  id: Category_id_operator
+  AND: [Category_where_and]
+  OR: [Category_where_or]
+}
+
+input Category_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Category_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Category_where_and {
+  title: Category_title_operator
+  id: Category_id_operator
+  AND: [Category_where_and]
+  OR: [Category_where_or]
+}
+
+input Category_where_or {
+  title: Category_title_operator
+  id: Category_id_operator
+  AND: [Category_where_and]
+  OR: [Category_where_or]
+}
+
+type countCategories {
+  totalDocs: Int
+}
+
+type categoriesDocAccess {
+  fields: CategoriesDocAccessFields
+  create: CategoriesCreateDocAccess
+  read: CategoriesReadDocAccess
+  update: CategoriesUpdateDocAccess
+  delete: CategoriesDeleteDocAccess
+}
+
+type CategoriesDocAccessFields {
+  title: CategoriesDocAccessFields_title
+}
+
+type CategoriesDocAccessFields_title {
+  create: CategoriesDocAccessFields_title_Create
+  read: CategoriesDocAccessFields_title_Read
+  update: CategoriesDocAccessFields_title_Update
+  delete: CategoriesDocAccessFields_title_Delete
+}
+
+type CategoriesDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type CategoriesCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type Dishes {
   docs: [Dish]
   hasNextPage: Boolean
@@ -4603,6 +4765,7 @@ type Access {
   cities: citiesAccess
   users: usersAccess
   customers: customersAccess
+  categories: categoriesAccess
   dishes: dishesAccess
   payload_preferences: payload_preferencesAccess
 }
@@ -4626,6 +4789,7 @@ type RestaurantsFields {
   isClosed: RestaurantsFields_isClosed
   isDelivery: RestaurantsFields_isDelivery
   bannerImage: RestaurantsFields_bannerImage
+  categories: RestaurantsFields_categories
   dishes: RestaurantsFields_dishes
   budgetCategory: RestaurantsFields_budgetCategory
   isBlocked: RestaurantsFields_isBlocked
@@ -4914,6 +5078,29 @@ type RestaurantsFields_bannerImage_Update {
 }
 
 type RestaurantsFields_bannerImage_Delete {
+  permission: Boolean!
+}
+
+type RestaurantsFields_categories {
+  create: RestaurantsFields_categories_Create
+  read: RestaurantsFields_categories_Read
+  update: RestaurantsFields_categories_Update
+  delete: RestaurantsFields_categories_Delete
+}
+
+type RestaurantsFields_categories_Create {
+  permission: Boolean!
+}
+
+type RestaurantsFields_categories_Read {
+  permission: Boolean!
+}
+
+type RestaurantsFields_categories_Update {
+  permission: Boolean!
+}
+
+type RestaurantsFields_categories_Delete {
   permission: Boolean!
 }
 
@@ -6575,6 +6762,61 @@ type CustomersUnlockAccess {
   where: JSONObject
 }
 
+type categoriesAccess {
+  fields: CategoriesFields
+  create: CategoriesCreateAccess
+  read: CategoriesReadAccess
+  update: CategoriesUpdateAccess
+  delete: CategoriesDeleteAccess
+}
+
+type CategoriesFields {
+  title: CategoriesFields_title
+}
+
+type CategoriesFields_title {
+  create: CategoriesFields_title_Create
+  read: CategoriesFields_title_Read
+  update: CategoriesFields_title_Update
+  delete: CategoriesFields_title_Delete
+}
+
+type CategoriesFields_title_Create {
+  permission: Boolean!
+}
+
+type CategoriesFields_title_Read {
+  permission: Boolean!
+}
+
+type CategoriesFields_title_Update {
+  permission: Boolean!
+}
+
+type CategoriesFields_title_Delete {
+  permission: Boolean!
+}
+
+type CategoriesCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type CategoriesDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type dishesAccess {
   fields: DishesFields
   create: DishesCreateAccess
@@ -7085,15 +7327,14 @@ type Mutation {
   forgotPasswordCustomer(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordCustomer(password: String, token: String): customersResetPassword
   verifyEmailCustomer(token: String): Boolean
+  createCategory(data: mutationCategoryInput!): Category
+  updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!): Category
+  deleteCategory(id: String!): Category
   createDish(data: mutationDishInput!): Dish
   updateDish(id: String!, autosave: Boolean, data: mutationDishUpdateInput!): Dish
   deleteDish(id: String!): Dish
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
-  updatePayloadPreference(
-    id: String!
-    autosave: Boolean
-    data: mutationPayloadPreferenceUpdateInput!
-  ): PayloadPreference
+  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
 }
 
@@ -7108,6 +7349,7 @@ input mutationRestaurantInput {
   isClosed: Boolean
   isDelivery: Boolean
   bannerImage: String
+  categories: [String]
   dishes: [String]
   budgetCategory: String
   isBlocked: Boolean
@@ -7170,6 +7412,7 @@ input mutationRestaurantUpdateInput {
   isClosed: Boolean
   isDelivery: Boolean
   bannerImage: String
+  categories: [String]
   dishes: [String]
   budgetCategory: String
   isBlocked: Boolean
@@ -7484,6 +7727,14 @@ type customersLoginResult {
 type customersResetPassword {
   token: String
   user: Customer
+}
+
+input mutationCategoryInput {
+  title: String
+}
+
+input mutationCategoryUpdateInput {
+  title: String
 }
 
 input mutationDishInput {

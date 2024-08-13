@@ -12,6 +12,7 @@ import Media from "./collections/Media";
 import Orders from "./collections/Orders";
 import Restaurants from "./collections/Restaurants";
 import Users from "./collections/Users";
+import Categories from "./collections/Categories";
 
 const m = path.resolve(__dirname, "./emptyModuleMock.js");
 
@@ -36,7 +37,7 @@ export default buildConfig({
       },
     }),
   },
-  collections: [Restaurants, Orders, Media, Cities, Users, Customers, Dishes],
+  collections: [Restaurants, Orders, Media, Cities, Users, Customers, Categories, Dishes],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   editor: lexicalEditor({}),

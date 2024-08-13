@@ -14,6 +14,7 @@ export interface Config {
     cities: City;
     users: User;
     customers: Customer;
+    categories: Category;
     dishes: Dish;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -39,6 +40,7 @@ export interface Restaurant {
   isClosed?: boolean | null;
   isDelivery: boolean;
   bannerImage?: string | Media | null;
+  categories?: (string | Category)[] | null;
   dishes?: (string | Dish)[] | null;
   budgetCategory?: ('cheap' | 'average' | 'expensive') | null;
   isBlocked?: boolean | null;
@@ -139,6 +141,14 @@ export interface Dish {
   isBlocked?: boolean | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

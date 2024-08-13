@@ -12,6 +12,7 @@
 - add fields to user collection: addresses, isBlocked, history of Orders
 
 - make restaurant blockable
+- free delivery (yx-eat)
 
 - test test test
 

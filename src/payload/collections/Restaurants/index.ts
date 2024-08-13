@@ -231,9 +231,16 @@ const Restaurants: CollectionConfig = {
     },
     {
       name: "bannerImage",
-      label: "Фото ",
+      label: "Главное изображение",
       relationTo: "media",
       type: "upload",
+    },
+    {
+      name: "categories",
+      label: "Категории ресторана (макс 3)",
+      hasMany: true,
+      relationTo: "categories",
+      type: "relationship",
     },
     {
       name: "dishes",
