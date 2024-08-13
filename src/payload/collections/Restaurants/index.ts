@@ -233,7 +233,6 @@ const Restaurants: CollectionConfig = {
       name: "bannerImage",
       label: "Фото ",
       relationTo: "media",
-      required: false,
       type: "upload",
     },
     {
@@ -245,7 +244,7 @@ const Restaurants: CollectionConfig = {
     {
       name: "budgetCategory",
       access: {
-        read: admins,
+        read: () => true,
         update: admins,
       },
       defaultValue: "cheap",
@@ -271,7 +270,7 @@ const Restaurants: CollectionConfig = {
       name: "isBlocked",
       access: {
         create: admins,
-        read: admins,
+        read: () => true,
         update: admins,
       },
       defaultValue: false,
@@ -289,7 +288,7 @@ const Restaurants: CollectionConfig = {
     {
       name: "cities",
       access: {
-        read: admins,
+        read: () => true,
         update: admins,
       },
       hasMany: true,

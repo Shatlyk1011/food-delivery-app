@@ -7089,7 +7089,11 @@ type Mutation {
   updateDish(id: String!, autosave: Boolean, data: mutationDishUpdateInput!): Dish
   deleteDish(id: String!): Dish
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
-  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
+  updatePayloadPreference(
+    id: String!
+    autosave: Boolean
+    data: mutationPayloadPreferenceUpdateInput!
+  ): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
 }
 

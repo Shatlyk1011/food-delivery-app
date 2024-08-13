@@ -49,7 +49,7 @@ const Media: CollectionConfig = {
     formatOptions: {
       format: "webp",
       options: {
-        quality: 70,
+        quality: 60,
       },
     },
     mimeTypes: ["image/*"],

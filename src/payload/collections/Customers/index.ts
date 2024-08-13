@@ -19,7 +19,7 @@ const Customers: CollectionConfig = {
 
       return {
         id: {
-          equals: req.user.id,
+          equals: req.user?.id,
         },
       };
     },

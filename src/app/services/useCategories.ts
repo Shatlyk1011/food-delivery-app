@@ -3,13 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "../shared/lib/axios";
 
 export const useGetCategories = () => {
-  const { data } = useQuery<CategoryResponse>({
+  const { data } = useQuery({
     queryFn: async () => {
       const { data } = await axios({
-        url: "/restaurants",
+        // url: "/restaurants",
         // params: { "fields[0]": "title", sort: "title" },
       });
-      console.log("datares", data);
       return data;
     },
     queryKey: ["categories"],

@@ -20,7 +20,7 @@ instance.interceptors.request.use(
     // const locale = getCookie(LOCALE_ID);
 
     // config.headers["Accept-Language"] = locale || DEFAULT_LOCALE;
-
+    config.headers["Content-Type"] = "application/json";
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

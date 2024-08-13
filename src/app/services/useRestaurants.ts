@@ -4,27 +4,22 @@ import { DEFAULT_LIMIT } from "@/app/shared/constants";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-const BaseParams = {
-  "fields[0]": "title",
-  "fields[1]": "delivery_time",
-  "fields[2]": "budget_category",
-  "populate[banner_url][fields][0]": "url",
-  "populate[banner_url][fields][1]": "alternativeText",
+import { RESTAURANTS } from "./query";
 
-  "pagination[pageSize]": DEFAULT_LIMIT,
-
-  "filters[is_blocked][$eq]": false,
-};
-
-export const useGetRestaurantsQuery = (params: RestaurantFilters, initialData: RestaurantResponse[] | null = null) => {
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery<RestaurantResponse[]>({
+export const useGetRestaurantsQuery = (params: any, initialData: MainPageRestaurant[] | null = null) => {
+  const { data, fetchNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery<MainPageRestaurant[]>({
     queryKey: ["restaurant", params],
-    queryFn: async ({ pageParam }) => {
+
+    queryFn: async ({ pageParam = 1 }) => {
       const { data } = await axios({
-        url: "/restaurants",
-        params: { "pagination[page]": pageParam, ...BaseParams, ...params },
+        url: "/graphql",
+        method: "POST",
+        data: {
+          query: RESTAURANTS,
+          variables: { limit: DEFAULT_LIMIT, page: pageParam },
+        },
       });
-      return data;
+      return await data.data.Restaurants.docs;
     },
     initialData: initialData ? { pageParams: [], pages: [initialData] } : undefined,
     getNextPageParam: (lastPage, allPages) => {
@@ -33,5 +28,5 @@ export const useGetRestaurantsQuery = (params: RestaurantFilters, initialData: R
     initialPageParam: 1,
   });
 
-  return { restaurants: data?.pages, fetchNextPage, isFetchingNextPage };
+  return { restaurants: data?.pages, fetchNextPage, isFetchingNextPage, isLoading };
 };
