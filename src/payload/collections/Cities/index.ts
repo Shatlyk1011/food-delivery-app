@@ -20,6 +20,7 @@ const Cities: CollectionConfig = {
       type: "text",
     },
   ],
+  labels: { plural: "Города", singular: "Город" },
   slug: "cities",
   timestamps: false,
 };

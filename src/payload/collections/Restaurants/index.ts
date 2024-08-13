@@ -237,8 +237,8 @@ const Restaurants: CollectionConfig = {
     },
     {
       name: "categories",
-      label: "Категории ресторана (макс 3)",
       hasMany: true,
+      label: "Категории ресторана (макс 3)",
       relationTo: "categories",
       type: "relationship",
     },
@@ -306,6 +306,7 @@ const Restaurants: CollectionConfig = {
       type: "relationship",
     },
   ],
+  labels: { plural: "Рестораны", singular: "Ресторан" },
   slug: "restaurants",
 };
 

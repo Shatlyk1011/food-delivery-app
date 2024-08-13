@@ -71,7 +71,7 @@ const Users: CollectionConfig = {
       type: "array",
     },
   ],
-
+  labels: { plural: "Пользователи", singular: "Пользователь" },
   slug: "users",
   timestamps: true,
 };

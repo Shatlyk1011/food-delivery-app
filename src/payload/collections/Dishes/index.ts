@@ -98,6 +98,7 @@ const Dishes: CollectionConfig = {
       },
     ],
   },
+  labels: { plural: "Блюда", singular: "Блюдо" },
   slug: "dishes",
   timestamps: true,
 };

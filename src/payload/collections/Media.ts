@@ -43,6 +43,7 @@ const Media: CollectionConfig = {
       },
     ],
   },
+  labels: { plural: "Изображении", singular: "Изображение" },
   slug: "media",
 
   upload: {

@@ -30,8 +30,8 @@ const Categories: CollectionConfig = {
       type: "text",
     },
   ],
+  labels: { plural: "Категории", singular: "Категория" },
   slug: "categories",
-  labels: { singular: "Категории", plural: "Категории" },
   timestamps: false,
 };
 

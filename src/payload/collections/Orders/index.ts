@@ -117,6 +117,7 @@ const Orders: CollectionConfig = {
       type: "array",
     },
   ],
+  labels: { plural: "Заказы", singular: "Заказ" },
   slug: "orders",
   timestamps: true,
 };

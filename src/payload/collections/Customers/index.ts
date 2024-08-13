@@ -99,11 +99,11 @@ const Customers: CollectionConfig = {
       },
       options: [
         {
-          label: "admin",
+          label: "Админ",
           value: "admin",
         },
         {
-          label: "author",
+          label: "Ресторатор",
           value: "author",
         },
         // {
@@ -115,6 +115,7 @@ const Customers: CollectionConfig = {
     },
   ],
 
+  labels: { plural: "Владельцы ресторанов", singular: "Владелец ресторана" },
   slug: "customers",
   timestamps: true,
 };
