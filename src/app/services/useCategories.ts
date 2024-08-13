@@ -2,17 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 
 import axios from "../shared/lib/axios";
 
+import { CATEGORIES } from "./query";
+
 export const useGetCategories = () => {
-  const { data } = useQuery({
+  const { data: categories } = useQuery<Categories[]>({
     queryFn: async () => {
       const { data } = await axios({
-        // url: "/restaurants",
-        // params: { "fields[0]": "title", sort: "title" },
+        data: {
+          query: CATEGORIES,
+          variables: { limit: 20 },
+        },
       });
-      return data;
+      return await data.data.Categories.docs;
     },
     queryKey: ["categories"],
   });
 
-  return { categories: data?.data };
+  return { categories };
 };

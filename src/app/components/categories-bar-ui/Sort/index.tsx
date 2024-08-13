@@ -7,27 +7,27 @@ import { CloseIcon, SortIcon } from "@/app/icons";
 import { PopoverClose } from "@radix-ui/react-popover";
 
 interface Props {
-  handleFilters: (key: keyof RestaurantFilters, value: string | null) => void;
+  handleFilters: (key: keyof Filters, value: string | null) => void;
   t: any;
 }
 
 type SortTypes = {
   title: string;
-  value: RestaurantSort;
+  value: SortBy;
 };
 
 const Index: FC<Props> = ({ handleFilters, t }) => {
-  const [selected, setSelected] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
   const sortList: SortTypes[] = [
     { title: "MainPage.trustOne", value: "" },
-    { title: "MainPage.fastOne", value: "delivery_time" },
-    { title: "MainPage.budgetOne", value: "delivery_price" },
-    { title: "MainPage.expensiveOne", value: "delivery_price:DESC" },
+    { title: "MainPage.fastOne", value: "-deliveryTime" },
+    { title: "MainPage.budgetOne", value: "budgetCategory" },
+    { title: "MainPage.expensiveOne", value: "-budgetCategory" },
   ];
 
   const handleSubmit = () => {
-    handleFilters("sort", selected);
+    handleFilters("sortBy", sortBy);
   };
   return (
     <Popover>
@@ -49,19 +49,19 @@ const Index: FC<Props> = ({ handleFilters, t }) => {
               </PopoverClose>
             </div>
             <RadioGroup defaultValue="012" className="px-5 py-2 md:px-4 md:text-sm">
-              {sortList.map((item, idx) => (
+              {sortList.map(({ title, value }) => (
                 <label
-                  htmlFor={item.title}
-                  key={item.title}
+                  htmlFor={title}
+                  key={title}
                   className="flex cursor-pointer items-center space-x-[18px] py-3 md:py-1"
                 >
                   <RadioGroupItem
-                    onClick={(e) => setSelected(e.currentTarget.value)}
-                    checked={item.value === selected}
-                    value={item.value}
-                    id={item.title}
+                    onClick={(e) => setSortBy(e.currentTarget.value)}
+                    checked={value === sortBy}
+                    value={value}
+                    id={title}
                   />
-                  <p>{t(item.title)}</p>
+                  <p>{t(title)}</p>
                 </label>
               ))}
             </RadioGroup>

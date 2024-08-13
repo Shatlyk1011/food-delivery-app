@@ -42,7 +42,7 @@ export interface Restaurant {
   bannerImage?: string | Media | null;
   categories?: (string | Category)[] | null;
   dishes?: (string | Dish)[] | null;
-  budgetCategory?: ('cheap' | 'average' | 'expensive') | null;
+  budgetCategory?: ('1' | '2' | '3') | null;
   isBlocked?: boolean | null;
   relatedToUser: string | Customer;
   cities?: (string | City)[] | null;

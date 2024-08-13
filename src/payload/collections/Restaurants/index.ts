@@ -254,20 +254,20 @@ const Restaurants: CollectionConfig = {
         read: () => true,
         update: admins,
       },
-      defaultValue: "cheap",
+      defaultValue: "2",
       label: "Ценовая категория",
       options: [
         {
           label: "Не дорогой",
-          value: "cheap",
+          value: "1",
         },
         {
           label: "Средний",
-          value: "average",
+          value: "2",
         },
         {
           label: "Дорогой",
-          value: "expensive",
+          value: "3",
         },
       ],
       required: false,

@@ -595,9 +595,9 @@ type Category {
 }
 
 enum Restaurant_budgetCategory {
-  cheap
-  average
-  expensive
+  _1
+  _2
+  _3
 }
 
 type City {
@@ -799,9 +799,9 @@ input Restaurant_budgetCategory_operator {
 }
 
 enum Restaurant_budgetCategory_Input {
-  cheap
-  average
-  expensive
+  _1
+  _2
+  _3
 }
 
 input Restaurant_isBlocked_operator {

@@ -6,17 +6,18 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { RESTAURANTS } from "./query";
 
-export const useGetRestaurantsQuery = (params: any, initialData: MainPageRestaurant[] | null = null) => {
+export const useGetRestaurantsQuery = (
+  { sortBy, deliveryTime }: Filters,
+  initialData: MainPageRestaurant[] | null = null,
+) => {
   const { data, fetchNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery<MainPageRestaurant[]>({
-    queryKey: ["restaurant", params],
+    queryKey: ["restaurant", { sortBy, deliveryTime }],
 
     queryFn: async ({ pageParam = 1 }) => {
       const { data } = await axios({
-        url: "/graphql",
-        method: "POST",
         data: {
           query: RESTAURANTS,
-          variables: { limit: DEFAULT_LIMIT, page: pageParam },
+          variables: { limit: DEFAULT_LIMIT, pageParam, sortBy },
         },
       });
       return await data.data.Restaurants.docs;

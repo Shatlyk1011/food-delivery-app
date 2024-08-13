@@ -8,8 +8,8 @@ import Sort from "@/app/components/categories-bar-ui/Sort";
 import Tags from "@/app/components/categories-bar-ui/Tags";
 
 interface Props {
-  categories: Category[] | undefined;
-  handleFilters: (key: keyof RestaurantFilters, value: string | null) => void;
+  categories: Categories[] | undefined;
+  handleFilters: (key: keyof Filters, value: string | null) => void;
 }
 const Index: FC<Props> = ({ categories, handleFilters }) => {
   const t = useTranslations();

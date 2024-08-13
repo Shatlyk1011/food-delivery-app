@@ -11,7 +11,7 @@ const instance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  method: "GET",
+  method: "POST",
 });
 
 instance.interceptors.request.use(

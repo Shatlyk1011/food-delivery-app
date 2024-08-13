@@ -7,8 +7,6 @@ import { useTranslations } from "next-intl";
 import { useGetCategories } from "@/app/services/useCategories";
 import { useGetRestaurantsQuery } from "@/app/services/useRestaurants";
 
-import { Restaurant } from "@/payload/payload-types";
-
 //components
 import CategoriesBar from "@/app/widgets/CategoriesBar";
 import RestaurantItem from "@/app/widgets/RestaurantItem";
@@ -17,18 +15,17 @@ import RestaurantItemSkeleton from "@/app/widgets/RestaurantItem/Skeleton";
 export default function Home() {
   const t = useTranslations("MainPage");
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     deliveryTime: null,
-    sort: "",
+    sortBy: "",
   });
 
-  const handleFilters = (key: keyof Restaurant, value: null | string) => {
+  const handleFilters = (key: keyof Filters, value: null | string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   const { isFetchingNextPage, restaurants, fetchNextPage, isLoading } = useGetRestaurantsQuery(filters);
 
-  console.log("restaurants");
   const { categories } = useGetCategories();
 
   return (
