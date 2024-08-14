@@ -24,7 +24,8 @@
     "home": "На главную",
     "categories": "Категории",
     "cancel": "Отмена",
-    "continue": "Продолжить"
+    "continue": "Продолжить",
+    "noReview": "Мало отзывов"
   },
 
   "Login": {

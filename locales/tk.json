@@ -24,7 +24,8 @@
     "home": "Baş sahypa",
     "categories": "Görnüşler",
     "cancel": "Ýatyr",
-    "continue": "Dowam et"
+    "continue": "Dowam et",
+    "noReview": "Seslenme az"
   },
 
   "Login": {

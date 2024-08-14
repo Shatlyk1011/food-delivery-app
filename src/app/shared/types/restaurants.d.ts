@@ -1,14 +1,13 @@
 interface MainPageRestaurant {
   id: string;
   title: string;
-  budgetCategory: "cheap" | "average" | "expensive";
+  //_1 - cheap, _2 - average, _3 - expensive
+  budgetCategory: "_1" | "_2" | "_3";
   deliveryTime: string;
   bannerImage: {
     url: string | null;
     alt: string;
   };
-  // limit: number;
-  // page: number;
 }
 
 interface Categories {
