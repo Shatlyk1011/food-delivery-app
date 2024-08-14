@@ -7,11 +7,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { RESTAURANTS } from "./query";
 
 export const useGetRestaurantsQuery = (
-  { sortBy, deliveryTime }: Filters,
+  { sortBy, deliveryTime, tag }: Filters,
   initialData: MainPageRestaurant[] | null = null,
 ) => {
   const { data, fetchNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery<MainPageRestaurant[]>({
-    queryKey: ["restaurant", { sortBy, deliveryTime }],
+    queryKey: ["restaurant", { sortBy }],
 
     queryFn: async ({ pageParam = 1 }) => {
       const { data } = await axios({
@@ -29,5 +29,16 @@ export const useGetRestaurantsQuery = (
     initialPageParam: 1,
   });
 
-  return { restaurants: data?.pages, fetchNextPage, isFetchingNextPage, isLoading };
+  const filteredRestaurants = data?.pages?.map((rests, idx) => {
+    if (deliveryTime !== 0) {
+      console.log("deliveryTime", deliveryTime);
+      const res = [];
+      const filterByTime = rests.filter((item) => +item.workingHours.closeTime.slice(1) >= deliveryTime);
+      res[idx] = filterByTime;
+
+      return res.flat(2);
+    }
+    return data?.pages.flat(2);
+  });
+  return { filteredRestaurants, fetchNextPage, isFetchingNextPage, isLoading };
 };

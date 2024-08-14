@@ -6,19 +6,23 @@ import { CheckIcon, ChevronRightIcon } from "@/app/icons";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 import { PopoverClose } from "@radix-ui/react-popover";
 
+import getTimesTillMidnight from "@/app/hooks/getTimesTillMidnight";
+
 interface Props {
+  handleFilters: (key: keyof Filters, value: any) => void;
   t: any;
 }
 
-const Index: FC<Props> = ({ t }) => {
+const Index: FC<Props> = ({ t, handleFilters }) => {
   const [active, setActive] = useState(0);
 
-  const date = new Date();
+  const deliveryTimes = [t("Index.now"), ...getTimesTillMidnight()];
 
-  const currentTime = date.getHours() + "" + date.getMinutes() + ""; // ex: 1430
-
-  const deliveryTimes = ["Now", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
-  // const deliveryTimes = ["Index.now"];
+  const handleSelect = (time: string, idx: number) => {
+    const convertedTime = idx === 0 ? 0 : +time.replace(":", "");
+    setActive(idx);
+    handleFilters("deliveryTime", convertedTime);
+  };
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -34,7 +38,7 @@ const Index: FC<Props> = ({ t }) => {
         <div className="h-full w-full bg-bg-1 pb-3 pl-4 pt-6 shadow-md md:px-3 md:py-5">
           <ul className="perfect-scrollbar flex h-full w-full flex-col space-y-3 text-start">
             {deliveryTimes.map((time, idx) => (
-              <li onClick={() => setActive(idx)} key={time} className=" mr-1">
+              <li onClick={() => handleSelect(time, idx)} key={time} className="mr-1">
                 <PopoverClose
                   className={`flex w-full items-center justify-between rounded-[14px] px-3 py-[14px] transition-all duration-150 hover:bg-onHover ${active === idx && "bg-accent font-medium hover:bg-accent md:py-[10px] md:text-sm"}`}
                 >

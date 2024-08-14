@@ -15,6 +15,7 @@ export const useGetCategories = () => {
       });
       return await data.data.Categories.docs;
     },
+    staleTime: Infinity,
     queryKey: ["categories"],
   });
 

@@ -5,6 +5,7 @@ import { Provider as JotaiProvider } from "jotai";
 import { Inter } from "next/font/google";
 
 //widgets
+import TailwindIndicator from "@/app/components/tailwind-indicator/tailwind-indicator";
 import Footer from "@/app/widgets/Footer";
 import Header from "@/app/widgets/Navigation";
 import Sidebar from "@/app/widgets/Sidebar";
@@ -37,6 +38,7 @@ export default async function RootLayout({ children, params: { locale } }: Props
               <Sidebar />
               <div className="mt-20 w-full md:mt-16">{children}</div>
               <Footer />
+              <TailwindIndicator />
             </TanstackQueryProvider>
           </NextIntlClientProvider>
         </JotaiProvider>

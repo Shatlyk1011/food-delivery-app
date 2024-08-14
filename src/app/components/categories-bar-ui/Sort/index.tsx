@@ -21,7 +21,7 @@ const Index: FC<Props> = ({ handleFilters, t }) => {
 
   const sortList: SortTypes[] = [
     { title: "MainPage.trustOne", value: "" },
-    { title: "MainPage.fastOne", value: "-deliveryTime" },
+    { title: "MainPage.fastOne", value: "deliveryTime" },
     { title: "MainPage.budgetOne", value: "budgetCategory" },
     { title: "MainPage.expensiveOne", value: "-budgetCategory" },
   ];

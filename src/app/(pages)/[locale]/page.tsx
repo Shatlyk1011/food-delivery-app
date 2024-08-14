@@ -16,15 +16,16 @@ export default function Home() {
   const t = useTranslations();
 
   const [filters, setFilters] = useState<Filters>({
-    deliveryTime: null,
-    sortBy: "",
+    deliveryTime: 0,
+    sortBy: null,
+    tag: "all",
   });
 
-  const handleFilters = (key: keyof Filters, value: null | string) => {
+  const handleFilters = (key: keyof Filters, value: any) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
-  const { isFetchingNextPage, restaurants, fetchNextPage, isLoading } = useGetRestaurantsQuery(filters);
+  const { isFetchingNextPage, filteredRestaurants, fetchNextPage, isLoading } = useGetRestaurantsQuery(filters);
 
   const { categories } = useGetCategories();
 
@@ -34,8 +35,10 @@ export default function Home() {
         <h1 className="mb-8 text-5xl font-bold 2xl:mb-6 2xl:text-4xl md:mb-3 md:text-2xl">{t("MainPage.heading")}</h1>
         <div>
           <CategoriesBar categories={categories} handleFilters={handleFilters} />
-          <div className="manual_grid_300 -mx-4 mt-8 md:-mx-2 md:mt-5">
-            {restaurants?.map((rest) => rest?.map((item) => <RestaurantItem item={item} key={item.id} t={t} />))}
+          <div className="manual_grid_300 -mx-4 mt-8 xl:-mx-2 xl:mt-5">
+            {filteredRestaurants?.map((rests) =>
+              rests?.map((item) => <RestaurantItem item={item} key={item.id} t={t} />),
+            )}
             {(isFetchingNextPage || isLoading) && <RestaurantItemSkeleton length={8} />}
           </div>
         </div>

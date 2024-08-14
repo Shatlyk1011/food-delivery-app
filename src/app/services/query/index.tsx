@@ -1,13 +1,24 @@
 //shared/types/restaurants
 
+// categories: {
+//   in: { title: "all" }
+// }
+
 export const RESTAURANTS = `
   query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String) {
-    Restaurants(where: {isBlocked: {equals: false} }, limit: $limit, page: $pageParam, sort:$sortBy) {
+    Restaurants(where: {
+      isBlocked: { equals: false },
+
+    }, limit: $limit, page: $pageParam, sort:$sortBy) {
       docs {
         id
         title
         budgetCategory
         deliveryTime
+        workingHours {
+          closeTime
+        }
+        deliveryPrice
         bannerImage {
           url
           alt

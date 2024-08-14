@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback, useMemo } from "react";
 
 import { Link } from "@/app/(pages)/_providers/i18n/i18config";
 
@@ -9,27 +9,28 @@ interface Props {
   t: any;
 }
 
+const deliveryTime = (deliveryTime: string, t: any) => {
+  const baseTime = +deliveryTime.slice(1);
+  return `${baseTime} - ${baseTime + 10} ${t("Index.min")}`;
+};
+const computedPriceNumber = (budgetCategory: string) => {
+  switch (budgetCategory) {
+    case "_1":
+      return 1;
+
+    case "_2":
+      return 2;
+
+    case "_3":
+      return 3;
+  }
+};
+
 const Index: FC<Props> = ({ item, t }) => {
-  const computedPriceNumber = (() => {
-    switch (item.budgetCategory) {
-      case "_1":
-        return 1;
+  console.log(item.deliveryPrice);
 
-      case "_2":
-        return 2;
-
-      case "_3":
-        return 3;
-    }
-  })();
-
-  const deliveryTime = (() => {
-    const baseTime = item.deliveryTime.slice(1);
-    console.log("baseTime", baseTime);
-    return `${+baseTime} - ${+baseTime + 10} ${t("Index.min")}`;
-  })();
   return (
-    <div className="inline-block px-4 pb-5 md:px-2 md:pb-3">
+    <div className="inline-block px-4 pb-5 xl:px-2">
       <figure className="relative mb-2 max-h-52 min-h-52  cursor-pointer overflow-hidden rounded-[14px]">
         <Link href={`/restaurant/${item.title}`} className="">
           <img
@@ -40,7 +41,7 @@ const Index: FC<Props> = ({ item, t }) => {
         </Link>
 
         <div className="absolute bottom-0 right-0 z-10 rounded-[14px] rounded-br-none bg-black/60 px-2 py-3 leading-[1] text-white">
-          {deliveryTime}
+          {deliveryTime(item.deliveryTime || "", t)}
         </div>
       </figure>
       <div>
@@ -56,7 +57,7 @@ const Index: FC<Props> = ({ item, t }) => {
                 key={num}
                 width={12}
                 height={12}
-                className={num > computedPriceNumber ? "fill-text-4" : "fill-black"}
+                className={num > computedPriceNumber(item.budgetCategory) ? "fill-text-4" : "fill-black"}
               />
             ))}
           </div>
