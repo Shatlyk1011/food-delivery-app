@@ -114,14 +114,6 @@ export interface Order {
   }[];
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -164,7 +156,8 @@ export interface City {
  */
 export interface User {
   id: string;
-  name?: string | null;
+  name: string;
+  phone: string;
   addresses?:
     | {
         city?: string | null;
@@ -176,6 +169,7 @@ export interface User {
         id?: string | null;
       }[]
     | null;
+  roles?: 'user'[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -194,10 +188,6 @@ export interface User {
 export interface PayloadPreference {
   id: string;
   user:
-    | {
-        relationTo: 'orders';
-        value: string | Order;
-      }
     | {
         relationTo: 'users';
         value: string | User;

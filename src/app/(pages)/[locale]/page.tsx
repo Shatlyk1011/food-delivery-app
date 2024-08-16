@@ -21,6 +21,19 @@ export default function Home() {
     tag: "all",
   });
 
+  // export const getServerSideProps = async (context) => {
+  // const cookies = parseCookies(context);
+  // const token = cookies.token;
+  //
+  // if (!token) {
+  // return {
+  // redirect: {
+  // destination: '/login',
+  // permanent: false,
+  // },
+  // };
+  // }
+
   const handleFilters = (key: keyof Filters, value: any) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };

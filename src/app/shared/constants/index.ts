@@ -1,3 +1,3 @@
-export const TOKEN_ID = "TOKEN_ID";
+export const USER_INFO = "USER_INFO";
 
 export const DEFAULT_LIMIT = 12;

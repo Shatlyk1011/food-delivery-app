@@ -33,9 +33,9 @@ const Orders: CollectionConfig = {
     useAsTitle: "title",
   },
   // is it needed?
-  auth: {
-    depth: 1,
-  },
+  // auth: {
+  //   depth: 1,
+  // },
   fields: [
     {
       name: "city",

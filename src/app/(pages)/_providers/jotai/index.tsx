@@ -10,6 +10,7 @@ const isAuth = atom(false);
 const selectedCity = atomWithStorage("CITY", "Turkmenabat");
 const selectedLanguage = atomWithStorage("LANGUAGE", "ru");
 const selectedItems = atomWithStorage<RestaurantWithDishesInfo>("DISHES", DEFAULT_RESTAURANT_INFO);
+const userProfile = atomWithStorage("USER_PROFILE", {});
 
 const atoms = {
   isSidebarOpen,
@@ -18,6 +19,7 @@ const atoms = {
   isAuth,
   selectedCity,
   isClearBucketModal,
+  userProfile,
 };
 
 export default atoms;

@@ -10,7 +10,14 @@ const Media: CollectionConfig = {
   access: {
     create: adminsAndUser,
     delete: admins,
-    read: adminAndCreatedByUser,
+    read: ({ req }) => {
+      if (req.user) {
+        if (req.headers.referer?.includes("/admin")) {
+          return adminAndCreatedByUser({ req });
+        }
+      }
+      return true;
+    },
     update: adminsAndUser,
   },
   admin: {

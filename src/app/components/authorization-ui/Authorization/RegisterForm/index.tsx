@@ -5,17 +5,26 @@ import Input from "@/app/components/shared-ui/Input";
 
 import { useRegisterScheme } from "@/app/hooks/formSchemes";
 
+import { useRegister } from "@/app/services/useAuthentication";
+
 interface Props {
   t: any;
   classes?: string;
 }
 
 const Index: FC<Props> = ({ t, classes }) => {
-  const { form, onSubmit } = useRegisterScheme();
+  const { form } = useRegisterScheme();
+
+  const { register } = useRegister();
+
+  const handleLogin = async (values: any) => {
+    console.log("values", values);
+    await register(values);
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={`space-y-3 text-start ${classes}`}>
+      <form onSubmit={form.handleSubmit(handleLogin)} className={`space-y-3 text-start ${classes}`}>
         {Object.keys(form.getValues()).map((key) => (
           <FormField
             key={key}

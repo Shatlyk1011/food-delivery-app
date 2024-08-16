@@ -32,8 +32,9 @@ const Customers: CollectionConfig = {
   },
 
   auth: {
-    depth: 1,
-    // maxLoginAttempts: 20,
+    depth: 0,
+    tokenExpiration: 604800,
+    maxLoginAttempts: 20,
   },
 
   fields: [
@@ -68,6 +69,7 @@ const Customers: CollectionConfig = {
 
     {
       name: "orders",
+      required: false,
       access: {
         read: admins,
         update: admins,

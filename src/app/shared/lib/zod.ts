@@ -14,7 +14,7 @@ export const loginScheme = (t: (arg: string) => string) =>
 // Register Scheme
 export const registerScheme = (t: (arg: string) => string) =>
   z.object({
-    username: z.string().min(4, {
+    name: z.string().min(4, {
       message: t("Zod.invalidUsername"),
     }),
     email: z.string().min(2, {

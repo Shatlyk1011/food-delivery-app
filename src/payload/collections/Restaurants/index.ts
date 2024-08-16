@@ -9,7 +9,7 @@ const Restaurants: CollectionConfig = {
     delete: admins,
     read: ({ req }) => {
       if (req.user) {
-        if (req.user.roles.includes("admin")) return true;
+        if (req.user.roles?.includes("admin")) return true;
 
         if (req.headers.referer?.includes("/admin")) {
           return {

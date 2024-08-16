@@ -1,9 +1,18 @@
 import { FC } from "react";
+import { setCookie } from "cookies-next";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
 
 import Input from "@/app/components/shared-ui/Input";
 
+//jotai
+import atoms from "@/app/(pages)/_providers/jotai";
+import { useSetAtom } from "jotai";
+
 import { useLoginScheme } from "@/app/hooks/formSchemes";
+
+import { useLogin } from "@/app/services/useAuthentication";
+
+import { USER_INFO } from "@/app/shared/constants";
 
 interface Props {
   t: any;
@@ -11,11 +20,30 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ t, classes }) => {
-  const { form, onSubmit } = useLoginScheme();
+  const { form } = useLoginScheme();
+
+  const { login } = useLogin();
+
+  const setAuth = useSetAtom(atoms.isAuth);
+  const setUserProfile = useSetAtom(atoms.userProfile);
+
+  const handleLogin = async (values: any) => {
+    const response = await login(values);
+
+    if (response?.token) {
+      setAuth(true);
+      setUserProfile(response?.user);
+
+      setCookie(USER_INFO, response.token, {
+        maxAge: response.exp,
+      });
+      console.log("response.user", response.user);
+    }
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className={`space-y-3 text-start ${classes}`}>
+      <form onSubmit={form.handleSubmit(handleLogin)} className={`space-y-3 text-start ${classes}`}>
         {Object.keys(form.getValues()).map((key) => (
           <FormField
             key={key}

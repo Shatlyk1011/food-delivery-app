@@ -31,7 +31,6 @@ export const useGetRestaurantsQuery = (
 
   const filteredRestaurants = data?.pages?.map((rests, idx) => {
     if (deliveryTime !== 0) {
-      console.log("deliveryTime", deliveryTime);
       const res = [];
       const filterByTime = rests.filter((item) => +item.workingHours.closeTime.slice(1) >= deliveryTime);
       res[idx] = filterByTime;

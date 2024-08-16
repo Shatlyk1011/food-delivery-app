@@ -1,30 +1,64 @@
 import type { CollectionConfig } from "payload/types";
 
 import { admins } from "../../access/admins";
+import { checkRole } from "../../access/checkRole";
 
 const Users: CollectionConfig = {
   access: {
     admin: () => false,
-    create: admins,
+    create: () => true,
     delete: admins,
-    read: admins,
+    read: ({ req: { user } }) => {
+      if (checkRole(["admin"], user)) {
+        return true;
+      }
+      if (checkRole(["user"], user)) {
+        return {
+          id: {
+            equals: user?.id,
+          },
+        };
+      }
+      return false;
+    },
     update: admins,
   },
 
   admin: {
-    defaultColumns: ["name", "role", "email"],
+    defaultColumns: ["name", "email"],
     useAsTitle: "name",
   },
 
-  auth: true,
+  auth: {
+    depth: 0,
+    tokenExpiration: 604800,
+    verify: false,
+    maxLoginAttempts: 10,
+  },
   fields: [
     {
       name: "name",
+      label: "Имя пользователя",
+      required: true,
       type: "text",
     },
     {
       name: "email",
+      label: "Email",
+      required: true,
       type: "email",
+    },
+    {
+      name: "phone",
+      label: "Номер телефона",
+      required: true,
+      type: "text",
+      validate: (value) => {
+        if (!value || value.length < 8 || value.length > 8) {
+          return "payloadPhoneValidation";
+        }
+        return true;
+      },
     },
     {
       name: "addresses",
@@ -69,6 +103,19 @@ const Users: CollectionConfig = {
       label: "Адреса",
       required: false,
       type: "array",
+    },
+
+    {
+      name: "roles",
+      defaultValue: "user",
+      hasMany: true,
+      options: [
+        {
+          label: "Пользователь",
+          value: "user",
+        },
+      ],
+      type: "select",
     },
   ],
   labels: { plural: "Пользователи", singular: "Пользователь" },

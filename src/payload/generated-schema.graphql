@@ -7,8 +7,6 @@ type Query {
   Orders(where: Order_where, limit: Int, page: Int, sort: String): Orders
   countOrders(where: Order_where): countOrders
   docAccessOrder(id: String!): ordersDocAccess
-  meOrder: ordersMe
-  initializedOrder: Boolean
   Media(id: String!): Media
   allMedia(where: Media_where, limit: Int, page: Int, sort: String): allMedia
   countallMedia(where: Media_where): countallMedia
@@ -159,14 +157,6 @@ type Order {
   dishes: [Order_Dishes!]!
   updatedAt: DateTime
   createdAt: DateTime
-  email: EmailAddress!
-  resetPasswordToken: String
-  resetPasswordExpiration: DateTime
-  salt: String
-  hash: String
-  loginAttempts: Float
-  lockUntil: DateTime
-  password: String!
 }
 
 type Order_Dishes {
@@ -390,15 +380,15 @@ input Dish_Image_where_or {
   OR: [Dish_Image_where_or]
 }
 
-"""
-A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
-"""
-scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
-
 enum Customer_roles {
   admin
   author
 }
+
+"""
+A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address.
+"""
+scalar EmailAddress @specifiedBy(url: "https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address")
 
 input Restaurant_BannerImage_where {
   alt: Restaurant_BannerImage_alt_operator
@@ -1464,7 +1454,6 @@ input Order_where {
   dishes__id: Order_dishes__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
-  email: Order_email_operator
   id: Order_id_operator
   AND: [Order_where_and]
   OR: [Order_where_or]
@@ -1620,16 +1609,6 @@ input Order_createdAt_operator {
   exists: Boolean
 }
 
-input Order_email_operator {
-  equals: EmailAddress
-  not_equals: EmailAddress
-  like: EmailAddress
-  contains: EmailAddress
-  in: [EmailAddress]
-  not_in: [EmailAddress]
-  all: [EmailAddress]
-}
-
 input Order_id_operator {
   equals: String
   not_equals: String
@@ -1657,7 +1636,6 @@ input Order_where_and {
   dishes__id: Order_dishes__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
-  email: Order_email_operator
   id: Order_id_operator
   AND: [Order_where_and]
   OR: [Order_where_or]
@@ -1679,7 +1657,6 @@ input Order_where_or {
   dishes__id: Order_dishes__id_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
-  email: Order_email_operator
   id: Order_id_operator
   AND: [Order_where_and]
   OR: [Order_where_or]
@@ -1695,7 +1672,6 @@ type ordersDocAccess {
   read: OrdersReadDocAccess
   update: OrdersUpdateDocAccess
   delete: OrdersDeleteDocAccess
-  unlock: OrdersUnlockDocAccess
 }
 
 type OrdersDocAccessFields {
@@ -1712,8 +1688,6 @@ type OrdersDocAccessFields {
   dishes: OrdersDocAccessFields_dishes
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
-  email: OrdersDocAccessFields_email
-  password: OrdersDocAccessFields_password
 }
 
 type OrdersDocAccessFields_city {
@@ -2091,52 +2065,6 @@ type OrdersDocAccessFields_createdAt_Delete {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_email {
-  create: OrdersDocAccessFields_email_Create
-  read: OrdersDocAccessFields_email_Read
-  update: OrdersDocAccessFields_email_Update
-  delete: OrdersDocAccessFields_email_Delete
-}
-
-type OrdersDocAccessFields_email_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_email_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_email_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_email_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_password {
-  create: OrdersDocAccessFields_password_Create
-  read: OrdersDocAccessFields_password_Read
-  update: OrdersDocAccessFields_password_Update
-  delete: OrdersDocAccessFields_password_Delete
-}
-
-type OrdersDocAccessFields_password_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_password_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_password_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_password_Delete {
-  permission: Boolean!
-}
-
 type OrdersCreateDocAccess {
   permission: Boolean!
   where: JSONObject
@@ -2155,19 +2083,6 @@ type OrdersUpdateDocAccess {
 type OrdersDeleteDocAccess {
   permission: Boolean!
   where: JSONObject
-}
-
-type OrdersUnlockDocAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type ordersMe {
-  collection: String
-  exp: Int
-  strategy: String
-  token: String
-  user: Order
 }
 
 type allMedia {
@@ -2814,8 +2729,10 @@ type CitiesDeleteDocAccess {
 
 type User {
   id: String
-  name: String
+  name: String!
+  phone: String!
   addresses: [User_Addresses!]
+  roles: [User_roles!]
   updatedAt: DateTime
   createdAt: DateTime
   email: EmailAddress!
@@ -2838,6 +2755,10 @@ type User_Addresses {
   id: String
 }
 
+enum User_roles {
+  user
+}
+
 type Users {
   docs: [User]
   hasNextPage: Boolean
@@ -2854,6 +2775,7 @@ type Users {
 
 input User_where {
   name: User_name_operator
+  phone: User_phone_operator
   addresses__city: User_addresses__city_operator
   addresses__district: User_addresses__district_operator
   addresses__apartment: User_addresses__apartment_operator
@@ -2861,6 +2783,7 @@ input User_where {
   addresses__entrance: User_addresses__entrance_operator
   addresses__phoneNumber: User_addresses__phoneNumber_operator
   addresses__id: User_addresses__id_operator
+  roles: User_roles_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
@@ -2877,7 +2800,16 @@ input User_name_operator {
   in: [String]
   not_in: [String]
   all: [String]
-  exists: Boolean
+}
+
+input User_phone_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
 }
 
 input User_addresses__city_operator {
@@ -2952,6 +2884,19 @@ input User_addresses__id_operator {
   exists: Boolean
 }
 
+input User_roles_operator {
+  equals: User_roles_Input
+  not_equals: User_roles_Input
+  in: [User_roles_Input]
+  not_in: [User_roles_Input]
+  all: [User_roles_Input]
+  exists: Boolean
+}
+
+enum User_roles_Input {
+  user
+}
+
 input User_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -2997,6 +2942,7 @@ input User_id_operator {
 
 input User_where_and {
   name: User_name_operator
+  phone: User_phone_operator
   addresses__city: User_addresses__city_operator
   addresses__district: User_addresses__district_operator
   addresses__apartment: User_addresses__apartment_operator
@@ -3004,6 +2950,7 @@ input User_where_and {
   addresses__entrance: User_addresses__entrance_operator
   addresses__phoneNumber: User_addresses__phoneNumber_operator
   addresses__id: User_addresses__id_operator
+  roles: User_roles_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
@@ -3014,6 +2961,7 @@ input User_where_and {
 
 input User_where_or {
   name: User_name_operator
+  phone: User_phone_operator
   addresses__city: User_addresses__city_operator
   addresses__district: User_addresses__district_operator
   addresses__apartment: User_addresses__apartment_operator
@@ -3021,6 +2969,7 @@ input User_where_or {
   addresses__entrance: User_addresses__entrance_operator
   addresses__phoneNumber: User_addresses__phoneNumber_operator
   addresses__id: User_addresses__id_operator
+  roles: User_roles_operator
   updatedAt: User_updatedAt_operator
   createdAt: User_createdAt_operator
   email: User_email_operator
@@ -3044,7 +2993,9 @@ type usersDocAccess {
 
 type UsersDocAccessFields {
   name: UsersDocAccessFields_name
+  phone: UsersDocAccessFields_phone
   addresses: UsersDocAccessFields_addresses
+  roles: UsersDocAccessFields_roles
   updatedAt: UsersDocAccessFields_updatedAt
   createdAt: UsersDocAccessFields_createdAt
   email: UsersDocAccessFields_email
@@ -3071,6 +3022,29 @@ type UsersDocAccessFields_name_Update {
 }
 
 type UsersDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phone {
+  create: UsersDocAccessFields_phone_Create
+  read: UsersDocAccessFields_phone_Read
+  update: UsersDocAccessFields_phone_Update
+  delete: UsersDocAccessFields_phone_Delete
+}
+
+type UsersDocAccessFields_phone_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phone_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phone_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_phone_Delete {
   permission: Boolean!
 }
 
@@ -3266,6 +3240,29 @@ type UsersDocAccessFields_addresses_id_Update {
 }
 
 type UsersDocAccessFields_addresses_id_Delete {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles {
+  create: UsersDocAccessFields_roles_Create
+  read: UsersDocAccessFields_roles_Read
+  update: UsersDocAccessFields_roles_Update
+  delete: UsersDocAccessFields_roles_Delete
+}
+
+type UsersDocAccessFields_roles_Create {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Read {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Update {
+  permission: Boolean!
+}
+
+type UsersDocAccessFields_roles_Delete {
   permission: Boolean!
 }
 
@@ -4483,12 +4480,11 @@ type PayloadPreference_User_Relationship {
 }
 
 enum PayloadPreference_User_RelationTo {
-  orders
   users
   customers
 }
 
-union PayloadPreference_User = Order | User | Customer
+union PayloadPreference_User = User | Customer
 
 type PayloadPreferences {
   docs: [PayloadPreference]
@@ -4521,7 +4517,6 @@ input PayloadPreference_user_Relation {
 }
 
 enum PayloadPreference_user_Relation_RelationTo {
-  orders
   users
   customers
 }
@@ -5291,7 +5286,6 @@ type ordersAccess {
   read: OrdersReadAccess
   update: OrdersUpdateAccess
   delete: OrdersDeleteAccess
-  unlock: OrdersUnlockAccess
 }
 
 type OrdersFields {
@@ -5308,8 +5302,6 @@ type OrdersFields {
   dishes: OrdersFields_dishes
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
-  email: OrdersFields_email
-  password: OrdersFields_password
 }
 
 type OrdersFields_city {
@@ -5687,52 +5679,6 @@ type OrdersFields_createdAt_Delete {
   permission: Boolean!
 }
 
-type OrdersFields_email {
-  create: OrdersFields_email_Create
-  read: OrdersFields_email_Read
-  update: OrdersFields_email_Update
-  delete: OrdersFields_email_Delete
-}
-
-type OrdersFields_email_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_email_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_email_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_email_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_password {
-  create: OrdersFields_password_Create
-  read: OrdersFields_password_Read
-  update: OrdersFields_password_Update
-  delete: OrdersFields_password_Delete
-}
-
-type OrdersFields_password_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_password_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_password_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_password_Delete {
-  permission: Boolean!
-}
-
 type OrdersCreateAccess {
   permission: Boolean!
   where: JSONObject
@@ -5749,11 +5695,6 @@ type OrdersUpdateAccess {
 }
 
 type OrdersDeleteAccess {
-  permission: Boolean!
-  where: JSONObject
-}
-
-type OrdersUnlockAccess {
   permission: Boolean!
   where: JSONObject
 }
@@ -6143,7 +6084,9 @@ type usersAccess {
 
 type UsersFields {
   name: UsersFields_name
+  phone: UsersFields_phone
   addresses: UsersFields_addresses
+  roles: UsersFields_roles
   updatedAt: UsersFields_updatedAt
   createdAt: UsersFields_createdAt
   email: UsersFields_email
@@ -6170,6 +6113,29 @@ type UsersFields_name_Update {
 }
 
 type UsersFields_name_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_phone {
+  create: UsersFields_phone_Create
+  read: UsersFields_phone_Read
+  update: UsersFields_phone_Update
+  delete: UsersFields_phone_Delete
+}
+
+type UsersFields_phone_Create {
+  permission: Boolean!
+}
+
+type UsersFields_phone_Read {
+  permission: Boolean!
+}
+
+type UsersFields_phone_Update {
+  permission: Boolean!
+}
+
+type UsersFields_phone_Delete {
   permission: Boolean!
 }
 
@@ -6365,6 +6331,29 @@ type UsersFields_addresses_id_Update {
 }
 
 type UsersFields_addresses_id_Delete {
+  permission: Boolean!
+}
+
+type UsersFields_roles {
+  create: UsersFields_roles_Create
+  read: UsersFields_roles_Read
+  update: UsersFields_roles_Update
+  delete: UsersFields_roles_Delete
+}
+
+type UsersFields_roles_Create {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Read {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Update {
+  permission: Boolean!
+}
+
+type UsersFields_roles_Delete {
   permission: Boolean!
 }
 
@@ -7294,13 +7283,6 @@ type Mutation {
   createOrder(data: mutationOrderInput!): Order
   updateOrder(id: String!, autosave: Boolean, data: mutationOrderUpdateInput!): Order
   deleteOrder(id: String!): Order
-  refreshTokenOrder: ordersRefreshedOrder
-  logoutOrder: String
-  unlockOrder(email: String!): Boolean!
-  loginOrder(email: String, password: String): ordersLoginResult
-  forgotPasswordOrder(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
-  resetPasswordOrder(password: String, token: String): ordersResetPassword
-  verifyEmailOrder(token: String): Boolean
   createMedia(data: mutationMediaInput!): Media
   updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
   deleteMedia(id: String!): Media
@@ -7478,14 +7460,6 @@ input mutationOrderInput {
   dishes: [mutationOrder_DishesInput!]
   updatedAt: String
   createdAt: String
-  email: String!
-  resetPasswordToken: String
-  resetPasswordExpiration: String
-  salt: String
-  hash: String
-  loginAttempts: Float
-  lockUntil: String
-  password: String!
 }
 
 input mutationOrder_DishesInput {
@@ -7508,43 +7482,12 @@ input mutationOrderUpdateInput {
   dishes: [mutationOrderUpdate_DishesInput]
   updatedAt: String
   createdAt: String
-  email: String
-  resetPasswordToken: String
-  resetPasswordExpiration: String
-  salt: String
-  hash: String
-  loginAttempts: Float
-  lockUntil: String
-  password: String
 }
 
 input mutationOrderUpdate_DishesInput {
   dish: String
   quantity: Float
   id: String
-}
-
-type ordersRefreshedOrder {
-  exp: Int
-  refreshedToken: String
-  strategy: String
-  user: ordersJWT
-}
-
-type ordersJWT {
-  email: EmailAddress!
-  collection: String!
-}
-
-type ordersLoginResult {
-  exp: Int
-  token: String
-  user: Order
-}
-
-type ordersResetPassword {
-  token: String
-  user: Order
 }
 
 input mutationMediaInput {
@@ -7586,8 +7529,10 @@ input mutationCityUpdateInput {
 }
 
 input mutationUserInput {
-  name: String
+  name: String!
+  phone: String!
   addresses: [mutationUser_AddressesInput]
+  roles: [User_roles_MutationInput]
   updatedAt: String
   createdAt: String
   email: String!
@@ -7610,9 +7555,15 @@ input mutationUser_AddressesInput {
   id: String
 }
 
+enum User_roles_MutationInput {
+  user
+}
+
 input mutationUserUpdateInput {
   name: String
+  phone: String
   addresses: [mutationUserUpdate_AddressesInput]
+  roles: [UserUpdate_roles_MutationInput]
   updatedAt: String
   createdAt: String
   email: String
@@ -7633,6 +7584,10 @@ input mutationUserUpdate_AddressesInput {
   entrance: String
   phoneNumber: Float!
   id: String
+}
+
+enum UserUpdate_roles_MutationInput {
+  user
 }
 
 type usersRefreshedUser {
@@ -7781,7 +7736,6 @@ input PayloadPreference_UserRelationshipInput {
 }
 
 enum PayloadPreference_UserRelationshipInputRelationTo {
-  orders
   users
   customers
 }
@@ -7800,7 +7754,6 @@ input PayloadPreferenceUpdate_UserRelationshipInput {
 }
 
 enum PayloadPreferenceUpdate_UserRelationshipInputRelationTo {
-  orders
   users
   customers
 }

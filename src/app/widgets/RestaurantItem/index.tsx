@@ -27,8 +27,6 @@ const computedPriceNumber = (budgetCategory: string) => {
 };
 
 const Index: FC<Props> = ({ item, t }) => {
-  console.log(item.deliveryPrice);
-
   return (
     <div className="inline-block px-4 pb-5 xl:px-2">
       <figure className="relative mb-2 max-h-52 min-h-52  cursor-pointer overflow-hidden rounded-[14px]">
