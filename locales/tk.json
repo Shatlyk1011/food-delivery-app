@@ -95,7 +95,19 @@
 
   "Placeholder": {
     "email": "Email",
-    "password": "Parol"
+    "password": "Parol",
+    "name": "Ady",
+    "phone": "Telefon belgiňiz"
+  },
+
+  "Categories": {
+    "all": "Ählisi",
+    "burgers": "Burger",
+    "sushi": "Sushi",
+    "pasta": "Pasta",
+    "breakfasts": "Ertirlik",
+    "lunches": "Günortan",
+    "dinner": "Agşamlyk"
   },
 
   "Zod": {

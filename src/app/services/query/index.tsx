@@ -10,11 +10,14 @@ phone
 `;
 
 export const RESTAURANTS = `
-  query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String) {
+  query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String, $query:String) {
     Restaurants(
       where: {
-        isBlocked: { equals: false },
-      }, 
+        AND: [
+          {isBlocked: { equals: false }},
+          {title: { contains: $query }}
+        ]
+      },
       limit: $limit,
       page: $pageParam,
       sort:$sortBy
@@ -51,7 +54,7 @@ export const CATEGORIES = `
 export const REGISTER_MUTATION = `
 mutation CreateUser($userData: mutationUserInput!) {
   createUser(data: $userData) {
-    name
+    ${USER_INFO}
   }
 }
 `;
@@ -76,4 +79,10 @@ export const LOGIN_ME = `
       }
     }
   }
+`;
+
+export const LOGOUT_MUTATION = `
+mutation LogoutUser {
+  logoutUser
+}
 `;

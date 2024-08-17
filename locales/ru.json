@@ -95,7 +95,19 @@
 
   "Placeholder": {
     "email": "Email",
-    "password": "Пароль"
+    "password": "Пароль",
+    "name": "Имя",
+    "phone": "Телефон"
+  },
+
+  "Categories": {
+    "all": "Все",
+    "burgers": "Бургеры",
+    "sushi": "Суши",
+    "pasta": "Паста",
+    "breakfasts": "Завтрак",
+    "lunches": "Обед",
+    "dinner": "Ужин"
   },
 
   "Zod": {

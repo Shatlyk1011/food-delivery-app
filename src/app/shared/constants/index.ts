@@ -1,3 +1,3 @@
-export const USER_INFO = "USER_INFO";
+export const USER_TOKEN = "payload-token";
 
 export const DEFAULT_LIMIT = 12;

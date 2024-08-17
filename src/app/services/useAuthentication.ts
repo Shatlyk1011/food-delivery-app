@@ -1,51 +1,30 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import axios from "../shared/lib/axios";
 
-import { LOGIN_ME, LOGIN_MUTATION, REGISTER_MUTATION } from "./query";
+import { LOGIN_ME, REGISTER_MUTATION } from "./query";
 
-type LoginResponse = { exp: number; token: string; user: any };
+type LoginFn = (crededentials: LoginCredentials) => Promise<LoginResponse>;
 
-type LoginCredentials = { email: string; password: string };
-
-export const loginUser = async (variables: LoginCredentials): Promise<LoginResponse> => {
-  const { data } = await axios({
-    withCredentials: true,
-    data: {
-      query: LOGIN_MUTATION,
-      variables,
+export const loginMe = () => {
+  const { data } = useQuery<UserData>({
+    queryFn: async () => {
+      const { data } = await axios({
+        withCredentials: true,
+        data: {
+          query: LOGIN_ME,
+        },
+      });
+      return await data.data.meUser.user;
     },
+    staleTime: 1000 * 60 * 30,
+    queryKey: ["currentUser"],
   });
 
-  const loginRes = (await data.data.loginUser) as LoginResponse;
-
-  if (loginRes?.token) {
-  }
-  return loginRes;
+  return { currentUser: data };
 };
 
-export const loginMe = async () => {
-  const { data } = await axios({
-    withCredentials: true,
-    data: {
-      query: LOGIN_ME,
-    },
-  });
-
-  console.log("MEEE", data);
-
-  return data;
-};
-
-export const useLogin = () => {
-  const { data, mutateAsync } = useMutation<LoginResponse, any, { email: string; password: string }, any>({
-    mutationFn: async ({ email, password }) => loginUser({ email, password }),
-  });
-
-  return { data, login: mutateAsync };
-};
-
-export const useRegister = () => {
+export const useRegister = (loginFn: LoginFn) => {
   const { data, mutateAsync } = useMutation<{ name: string }, any, any, any>({
     mutationFn: async (userData) => {
       const { data } = await axios({
@@ -59,13 +38,10 @@ export const useRegister = () => {
     },
     onError: (err) => console.log("register mutation error", err),
     async onSettled(data, error, variables) {
-      console.log("variables", variables);
       const { email, password } = variables;
-      console.log("register settle data", data);
       if (data?.name) {
-        console.log("hmhmh");
         //toast with greeting !
-        await loginUser({ email, password });
+        await loginFn({ email, password });
       } else {
         //something went wrong error
       }

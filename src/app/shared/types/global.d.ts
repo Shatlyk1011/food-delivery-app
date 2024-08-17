@@ -1,3 +1,8 @@
+type LoginCredentials = { email: string; password: string };
+type LoginResponse = { exp: number; token: string; user: any };
+
+type UserData = { name: string; phone: string };
+
 type PaginationMeta = {
   page: number;
   pageCount: number;

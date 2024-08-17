@@ -8,8 +8,8 @@ interface Props {
 const Index: FC<Props> = ({ length = 6 }) => {
   return (
     <>
-      {Array.from({ length }).map(() => (
-        <div className="m-1 max-w-full rounded-[14px] p-3">
+      {Array.from({ length }).map((_, idx) => (
+        <div key={idx} className="m-1 max-w-full rounded-[14px] p-3">
           <Skeleton className="relative mb-3 h-44 w-full rounded-[14px]" />
           <div className="mb-2 space-y-2">
             <Skeleton className="h-8 w-[100px]" />

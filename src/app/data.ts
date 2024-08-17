@@ -34,3 +34,9 @@ export const DEFAULT_RESTAURANT_INFO: RestaurantWithDishesInfo = {
   dishes: [],
   restaurantInfo: { id: "", name: "", deliveryPrice: 0, isDelivery: true },
 };
+
+export const defaultFilters: Filters = {
+  deliveryTime: 0,
+  sortBy: null,
+  tag: "all",
+};

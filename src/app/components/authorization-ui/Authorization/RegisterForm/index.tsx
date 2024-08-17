@@ -6,6 +6,7 @@ import Input from "@/app/components/shared-ui/Input";
 import { useRegisterScheme } from "@/app/hooks/formSchemes";
 
 import { useRegister } from "@/app/services/useAuthentication";
+import useAuth from "@/app/hooks/useAuth";
 
 interface Props {
   t: any;
@@ -15,10 +16,11 @@ interface Props {
 const Index: FC<Props> = ({ t, classes }) => {
   const { form } = useRegisterScheme();
 
-  const { register } = useRegister();
+  const { login } = useAuth();
+
+  const { register } = useRegister(login);
 
   const handleLogin = async (values: any) => {
-    console.log("values", values);
     await register(values);
   };
 
@@ -33,7 +35,7 @@ const Index: FC<Props> = ({ t, classes }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder={key} {...field} className="h-12 w-full px-[14px]" />
+                  <Input placeholder={t(`Placeholder.${key}`)} {...field} className="h-12 w-full px-[14px]" />
                 </FormControl>
                 <FormMessage className="mt-1" />
               </FormItem>

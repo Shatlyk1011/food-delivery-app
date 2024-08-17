@@ -18,12 +18,6 @@ const m = path.resolve(__dirname, "./emptyModuleMock.js");
 
 export default buildConfig({
   admin: {
-    // autoLogin: {
-    //   email: "demo@payloadcms.com",
-    //   password: "demo",
-    //   prefillOnly: true,
-    // },
-
     bundler: webpackBundler(), // bundler-config
     user: Customers.slug,
     webpack: (config) => ({
@@ -58,5 +52,10 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),
+  localization: {
+    defaultLocale: "ru",
+    locales: ["ru", "tk"],
+    fallback: false,
+  },
   // database-adapter-config-end
 });

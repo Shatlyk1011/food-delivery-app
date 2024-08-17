@@ -4,6 +4,7 @@ function getTimesTillMidnight() {
   const currentMinutes = now.getMinutes();
 
   let startHour = currentHour;
+
   if (currentMinutes > 0) {
     startHour += 1;
   }

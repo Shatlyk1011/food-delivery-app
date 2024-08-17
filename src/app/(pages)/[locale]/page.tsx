@@ -1,44 +1,38 @@
 "use client";
-
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+
+//jotai
+import { useAtom, useAtomValue } from "jotai";
+import atoms from "../_providers/jotai";
 
 //services
 import { useGetCategories } from "@/app/services/useCategories";
 import { useGetRestaurantsQuery } from "@/app/services/useRestaurants";
 
+import { defaultFilters } from "@/app/data";
+
 //components
-import CategoriesBar from "@/app/widgets/CategoriesBar";
-import RestaurantItem from "@/app/widgets/RestaurantItem";
 import RestaurantItemSkeleton from "@/app/widgets/RestaurantItem/Skeleton";
+import RestaurantItem from "@/app/widgets/RestaurantItem";
+import CategoriesBar from "@/app/widgets/CategoriesBar";
 
 export default function Home() {
   const t = useTranslations();
 
-  const [filters, setFilters] = useState<Filters>({
-    deliveryTime: 0,
-    sortBy: null,
-    tag: "all",
-  });
+  const [query, setQuery] = useAtom(atoms.query);
 
-  // export const getServerSideProps = async (context) => {
-  // const cookies = parseCookies(context);
-  // const token = cookies.token;
-  //
-  // if (!token) {
-  // return {
-  // redirect: {
-  // destination: '/login',
-  // permanent: false,
-  // },
-  // };
-  // }
+  const clearFilters = () => {
+    setQuery("");
+    setFilters(defaultFilters);
+  };
+  const [filters, setFilters] = useState<Filters>(defaultFilters);
 
   const handleFilters = (key: keyof Filters, value: any) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
-  const { isFetchingNextPage, filteredRestaurants, fetchNextPage, isLoading } = useGetRestaurantsQuery(filters);
+  const { isFetchingNextPage, filteredRestaurants, fetchNextPage, isLoading } = useGetRestaurantsQuery(filters, query);
 
   const { categories } = useGetCategories();
 
@@ -54,6 +48,14 @@ export default function Home() {
             )}
             {(isFetchingNextPage || isLoading) && <RestaurantItemSkeleton length={8} />}
           </div>
+          {filteredRestaurants && !filteredRestaurants[0].length && (
+            <div className="w-full  gap-4 rounded-[14px] px-4 py-4 text-center">
+              <p className="rounded-[14px] px-4 py-2.5 text-base font-semibold">Ничего не найдено</p>
+              <button onClick={clearFilters} className="rounded-full bg-primary px-3 py-2 text-xs tracking-wide">
+                Очистить фильтры
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </main>

@@ -8,16 +8,17 @@ import { RESTAURANTS } from "./query";
 
 export const useGetRestaurantsQuery = (
   { sortBy, deliveryTime, tag }: Filters,
+  query: string,
   initialData: MainPageRestaurant[] | null = null,
 ) => {
   const { data, fetchNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery<MainPageRestaurant[]>({
-    queryKey: ["restaurant", { sortBy }],
+    queryKey: ["restaurant", { sortBy, query }],
 
     queryFn: async ({ pageParam = 1 }) => {
       const { data } = await axios({
         data: {
           query: RESTAURANTS,
-          variables: { limit: DEFAULT_LIMIT, pageParam, sortBy },
+          variables: { limit: DEFAULT_LIMIT, pageParam, sortBy, query },
         },
       });
       return await data.data.Restaurants.docs;
@@ -29,6 +30,7 @@ export const useGetRestaurantsQuery = (
     initialPageParam: 1,
   });
 
+  //use memo?
   const filteredRestaurants = data?.pages?.map((rests, idx) => {
     if (deliveryTime !== 0) {
       const res = [];

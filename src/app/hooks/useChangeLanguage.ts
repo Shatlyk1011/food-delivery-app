@@ -1,31 +1,19 @@
 import { usePathname, useRouter } from "@/app/(pages)/_providers/i18n/navigation";
-import atoms from "@/app/(pages)/_providers/jotai";
-import { useAtom } from "jotai";
+import { getCookie } from "cookies-next";
 
 const useChangeLanguage = () => {
-  const [selectedLanguage, setSelectedLanguage] = useAtom(atoms.selectedLanguage);
-
   const router = useRouter();
   const pathname = usePathname();
 
-  const languageTitle = (() => {
-    switch (selectedLanguage) {
-      case "tk": {
-        return "Turkmen";
-      }
-      default:
-        return "Русский";
-    }
-  })();
+  // const lang = getCookie("NEXT_LOCALE");
 
   const handleChange = (locale: "ru" | "tk") => {
-    if (locale !== selectedLanguage) {
-      setSelectedLanguage(locale);
-      router.replace(pathname, { locale });
-    }
+    // if (locale !== lang) {
+    //   router.replace(pathname, { locale });
+    // }
   };
 
-  return { languageTitle, handleChange };
+  return { handleChange };
 };
 
 export default useChangeLanguage;

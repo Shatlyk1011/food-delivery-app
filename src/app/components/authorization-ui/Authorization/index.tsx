@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ t }) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <Dialog>
