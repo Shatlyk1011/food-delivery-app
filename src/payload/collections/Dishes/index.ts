@@ -6,7 +6,16 @@ const Dishes: CollectionConfig = {
   access: {
     create: () => true,
     delete: adminAndCreatedByUser,
-    read: adminAndCreatedByUser,
+    read: ({ req }) => {
+      if (req.user) {
+        if (req.user.roles?.includes("admin")) return true;
+
+        if (req.headers.referer?.includes("/admin")) {
+          return adminAndCreatedByUser({ req });
+        }
+      }
+      return true;
+    },
     update: adminAndCreatedByUser,
   },
 

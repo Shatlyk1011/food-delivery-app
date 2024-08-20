@@ -30,7 +30,7 @@ const Index: FC<Props> = ({ item, t }) => {
   return (
     <div className="inline-block px-4 pb-5 xl:px-2">
       <figure className="relative mb-2 max-h-52 min-h-52  cursor-pointer overflow-hidden rounded-[14px]">
-        <Link href={`/restaurant/${item.title}`} className="">
+        <Link href={`/restaurant/${item.id}`} className="">
           <img
             className="absolute inset-0 h-full w-full bg-gray-2 object-cover"
             src={item.bannerImage?.url || ""}

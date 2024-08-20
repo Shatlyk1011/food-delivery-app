@@ -12,7 +12,7 @@ export const useGetRestaurantsQuery = (
   initialData: MainPageRestaurant[] | null = null,
 ) => {
   const { data, fetchNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery<MainPageRestaurant[]>({
-    queryKey: ["restaurant", { sortBy, query }],
+    queryKey: ["restaurants", { sortBy, query }],
 
     queryFn: async ({ pageParam = 1 }) => {
       const { data } = await axios({

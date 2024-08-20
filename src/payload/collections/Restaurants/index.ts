@@ -238,6 +238,10 @@ const Restaurants: CollectionConfig = {
     {
       name: "categories",
       hasMany: true,
+      access: {
+        read: admins,
+        create: admins,
+      },
       label: "Категории ресторана (макс 3)",
       relationTo: "categories",
       type: "relationship",
@@ -251,7 +255,7 @@ const Restaurants: CollectionConfig = {
     {
       name: "budgetCategory",
       access: {
-        read: () => true,
+        read: admins,
         update: admins,
       },
       defaultValue: "2",
@@ -290,12 +294,16 @@ const Restaurants: CollectionConfig = {
       label: "Чей ресторан?",
       relationTo: "customers",
       required: true,
+      access: {
+        read: () => true,
+        update: admins,
+      },
       type: "relationship",
     },
     {
       name: "cities",
       access: {
-        read: () => true,
+        read: admins,
         update: admins,
       },
       hasMany: true,

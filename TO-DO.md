@@ -7,22 +7,24 @@
 
 ## api
 
-- learn to work with graphql
-- create Orders collection. learn how to work with forms with payload.
-- add fields to user collection: addresses, isBlocked, history of Orders
+✅ - learn to work with graphql
+✅ - create Orders collection. learn how to work with forms with payload.
+✅ (not tested yet)- add fields to user collection: addresses, isBlocked, history of Orders
 
-- make restaurant blockable
-- free delivery (yx-eat)
+✅ - make restaurant blockable
+
+- free delivery ui (yx-eat)
 
 - test test test
 
 ## client
 
-- enable auth
-- fix all form translates, validations
+✅ - enable auth
+✅ - fix all form translates, validations
+
 - profile page (with add/remove addresses)
 - connect with backend;
-- komentary restoranu (input)
+  ✅ - komentary restoranu (input)
 
 ## backlog
 

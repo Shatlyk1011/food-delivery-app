@@ -1,14 +1,13 @@
-//shared/types/restaurants
-
 // categories: {
 //   in: { title: "all" }
 // }
 
 const USER_INFO = `
-name
-phone
-`;
+  name
+  phone
+  `;
 
+//shared/types/restaurants
 export const RESTAURANTS = `
   query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String, $query:String) {
     Restaurants(
