@@ -66,6 +66,17 @@ const Dishes: CollectionConfig = {
       required: true,
       type: "number",
     },
+
+    {
+      name: "categories",
+      access: {
+        read: () => true,
+      },
+      label: "Категория блюда",
+      required: true,
+      type: "relationship",
+      relationTo: "categories",
+    },
     {
       name: "image",
       label: "Изображение блюда",

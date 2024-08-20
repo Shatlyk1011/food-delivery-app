@@ -14,7 +14,8 @@
 ✅ - make restaurant blockable
 
 - free delivery ui (yx-eat)
-
+- add description in collections
+<!-- ex: https://github.com/payloadcms/public-demo/blob/master/src/payload/collections/Media.ts -->
 - test test test
 
 ## client

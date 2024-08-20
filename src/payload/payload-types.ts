@@ -10,12 +10,12 @@ export interface Config {
   collections: {
     restaurants: Restaurant;
     orders: Order;
-    media: Media;
+    dishes: Dish;
     cities: City;
     users: User;
     customers: Customer;
+    media: Media;
     categories: Category;
-    dishes: Dish;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -77,7 +77,6 @@ export interface Customer {
   name?: string | null;
   phone?: string | null;
   restaurant?: (string | Restaurant)[] | null;
-  orders?: (string | Order)[] | null;
   isBlocked?: boolean | null;
   roles?: ('admin' | 'author')[] | null;
   updatedAt: string;
@@ -90,6 +89,42 @@ export interface Customer {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  title?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dishes".
+ */
+export interface Dish {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  gram: number;
+  availableAmount?: number | null;
+  cookTime: number;
+  categories: string | Category;
+  image?: string | Media | null;
+  restaurant: string | Restaurant;
+  createdBy?: (string | null) | Customer;
+  isBlocked?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cities".
+ */
+export interface City {
+  id: string;
+  title?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -114,41 +149,6 @@ export interface Order {
   }[];
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "dishes".
- */
-export interface Dish {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  gram: number;
-  availableAmount?: number | null;
-  cookTime: number;
-  image?: string | Media | null;
-  restaurant: string | Restaurant;
-  createdBy?: (string | null) | Customer;
-  isBlocked?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: string;
-  title?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cities".
- */
-export interface City {
-  id: string;
-  title?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

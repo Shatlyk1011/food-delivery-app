@@ -2,9 +2,9 @@ import axios from "@/app/shared/lib/axios";
 
 import { DEFAULT_LIMIT } from "@/app/shared/constants";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 
-import { RESTAURANTS } from "./query";
+import { RESTAURANT, RESTAURANTS } from "./query";
 
 export const useGetRestaurantsQuery = (
   { sortBy, deliveryTime, tag }: Filters,
@@ -42,4 +42,22 @@ export const useGetRestaurantsQuery = (
     return data?.pages.flat(2);
   });
   return { filteredRestaurants, fetchNextPage, isFetchingNextPage, isLoading };
+};
+
+export const useGetRestaurantById = () => {
+  const { data, mutate } = useMutation<any, any, any, any>({
+    mutationFn: async (id: string) => {
+      console.log("hmm", id);
+      const { data } = await axios({
+        data: {
+          query: RESTAURANT,
+          variables: { id },
+        },
+      });
+      console.log("id", data);
+      return data;
+    },
+  });
+
+  return { data, getRestaurant: mutate };
 };

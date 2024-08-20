@@ -1,28 +1,28 @@
 import type { CollectionConfig } from "payload/types";
 
 import { admins } from "../../access/admins";
+import { checkRole } from "../../access/checkRole";
 
 const Categories: CollectionConfig = {
   access: {
     create: admins,
     delete: admins,
-    read: ({ req }) => {
-      if (req.user) {
-        if (req.user.roles?.includes("admin")) return true;
-
-        if (req.headers.referer?.includes("/admin")) {
-          return false;
-        }
-      }
-      return true;
-    },
+    read: () => true,
     update: admins,
   },
 
   admin: {
     defaultColumns: ["title"],
     useAsTitle: "title",
+    hidden: ({ user }: any) => {
+      if (checkRole(["admin"], user)) {
+        return false;
+      }
+      return true;
+    },
   },
+
+  //realise options with label
   fields: [
     {
       name: "title",
