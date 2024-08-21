@@ -237,11 +237,11 @@ const Restaurants: CollectionConfig = {
     },
     {
       name: "categories",
-      hasMany: true,
       access: {
-        read: admins,
         create: admins,
+        read: admins,
       },
+      hasMany: true,
       label: "Категории ресторана (макс 3)",
       relationTo: "categories",
       type: "relationship",
@@ -291,13 +291,13 @@ const Restaurants: CollectionConfig = {
     },
     {
       name: "relatedToUser",
-      label: "Чей ресторан?",
-      relationTo: "customers",
-      required: true,
       access: {
         read: () => true,
         update: admins,
       },
+      label: "Чей ресторан?",
+      relationTo: "customers",
+      required: true,
       type: "relationship",
     },
     {

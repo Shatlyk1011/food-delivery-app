@@ -18,7 +18,6 @@ instance.interceptors.request.use(
   async (config) => {
     // const token = getCookie(USER_TOKEN);
 
-    config.headers["Content-Type"] = "application/json";
     // if (token) {
     // }
     return config;

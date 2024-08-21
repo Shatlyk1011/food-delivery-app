@@ -5,6 +5,7 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload/config";
 
+import Categories from "./collections/Categories";
 import Cities from "./collections/Cities";
 import Customers from "./collections/Customers";
 import Dishes from "./collections/Dishes";
@@ -12,7 +13,6 @@ import Media from "./collections/Media";
 import Orders from "./collections/Orders";
 import Restaurants from "./collections/Restaurants";
 import Users from "./collections/Users";
-import Categories from "./collections/Categories";
 
 const m = path.resolve(__dirname, "./emptyModuleMock.js");
 
@@ -54,8 +54,8 @@ export default buildConfig({
   }),
   localization: {
     defaultLocale: "ru",
-    locales: ["ru", "tk"],
     fallback: false,
+    locales: ["ru", "tk"],
   },
   // database-adapter-config-end
 });

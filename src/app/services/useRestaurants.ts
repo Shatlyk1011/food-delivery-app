@@ -47,7 +47,6 @@ export const useGetRestaurantsQuery = (
 export const useGetRestaurantById = () => {
   const { data, mutate } = useMutation<any, any, any, any>({
     mutationFn: async (id: string) => {
-      console.log("hmm", id);
       const { data } = await axios({
         data: {
           query: RESTAURANT,
@@ -55,7 +54,7 @@ export const useGetRestaurantById = () => {
         },
       });
       console.log("id", data);
-      return data;
+      return data.data.Restaurant;
     },
   });
 

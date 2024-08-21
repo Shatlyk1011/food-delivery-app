@@ -1,6 +1,6 @@
 # release
 
-11.08.2024
+10.09.2024
 
 - ci/cd
 - buy server
@@ -12,6 +12,8 @@
 ✅ (not tested yet)- add fields to user collection: addresses, isBlocked, history of Orders
 
 ✅ - make restaurant blockable
+
+- dish isChange flag
 
 - free delivery ui (yx-eat)
 - add description in collections
@@ -25,7 +27,9 @@
 
 - profile page (with add/remove addresses)
 - connect with backend;
-  ✅ - komentary restoranu (input)
+- dishes info modal (on click, lazy load)
+- is delivery state on bucket page
+- komentary restoranu (input)
 
 ## backlog
 
