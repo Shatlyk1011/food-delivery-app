@@ -13,10 +13,10 @@ const Index: FC<Props> = ({ t, handleClear, close, selectedRest, currentRest }) 
     <div className="fixed left-0 top-0 z-[100] flex h-screen w-full  items-center justify-center ">
       <div className=" z-[1001] max-w-sm rounded-[24px] bg-white p-8 pt-6 ">
         <h2 className="mb-3 text-2xl font-semibold leading-[1.25]">
-          {t("RestaurantPage.currentRestaurant")}: {selectedRest}
+          {t("RestaurantPage.currentRestaurant")}: {currentRest}
         </h2>
         <p className="mb-6 text-base font-medium leading-[1.4] text-text-2">
-          {t("RestaurantPage.changeRestaurant1")} {currentRest} {t("RestaurantPage.changeRestaurant2")}
+          {t("RestaurantPage.changeRestaurant1")} {selectedRest} {t("RestaurantPage.changeRestaurant2")}
         </p>
 
         <div className="flex space-x-3">

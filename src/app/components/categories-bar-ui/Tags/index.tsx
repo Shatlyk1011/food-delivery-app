@@ -9,7 +9,6 @@ interface Props {
 
 const Index: FC<Props> = ({ categories, t }) => {
   const [active, setActive] = useState(0);
-
   return (
     <div className="flex items-center">
       <ul className="flex items-center space-x-1 text-base leading-[200%] tracking-wide">

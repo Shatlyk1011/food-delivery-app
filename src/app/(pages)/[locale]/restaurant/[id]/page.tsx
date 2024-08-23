@@ -1,7 +1,7 @@
 "use client";
+import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 
 //atoms
 import { useAtom, useAtomValue } from "jotai";
@@ -26,7 +26,6 @@ export default function Home({ params: { id } }) {
   const selectedItems = useAtomValue(atoms.selectedItems);
 
   const { restaurantInfo, getRestaurant, isPending } = useGetRestaurantById();
-
   const { addItem, clearItems } = useProductItem();
 
   const closeModal = () => {
@@ -76,7 +75,14 @@ export default function Home({ params: { id } }) {
           </div>
           <aside className="right-32 top-48 ml-8 w-80 2xl:ml-4  xl:hidden">
             <div className="sticky right-0 top-24">
-              <Cart t={t} restaurantTitle={restaurantInfo?.title || selectedItems.restaurantInfo?.name} />
+              <Cart
+                t={t}
+                restaurantInfo={{
+                  title: selectedItems.dishes.at(-1)?.restaurant.title || restaurantInfo?.title,
+                  deliveryPrice: restaurantInfo?.deliveryPrice,
+                }}
+                isDelivery={restaurantInfo?.isDelivery}
+              />
             </div>
           </aside>
         </div>
@@ -86,7 +92,7 @@ export default function Home({ params: { id } }) {
           t={t}
           handleClear={handleClear}
           close={closeModal}
-          selectedRest={selectedItems.restaurantInfo.name}
+          selectedRest={selectedItems.dishes.at(-1).restaurant.title}
           currentRest={restaurantInfo.title}
         />
       )}

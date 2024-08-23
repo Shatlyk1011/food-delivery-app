@@ -31,7 +31,8 @@ const useProductItem = () => {
   };
 
   const addItem = (itemToAdd: any, restaurantInfo: RestaurantLocalInfo) => {
-    if (selectedItems.restaurantInfo.id && selectedItems.restaurantInfo.id !== restaurantInfo.id) {
+    const last = selectedItems.dishes.at(-1);
+    if (last?.restaurant.id && last?.restaurant.id !== restaurantInfo.id) {
       setClearModal(true);
       return;
     }
@@ -39,17 +40,20 @@ const useProductItem = () => {
     if (exists) {
       increaseItem(itemToAdd);
     } else {
-      setSelectedItems({ restaurantInfo, dishes: [...selectedItems.dishes, { ...itemToAdd, count: 1 }] });
+      setSelectedItems({
+        dishes: [...selectedItems.dishes, { ...itemToAdd, count: 1 }],
+        isDelivery: restaurantInfo.isDelivery,
+      });
     }
-    if (selectedItems.dishes.length > 0 && !selectedItems.restaurantInfo.id) {
-      clearItems();
-    }
+    // if (selectedItems.dishes.length > 0 && !selectedItems.restaurantInfo.id) {
+    //   clearItems();
+    // }
   };
 
   const toggleDelivery = (isDelivery: boolean) => {
     setSelectedItems((prev) => ({
       ...prev,
-      restaurantInfo: { ...prev.restaurantInfo, isDelivery },
+      isDelivery,
     }));
   };
 
@@ -61,12 +65,13 @@ const useProductItem = () => {
 
   const totalDishes = (() => selectedItems?.dishes?.reduce((curr, item) => curr + item.count || 1, 0))();
 
-  const isDelivery = selectedItems.restaurantInfo.isDelivery;
+  const isDelivery = selectedItems.isDelivery;
 
-  const deliveryPrice = selectedItems.restaurantInfo.deliveryPrice;
+  const restId = selectedItems.dishes.at(-1)?.restaurant.id;
 
   return {
     selectedItems,
+    restId,
     increaseItem,
     decreaseItem,
     addItem,
@@ -75,7 +80,6 @@ const useProductItem = () => {
     totalDishes,
     toggleDelivery,
     isDelivery,
-    deliveryPrice,
   };
 };
 

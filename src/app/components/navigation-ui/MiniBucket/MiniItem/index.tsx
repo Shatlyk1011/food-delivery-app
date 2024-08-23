@@ -13,7 +13,7 @@ const Index: FC<Props> = ({ item, increase, decrease }) => {
   return (
     <div key={item.id} className="flex items-center space-x-3">
       <div className="relative -mb-[1px] h-16 w-16 overflow-hidden rounded-xl">
-        <Image src={item.imgSrc} fill={true} alt="hello world" objectFit="cover" />
+        <Image src={item.image.url} fill={true} alt="hello world" objectFit="cover" />
       </div>
       <div className="flex h-full flex-1 items-center space-x-3 break-all border-b border-gray-2">
         <div className="flex-1 ">

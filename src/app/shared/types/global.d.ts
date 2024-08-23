@@ -24,5 +24,5 @@ interface RestaurantLocalInfo {
 
 interface RestaurantWithDishesInfo {
   dishes: any[];
-  restaurantInfo: RestaurantLocalInfo;
+  isDelivery: boolean;
 }

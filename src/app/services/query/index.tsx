@@ -72,6 +72,11 @@ export const RESTAURANT = `
         gram
         availableAmount
         cookTime
+        restaurant {
+          id
+          title
+          isDelivery
+        }
         image {
           url
           alt

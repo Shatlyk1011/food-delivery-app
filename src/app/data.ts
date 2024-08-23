@@ -32,7 +32,7 @@ export const BUCKET_INPUTS = [
 
 export const DEFAULT_RESTAURANT_INFO: RestaurantWithDishesInfo = {
   dishes: [],
-  restaurantInfo: { id: "", name: "", deliveryPrice: 0, isDelivery: true },
+  isDelivery: true,
 };
 
 export const defaultFilters: Filters = {
