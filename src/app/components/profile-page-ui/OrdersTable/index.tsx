@@ -5,6 +5,8 @@ const data = [
   { rest: "Turkmen tagam", dishes: "Ishlekli", price: 70, status: "Отправлено" },
 ];
 
+const HEAD_CELLS = ["Название ресторана", "Названия блюд", "Цена", "Статус"];
+
 export default function OrdersTable() {
   return (
     <>
@@ -12,10 +14,9 @@ export default function OrdersTable() {
       <Table>
         <TableHeader>
           <TableRow className="border-b border-b-gray-1 bg-gray-2 p-2 text-base *:font-bold">
-            <TableHead>Название ресторана</TableHead>
-            <TableHead>Названия блюд</TableHead>
-            <TableHead>Цена</TableHead>
-            <TableHead>Статус</TableHead>
+            {HEAD_CELLS.map((title) => (
+              <TableHead>{title}</TableHead>
+            ))}
           </TableRow>
         </TableHeader>
 
