@@ -67,18 +67,18 @@ const Customers: CollectionConfig = {
       type: "relationship",
     },
 
-    {
-      name: "orders",
-      required: false,
-      access: {
-        read: admins,
-        update: admins,
-      },
-      hasMany: true,
-      label: "Заказы",
-      relationTo: "orders",
-      type: "relationship",
-    },
+    // {
+    //   name: "orders",
+    //   required: false,
+    //   access: {
+    //     read: admins,
+    //     update: admins,
+    //   },
+    //   hasMany: true,
+    //   label: "Заказы",
+    //   relationTo: "orders",
+    //   type: "relationship",
+    // },
 
     {
       name: "isBlocked",

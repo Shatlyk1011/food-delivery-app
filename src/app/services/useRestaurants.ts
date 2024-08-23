@@ -2,9 +2,9 @@ import axios from "@/app/shared/lib/axios";
 
 import { DEFAULT_LIMIT } from "@/app/shared/constants";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 
-import { RESTAURANTS } from "./query";
+import { RESTAURANT, RESTAURANTS } from "./query";
 
 export const useGetRestaurantsQuery = (
   { sortBy, deliveryTime, tag }: Filters,
@@ -12,7 +12,7 @@ export const useGetRestaurantsQuery = (
   initialData: MainPageRestaurant[] | null = null,
 ) => {
   const { data, fetchNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery<MainPageRestaurant[]>({
-    queryKey: ["restaurant", { sortBy, query }],
+    queryKey: ["restaurants", { sortBy, query }],
 
     queryFn: async ({ pageParam = 1 }) => {
       const { data } = await axios({
@@ -42,4 +42,21 @@ export const useGetRestaurantsQuery = (
     return data?.pages.flat(2);
   });
   return { filteredRestaurants, fetchNextPage, isFetchingNextPage, isLoading };
+};
+
+export const useGetRestaurantById = () => {
+  const { data, mutate } = useMutation<any, any, any, any>({
+    mutationFn: async (id: string) => {
+      const { data } = await axios({
+        data: {
+          query: RESTAURANT,
+          variables: { id },
+        },
+      });
+      console.log("id", data);
+      return data.data.Restaurant;
+    },
+  });
+
+  return { data, getRestaurant: mutate };
 };

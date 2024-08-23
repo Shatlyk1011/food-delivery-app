@@ -1,20 +1,20 @@
-//shared/types/restaurants
-
 // categories: {
 //   in: { title: "all" }
 // }
 
 const USER_INFO = `
-name
-phone
-`;
+  name
+  phone
+  `;
 
+//shared/types/restaurants
 export const RESTAURANTS = `
   query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String, $query:String) {
     Restaurants(
       where: {
         AND: [
           {isBlocked: { equals: false }},
+          {isClosed: { equals: false }},
           {title: { contains: $query }}
         ]
       },
@@ -36,6 +36,50 @@ export const RESTAURANTS = `
         }
         deliveryPrice
       }
+    }
+  }
+`;
+
+//shared/types/restaurant (ts not writen yet)
+export const RESTAURANT = `
+  query Restaurant($id: String!) {
+    Restaurant(id: $id) {
+      id
+      title
+      description
+      address
+      deliveryTime
+      deliveryPrice
+      freeAfterAmount
+      workingHours {
+        openTime
+        closeTime
+      }
+      isClosed
+      isDelivery
+      bannerImage(where: {
+        id: {equals: $id}
+      }) {
+        id
+        url
+        alt
+      }
+      dishes {
+        id
+        title
+        description
+        price
+        gram
+        availableAmount
+        cookTime
+        image {
+          url
+        }
+        categories {
+          title
+        }
+      }
+
     }
   }
 `;

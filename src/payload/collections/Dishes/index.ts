@@ -6,7 +6,16 @@ const Dishes: CollectionConfig = {
   access: {
     create: () => true,
     delete: adminAndCreatedByUser,
-    read: adminAndCreatedByUser,
+    read: ({ req }) => {
+      if (req.user) {
+        if (req.user.roles?.includes("admin")) return true;
+
+        if (req.headers.referer?.includes("/admin")) {
+          return adminAndCreatedByUser({ req });
+        }
+      }
+      return true;
+    },
     update: adminAndCreatedByUser,
   },
 
@@ -56,6 +65,17 @@ const Dishes: CollectionConfig = {
       label: "Время приготовления (в минутах)",
       required: true,
       type: "number",
+    },
+
+    {
+      name: "categories",
+      access: {
+        read: () => true,
+      },
+      label: "Категория блюда",
+      required: true,
+      type: "relationship",
+      relationTo: "categories",
     },
     {
       name: "image",

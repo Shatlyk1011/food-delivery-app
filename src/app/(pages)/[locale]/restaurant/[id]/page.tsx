@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import { useAtom, useAtomValue } from "jotai";
 import atoms from "@/app/(pages)/_providers/jotai";
 
+//hooks
 import useProductItem from "@/app/hooks/useProductItem";
+import { useGetRestaurantById } from "@/app/services/useRestaurants";
 
 //widgets
 import Banner from "@/app/widgets/RestaurantPage/Banner";
@@ -100,6 +102,8 @@ export default function Home({ params: { id } }) {
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
   const selectedItems = useAtomValue(atoms.selectedItems);
 
+  const { data, getRestaurant } = useGetRestaurantById();
+
   const { addItem, clearItems } = useProductItem();
 
   const closeModal = () => {
@@ -114,6 +118,8 @@ export default function Home({ params: { id } }) {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
+    getRestaurant(id);
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -133,6 +139,7 @@ export default function Home({ params: { id } }) {
                     <Product
                       key={Math.random() + 1000}
                       item={item}
+                      //restraurant id and dish id
                       addItem={() => addItem(item, { id, name: "Los Pollas", deliveryPrice: 14, isDelivery: true })}
                       addTitle={t("Index.add")}
                     />
