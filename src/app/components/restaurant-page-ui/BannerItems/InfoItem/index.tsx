@@ -14,9 +14,11 @@ const Index: FC<Props> = ({ item }) => {
       {item.icon}
 
       {item.title && (
-        <div className="h-10 text-text-1 md:h-10">
-          <div className="h-6 text-xl font-medium md:h-6 md:text-base">{item.title}</div>
-          <div className="h-5 text-sm font-normal md:text-xs ">{item.subtitle}</div>
+        <div className="flex h-10 flex-col justify-center align-baseline text-text-1">
+          <div className="text-base font-medium leading-[1] tracking-wide md:text-sm sm:h-auto sm:text-xs sm:tracking-normal">
+            {item.title}
+          </div>
+          {item.subtitle && <div className="h-5 text-sm font-medium md:text-xs sm:h-auto">{item.subtitle}</div>}
         </div>
       )}
     </div>

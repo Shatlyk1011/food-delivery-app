@@ -25,3 +25,42 @@ type Filters = {
   sortBy: string | null;
   tag: string;
 };
+
+interface RestaurantId {
+  id: string;
+  title: string;
+  description: string;
+  address: string;
+  deliveryTime: string;
+  deliveryPrice: number;
+  freeAfterAmount: number;
+  workingHours: {
+    openTime: string;
+    closeTime: string;
+  };
+  isClosed: boolean;
+  isDelivery: boolean;
+  bannerImage: {
+    id: string;
+    url: string;
+    alt: string;
+  };
+  dishes: Dish[];
+}
+
+interface Dish {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  gram: number;
+  availableAmount: number;
+  cookTime: number;
+  image: {
+    url: string;
+    alt: string;
+  };
+  categories: {
+    title: string;
+  };
+}

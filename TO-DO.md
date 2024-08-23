@@ -30,6 +30,7 @@
 - dishes info modal (on click, lazy load)
 - is delivery state on bucket page
 - komentary restoranu (input)
+- free after amount ui block in id page
 
 ## backlog
 

@@ -74,6 +74,7 @@ export const RESTAURANT = `
         cookTime
         image {
           url
+          alt
         }
         categories {
           title
