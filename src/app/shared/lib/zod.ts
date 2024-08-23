@@ -59,3 +59,23 @@ export const buckerFormScheme = (t: (arg: string) => string) =>
       message: t("Zod.invalidComment"),
     }),
   });
+
+// Profile scheme
+
+export const profileFormScheme = (t: (arg: string) => string) =>
+  z.object({
+    name: z.string().min(2, { message: t("Zod.invalidUsername") }),
+    email: z
+      .string()
+      .min(3, { message: t("Zod.invalidEmail") })
+      .email(t("Zod.invalidEmail")),
+    phoneNumber: z
+      .string()
+      .max(8)
+      .min(8, {
+        message: t("Zod.invalidPhone"),
+      })
+      .length(8, { message: "Номер телефона должен содержать 8 цифр." })
+      .regex(/^\d+$/, { message: "Номер телефона должен содержать только цифры." }),
+    adres: z.string().min(8, { message: t("Zod.invalidDistrict") }),
+  });

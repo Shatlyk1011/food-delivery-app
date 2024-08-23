@@ -24,7 +24,7 @@ const useSidebar = (isAuth = true) => {
   const t = useTranslations("Index");
 
   function handleToProfile() {
-    // router.push("/profile");
+    router.push("/profile");
     setIsSidebarOpen(false);
   }
   function handleHome() {

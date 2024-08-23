@@ -13,7 +13,7 @@ module.exports = {
     colors: {
       primary: "rgb(255, 209, 102)",
       accent: "rgb(255, 225, 156)",
-      onHover: "rgba(255, 209, 102,0.3)",
+      onHover: "rgba(255, 209, 102,0.8)",
 
       "gray-1": "#DCE1E7",
       "gray-2": "#E9ECEF",

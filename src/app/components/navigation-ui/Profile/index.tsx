@@ -25,7 +25,7 @@ const Index: FC<Props> = ({ t }) => {
   const setAuth = useSetAtom(atoms.isAuth);
 
   const handleToProfile = () => {
-    // router.push("/profile");
+    router.push("/profile");
   };
 
   const handleLogout = () => {
