@@ -1,11 +1,12 @@
 import { webpackBundler } from "@payloadcms/bundler-webpack"; // bundler-import
-import { mongooseAdapter } from "@payloadcms/db-mongodb"; // database-adapter-import
+import { mongooseAdapter } from "@payloadcms/db-mongodb";
+import redirects from "@payloadcms/plugin-redirects";
+// database-adapter-import
 
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload/config";
 
-import Categories from "./collections/Categories";
 import Cities from "./collections/Cities";
 import Customers from "./collections/Customers";
 import Dishes from "./collections/Dishes";
@@ -13,6 +14,7 @@ import Media from "./collections/Media";
 import Orders from "./collections/Orders";
 import Restaurants from "./collections/Restaurants";
 import Users from "./collections/Users";
+import Categories from "./collections/Categories";
 
 const m = path.resolve(__dirname, "./emptyModuleMock.js");
 
@@ -54,8 +56,13 @@ export default buildConfig({
   }),
   localization: {
     defaultLocale: "ru",
-    fallback: false,
     locales: ["ru", "tk"],
+    fallback: false,
   },
+  plugins: [
+    redirects({
+      collections: ["restaurants"],
+    }),
+  ],
   // database-adapter-config-end
 });
