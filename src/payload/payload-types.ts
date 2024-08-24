@@ -142,6 +142,7 @@ export interface Order {
   commentToRestaurant?: string | null;
   restaurantID: string;
   isDelivery: boolean;
+  totalAmount?: number | null;
   dishes: {
     dish?: (string | null) | Dish;
     quantity?: number | null;

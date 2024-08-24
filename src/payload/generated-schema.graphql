@@ -1424,6 +1424,7 @@ type Order {
   commentToRestaurant: String
   restaurantID: String!
   isDelivery: Boolean!
+  totalAmount: Float
   dishes: [Order_Dishes!]!
   updatedAt: DateTime
   createdAt: DateTime
@@ -1460,6 +1461,7 @@ input Order_where {
   commentToRestaurant: Order_commentToRestaurant_operator
   restaurantID: Order_restaurantID_operator
   isDelivery: Order_isDelivery_operator
+  totalAmount: Order_totalAmount_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
@@ -1568,6 +1570,16 @@ input Order_isDelivery_operator {
   not_equals: Boolean
 }
 
+input Order_totalAmount_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
 input Order_dishes__dish_operator {
   equals: JSON
   not_equals: JSON
@@ -1642,6 +1654,7 @@ input Order_where_and {
   commentToRestaurant: Order_commentToRestaurant_operator
   restaurantID: Order_restaurantID_operator
   isDelivery: Order_isDelivery_operator
+  totalAmount: Order_totalAmount_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
@@ -1663,6 +1676,7 @@ input Order_where_or {
   commentToRestaurant: Order_commentToRestaurant_operator
   restaurantID: Order_restaurantID_operator
   isDelivery: Order_isDelivery_operator
+  totalAmount: Order_totalAmount_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
@@ -1696,6 +1710,7 @@ type OrdersDocAccessFields {
   commentToRestaurant: OrdersDocAccessFields_commentToRestaurant
   restaurantID: OrdersDocAccessFields_restaurantID
   isDelivery: OrdersDocAccessFields_isDelivery
+  totalAmount: OrdersDocAccessFields_totalAmount
   dishes: OrdersDocAccessFields_dishes
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
@@ -1928,6 +1943,29 @@ type OrdersDocAccessFields_isDelivery_Update {
 }
 
 type OrdersDocAccessFields_isDelivery_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_totalAmount {
+  create: OrdersDocAccessFields_totalAmount_Create
+  read: OrdersDocAccessFields_totalAmount_Read
+  update: OrdersDocAccessFields_totalAmount_Update
+  delete: OrdersDocAccessFields_totalAmount_Delete
+}
+
+type OrdersDocAccessFields_totalAmount_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_totalAmount_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_totalAmount_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_totalAmount_Delete {
   permission: Boolean!
 }
 
@@ -5309,6 +5347,7 @@ type OrdersFields {
   commentToRestaurant: OrdersFields_commentToRestaurant
   restaurantID: OrdersFields_restaurantID
   isDelivery: OrdersFields_isDelivery
+  totalAmount: OrdersFields_totalAmount
   dishes: OrdersFields_dishes
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
@@ -5541,6 +5580,29 @@ type OrdersFields_isDelivery_Update {
 }
 
 type OrdersFields_isDelivery_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_totalAmount {
+  create: OrdersFields_totalAmount_Create
+  read: OrdersFields_totalAmount_Read
+  update: OrdersFields_totalAmount_Update
+  delete: OrdersFields_totalAmount_Delete
+}
+
+type OrdersFields_totalAmount_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_totalAmount_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_totalAmount_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_totalAmount_Delete {
   permission: Boolean!
 }
 
@@ -7467,6 +7529,7 @@ input mutationOrderInput {
   commentToRestaurant: String
   restaurantID: String!
   isDelivery: Boolean
+  totalAmount: Float
   dishes: [mutationOrder_DishesInput!]
   updatedAt: String
   createdAt: String
@@ -7489,6 +7552,7 @@ input mutationOrderUpdateInput {
   commentToRestaurant: String
   restaurantID: String
   isDelivery: Boolean
+  totalAmount: Float
   dishes: [mutationOrderUpdate_DishesInput]
   updatedAt: String
   createdAt: String

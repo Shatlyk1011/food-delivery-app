@@ -9,7 +9,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type, label, ...props }, ref) => {
   return (
     <div className="flex w-full flex-col items-baseline">
-      {label && <h3 className="pb-2">{label}</h3>}
+      {label && <h3 className="pb-2 text-sm">{label}</h3>}
       {/* {type === "tel" && <span className="absolute ml-3 mt-[11px] text-sm">+993</span>} */}
       <input
         type={type}

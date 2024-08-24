@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 import axios from "../shared/lib/axios";
 
-import { LOGIN_ME, REGISTER_MUTATION } from "./query";
+import { LOGIN_ME, REGISTER_MUTATION } from "./query/authQuery";
 
 type LoginFn = (crededentials: LoginCredentials) => Promise<LoginResponse>;
 

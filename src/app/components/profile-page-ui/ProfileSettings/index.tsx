@@ -14,13 +14,14 @@ const PROFILE_INPUTS = [
 
 export default function AccountSettings({ t }: { t: any }) {
   const { form, onSubmit } = useProfileFormScheme();
+
   return (
     <>
       <h1 className="text-2xl">{t("ProfilePage.yourProfile")}</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-8 rounded-2xl border-2 border-gray-1 p-8 lg:p-6 sm:space-y-6">
-            <div className="flex w-full space-x-12 md:space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6">
+            <div className="flex w-full space-x-8 md:space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6">
               {PROFILE_INPUTS.map(({ name, label, placeholder }) => (
                 <FormField
                   name={name}
@@ -33,7 +34,6 @@ export default function AccountSettings({ t }: { t: any }) {
                           label={`${t(label)} *`}
                           className="border-none bg-gray-3"
                           placeholder={t(placeholder)}
-                          required={true}
                         />
                       </FormControl>
                       <FormMessage />

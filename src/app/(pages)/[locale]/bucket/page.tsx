@@ -9,19 +9,45 @@ import Orders from "@/app/widgets/BucketPage/Orders";
 
 import { Form } from "@/app/components/shared-ui/Form/form";
 
-import { RESTAURANT_BUCKET } from "@/app/services/query";
+import { RESTAURANT_BUCKET } from "@/app/services/query/restaurantQuery";
 
 //hooks
 import { useBucketFormScheme } from "@/app/hooks/formSchemes";
 import useProductItem from "@/app/hooks/useProductItem";
 import { useGetRestaurantById } from "@/app/services/useRestaurants";
+import { useOrders } from "@/app/services/useOrders";
 
 export default function Bucket() {
   const t = useTranslations();
 
-  const { form, onSubmit } = useBucketFormScheme();
-  const { restId, totalPrice, isDelivery } = useProductItem();
+  const { form } = useBucketFormScheme();
+  const { restId, totalPrice, isDelivery, selectedItems } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
+  const { handleOrder } = useOrders();
+
+  const handleOrderSubmit = async (values: OrderForm) => {
+    if (restaurantInfo.id) {
+      const { apartment, district, houseNumber, phoneNumber, comment } = values;
+
+      handleOrder({
+        apartment,
+        district,
+        restaurantID: restaurantInfo.id,
+        houseNumber,
+        phoneNumber: +phoneNumber,
+        isDelivery: restaurantInfo.isDelivery,
+        city: "Turkmenabat",
+        commentToCourier: comment,
+        dishes: selectedItems.dishes.map(({ id, count, availableAmount }) => ({
+          id,
+          quantity: Math.min(count, availableAmount),
+        })),
+      });
+    } else {
+      // snackbar error message
+      localStorage.clear();
+    }
+  };
 
   useEffect(() => {
     if (restId) {
@@ -35,7 +61,7 @@ export default function Bucket() {
         <div className="mx-auto max-w-[1140px] xl:max-w-[720px]">
           <form
             className="flex justify-between space-x-10 xl:flex-col xl:space-x-0 xl:space-y-8 md:space-y-6 sm:space-y-4"
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(handleOrderSubmit)}
           >
             <div className="flex basis-[600px] flex-col justify-between space-y-8 xl:basis-full md:space-y-6 sm:space-y-4">
               <div className="rounded-[32px] bg-bg-1 p-8 shadow-sm md:rounded-3xl md:p-6 sm:p-4 ">
@@ -48,7 +74,7 @@ export default function Bucket() {
 
             <div className="basis-[448px] ">
               <TotalPrice
-                onSubmit={onSubmit}
+                onSubmit={handleOrderSubmit}
                 t={t}
                 totalPrice={totalPrice}
                 deliveryPrice={isDelivery ? restaurantInfo?.deliveryPrice : null}

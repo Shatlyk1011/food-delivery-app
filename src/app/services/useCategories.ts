@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import axios from "../shared/lib/axios";
 
-import { CATEGORIES } from "./query";
+import { CATEGORIES } from "./query/restaurantQuery";
 
 export const useGetCategories = () => {
   const { data: categories } = useQuery<Categories[]>({

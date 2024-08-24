@@ -4,7 +4,7 @@ import { DEFAULT_LIMIT } from "@/app/shared/constants";
 
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 
-import { RESTAURANT, RESTAURANTS } from "./query";
+import { RESTAURANT, RESTAURANTS } from "./query/restaurantQuery";
 
 export const useGetRestaurantsQuery = (
   { sortBy, deliveryTime, tag }: Filters,

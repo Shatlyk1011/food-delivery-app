@@ -42,12 +42,7 @@ const Users: CollectionConfig = {
       required: true,
       type: "text",
     },
-    {
-      name: "email",
-      label: "Email",
-      required: true,
-      type: "email",
-    },
+
     {
       name: "phone",
       label: "Номер телефона",

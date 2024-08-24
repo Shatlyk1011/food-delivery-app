@@ -42,13 +42,13 @@ export default function AddressSettings({ t }: { t: any }) {
                   </button>
                 </button>
               </DialogTrigger>
-              <DialogContent className=" max-w-2xl rounded-md bg-bg-1 px-6 py-8">
+              <DialogContent className=" max-w-2xl rounded-md bg-bg-1 p-6 ">
                 <DialogTitle>
                   <p className="pb-4 pr-6 text-lg font-semibold">{t("ProfilePage.changeAddressSettings")}</p>
                 </DialogTitle>
                 <div className="space flex w-full flex-col space-y-8 px-3">
                   {ADRES_INPUTS.map((row, i) => (
-                    <div key={i} className="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6">
+                    <div key={i} className="flex space-x-2.5 sm:flex-col sm:space-x-0 sm:space-y-6">
                       {row.map(({ label, placeholder }) => (
                         <Input key={label} label={t(label)} placeholder={t(placeholder)} />
                       ))}

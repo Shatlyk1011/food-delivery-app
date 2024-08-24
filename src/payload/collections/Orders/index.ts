@@ -7,6 +7,7 @@ import { checkRole } from "../../access/checkRole";
 const Orders: CollectionConfig = {
   access: {
     create: ({ req: { user } }) => checkRole(["user"], user),
+    // create: () => true,
     delete: admins,
     read: ({ req }) => {
       if (req.user) {
@@ -25,11 +26,11 @@ const Orders: CollectionConfig = {
 
       return false;
     },
-    update: adminAndCreatedByUser,
+    update: () => false,
   },
 
   admin: {
-    defaultColumns: ["title", "price", "availableAmount", "cookTime"],
+    defaultColumns: ["dishes", "district", "phoneNumber", "apartment", "houseNumber", "createdAt"],
     useAsTitle: "title",
   },
   fields: [
@@ -97,6 +98,16 @@ const Orders: CollectionConfig = {
       },
       type: "checkbox",
     },
+
+    {
+      name: "totalAmount",
+      type: "number",
+      label: "Общая сумма заказа (с учетом доставки)",
+      admin: {
+        position: "sidebar",
+        readOnly: true, // Makes it read-only in the admin panel
+      },
+    },
     {
       name: "dishes",
       fields: [
@@ -119,6 +130,54 @@ const Orders: CollectionConfig = {
   labels: { plural: "Заказы", singular: "Заказ" },
   slug: "orders",
   timestamps: true,
+  hooks: {
+    // REVIEW REQUIRED
+    beforeChange: [
+      async ({ data, req }) => {
+        const { restaurantID, dishes } = data;
+        let totalAmount = 0;
+        if (restaurantID && dishes && dishes.length > 0) {
+          const dishIds = dishes.map((d: any) => d.id);
+          // Find dishes in the current restaurant's dishes collection
+          const foundDishes = await req.payload.find({
+            collection: "dishes",
+            where: {
+              _id: {
+                in: dishIds,
+              },
+              restaurant: {
+                equals: restaurantID,
+              },
+            },
+          });
+          const restaurant = await req.payload.find({
+            collection: "restaurants",
+            where: {
+              _id: {
+                equals: restaurantID,
+              },
+            },
+          });
+          if (!restaurant.docs.length) {
+            throw Error("Что то пошло не так");
+          }
+          data.dishes = foundDishes.docs?.map((dish) => ({
+            dish: dish.id,
+            quantity: dishes.find((d: any) => d.id === dish.id)?.quantity || 1,
+          }));
+
+          totalAmount = foundDishes.docs.reduce((acc, dish) => {
+            const orderDish = dishes.find((d) => d.id === dish.id);
+            const quantity = orderDish?.quantity || 1;
+            return acc + dish.price * quantity;
+          }, 0);
+          data.totalAmount = totalAmount + restaurant.docs[0]?.deliveryPrice;
+        }
+
+        return data;
+      },
+    ],
+  },
 };
 
 export default Orders;
