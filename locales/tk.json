@@ -23,6 +23,8 @@
     "language": "Dil",
     "home": "Baş sahypa",
     "categories": "Görnüşler",
+    "save": "Ýatda sakla",
+    "delete": "Ýoklamak",
     "cancel": "Ýatyr",
     "continue": "Dowam et",
     "noReview": "Seslenme az"
@@ -93,11 +95,33 @@
     "noClear": "Ýok, islämok"
   },
 
+  "ProfilePage": {
+    "yourProfile": "Siziň Profiliňiz",
+    "yourName": "Adyňyz",
+    "phoneNumber": "Telefon belgiňiz",
+    "deliveryAddress": "Eltip berilmeli adresiňiz",
+    "yourEmail": "Email poçtaňyz",
+    "chooseAddress": "Eltip berilmeli adresiňizi saýlaň",
+    "history": "Öňki sargytlaryňyz",
+    "restaurantName": "Restoranyň ady",
+    "dishesName": "Tagamlaryň atlary",
+    "price": "Baha",
+    "status": "Ýagdaýy",
+    "changeAddressSettings": "Adresiňiziň maglumatyny uýtgetmek",
+    "city": "Şäher",
+    "streetHouse": "Köçäniň ady / jaý belgiňiz",
+    "appartmentOffice": "Kwartira / ofisyňyz"
+  },
+
   "Placeholder": {
-    "email": "Email",
+    "email": "Email poçtaňyz",
     "password": "Parol",
-    "name": "Ady",
-    "phone": "Telefon belgiňiz"
+    "name": "Adyňyz",
+    "phone": "Telefon belgiňiz",
+    "enterDistrict": "Kiçi etrapça",
+    "enterCity": "Şäher",
+    "enterStreetHouse": "Oý salgyňyz / jaý belgisi",
+    "enterAppartmentOffice": "Kwartira / ofisyňyz"
   },
 
   "Categories": {

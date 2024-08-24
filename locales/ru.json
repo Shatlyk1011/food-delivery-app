@@ -23,6 +23,8 @@
     "language": "Язык",
     "home": "На главную",
     "categories": "Категории",
+    "save": "Сохранить",
+    "delete": "Удалить",
     "cancel": "Отмена",
     "continue": "Продолжить",
     "noReview": "Мало отзывов"
@@ -93,11 +95,33 @@
     "noClear": "Нет, оставить"
   },
 
+  "ProfilePage": {
+    "yourProfile": "Ваш профиль",
+    "yourName": "Ваше имя",
+    "phoneNumber": "Номер телефона",
+    "deliveryAddress": "Адрес доставки",
+    "yourEmail": "Ваш email",
+    "chooseAddress": "Выберите адрес доставки",
+    "history": "История заказов",
+    "restaurantName": "Название ресторана",
+    "dishesName": "Названия блюд",
+    "price": "Цена",
+    "status": "Статус",
+    "changeAddressSettings": "Adresiňiziň maglumatyny uýtgetmek",
+    "city": "Город",
+    "streetHouse": "Улица / дом",
+    "appartmentOffice": "Квартра / офис"
+  },
+
   "Placeholder": {
-    "email": "Email",
+    "email": "Введите ваш email",
     "password": "Пароль",
-    "name": "Имя",
-    "phone": "Телефон"
+    "name": "Введите ваше имя",
+    "phone": "Введите номер телефон",
+    "enterDistrict": "Введите ваш район",
+    "enterCity": "Введите ваш город",
+    "enterStreetHouse": "Введите вашу улицу / дом",
+    "enterAppartmentOffice": "Введите вашу квартиру / офис"
   },
 
   "Categories": {

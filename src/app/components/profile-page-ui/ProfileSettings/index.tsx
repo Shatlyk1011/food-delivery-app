@@ -5,18 +5,18 @@ import Button from "@/app/components/shared-ui/Button";
 import Input from "@/app/components/shared-ui/Input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
 
-import AddressSettings from "./AdresSettings";
+import AddressSettings from "./ProfileSettings";
 
 const PROFILE_INPUTS = [
-  { name: "name", label: "Ваше имя", placeholder: "Введите ваше имя" },
-  { name: "phoneNumber", label: "Номер телефона", placeholder: "Введите номер телефона" },
+  { name: "name", label: "ProfilePage.yourName", placeholder: "Placeholder.name" },
+  { name: "phoneNumber", label: "ProfilePage.phoneNumber", placeholder: "Placeholder.phone" },
 ];
 
-export default function AccountSettings() {
+export default function AccountSettings({ t }: { t: any }) {
   const { form, onSubmit } = useProfileFormScheme();
   return (
     <>
-      <h1 className="text-2xl">Ваш профиль</h1>
+      <h1 className="text-2xl">{t("ProfilePage.yourProfile")}</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="space-y-8 rounded-2xl border-2 border-gray-1 p-8 lg:p-6 sm:space-y-6">
@@ -30,9 +30,9 @@ export default function AccountSettings() {
                       <FormControl>
                         <Input
                           {...field}
-                          label={`${label} *`}
+                          label={`${t(label)} *`}
                           className="border-none bg-gray-3"
-                          placeholder={placeholder}
+                          placeholder={t(placeholder)}
                           required={true}
                         />
                       </FormControl>
@@ -44,7 +44,7 @@ export default function AccountSettings() {
             </div>
 
             <div className="flex w-full space-x-12 md:space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6">
-              <AddressSettings />
+              <AddressSettings t={t} />
               <FormField
                 name="email"
                 render={({ field }) => (
@@ -52,9 +52,9 @@ export default function AccountSettings() {
                     <FormControl>
                       <Input
                         {...field}
-                        label="Ваш email"
+                        label={t("ProfilePage.yourEmail")}
                         className="w-full border-none bg-gray-3"
-                        placeholder={"Введите ваш email"}
+                        placeholder={t("Placeholder.email")}
                       />
                     </FormControl>
                     <FormMessage />
@@ -64,7 +64,7 @@ export default function AccountSettings() {
             </div>
 
             <div className="flex justify-end">
-              <Button type="submit">Сохранить</Button>
+              <Button type="submit">{t("Index.save")}</Button>
             </div>
           </div>
         </form>

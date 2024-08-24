@@ -5,17 +5,17 @@ const data = [
   { rest: "Turkmen tagam", dishes: "Ishlekli", price: 70, status: "Отправлено" },
 ];
 
-const HEAD_CELLS = ["Название ресторана", "Названия блюд", "Цена", "Статус"];
+const HEAD_CELLS = ["ProfilePage.restaurantName", "ProfilePage.dishesName", "ProfilePage.price", "ProfilePage.status"];
 
-export default function OrdersTable() {
+export default function OrdersTable({ t }: { t: any }) {
   return (
     <>
-      <h1 className="pt-2 text-2xl">История заказов</h1>
+      <h1 className="pt-2 text-2xl">{t("ProfilePage.history")}</h1>
       <Table>
         <TableHeader>
           <TableRow className="border-b border-b-gray-1 bg-gray-2 p-2 text-base *:font-bold">
             {HEAD_CELLS.map((title) => (
-              <TableHead>{title}</TableHead>
+              <TableHead>{t(title)}</TableHead>
             ))}
           </TableRow>
         </TableHeader>
