@@ -44,13 +44,13 @@ export const useGetRestaurantsQuery = (
   return { filteredRestaurants, fetchNextPage, isFetchingNextPage, isLoading };
 };
 
-export const useGetRestaurantById = () => {
+export const useGetRestaurantById = (schema?: string) => {
   const { data, mutate, isPending } = useMutation<RestaurantId, { id: string }, any>({
     mutationKey: ["restaurantId"],
     mutationFn: async (id: string): Promise<RestaurantId> => {
       const { data } = await axios({
         data: {
-          query: RESTAURANT,
+          query: schema || RESTAURANT,
           variables: { id },
         },
       });

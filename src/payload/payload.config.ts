@@ -1,6 +1,5 @@
 import { webpackBundler } from "@payloadcms/bundler-webpack"; // bundler-import
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
-import redirects from "@payloadcms/plugin-redirects";
 // database-adapter-import
 
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
@@ -59,10 +58,5 @@ export default buildConfig({
     locales: ["ru", "tk"],
     fallback: false,
   },
-  plugins: [
-    redirects({
-      collections: ["restaurants"],
-    }),
-  ],
   // database-adapter-config-end
 });

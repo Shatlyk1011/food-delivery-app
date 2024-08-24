@@ -6,7 +6,7 @@ import { checkRole } from "../../access/checkRole";
 
 const Orders: CollectionConfig = {
   access: {
-    create: () => true,
+    create: ({ req: { user } }) => checkRole(["user"], user),
     delete: admins,
     read: ({ req }) => {
       if (req.user) {
@@ -32,10 +32,6 @@ const Orders: CollectionConfig = {
     defaultColumns: ["title", "price", "availableAmount", "cookTime"],
     useAsTitle: "title",
   },
-  // is it needed?
-  // auth: {
-  //   depth: 1,
-  // },
   fields: [
     {
       name: "city",
@@ -96,6 +92,9 @@ const Orders: CollectionConfig = {
       name: "isDelivery",
       label: "Доставка?",
       required: true,
+      admin: {
+        position: "sidebar",
+      },
       type: "checkbox",
     },
     {

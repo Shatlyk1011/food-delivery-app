@@ -22,7 +22,15 @@ const Restaurants: CollectionConfig = {
       return true;
     },
     update: ({ req: { user } }) => {
-      return checkRole(["admin", "author"], user);
+      if (checkRole(["admin"], user)) {
+        return true;
+      } else {
+        return {
+          relatedToUser: {
+            equals: user.id,
+          },
+        };
+      }
     },
   },
 

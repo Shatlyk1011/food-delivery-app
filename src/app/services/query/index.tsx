@@ -40,7 +40,7 @@ export const RESTAURANTS = `
   }
 `;
 
-//shared/types/restaurant (ts not writen yet)
+//shared/types/restaurantId
 export const RESTAURANT = `
   query Restaurant($id: String!) {
     Restaurant(id: $id) {
@@ -86,6 +86,19 @@ export const RESTAURANT = `
         }
       }
 
+    }
+  }
+`;
+
+export const RESTAURANT_BUCKET = `
+  query Restaurant($id: String!) {
+    Restaurant(id: $id) {
+      id
+      title
+      address
+      deliveryTime
+      deliveryPrice
+      isDelivery
     }
   }
 `;

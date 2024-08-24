@@ -374,7 +374,7 @@ type Dish {
   gram: Float!
   availableAmount: Float
   cookTime: Float!
-  categories(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Category!
+  categories(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Category
   image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Dish_Image_where): Media
   restaurant(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Restaurant!
   createdBy(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Customer
