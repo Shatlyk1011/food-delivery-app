@@ -24,6 +24,7 @@ const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
     totalPrice,
     toggleDelivery,
     isDelivery: selectedDelivery,
+    maxCookTime,
   } = useProductItem();
 
   useEffect(() => {
@@ -67,7 +68,12 @@ const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
       </ul>
 
       <div className="mx-4 mb-6 border-t border-text-4 pt-4">
-        <CartInfo deliveryPrice={restaurantInfo?.deliveryPrice} isDelivery={selectedDelivery} t={t} />
+        <CartInfo
+          deliveryTime={maxCookTime}
+          deliveryPrice={restaurantInfo?.deliveryPrice}
+          isDelivery={selectedDelivery}
+          t={t}
+        />
         <CartButton submitTitle={t("Index.toBucket")} total={totalPrice} />
       </div>
     </div>

@@ -17,7 +17,9 @@ const Index: FC<Props> = ({ dish, addItem, addTitle }) => {
       </div>
 
       <div className="mb-2.5 font-medium">
-        <h4 className="text-xl xl:text-lg md:text-base">{dish.price}TMT</h4>
+        <h4 className="text-xl xl:text-lg md:text-base">
+          {dish.title} - {dish.price}TMT
+        </h4>
         <p className="line-clamp-2 text-base xl:text-sm md:text-xs">{dish.description}</p>
       </div>
 

@@ -9,9 +9,12 @@ const useProductItem = () => {
   const setClearModal = useSetAtom(atoms.isClearBucketModal);
 
   const increaseItem = (itemToIncrease: any) => {
-    const increasedCount = selectedItems.dishes.map((item) =>
-      item.id === itemToIncrease.id ? { ...item, count: item.count + 1 } : item,
-    );
+    const increasedCount = selectedItems.dishes.map((item) => {
+      if (item.id === itemToIncrease.id) {
+        if (item.count === item.availableAmount) return item;
+        return { ...item, count: item.count + 1 };
+      } else return item;
+    });
     setSelectedItems((prev) => ({ ...prev, dishes: increasedCount }));
   };
 
@@ -65,6 +68,14 @@ const useProductItem = () => {
 
   const totalDishes = (() => selectedItems?.dishes?.reduce((curr, item) => curr + item.count || 1, 0))();
 
+  const maxCookTime = (() => {
+    let max = 0;
+    selectedItems?.dishes?.forEach((item) => {
+      if (item.cookTime > max) max = item.cookTime;
+    });
+    return max;
+  })();
+
   const isDelivery = selectedItems.isDelivery;
 
   const restId = selectedItems.dishes.at(-1)?.restaurant.id;
@@ -80,6 +91,7 @@ const useProductItem = () => {
     totalDishes,
     toggleDelivery,
     isDelivery,
+    maxCookTime,
   };
 };
 
