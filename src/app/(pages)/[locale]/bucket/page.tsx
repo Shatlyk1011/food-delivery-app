@@ -20,6 +20,7 @@ export default function Bucket() {
   const { restaurantInfo, getRestaurant } = useGetRestaurantById();
 
   useEffect(() => {
+    if (!restId) return;
     getRestaurant(restId);
   }, []);
   const t = useTranslations();
