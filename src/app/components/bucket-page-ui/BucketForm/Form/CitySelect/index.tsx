@@ -1,10 +1,10 @@
 import { FC } from "react";
 
 //components
-import { HomeIcon } from "@/app/icons";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
+import CreateNewAddress from "./CreateNewAddress";
 import { ChevronDown } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
-import { PopoverClose } from "@radix-ui/react-popover";
+import { HomeIcon } from "@/app/icons";
 
 import { CITIES } from "@/app/data";
 
@@ -28,11 +28,14 @@ const Index: FC<Props> = ({ className, t, ...props }) => {
           </div>
         </button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-fit overflow-hidden rounded-[14px] p-0 shadow-xl">
+      <PopoverContent align="center" className="overflow-hidden rounded-[14px] p-0 shadow-xl">
         <ul className="cursor-pointer ">
+          <li>
+            <CreateNewAddress t={t} />
+          </li>
           {CITIES.map(({ title, value }) => (
             <li key={value} onClick={() => props.onChange(title)}>
-              <PopoverClose className="line-clamp-2 w-full px-6 py-5 text-start hover:bg-onHover md:px-5 md:py-4 sm:px-4 sm:py-3">
+              <PopoverClose className="line-clamp-2 w-full px-6 py-[18px] text-start hover:bg-onHover md:px-5 md:py-4 sm:px-4 sm:py-3">
                 {title}
               </PopoverClose>
             </li>

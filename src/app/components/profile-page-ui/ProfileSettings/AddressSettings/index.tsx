@@ -1,6 +1,6 @@
 //Components
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
+import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
 import Input from "@/app/components/shared-ui/Input";
 import Button from "@/app/components/shared-ui/Button";
 
@@ -42,7 +42,7 @@ export default function AddressSettings({ t }: { t: any }) {
                   </button>
                 </button>
               </DialogTrigger>
-              <DialogContent className=" max-w-2xl rounded-md bg-bg-1 px-6 py-8">
+              <DialogContent className="max-w-2xl rounded-md bg-bg-1 px-6 py-8 md:max-w-[92%]">
                 <DialogTitle>
                   <p className="pb-4 pr-6 text-lg font-semibold">{t("ProfilePage.changeAddressSettings")}</p>
                 </DialogTitle>

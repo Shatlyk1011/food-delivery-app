@@ -20,7 +20,7 @@ export default function Bucket() {
   const t = useTranslations();
 
   const { form, onSubmit } = useBucketFormScheme();
-  const { restId, totalPrice, isDelivery } = useProductItem();
+  const { restId, totalPrice, isDelivery, maxCookTime } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
 
   useEffect(() => {
@@ -39,7 +39,13 @@ export default function Bucket() {
           >
             <div className="flex basis-[600px] flex-col justify-between space-y-8 xl:basis-full md:space-y-6 sm:space-y-4">
               <div className="rounded-[32px] bg-bg-1 p-8 shadow-sm md:rounded-3xl md:p-6 sm:p-4 ">
-                <BucketForm form={form} t={t} isDelivery={isDelivery} deliveryPrice={restaurantInfo?.deliveryPrice} />
+                <BucketForm
+                  form={form}
+                  t={t}
+                  isDelivery={isDelivery}
+                  deliveryPrice={restaurantInfo?.deliveryPrice}
+                  deliveryTime={isDelivery ? restaurantInfo?.deliveryTime.slice(1) : maxCookTime + ""}
+                />
               </div>
               <div className="">
                 <Orders t={t} />
@@ -48,10 +54,11 @@ export default function Bucket() {
 
             <div className="basis-[448px] ">
               <TotalPrice
+                restaurantTitle={restaurantInfo?.title}
                 onSubmit={onSubmit}
                 t={t}
                 totalPrice={totalPrice}
-                deliveryPrice={isDelivery ? restaurantInfo?.deliveryPrice : null}
+                deliveryPrice={isDelivery && restaurantInfo?.deliveryPrice}
               />
             </div>
           </form>

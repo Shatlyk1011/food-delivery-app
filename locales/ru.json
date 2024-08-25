@@ -79,7 +79,8 @@
     "leaveComment": "Коментарий курьеру (название улицы, и т.д)",
     "deliveryTime": "Время доставки",
     "chooseAddress": "Выберите адрес",
-    "addNewAddress": "Добавить новый адрес"
+    "addNewAddress": "Добавить новый адрес",
+    "createNewAddress": "Создать новый адрес"
   },
 
   "BucketPage": {

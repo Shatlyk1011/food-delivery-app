@@ -5,7 +5,7 @@ import Button from "@/app/components/shared-ui/Button";
 import Input from "@/app/components/shared-ui/Input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
 
-import AddressSettings from "./ProfileSettings";
+import AddressSettings from "./AddressSettings";
 
 const PROFILE_INPUTS = [
   { name: "name", label: "ProfilePage.yourName", placeholder: "Placeholder.name" },

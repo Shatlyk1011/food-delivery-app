@@ -79,7 +79,8 @@
     "leaveComment": "Kurýer üçin teswir (köçäniň ady we ş.m.)",
     "deliveryTime": "Eltip bermegiň wagty",
     "chooseAddress": "Salgyňyzy saýlaň",
-    "addNewAddress": "Täze salgy goşmak"
+    "addNewAddress": "Täze salgy goşmak",
+    "createNewAddress": "Täze salgy döretmek"
   },
 
   "BucketPage": {
