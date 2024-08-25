@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Image from "next/image";
 
+import AboutProduct from "./AboutProduct";
 import { PlusIcon } from "@/app/icons";
 
 interface Props {
@@ -13,7 +13,7 @@ const Index: FC<Props> = ({ dish, addItem, addTitle }) => {
   return (
     <div className="m-1 max-w-full rounded-[14px] bg-bg-1 p-3 md:p-2">
       <div className="relative mb-2.5 h-44 w-full overflow-hidden rounded-[14px]">
-        <Image className="" objectFit="cover" src={dish.image.url} fill={true} alt={dish.image.alt} />
+        <AboutProduct dish={dish} />
       </div>
 
       <div className="mb-2.5 font-medium">

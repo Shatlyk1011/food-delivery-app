@@ -7,6 +7,7 @@ import useProductItem from "@/app/hooks/useProductItem";
 import SelectedItem from "@/app/components/bucket-page-ui/Orders/SelectedItem";
 import ClearBucketDialog from "@/app/components/bucket-page-ui/ClearBucketDialog";
 import EmptyBucket from "@/app/components/shared-ui/EmptyBucket";
+import Input from "@/app/components/shared-ui/Input";
 
 interface Props {
   t: any;
@@ -45,6 +46,13 @@ const Index: FC<Props> = ({ t }) => {
           </button>
         </div>
       )}
+      <div className="mt-4 pr-4 text-text-1">
+        <Input
+          label="Restoran üçin teswir"
+          placeholder="Gaýrat сделай sogan не ложи, please"
+          className="rounded-xl placeholder:text-text-4"
+        />
+      </div>
     </div>
   );
 };

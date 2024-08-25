@@ -42,7 +42,7 @@ export default function AddressSettings({ t }: { t: any }) {
                   </button>
                 </button>
               </DialogTrigger>
-              <DialogContent className=" max-w-2xl rounded-md bg-bg-1 p-6 ">
+              <DialogContent className="max-w-2xl rounded-md bg-bg-1 px-6 py-8 md:max-w-[92%]">
                 <DialogTitle>
                   <p className="pb-4 pr-6 text-lg font-semibold">{t("ProfilePage.changeAddressSettings")}</p>
                 </DialogTitle>

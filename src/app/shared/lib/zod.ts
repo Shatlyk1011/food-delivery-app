@@ -79,3 +79,19 @@ export const profileFormScheme = (t: (arg: string) => string) =>
       .regex(/^\d+$/, { message: "Номер телефона должен содержать только цифры." }),
     adres: z.string().min(8, { message: t("Zod.invalidDistrict") }),
   });
+
+export const addressFormScheme = (t: (arg: string) => string) =>
+  z.object({
+    city: z.string().min(6, {
+      message: t("Zod.invalidAddress"),
+    }),
+    district: z.string().min(4, {
+      message: t("Zod.invalidDistrict"),
+    }),
+    houseNumber: z.string().min(2, {
+      message: t("Zod.invalidHome"),
+    }),
+    apartment: z.string().min(1, {
+      message: t("Zod.invalidApartment"),
+    }),
+  });

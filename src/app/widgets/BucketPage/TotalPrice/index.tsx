@@ -4,21 +4,23 @@ interface Props {
   onSubmit: any;
   t: any;
   totalPrice: string;
-  deliveryPrice: number | null;
+  deliveryPrice: number;
+  restaurantTitle: string;
 }
 
-const Index: FC<Props> = ({ t, totalPrice, deliveryPrice, onSubmit }) => {
+const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaurantTitle }) => {
   return (
     <div className="w-full rounded-[32px] bg-bg-1 p-8 md:rounded-3xl md:p-6 sm:p-4">
       <h5 className="mb-2.5 border-b border-gray-1 pb-2.5 text-xl font-medium leading-6 sm:text-lg">
         {t("BucketPage.summary")}
       </h5>
+      <h4 className="py-1 pb-3 text-lg font-medium">{restaurantTitle}</h4>
       <ul className="mb-3 space-y-3">
         <li className="flex justify-between sm:text-sm">
           {t("BucketPage.price")}
           <span>{totalPrice}TMT</span>
         </li>
-        {deliveryPrice && (
+        {deliveryPrice > 0 && (
           <li className="flex justify-between sm:text-sm">
             {t("Index.delivery")}
             <span>{deliveryPrice}TMT</span>
