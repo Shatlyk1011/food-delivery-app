@@ -54,10 +54,25 @@ export const useGetRestaurantById = (schema?: string) => {
           variables: { id },
         },
       });
-      console.log("data", data);
+      console.log("data.data.Restaurant", data.data.Restaurant);
       return data.data.Restaurant;
     },
   });
 
-  return { restaurantInfo: data, getRestaurant: mutate, isPending };
+  const withCategories: WithCategories[] = data?.dishes?.reduce((acc, dish) => {
+    let category = dish.categories?.title || "Others"; // Default to 'Others' if no category is provided
+
+    let categoryObj = acc.find((item) => item.title === category);
+
+    if (!categoryObj) {
+      categoryObj = { category: category, dishes: [] };
+      acc.push(categoryObj);
+    }
+
+    categoryObj.dishes.push(dish);
+
+    return acc;
+  }, []);
+
+  return { restaurantInfo: data, withCategories, getRestaurant: mutate, isPending };
 };

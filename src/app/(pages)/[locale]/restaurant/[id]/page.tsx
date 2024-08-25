@@ -25,7 +25,7 @@ export default function Home({ params: { id } }) {
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
   const selectedItems = useAtomValue(atoms.selectedItems);
 
-  const { restaurantInfo, getRestaurant, isPending } = useGetRestaurantById();
+  const { restaurantInfo, withCategories, getRestaurant, isPending } = useGetRestaurantById();
   const { addItem, clearItems } = useProductItem();
 
   const closeModal = () => {
@@ -45,7 +45,12 @@ export default function Home({ params: { id } }) {
       <div className="mx-auto max-w-[1440px]">
         <div className="flex justify-between px-4 py-8 2xl:py-6 md:px-3 md:py-4">
           <div className="flex flex-1 space-x-8 2xl:space-x-4 md:space-x-0">
-            <MenuSidebar menuTitle={t("RestaurantPage.menu")} backTitle={t("Index.back")} classes="md:hidden" />
+            <MenuSidebar
+              menuTitle={t("RestaurantPage.menu")}
+              backTitle={t("Index.back")}
+              classes="md:hidden"
+              withCategories={withCategories || []}
+            />
             <div className="basis-[80%] md:basis-full">
               {restaurantInfo && (
                 <Banner
@@ -54,26 +59,33 @@ export default function Home({ params: { id } }) {
                   bannerInfo={{ deliveryTime: restaurantInfo?.deliveryTime, title: restaurantInfo?.title }}
                 />
               )}
-              <div className="manual_grid_220 mt-6 2xl:mt-4 md:w-full">
+              <div className="w-full">
                 {isPending ? (
                   <ProductSkeleton length={12} />
                 ) : (
-                  restaurantInfo?.dishes.map((dish) => {
+                  withCategories?.map(({ dishes, category }) => {
                     const { title, deliveryPrice, isDelivery } = restaurantInfo;
                     return (
-                      <Product
-                        key={dish.id}
-                        dish={dish}
-                        addItem={() => addItem(dish, { id, name: title, deliveryPrice, isDelivery })}
-                        addTitle={t("Index.add")}
-                      />
+                      <div key={category} className="mt-5">
+                        <p className="ml-1 text-2xl font-medium capitalize">{category}</p>
+                        <div className="manual_grid_220 mt-2 2xl:mt-4 md:w-full">
+                          {dishes?.map((d) => (
+                            <Product
+                              key={d.id}
+                              dish={d}
+                              addItem={() => addItem(d, { id, name: title, deliveryPrice, isDelivery })}
+                              addTitle={t("Index.add")}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     );
                   })
                 )}
               </div>
             </div>
           </div>
-          <aside className="right-32 top-48 ml-8 w-80 2xl:ml-4  xl:hidden">
+          <aside className="right-32 top-48 ml-8 w-80 2xl:ml-4 xl:hidden">
             <div className="sticky right-0 top-24">
               <Cart
                 t={t}

@@ -1425,9 +1425,17 @@ type Order {
   restaurantID: String!
   isDelivery: Boolean!
   totalAmount: Float
+  orderStatus: Order_orderStatus
   dishes: [Order_Dishes!]!
   updatedAt: DateTime
   createdAt: DateTime
+}
+
+enum Order_orderStatus {
+  pending
+  recieved
+  sended
+  Delivered
 }
 
 type Order_Dishes {
@@ -1462,6 +1470,7 @@ input Order_where {
   restaurantID: Order_restaurantID_operator
   isDelivery: Order_isDelivery_operator
   totalAmount: Order_totalAmount_operator
+  orderStatus: Order_orderStatus_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
@@ -1580,6 +1589,22 @@ input Order_totalAmount_operator {
   exists: Boolean
 }
 
+input Order_orderStatus_operator {
+  equals: Order_orderStatus_Input
+  not_equals: Order_orderStatus_Input
+  in: [Order_orderStatus_Input]
+  not_in: [Order_orderStatus_Input]
+  all: [Order_orderStatus_Input]
+  exists: Boolean
+}
+
+enum Order_orderStatus_Input {
+  pending
+  recieved
+  sended
+  Delivered
+}
+
 input Order_dishes__dish_operator {
   equals: JSON
   not_equals: JSON
@@ -1655,6 +1680,7 @@ input Order_where_and {
   restaurantID: Order_restaurantID_operator
   isDelivery: Order_isDelivery_operator
   totalAmount: Order_totalAmount_operator
+  orderStatus: Order_orderStatus_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
@@ -1677,6 +1703,7 @@ input Order_where_or {
   restaurantID: Order_restaurantID_operator
   isDelivery: Order_isDelivery_operator
   totalAmount: Order_totalAmount_operator
+  orderStatus: Order_orderStatus_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
@@ -1711,6 +1738,7 @@ type OrdersDocAccessFields {
   restaurantID: OrdersDocAccessFields_restaurantID
   isDelivery: OrdersDocAccessFields_isDelivery
   totalAmount: OrdersDocAccessFields_totalAmount
+  orderStatus: OrdersDocAccessFields_orderStatus
   dishes: OrdersDocAccessFields_dishes
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
@@ -1966,6 +1994,29 @@ type OrdersDocAccessFields_totalAmount_Update {
 }
 
 type OrdersDocAccessFields_totalAmount_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderStatus {
+  create: OrdersDocAccessFields_orderStatus_Create
+  read: OrdersDocAccessFields_orderStatus_Read
+  update: OrdersDocAccessFields_orderStatus_Update
+  delete: OrdersDocAccessFields_orderStatus_Delete
+}
+
+type OrdersDocAccessFields_orderStatus_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderStatus_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderStatus_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_orderStatus_Delete {
   permission: Boolean!
 }
 
@@ -2227,6 +2278,7 @@ input Dish_categories_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
+  exists: Boolean
 }
 
 input Dish_image_operator {
@@ -5348,6 +5400,7 @@ type OrdersFields {
   restaurantID: OrdersFields_restaurantID
   isDelivery: OrdersFields_isDelivery
   totalAmount: OrdersFields_totalAmount
+  orderStatus: OrdersFields_orderStatus
   dishes: OrdersFields_dishes
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
@@ -5603,6 +5656,29 @@ type OrdersFields_totalAmount_Update {
 }
 
 type OrdersFields_totalAmount_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_orderStatus {
+  create: OrdersFields_orderStatus_Create
+  read: OrdersFields_orderStatus_Read
+  update: OrdersFields_orderStatus_Update
+  delete: OrdersFields_orderStatus_Delete
+}
+
+type OrdersFields_orderStatus_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_orderStatus_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_orderStatus_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_orderStatus_Delete {
   permission: Boolean!
 }
 
@@ -7530,9 +7606,17 @@ input mutationOrderInput {
   restaurantID: String!
   isDelivery: Boolean
   totalAmount: Float
+  orderStatus: Order_orderStatus_MutationInput
   dishes: [mutationOrder_DishesInput!]
   updatedAt: String
   createdAt: String
+}
+
+enum Order_orderStatus_MutationInput {
+  pending
+  recieved
+  sended
+  Delivered
 }
 
 input mutationOrder_DishesInput {
@@ -7553,9 +7637,17 @@ input mutationOrderUpdateInput {
   restaurantID: String
   isDelivery: Boolean
   totalAmount: Float
+  orderStatus: OrderUpdate_orderStatus_MutationInput
   dishes: [mutationOrderUpdate_DishesInput]
   updatedAt: String
   createdAt: String
+}
+
+enum OrderUpdate_orderStatus_MutationInput {
+  pending
+  recieved
+  sended
+  Delivered
 }
 
 input mutationOrderUpdate_DishesInput {

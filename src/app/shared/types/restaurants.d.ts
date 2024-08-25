@@ -64,3 +64,8 @@ interface Dish {
     title: string;
   };
 }
+
+interface WithCategories {
+  category: string;
+  dishes: Dish[];
+}

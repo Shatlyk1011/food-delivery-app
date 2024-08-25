@@ -110,7 +110,7 @@ export interface Dish {
   gram: number;
   availableAmount?: number | null;
   cookTime: number;
-  categories: string | Category;
+  categories?: (string | null) | Category;
   image?: string | Media | null;
   restaurant: string | Restaurant;
   createdBy?: (string | null) | Customer;
@@ -143,6 +143,7 @@ export interface Order {
   restaurantID: string;
   isDelivery: boolean;
   totalAmount?: number | null;
+  orderStatus?: ('pending' | 'recieved' | 'sended' | 'Delivered') | null;
   dishes: {
     dish?: (string | null) | Dish;
     quantity?: number | null;

@@ -13,11 +13,12 @@
 
 ✅ - make restaurant blockable
 
+- add filter orders in profile
 - interval fetch orders
 - dish isChange flag
-- order statuses
+  ✅ - order statuses
 
-- free delivery ui (yx-eat)
+- categories for dishes and restaurants (names)
 - add description in collections
 <!-- ex: https://github.com/payloadcms/public-demo/blob/master/src/payload/collections/Media.ts -->
 
@@ -29,6 +30,10 @@
 ✅ - fix all form translates, validations
 
 - add snackbar
+- free delivery ui (yx-eat)
+- add filter ui in profile
+- if count > totalAmount, show snackbar with warning
+- self care address message
 - Footer modals (feedback, report)
 - profile page (with add/remove addresses)
 - connect with backend;

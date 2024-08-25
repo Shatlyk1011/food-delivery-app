@@ -31,6 +31,7 @@ export default buildConfig({
         },
       },
     }),
+    css: path.resolve(__dirname, "payload.styles.css"),
   },
   collections: [Restaurants, Orders, Dishes, Cities, Users, Customers, Media, Categories],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),

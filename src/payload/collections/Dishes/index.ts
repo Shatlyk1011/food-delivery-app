@@ -73,7 +73,7 @@ const Dishes: CollectionConfig = {
         read: () => true,
       },
       label: "Категория блюда",
-      required: true,
+      required: false,
       type: "relationship",
       relationTo: "categories",
     },

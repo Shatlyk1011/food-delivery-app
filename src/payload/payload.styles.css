@@ -1,0 +1,25 @@
+/* custom-admin-styles.css */
+button[disabled],
+input[disabled],
+textarea[disabled],
+select[disabled] {
+  background-color: #eaf0f7 !important;
+  color: #282828 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="dark"] {
+  button[disabled],
+  input[disabled],
+  textarea[disabled],
+  select[disabled] {
+    background-color: #282828 !important;
+    color: #eaf0f7 !important;
+    opacity: 1 !important;
+  }
+}
+
+::selection {
+  background: #f5cb5c;
+  color: initial;
+}
