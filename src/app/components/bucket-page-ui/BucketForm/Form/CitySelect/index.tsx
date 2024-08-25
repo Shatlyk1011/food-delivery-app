@@ -17,17 +17,14 @@ interface Props {
 const Index: FC<Props> = ({ className, t, ...props }) => {
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <button className="relative z-10 flex rounded-xl">
-          <div className="relative flex items-center space-x-2.5">
-            <HomeIcon />
-            <p className="line-clamp-1 text-base font-bold sm:text-sm">
-              {props.value || t("BucketForm.chooseAddress")}
-            </p>
-            <ChevronDown width={20} height={20} />
-          </div>
-        </button>
+      <PopoverTrigger className="relative z-10 flex rounded-xl">
+        <div className="relative flex items-center space-x-2.5">
+          <HomeIcon />
+          <p className="line-clamp-1 text-base font-bold sm:text-sm">{props.value || t("BucketForm.chooseAddress")}</p>
+          <ChevronDown width={20} height={20} className="duration-200 peer-checked:rotate-180" />
+        </div>
       </PopoverTrigger>
+
       <PopoverContent align="center" className="overflow-hidden rounded-[14px] p-0 shadow-xl">
         <ul className="cursor-pointer ">
           <li>

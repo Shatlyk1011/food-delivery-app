@@ -8,7 +8,7 @@ interface Props {
   restaurantTitle: string;
 }
 
-const Index: FC<Props> = ({ t, totalPrice, deliveryPrice, onSubmit, restaurantTitle }) => {
+const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaurantTitle }) => {
   return (
     <div className="w-full rounded-[32px] bg-bg-1 p-8 md:rounded-3xl md:p-6 sm:p-4">
       <h5 className="mb-2.5 border-b border-gray-1 pb-2.5 text-xl font-medium leading-6 sm:text-lg">

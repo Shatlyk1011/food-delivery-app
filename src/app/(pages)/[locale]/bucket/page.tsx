@@ -15,6 +15,8 @@ import { RESTAURANT_BUCKET } from "@/app/services/query";
 import { useBucketFormScheme } from "@/app/hooks/formSchemes";
 import useProductItem from "@/app/hooks/useProductItem";
 import { useGetRestaurantById } from "@/app/services/useRestaurants";
+import { useAtom } from "jotai";
+import atoms from "../../_providers/jotai";
 
 export default function Bucket() {
   const t = useTranslations();
@@ -23,12 +25,13 @@ export default function Bucket() {
   const { restId, totalPrice, isDelivery, maxCookTime } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
 
+  const userProfile = useAtom(atoms.userProfile);
+  console.log(userProfile);
   useEffect(() => {
     if (restId) {
       getRestaurant(restId);
     }
   }, [restId]);
-
   return (
     <main className="min-h-[calc(100vh-336px)] w-full bg-bg-2 px-10 py-12 xl:p-8 md:px-4 md:py-6 sm:px-3 sm:py-4">
       <Form {...form}>

@@ -47,7 +47,11 @@ const Index: FC<Props> = ({ t }) => {
         </div>
       )}
       <div className="mt-4 pr-4 text-text-1">
-        <Input label="Restoran üçin teswir" placeholder="Gaýrat сделай sogan не ложи, please" />
+        <Input
+          label="Restoran üçin teswir"
+          placeholder="Gaýrat сделай sogan не ложи, please"
+          className="rounded-xl placeholder:text-text-4"
+        />
       </div>
     </div>
   );
