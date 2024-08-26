@@ -1,8 +1,9 @@
+import dynamic from "next/dynamic";
 import { FC, useState } from "react";
 
 //components
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
-import CreateNewAddress from "./CreateNewAddress";
+const CreateNewAddress = dynamic(() => import("./CreateNewAddress"));
 import { ChevronDown } from "lucide-react";
 import { HomeIcon } from "@/app/icons";
 

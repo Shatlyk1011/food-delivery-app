@@ -108,9 +108,9 @@
     "dishesName": "Названия блюд",
     "price": "Цена",
     "status": "Статус",
-    "changeAddressSettings": "Adresiňiziň maglumatyny uýtgetmek",
+    "changeAddressSettings": "Изменить параметры адреса",
     "city": "Город",
-    "streetHouse": "Улица / дом",
+    "houseNumber": " Дом",
     "appartmentOffice": "Квартра / офис"
   },
 
@@ -121,7 +121,7 @@
     "phone": "Введите номер телефон",
     "enterDistrict": "Введите ваш район",
     "enterCity": "Введите ваш город",
-    "enterStreetHouse": "Введите вашу улицу / дом",
+    "enterHouseNumber": "Введите номер вашего дома",
     "enterAppartmentOffice": "Введите вашу квартиру / офис"
   },
 

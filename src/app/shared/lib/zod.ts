@@ -32,7 +32,7 @@ export const registerScheme = (t: (arg: string) => string) =>
   });
 
 // Bucket form scheme
-export const buckerFormScheme = (t: (arg: string) => string) =>
+export const bucketFormScheme = (t: (arg: string) => string) =>
   z.object({
     district: z.string().min(4, {
       message: t("Zod.invalidDistrict"),

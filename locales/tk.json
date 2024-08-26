@@ -110,7 +110,7 @@
     "status": "Ýagdaýy",
     "changeAddressSettings": "Adresiňiziň maglumatyny uýtgetmek",
     "city": "Şäher",
-    "streetHouse": "Köçäniň ady / jaý belgiňiz",
+    "houseNumber": "Jaý belgiňiz",
     "appartmentOffice": "Kwartira / ofisyňyz"
   },
 
@@ -121,7 +121,7 @@
     "phone": "Telefon belgiňiz",
     "enterDistrict": "Kiçi etrapça",
     "enterCity": "Şäher",
-    "enterStreetHouse": "Oý salgyňyz / jaý belgisi",
+    "enterHouseNumber": "Jaý belgisi",
     "enterAppartmentOffice": "Kwartira / ofisyňyz"
   },
 

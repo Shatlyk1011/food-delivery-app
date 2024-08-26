@@ -24,7 +24,7 @@ const Index: FC<Props> = ({ form, t }) => {
     form.setValue("district", district);
     form.setValue("houseNumber", houseNumber);
     form.setValue("apartment", apartment);
-    form.setValue("phoneNumber", phoneNumber);
+    form.setValue("phoneNumber", phoneNumber + "");
   };
 
   return (
