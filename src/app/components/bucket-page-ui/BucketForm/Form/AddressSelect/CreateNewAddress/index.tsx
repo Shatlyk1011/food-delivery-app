@@ -71,6 +71,7 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
                               label={t(label)}
                               placeholder={t(placeholder)}
                               disabled={name === "city"}
+                              type={name !== "district" ? "number" : "string"}
                             />
                           </FormControl>
                           <FormMessage />
