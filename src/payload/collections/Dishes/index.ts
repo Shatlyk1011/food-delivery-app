@@ -56,6 +56,9 @@ const Dishes: CollectionConfig = {
       defaultValue: 30,
       label: "Доступно в наличии",
       required: false,
+      admin: {
+        position: "sidebar",
+      },
       type: "number",
     },
 

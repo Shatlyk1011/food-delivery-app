@@ -6,10 +6,13 @@ import atoms from "@/app/(pages)/_providers/jotai";
 
 import { LOGIN_MUTATION, LOGOUT_MUTATION } from "../services/query/authQuery";
 import { useQueryClient } from "@tanstack/react-query";
+import useToast from "./useToast";
 
 const useAuth = () => {
   const setAuth = useSetAtom(atoms.isAuth);
   const setUserProfile = useSetAtom(atoms.userProfile);
+
+  const toast = useToast();
 
   const queryClient = useQueryClient();
 
@@ -27,8 +30,6 @@ const useAuth = () => {
     if (response?.token) {
       setAuth(true);
       setUserProfile(response?.user);
-
-      console.log("response.user", response.user);
       location.reload();
     }
     return response;
@@ -40,8 +41,11 @@ const useAuth = () => {
         query: LOGOUT_MUTATION,
       },
     });
+    setUserProfile(null);
     queryClient.invalidateQueries({ queryKey: ["currentUser"] });
-    return data.data.logoutUser;
+    if (data.data.logoutUser) {
+      toast("Actions.logoutUser", "info");
+    }
   };
 
   return { login, logout };

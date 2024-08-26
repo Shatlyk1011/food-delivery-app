@@ -31,13 +31,13 @@ const Index: FC<Props> = ({}) => {
   const { handleChange } = useChangeLanguage();
 
   const [isAuth, setAuth] = useAtom(atoms.isAuth);
-  const setProfile = useSetAtom(atoms.userProfile);
+  const setUserProfile = useSetAtom(atoms.userProfile);
   const handleQuery = useSetAtom(atoms.query);
 
   const { currentUser } = loginMe();
 
   setAuth(Boolean(currentUser));
-  setProfile(currentUser);
+  setUserProfile(currentUser);
 
   const t = useTranslations();
   return (

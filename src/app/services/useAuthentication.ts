@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "../shared/lib/axios";
 
 import { LOGIN_ME, REGISTER_MUTATION } from "./query/authQuery";
+import useToast from "../hooks/useToast";
 
 type LoginFn = (crededentials: LoginCredentials) => Promise<LoginResponse>;
 
@@ -25,25 +26,30 @@ export const loginMe = () => {
 };
 
 export const useRegister = (loginFn: LoginFn) => {
+  const toast = useToast();
   const { data, mutateAsync } = useMutation<{ name: string }, any, any, any>({
     mutationFn: async (userData) => {
-      const { data } = await axios({
-        data: {
-          query: REGISTER_MUTATION,
-          variables: { userData },
-        },
-      });
-
-      return data.data.createUser;
+      try {
+        const { data } = await axios({
+          data: {
+            query: REGISTER_MUTATION,
+            variables: { userData },
+          },
+        });
+        if (data.errors) {
+          throw new Error(data.errors[0].extensions.data[0].message);
+        }
+        return data.data.createUser;
+      } catch (err) {
+        throw err;
+      }
     },
-    onError: (err) => console.log("register mutation error", err),
     async onSettled(data, error, variables) {
       const { email, password } = variables;
       if (data?.name) {
-        //toast with greeting !
         await loginFn({ email, password });
-      } else {
-        //something went wrong error
+      } else if (error) {
+        toast(error, "error");
       }
     },
   });

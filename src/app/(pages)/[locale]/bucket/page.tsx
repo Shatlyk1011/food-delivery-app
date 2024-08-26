@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
 //jotai
-import { useAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import atoms from "../../_providers/jotai";
 
 //widgets
@@ -21,8 +21,12 @@ import useProductItem from "@/app/hooks/useProductItem";
 import { useGetRestaurantById } from "@/app/services/useRestaurants";
 import { useOrders } from "@/app/services/useOrders";
 
+import { useQueryClient } from "@tanstack/react-query";
+
 export default function Bucket() {
   const t = useTranslations();
+  const queryClient = useQueryClient();
+  const userProfile = useAtomValue(atoms.userProfile);
 
   const { form } = useBucketFormScheme();
   const { restId, selectedItems, totalPrice, isDelivery, maxCookTime } = useProductItem();
@@ -34,6 +38,7 @@ export default function Bucket() {
       const { apartment, district, houseNumber, phoneNumber, comment } = values;
 
       handleOrder({
+        orderedByUser: "userProfile.id",
         apartment,
         district,
         restaurantID: restaurantInfo.id,
@@ -53,11 +58,10 @@ export default function Bucket() {
     }
   };
 
-  const userProfile = useAtom(atoms.userProfile);
-  console.log(userProfile);
   useEffect(() => {
     if (restId) {
       getRestaurant(restId);
+      queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     }
   }, [restId]);
   return (
@@ -85,6 +89,7 @@ export default function Bucket() {
 
             <div className="basis-[448px] ">
               <TotalPrice
+                restaurantId={restaurantInfo?.id}
                 onSubmit={handleOrderSubmit}
                 restaurantTitle={restaurantInfo?.title}
                 t={t}

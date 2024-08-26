@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Provider as JotaiProvider } from "jotai";
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 
 //widgets
 import TailwindIndicator from "@/app/components/tailwind-indicator/tailwind-indicator";
@@ -41,6 +42,7 @@ export default async function RootLayout({ children, params: { locale } }: Props
               <TailwindIndicator />
             </TanstackQueryProvider>
           </NextIntlClientProvider>
+          <Toaster duration={2000} richColors visibleToasts={2} theme="light" position="bottom-left" />
         </JotaiProvider>
       </body>
     </html>

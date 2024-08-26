@@ -1,4 +1,5 @@
 interface OrderData {
+  orderedByUser: string;
   district: string;
   apartment: string;
   houseNumber: string;

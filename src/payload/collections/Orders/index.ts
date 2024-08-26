@@ -21,7 +21,13 @@ const Orders: CollectionConfig = {
           };
         }
       }
-
+      if (checkRole(["user"], req.user)) {
+        return {
+          orderedByUser: {
+            equals: req.user.id, // Users can only read orders they created
+          },
+        };
+      }
       return false;
     },
     update: ({ req }) => {
@@ -33,7 +39,7 @@ const Orders: CollectionConfig = {
   },
 
   admin: {
-    defaultColumns: ["dishes", "district", "phoneNumber", "apartment", "houseNumber", "createdAt"],
+    defaultColumns: ["dishes", "district", "phoneNumber", "apartment", "houseNumber", "orderStatus", "createdAt"],
     useAsTitle: "title",
   },
   fields: [
@@ -121,7 +127,7 @@ const Orders: CollectionConfig = {
         },
         {
           label: "Доставлено",
-          value: "Delivered",
+          value: "delivered",
         },
       ],
       required: false,
@@ -206,6 +212,15 @@ const Orders: CollectionConfig = {
         readOnly: true,
       },
     },
+    {
+      name: "orderedByUser",
+      label: "ID пользователя",
+      required: true,
+      type: "text",
+      admin: {
+        readOnly: true,
+      },
+    },
   ],
   labels: { plural: "Заказы", singular: "Заказ" },
   slug: "orders",
@@ -222,8 +237,16 @@ const Orders: CollectionConfig = {
         if (!restaurantID || !dishes || dishes.length === 0) {
           return data;
         }
+        const restaurant = await req.payload.find({
+          collection: "restaurants",
+          where: { _id: { equals: restaurantID } },
+        });
+
+        if (!restaurant.docs.length) {
+          throw new Error("Что то пошло не так. Ресторан не найден");
+        }
+
         const dishIds = dishes.map((d: any) => d.id);
-        // Find dishes in the current restaurant's dishes collection
         const foundDishes = await req.payload.find({
           collection: "dishes",
           where: {
@@ -232,15 +255,8 @@ const Orders: CollectionConfig = {
           },
         });
 
-        const restaurant = await req.payload.find({
-          collection: "restaurants",
-          where: { _id: { equals: restaurantID } },
-        });
-
-        console.log("restaurant", restaurant);
-
-        if (!restaurant.docs.length) {
-          throw new Error("Что то пошло не так. Ресторан не найден");
+        if (!dishIds.length) {
+          throw new Error("Что то пошло не так. Выбранные блюда не найдены.");
         }
 
         data.dishes = foundDishes.docs?.map((dish) => ({
@@ -254,7 +270,7 @@ const Orders: CollectionConfig = {
         }, 0);
 
         data.totalAmount = totalAmount + restaurant.docs[0]?.deliveryPrice || -1;
-        data.restaurantName = restaurant.docs[0]?.title || "Что то пошло не так...";
+        data.restaurantName = restaurant.docs[0]?.title || "Название ресторана не найдено...";
         return data;
       },
     ],

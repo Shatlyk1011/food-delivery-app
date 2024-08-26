@@ -15,7 +15,7 @@ export default function OrdersTable({ t }: { t: any }) {
         <TableHeader>
           <TableRow className="border-b border-b-gray-1 bg-gray-2 p-2 text-base *:font-bold">
             {HEAD_CELLS.map((title) => (
-              <TableHead>{t(title)}</TableHead>
+              <TableHead key={title}>{t(title)}</TableHead>
             ))}
           </TableRow>
         </TableHeader>

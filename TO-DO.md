@@ -20,6 +20,7 @@
 
 - categories for dishes and restaurants (names)
 - add description in collections
+- request orders by users id in profile page (interval)
 <!-- ex: https://github.com/payloadcms/public-demo/blob/master/src/payload/collections/Media.ts -->
 
 - test test test
@@ -43,6 +44,9 @@
 - free after amount ui block in id page
 - localstorage timestamp
 - bucket form submittion modal ()
+- mobile sidebar, login, logout states
+- if availabelAmount === 0, disable dish
+- profile interval order fetch (tailwind ping)
 
 ## backlog
 

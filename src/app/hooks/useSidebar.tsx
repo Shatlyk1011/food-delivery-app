@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom } from "jotai";
 
+//hooks
+import useAuth from "./useAuth";
 import useChangeLanguage from "./useChangeLanguage";
 
 //components
@@ -19,7 +21,9 @@ const useSidebar = (isAuth = true) => {
   const [selectedCity, setSelectedCity] = useAtom(atoms.selectedCity);
   const [overlap, setOverlap] = useState("");
 
+  // ya eto isprawlyu
   const { languageTitle, handleChange } = useChangeLanguage();
+  const { logout } = useAuth();
 
   const t = useTranslations("Index");
 
@@ -79,7 +83,14 @@ const useSidebar = (isAuth = true) => {
       onClick: () => setOverlap("language"),
       authRequired: false,
     },
-    { title: t("logout"), icon: <ExitIcon className="h-5 w-5" />, onClick: handleClose, authRequired: true },
+    {
+      title: t("logout"),
+      icon: <ExitIcon className="h-5 w-5" />,
+      onClick: () => {
+        handleClose(), logout();
+      },
+      authRequired: true,
+    },
   ];
   const sidebarList = (() => (!isAuth ? list.filter((item) => item.authRequired === false) : list))();
   const overlapList = overlap === "language" ? LANGUAGES : CITIES;

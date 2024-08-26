@@ -3,15 +3,20 @@ import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom, useSetAtom } from "jotai";
 
 import { DEFAULT_RESTAURANT_INFO } from "../data";
+import useToast from "./useToast";
 
 const useProductItem = () => {
+  const toast = useToast();
+
   const [selectedItems, setSelectedItems] = useAtom(atoms.selectedItems);
   const setClearModal = useSetAtom(atoms.isClearBucketModal);
-
   const increaseItem = (itemToIncrease: any) => {
     const increasedCount = selectedItems.dishes.map((item) => {
       if (item.id === itemToIncrease.id) {
-        if (item.count === item.availableAmount) return item;
+        if (item.count === item.availableAmount) {
+          toast("Actions.maxAvailableAmount", "info", { position: "top-center" });
+          return item;
+        }
         return { ...item, count: item.count + 1 };
       } else return item;
     });

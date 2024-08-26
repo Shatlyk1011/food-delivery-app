@@ -103,7 +103,7 @@
     "deliveryAddress": "Eltip berilmeli adresiňiz",
     "yourEmail": "Email poçtaňyz",
     "chooseAddress": "Eltip berilmeli adresiňizi saýlaň",
-    "history": "Öňki sargytlaryňyz",
+    "history": "Sargytlaryňyz",
     "restaurantName": "Restoranyň ady",
     "dishesName": "Tagamlaryň atlary",
     "price": "Baha",
@@ -148,5 +148,12 @@
     "invalidApartment": "Kwartirňyzy ýazyň",
     "invalidEntrance": "Podyezdy girelge ýazyň (bar bolsa)",
     "invalidComment": "Salgyny tapmagy aňsatlaşdyrmak üçin kurýerde teswir ýazyň"
+  },
+  "Errors": {},
+
+  "Actions": {
+    "logoutUser": "Üstünlikli çykyş",
+    "maxAvailableAmount": "Elýeterli önümiň iň köp mukdaryny goşduňyz.",
+    "noDeliveryAvailable": "Häzirki wagtda bu restoranda dostawka ýok."
   }
 }

@@ -35,7 +35,6 @@ export default function Home({ params: { id } }) {
     clearItems();
     closeModal();
   };
-
   useEffect(() => {
     getRestaurant(id);
   }, []);
@@ -51,7 +50,9 @@ export default function Home({ params: { id } }) {
               classes="md:hidden"
               withCategories={withCategories || []}
             />
+
             <div className="basis-[80%] md:basis-full">
+              {/* {restaurantInfo === null && <p>По вашему запросу, ничего не найдено</p>} */}
               {restaurantInfo && (
                 <Banner
                   bannerUrl={restaurantInfo?.bannerImage?.url}

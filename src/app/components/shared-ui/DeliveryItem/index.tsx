@@ -19,6 +19,7 @@ const Index: FC<Props> = ({ t, isDelivery, deliveryTime, deliveryTitle, delivery
         {isDelivery ? <MotocycleIcon width={24} height={24} /> : <WalkIcon />}
       </div>
       <p className={`text-sm font-medium leading-3 ${isDeliveryFree && "text-success"}`}>
+        {/* ?????? */}
         {deliveryTitle} {deliveryPrice} {deliveryTime && `${deliveryTime} - ${deliveryTime + 10 + t("Index.min")}`}
       </p>
     </div>

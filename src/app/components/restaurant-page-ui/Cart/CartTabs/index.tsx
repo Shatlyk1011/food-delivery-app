@@ -1,3 +1,4 @@
+import useToast from "@/app/hooks/useToast";
 import { FC } from "react";
 
 interface Props {
@@ -13,13 +14,21 @@ const tabs = [
 ];
 
 const Index: FC<Props> = ({ t, handleChange, isDelivery, selectedDelivery }) => {
+  const toast = useToast();
+
+  const handleClick = (title: string, value: boolean) => {
+    if (title === "Index.delivery" && isDelivery !== value) {
+      toast("Actions.noDeliveryAvailable", "warning", { duration: 3000 });
+    } else {
+      handleChange(value);
+    }
+  };
   return (
     <div className="space-x mx-2.5 mb-4 flex rounded-xl bg-gray-2 px-4 py-2 text-text-4 ">
       {tabs.map(({ title, value }) => (
         <button
-          onClick={() => handleChange(value)}
+          onClick={() => handleClick(title, value)}
           key={title}
-          disabled={title === "Index.delivery" && isDelivery !== value}
           className={`h-10 w-full rounded-xl text-center first:mr-1 ${selectedDelivery === value && "bg-bg-1 text-text-1"}`}
         >
           {t(title)}

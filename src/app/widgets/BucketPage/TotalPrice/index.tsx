@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { FC } from "react";
+import { cn } from "@/app/shared/lib/utils";
 
 interface Props {
   onSubmit: any;
@@ -6,15 +8,23 @@ interface Props {
   totalPrice: string;
   deliveryPrice: number;
   restaurantTitle: string;
+  restaurantId: string;
 }
 
-const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaurantTitle }) => {
+const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaurantTitle, restaurantId }) => {
   return (
     <div className="w-full rounded-[32px] bg-bg-1 p-8 md:rounded-3xl md:p-6 sm:p-4">
       <h5 className="mb-2.5 border-b border-gray-1 pb-2.5 text-xl font-medium leading-6 sm:text-lg">
         {t("BucketPage.summary")}
       </h5>
-      <h4 className="py-1 pb-3 text-lg font-medium">{restaurantTitle}</h4>
+      <Link
+        href={`/restaurant/${restaurantId}`}
+        className={cn(
+          "mb-1 inline-block border-b border-[transparent] pb-1 pt-2 text-lg font-medium leading-[1] transition hover:border-[currentColor]",
+        )}
+      >
+        {restaurantTitle}
+      </Link>
       <ul className="mb-3 space-y-3">
         <li className="flex justify-between sm:text-sm">
           {t("BucketPage.price")}

@@ -53,7 +53,7 @@ const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
         t={t}
         handleChange={toggleDelivery}
         isDelivery={hasSelectedRestDelivery}
-        selectedDelivery={hasSelectedRestDelivery === false ? false : selectedDelivery}
+        selectedDelivery={hasSelectedRestDelivery ? selectedDelivery : false}
       />
 
       <ul className="perfect-scrollbar h-[calc(100vh-430px)] space-y-4 p-4 pt-0">

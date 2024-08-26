@@ -138,17 +138,21 @@ export interface Order {
   houseNumber: string;
   entrance?: string | null;
   phoneNumber: number;
-  commentToCourier?: string | null;
-  commentToRestaurant?: string | null;
-  restaurantID: string;
+  orderStatus?: ('pending' | 'recieved' | 'sended' | 'delivered') | null;
   isDelivery: boolean;
   totalAmount?: number | null;
-  orderStatus?: ('pending' | 'recieved' | 'sended' | 'Delivered') | null;
-  dishes: {
-    dish?: (string | null) | Dish;
-    quantity?: number | null;
-    id?: string | null;
-  }[];
+  restaurantName?: string | null;
+  commentToCourier?: string | null;
+  commentToRestaurant?: string | null;
+  dishes?:
+    | {
+        dish?: (string | null) | Dish;
+        quantity?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  restaurantID: string;
+  orderedByUser: string;
   updatedAt: string;
   createdAt: string;
 }
