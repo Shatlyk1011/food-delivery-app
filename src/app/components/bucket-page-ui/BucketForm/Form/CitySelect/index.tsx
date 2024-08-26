@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 //components
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
@@ -9,18 +9,23 @@ import { HomeIcon } from "@/app/icons";
 import { CITIES } from "@/app/data";
 
 interface Props {
-  className?: string;
+  userProfile: UserData;
+  onChange: (address: AddressData) => void;
   t: any;
-  value: string;
-  onChange: (city: string) => void;
 }
-const Index: FC<Props> = ({ className, t, ...props }) => {
+const Index: FC<Props> = ({ userProfile, onChange, t }) => {
+  const [selected, setSelected] = useState("");
+  const handleChange = (address) => {
+    const { district, houseNumber, apartment } = address;
+    onChange(address);
+    setSelected(`${district}, ${houseNumber}/${apartment}`);
+  };
   return (
     <Popover>
       <PopoverTrigger className="relative z-10 flex rounded-xl">
         <div className="relative flex items-center space-x-2.5">
           <HomeIcon />
-          <p className="line-clamp-1 text-base font-bold sm:text-sm">{props.value || t("BucketForm.chooseAddress")}</p>
+          <p className="line-clamp-1 text-base font-bold sm:text-sm">{selected || t("BucketForm.chooseAddress")}</p>
           <ChevronDown width={20} height={20} className="duration-200 peer-checked:rotate-180" />
         </div>
       </PopoverTrigger>
@@ -28,12 +33,12 @@ const Index: FC<Props> = ({ className, t, ...props }) => {
       <PopoverContent align="center" className="overflow-hidden rounded-[14px] p-0 shadow-xl">
         <ul className="cursor-pointer ">
           <li>
-            <CreateNewAddress t={t} />
+            <CreateNewAddress t={t} userProfile={userProfile} />
           </li>
-          {CITIES.map(({ title, value }) => (
-            <li key={value} onClick={() => props.onChange(title)}>
+          {userProfile?.addresses?.map((address, i) => (
+            <li key={i} onClick={() => handleChange(address)}>
               <PopoverClose className="line-clamp-2 w-full px-6 py-[18px] text-start hover:bg-onHover md:px-5 md:py-4 sm:px-4 sm:py-3">
-                {title}
+                {address.district}, {address.houseNumber}/{address.apartment}
               </PopoverClose>
             </li>
           ))}

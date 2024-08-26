@@ -34,9 +34,6 @@ export const registerScheme = (t: (arg: string) => string) =>
 // Bucket form scheme
 export const buckerFormScheme = (t: (arg: string) => string) =>
   z.object({
-    city: z.string().min(6, {
-      message: t("Zod.invalidAddress"),
-    }),
     district: z.string().min(4, {
       message: t("Zod.invalidDistrict"),
     }),

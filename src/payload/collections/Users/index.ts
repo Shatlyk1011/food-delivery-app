@@ -21,7 +21,12 @@ const Users: CollectionConfig = {
       }
       return false;
     },
-    update: admins,
+    update: ({ req: { user } }) => {
+      if (checkRole(["user"], user)) {
+        return true;
+      }
+      return false;
+    },
   },
 
   admin: {

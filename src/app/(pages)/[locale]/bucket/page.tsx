@@ -2,10 +2,6 @@
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
-//jotai
-import { useAtom } from "jotai";
-import atoms from "../../_providers/jotai";
-
 //widgets
 import BucketForm from "@/app/widgets/BucketPage/BucketForm";
 import TotalPrice from "@/app/widgets/BucketPage/TotalPrice";
@@ -53,13 +49,12 @@ export default function Bucket() {
     }
   };
 
-  const userProfile = useAtom(atoms.userProfile);
-  console.log(userProfile);
   useEffect(() => {
-    if (restId) {
+    if (restId && !restaurantInfo) {
       getRestaurant(restId);
     }
   }, [restId]);
+
   return (
     <main className="min-h-[calc(100vh-336px)] w-full bg-bg-2 px-10 py-12 xl:p-8 md:px-4 md:py-6 sm:px-3 sm:py-4">
       <Form {...form}>

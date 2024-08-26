@@ -1,4 +1,7 @@
-import { FC } from "react";
+import { FC, useState } from "react";
+
+import { useAtomValue } from "jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 //components
 import { FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
@@ -13,20 +16,17 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ form, t }) => {
+  const userProfile = useAtomValue(atoms.userProfile);
+  const handleAddress = (address: AddressData) => {
+    const { district, houseNumber, apartment } = address;
+    form.setValue("district", district);
+    form.setValue("houseNumber", houseNumber);
+    form.setValue("apartment", apartment);
+  };
+
   return (
     <div>
-      <FormField
-        control={form.control}
-        name="city"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <CitySelect {...field} onChange={field.onChange} value={field.value} className="mb-3" t={t} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <CitySelect userProfile={userProfile} onChange={handleAddress} t={t} />
       <div className="my-3 grid grid-cols-4 grid-rows-3 gap-3 md:grid-rows-4">
         {BUCKET_INPUTS.map(({ name, placeholder, styles, maxLength, type }) => (
           <FormField

@@ -1,7 +1,14 @@
 const USER_INFO = `
+  id
   name
   phone
-  `;
+  addresses {
+    district
+    houseNumber
+    apartment
+    phoneNumber
+  }
+`;
 
 export const REGISTER_MUTATION = `
 mutation CreateUser($userData: mutationUserInput!) {
