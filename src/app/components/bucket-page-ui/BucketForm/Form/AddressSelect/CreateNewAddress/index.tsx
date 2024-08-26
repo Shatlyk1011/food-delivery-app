@@ -9,12 +9,11 @@ import {
 } from "@/app/components/shared-ui/Dialog";
 import Input from "@/app/components/shared-ui/Input";
 import Button from "@/app/components/shared-ui/Button";
-
-import { PlusIcon } from "@/app/icons";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
-import { useCreateAddressFormScheme } from "@/app/hooks/formSchemes";
 import { useCreateAddress } from "@/app/services/useCreateAddress";
-import { loginMe } from "@/app/services/useAuthentication";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
+import { PlusIcon } from "@/app/icons";
+
+import { useCreateAddressFormScheme } from "@/app/hooks/formSchemes";
 
 const ADRES_INPUTS = [
   [
@@ -29,18 +28,22 @@ const ADRES_INPUTS = [
 
 interface Props {
   userProfile: UserData;
+  setUserProfile: (user: UserData) => void;
   t: any;
 }
 
-export default function CreateNewAddress({ userProfile, t }: Props) {
+export default function CreateNewAddress({ userProfile, setUserProfile, t }: Props) {
   const { id, addresses, phone } = userProfile;
   const { form } = useCreateAddressFormScheme();
   const { createAddress } = useCreateAddress();
 
-  const handleSubmit = async (val: AddressData) => {
-    const updatedUser = { id, userData: { addresses: [{ ...val, phoneNumber: +phone }, ...addresses] } };
-    await createAddress(updatedUser);
+  const handleSubmit = async (newAddress: AddressData) => {
+    const updatedUser = { id, userData: { addresses: [{ ...newAddress, phoneNumber: +phone }, ...addresses] } };
+    const { updateUser } = await createAddress(updatedUser);
+    setUserProfile(updateUser);
+    form.reset();
   };
+
   return (
     <Dialog>
       <DialogTrigger className="flex w-full items-center justify-between space-x-2.5 border-b border-b-gray-2 px-6 py-[18px] text-base font-medium hover:bg-onHover md:px-5  md:py-4 sm:px-4 sm:py-3 sm:text-sm">
@@ -69,7 +72,7 @@ export default function CreateNewAddress({ userProfile, t }: Props) {
                                 {...field}
                                 label={t(label)}
                                 placeholder={t(placeholder)}
-                                // disabled={name === "city"}
+                                disabled={name === "city"}
                               />
                             </FormControl>
                             <FormMessage />
@@ -84,8 +87,8 @@ export default function CreateNewAddress({ userProfile, t }: Props) {
                   <DialogClose className="rounded-md border border-error bg-bg-1 px-4 py-2 text-error hover:bg-error hover:text-white">
                     {t("Index.delete")}
                   </DialogClose>
-                  <Button type="button" onClick={form.handleSubmit(handleSubmit)}>
-                    {t("Index.save")}
+                  <Button type="button" onClick={form.handleSubmit(handleSubmit)} className="p-0">
+                    <DialogClose className="px-4 py-2">{t("Index.save")}</DialogClose>
                   </Button>
                 </div>
               </div>

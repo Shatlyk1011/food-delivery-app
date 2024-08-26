@@ -6,19 +6,19 @@ import CreateNewAddress from "./CreateNewAddress";
 import { ChevronDown } from "lucide-react";
 import { HomeIcon } from "@/app/icons";
 
-import { CITIES } from "@/app/data";
-
 interface Props {
   userProfile: UserData;
+  setUserProfile: (user: UserData) => void;
   onChange: (address: AddressData) => void;
   t: any;
 }
-const Index: FC<Props> = ({ userProfile, onChange, t }) => {
+const Index: FC<Props> = ({ userProfile, setUserProfile, onChange, t }) => {
   const [selected, setSelected] = useState("");
-  const handleChange = (address) => {
+
+  const handleChange = (address: AddressData) => {
     const { district, houseNumber, apartment } = address;
-    onChange(address);
     setSelected(`${district}, ${houseNumber}/${apartment}`);
+    onChange({ ...address, phoneNumber: +userProfile?.phone });
   };
   return (
     <Popover>
@@ -33,7 +33,7 @@ const Index: FC<Props> = ({ userProfile, onChange, t }) => {
       <PopoverContent align="center" className="overflow-hidden rounded-[14px] p-0 shadow-xl">
         <ul className="cursor-pointer ">
           <li>
-            <CreateNewAddress t={t} userProfile={userProfile} />
+            <CreateNewAddress t={t} userProfile={userProfile} setUserProfile={setUserProfile} />
           </li>
           {userProfile?.addresses?.map((address, i) => (
             <li key={i} onClick={() => handleChange(address)}>

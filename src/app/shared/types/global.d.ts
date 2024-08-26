@@ -32,4 +32,5 @@ type AddressData = {
   district: string;
   houseNumber: string;
   apartment: string;
+  phoneNumber?: number;
 };
