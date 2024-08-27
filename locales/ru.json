@@ -7,6 +7,8 @@
     "back": "Назад",
     "delivery": "Доставка",
     "selfCare": "Самовывоз",
+    "selfCareDetailed": "Время приготовления",
+    "orderType": "Способ получения",
     "gr": "гр",
     "clear": "Очистить",
     "bucket": "Корзина",
@@ -27,7 +29,8 @@
     "delete": "Удалить",
     "cancel": "Отмена",
     "continue": "Продолжить",
-    "noReview": "Мало отзывов"
+    "noReview": "Мало отзывов",
+    "description": "Описание"
   },
 
   "Login": {
@@ -122,7 +125,7 @@
     "enterDistrict": "Введите ваш район",
     "enterCity": "Введите ваш город",
     "enterHouseNumber": "Введите номер вашего дома",
-    "enterAppartmentOffice": "Введите вашу квартиру / офис"
+    "enterAppartmentOffice": "Введите номер квартиры / офис"
   },
 
   "Categories": {

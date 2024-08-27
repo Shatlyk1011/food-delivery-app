@@ -70,7 +70,7 @@ export default function Bucket() {
                   t={t}
                   isDelivery={isDelivery}
                   deliveryPrice={restaurantInfo?.deliveryPrice}
-                  deliveryTime={isDelivery ? restaurantInfo?.deliveryTime.slice(1) : maxCookTime + ""}
+                  deliveryTime={isDelivery ? restaurantInfo?.deliveryTime.slice(1) : maxCookTime}
                 />
               </div>
               <div className="">

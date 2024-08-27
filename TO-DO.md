@@ -27,6 +27,7 @@
 
 ✅ - enable auth
 ✅ - fix all form translates, validations
+-button states (loading, pending, disabled)
 
 - add snackbar
 - Footer modals (feedback, report)

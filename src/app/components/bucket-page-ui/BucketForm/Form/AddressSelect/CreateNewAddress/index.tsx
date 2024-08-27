@@ -22,7 +22,7 @@ const ADRES_INPUTS = [
 ];
 
 interface Props {
-  userProfile: UserData;
+  userProfile: UserData | null;
   setUserProfile: (user: UserData) => void;
   t: any;
 }
@@ -30,7 +30,7 @@ interface Props {
 export default function CreateNewAddress({ userProfile, setUserProfile, t }: Props) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { form } = useCreateAddressFormScheme();
-  const { createAddress } = useCreateAddress();
+  const { createAddress, isPending } = useCreateAddress();
 
   const { id, addresses, phone } = userProfile;
 
@@ -49,9 +49,9 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
         <p>{t("BucketForm.addNewAddress")}</p>
         <PlusIcon />
       </DialogTrigger>
-      <DialogContent className="max-w-2xl rounded-md bg-bg-1 px-6 py-8 md:max-w-[92%]">
+      <DialogContent className="max-w-2xl rounded-md bg-bg-1  md:max-w-[92%]">
         <DialogTitle>
-          <p className="pb-4 pr-6 text-lg font-semibold">{t("BucketForm.createNewAddress")}</p>
+          <p className="pb-4 pr-6 text-xl font-semibold">{t("BucketForm.addNewAddress")}</p>
         </DialogTitle>
         <Form {...form}>
           <form>
@@ -71,7 +71,7 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
                               label={t(label)}
                               placeholder={t(placeholder)}
                               disabled={name === "city"}
-                              type={name !== "district" ? "number" : "string"}
+                              type={name === "district" ? "string" : "number"}
                             />
                           </FormControl>
                           <FormMessage />
@@ -83,12 +83,12 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
               ))}
 
               <div className="flex justify-end space-x-2">
-                <DialogClose className="rounded-md border border-error bg-bg-1 px-4 py-2 text-error hover:bg-error hover:text-white">
+                {/* <DialogClose className="rounded-md border border-error bg-bg-1 px-4 py-2 text-error hover:bg-error hover:text-white">
                   {t("Index.delete")}
-                </DialogClose>
-                <DialogClose asChild>
-                  <Button type="button" onClick={form.handleSubmit(handleSubmit)}>
-                    {t("Index.save")}
+                </DialogClose> */}
+                <DialogClose asChild type="button">
+                  <Button disabled={true} type="button">
+                    {t("Index.add")}
                   </Button>
                 </DialogClose>
               </div>

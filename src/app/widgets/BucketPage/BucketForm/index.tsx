@@ -1,33 +1,27 @@
+import dynamic from "next/dynamic";
 import { FC } from "react";
 
 //components
-import BucketFormComponent from "@/app/components/bucket-page-ui/BucketForm/Form";
+const BucketFormComponent = dynamic(() => import("@/app/components/bucket-page-ui/BucketForm/Form"), { ssr: false });
 import DeliveryItem from "@/app/components/shared-ui/DeliveryItem";
 
 interface Props {
   t: any;
   form: any;
   isDelivery: boolean;
-  deliveryTime: string;
+  deliveryTime: string | number;
   deliveryPrice: number;
 }
 
 const Index: FC<Props> = ({ form, isDelivery, deliveryPrice, t, deliveryTime }) => {
   return (
     <div>
-      <h2 className="mb-2.5 text-2xl font-bold leading-6 md:text-base">{t("BucketForm.fillForm")}</h2>
-      <h3
-        className={`mb-2.5 text-base font-medium leading-5 md:text-sm ${isDelivery ? "text-warning" : "text-success"}`}
-      >
-        {isDelivery ? (
-          <p>
-            {t("Index.delivery")} {deliveryPrice} TMT
-          </p>
-        ) : (
-          <p>
-            {t("Index.selfCare")} {deliveryTime + t("Index.min")}
-          </p>
-        )}
+      <h2 className="le/ading-6 mb-2.5 text-2xl font-bold md:text-base">{t("BucketForm.fillForm")}</h2>
+      <h3 className={`mb-2.5 text-base font-medium leading-5 md:text-sm `}>
+        {t("Index.orderType")}:
+        <span className={isDelivery ? "text-warning" : "text-success"}>
+          {isDelivery ? t("Index.delivery") : t("Index.selfCare")}
+        </span>
       </h3>
       <BucketFormComponent form={form} t={t} />
 
@@ -40,7 +34,7 @@ const Index: FC<Props> = ({ form, isDelivery, deliveryPrice, t, deliveryTime }) 
             t={t}
             isDelivery={isDelivery}
             deliveryTime={Number(deliveryTime)}
-            deliveryTitle={isDelivery ? t("BucketForm.deliveryTime") : t("Index.selfCare")}
+            deliveryTitle={isDelivery ? t("BucketForm.deliveryTime") : t("Index.selfCareDetailed")}
           />
         </div>
       </div>

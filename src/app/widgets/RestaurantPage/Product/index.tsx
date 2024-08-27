@@ -1,19 +1,26 @@
 import { FC } from "react";
+import Image from "next/image";
 
-import AboutProduct from "./AboutProduct";
 import { PlusIcon } from "@/app/icons";
 
 interface Props {
   dish: Dish;
   addItem: () => void;
   addTitle: string;
+  handleDish: () => void;
 }
 
-const Index: FC<Props> = ({ dish, addItem, addTitle }) => {
+const Index: FC<Props> = ({ dish, addItem, addTitle, handleDish }) => {
   return (
     <div className="m-1 max-w-full rounded-[14px] bg-bg-1 p-3 md:p-2">
-      <div className="relative mb-2.5 h-44 w-full overflow-hidden rounded-[14px]">
-        <AboutProduct dish={dish} />
+      <div className=" relative mb-2.5 h-44 w-full overflow-hidden rounded-[14px] " onClick={handleDish}>
+        <Image
+          className="hover:brightness-115 duration-200"
+          objectFit="cover"
+          src={dish.image.url}
+          fill={true}
+          alt={dish.image.alt}
+        />
       </div>
 
       <div className="mb-2.5 font-medium">

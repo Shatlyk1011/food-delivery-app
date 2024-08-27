@@ -8,7 +8,7 @@ import { ChevronDown } from "lucide-react";
 import { HomeIcon } from "@/app/icons";
 
 interface Props {
-  userProfile: UserData;
+  userProfile: UserData | null;
   setUserProfile: (user: UserData) => void;
   onChange: (address: AddressData) => void;
   t: any;
