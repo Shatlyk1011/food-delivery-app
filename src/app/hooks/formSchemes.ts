@@ -1,8 +1,9 @@
-import { buckerFormScheme, loginScheme, profileFormScheme, registerScheme, addressFormScheme } from "../shared/lib/zod";
+import { bucketFormScheme, loginScheme, profileFormScheme, registerScheme, addressFormScheme } from "../shared/lib/zod";
 import { useTranslations } from "next-intl";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useCreateAddress } from "../services/useCreateAddress";
 
 export const useLoginScheme = () => {
   const t = useTranslations();
@@ -38,12 +39,11 @@ export const useRegisterScheme = () => {
 
 export const useBucketFormScheme = () => {
   const t = useTranslations();
-  const formSchema = buckerFormScheme(t);
+  const formSchema = bucketFormScheme(t);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      city: "",
       district: "",
       houseNumber: "",
       apartment: "",
@@ -88,8 +88,5 @@ export const useCreateAddressFormScheme = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("values", values);
-  }
-  return { form, onSubmit };
+  return { form };
 };

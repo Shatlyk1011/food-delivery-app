@@ -7,6 +7,8 @@
     "back": "Назад",
     "delivery": "Доставка",
     "selfCare": "Самовывоз",
+    "selfCareDetailed": "Время приготовления",
+    "orderType": "Способ получения",
     "gr": "гр",
     "clear": "Очистить",
     "bucket": "Корзина",
@@ -27,7 +29,8 @@
     "delete": "Удалить",
     "cancel": "Отмена",
     "continue": "Продолжить",
-    "noReview": "Мало отзывов"
+    "noReview": "Мало отзывов",
+    "description": "Описание"
   },
 
   "Login": {
@@ -108,9 +111,9 @@
     "dishesName": "Названия блюд",
     "price": "Цена",
     "status": "Статус",
-    "changeAddressSettings": "Adresiňiziň maglumatyny uýtgetmek",
+    "changeAddressSettings": "Изменить параметры адреса",
     "city": "Город",
-    "streetHouse": "Улица / дом",
+    "houseNumber": " Дом",
     "appartmentOffice": "Квартра / офис"
   },
 
@@ -121,8 +124,8 @@
     "phone": "Введите номер телефон",
     "enterDistrict": "Введите ваш район",
     "enterCity": "Введите ваш город",
-    "enterStreetHouse": "Введите вашу улицу / дом",
-    "enterAppartmentOffice": "Введите вашу квартиру / офис"
+    "enterHouseNumber": "Введите номер вашего дома",
+    "enterAppartmentOffice": "Введите номер квартиры / офис"
   },
 
   "Categories": {

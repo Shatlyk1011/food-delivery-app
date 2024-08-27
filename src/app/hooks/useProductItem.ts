@@ -2,6 +2,7 @@
 import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom, useSetAtom } from "jotai";
 
+//MEMOIZE
 import { DEFAULT_RESTAURANT_INFO } from "../data";
 import useToast from "./useToast";
 
@@ -40,7 +41,7 @@ const useProductItem = () => {
 
   const addItem = (itemToAdd: any, restaurantInfo: RestaurantLocalInfo) => {
     const last = selectedItems.dishes.at(-1);
-    if (last?.restaurant.id && last?.restaurant.id !== restaurantInfo.id) {
+    if (last?.restaurant.id !== restaurantInfo.id) {
       setClearModal(true);
       return;
     }

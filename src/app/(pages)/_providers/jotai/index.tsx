@@ -10,7 +10,7 @@ const query = atom("");
 
 const selectedCity = atomWithStorage("CITY", "Turkmenabat");
 const selectedItems = atomWithStorage<RestaurantWithDishesInfo>("DISHES", DEFAULT_RESTAURANT_INFO);
-const userProfile = atomWithStorage<UserData | {}>("USER_PROFILE", {});
+const userProfile = atomWithStorage<UserData | null>("USER_PROFILE", null);
 
 const atoms = {
   isSidebarOpen,

@@ -1,7 +1,7 @@
 type LoginCredentials = { email: string; password: string };
 type LoginResponse = { exp: number; token: string; user: any };
 
-type UserData = { name: string; phone: string };
+type UserData = { id: string; name: string; phone: string; addresses: AddressData[] };
 
 type PaginationMeta = {
   page: number;
@@ -26,3 +26,11 @@ interface RestaurantWithDishesInfo {
   dishes: any[];
   isDelivery: boolean;
 }
+
+type AddressData = {
+  city: string;
+  district: string;
+  houseNumber: string;
+  apartment: string;
+  phoneNumber?: number;
+};

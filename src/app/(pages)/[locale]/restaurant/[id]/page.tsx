@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 
@@ -20,6 +20,8 @@ const ClearCartModal = dynamic(() => import("@/app/widgets/RestaurantPage/ClearC
 
 import ProductSkeleton from "@/app/widgets/RestaurantPage/Product/Skeleton";
 
+const AboutProduct = dynamic(() => import("@/app/widgets/RestaurantPage/Product/AboutProduct"));
+
 export default function Home({ params: { id } }) {
   const t = useTranslations();
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
@@ -28,6 +30,7 @@ export default function Home({ params: { id } }) {
   const { restaurantInfo, withCategories, getRestaurant, isPending } = useGetRestaurantById();
   const { addItem, clearItems } = useProductItem();
 
+  const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
   const closeModal = () => {
     setIsClearModal(false);
   };
@@ -74,6 +77,7 @@ export default function Home({ params: { id } }) {
                             <Product
                               key={d.id}
                               dish={d}
+                              handleDish={() => setSelectedDish(d)}
                               addItem={() => addItem(d, { id, name: title, deliveryPrice, isDelivery })}
                               addTitle={t("Index.add")}
                             />
@@ -99,6 +103,7 @@ export default function Home({ params: { id } }) {
             </div>
           </aside>
         </div>
+        {selectedDish && <AboutProduct dish={selectedDish} handleClose={() => setSelectedDish(null)} t={t} />}
       </div>
       {isClearModal && (
         <ClearCartModal

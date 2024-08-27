@@ -1,9 +1,12 @@
 import { FC } from "react";
 
+import { useAtom } from "jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
+
 //components
 import { FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
 import Input from "@/app/components/shared-ui/Input";
-import CitySelect from "./CitySelect";
+import AddressSelect from "./AddressSelect";
 
 import { BUCKET_INPUTS } from "@/app/components/../data";
 
@@ -13,20 +16,20 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ form, t }) => {
+  const [userProfile, setUserProfile] = useAtom(atoms.userProfile);
+
+  const handleAddress = (address: AddressData) => {
+    const { district, houseNumber, apartment, phoneNumber } = address;
+
+    form.setValue("district", district);
+    form.setValue("houseNumber", houseNumber);
+    form.setValue("apartment", apartment);
+    form.setValue("phoneNumber", phoneNumber + "");
+  };
+
   return (
     <div>
-      <FormField
-        control={form.control}
-        name="city"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <CitySelect {...field} onChange={field.onChange} value={field.value} className="mb-3" t={t} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <AddressSelect userProfile={userProfile} setUserProfile={setUserProfile} onChange={handleAddress} t={t} />
       <div className="my-3 grid grid-cols-4 grid-rows-3 gap-3 md:grid-rows-4">
         {BUCKET_INPUTS.map(({ name, placeholder, styles, maxLength, type }) => (
           <FormField
