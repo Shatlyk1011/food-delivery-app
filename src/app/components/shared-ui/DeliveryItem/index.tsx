@@ -13,14 +13,15 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ t, isDelivery, deliveryTime, deliveryTitle, deliveryPrice, isDeliveryFree }) => {
-  console.log("deliveryPrice", deliveryPrice);
   return (
     <div className="flex flex-1 items-center gap-2.5  bg-bg-1">
       <div className="h-12 w-12 rounded-[14px] bg-bg-2 p-3">
         {isDelivery ? <MotocycleIcon width={24} height={24} /> : <WalkIcon />}
       </div>
+
       <p className={`text-sm font-medium leading-3 ${isDeliveryFree && "text-success"}`}>
-        {deliveryTitle} {deliveryPrice} {deliveryTime && `${deliveryTime - 10} - ${deliveryTime + t("Index.min")}`}
+        {deliveryTitle} {deliveryPrice && deliveryPrice}
+        {!isNaN(deliveryTime) && `${deliveryTime - 10} - ${deliveryTime + t("Index.min")}`}
       </p>
     </div>
   );

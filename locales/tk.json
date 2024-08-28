@@ -152,11 +152,16 @@
     "invalidEntrance": "Podyezdy girelge ýazyň (bar bolsa)",
     "invalidComment": "Salgyny tapmagy aňsatlaşdyrmak üçin kurýerde teswir ýazyň"
   },
-  "Errors": {},
+  "Errors": {
+    "somethingWentWrong": "Birzat nädogry boldy, gaýtadan synanyşyp gorüň..."
+  },
 
   "Actions": {
     "logoutUser": "Üstünlikli çykyş",
     "maxAvailableAmount": "Elýeterli önümiň iň köp mukdaryny goşduňyz.",
-    "noDeliveryAvailable": "Häzirki wagtda bu restoranda dostawka ýok."
+    "noDeliveryAvailable": "Häzirki wagtda bu restoranda dostawka ýok.",
+    "loginToAddAddresses": "Öz salgylaryňyzy görmek ücin profiliňize girmegiňizi haýyş edýäris.",
+    "loginToOrder": "Sargyt etmek üçin sistema girmegiňizi haýyş edýäris.",
+    "chooseRestaurant": "Restoran saýlamagyňyzy haýyş edýäris."
   }
 }

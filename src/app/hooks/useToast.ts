@@ -6,7 +6,6 @@ const useToast = () => {
   const t = useTranslations();
 
   const handleToast = (msg: string, type: ToastTypes = "success", props?: ToasterProps) => {
-    console.log("msg", msg);
     toast[type](t(msg), { ...props });
   };
   return handleToast;

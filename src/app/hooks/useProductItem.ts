@@ -15,7 +15,7 @@ const useProductItem = () => {
     const increasedCount = selectedItems.dishes.map((item) => {
       if (item.id === itemToIncrease.id) {
         if (item.count === item.availableAmount) {
-          toast("Actions.maxAvailableAmount", "info", { position: "top-center" });
+          toast("Actions.maxAvailableAmount", "info", { position: "bottom-center" });
           return item;
         }
         return { ...item, count: item.count + 1 };
@@ -40,8 +40,8 @@ const useProductItem = () => {
   };
 
   const addItem = (itemToAdd: any, restaurantInfo: RestaurantLocalInfo) => {
-    const last = selectedItems.dishes.at(-1);
-    if (last?.restaurant.id !== restaurantInfo.id) {
+    const last = selectedItems?.dishes?.at(-1);
+    if (last && last.restaurant.id !== restaurantInfo.id) {
       setClearModal(true);
       return;
     }
@@ -54,9 +54,6 @@ const useProductItem = () => {
         isDelivery: restaurantInfo.isDelivery,
       });
     }
-    // if (selectedItems.dishes.length > 0 && !selectedItems.restaurantInfo.id) {
-    //   clearItems();
-    // }
   };
 
   const toggleDelivery = (isDelivery: boolean) => {

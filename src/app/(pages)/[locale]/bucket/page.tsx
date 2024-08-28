@@ -20,6 +20,7 @@ import { useBucketFormScheme } from "@/app/hooks/formSchemes";
 import useProductItem from "@/app/hooks/useProductItem";
 import { useGetRestaurantById } from "@/app/services/useRestaurants";
 import { useOrders } from "@/app/services/useOrders";
+import useToast from "@/app/hooks/useToast";
 
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -28,17 +29,19 @@ export default function Bucket() {
   const queryClient = useQueryClient();
   const userProfile = useAtomValue(atoms.userProfile);
 
+  const toast = useToast();
+
   const { form } = useBucketFormScheme();
   const { restId, selectedItems, totalPrice, isDelivery, maxCookTime } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
   const { handleOrder } = useOrders();
 
   const handleOrderSubmit = async (values: OrderForm) => {
-    if (restaurantInfo.id) {
+    if (restaurantInfo?.id && userProfile?.id) {
       const { apartment, district, houseNumber, phoneNumber, comment } = values;
 
       handleOrder({
-        orderedByUser: "userProfile.id",
+        orderedByUser: userProfile.id,
         apartment,
         district,
         restaurantID: restaurantInfo.id,
@@ -54,12 +57,14 @@ export default function Bucket() {
       });
     } else {
       // snackbar error message
+      toast("Errors.somethingWentWrong", "warning", { duration: 3000 });
       localStorage.clear();
     }
   };
 
   useEffect(() => {
     if (restId && !restaurantInfo) {
+      //fetch restaurant data and user profile again
       getRestaurant(restId);
       queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     }
@@ -79,7 +84,6 @@ export default function Bucket() {
                   form={form}
                   t={t}
                   isDelivery={isDelivery}
-                  deliveryPrice={restaurantInfo?.deliveryPrice}
                   deliveryTime={isDelivery ? restaurantInfo?.deliveryTime.slice(1) : maxCookTime}
                 />
               </div>

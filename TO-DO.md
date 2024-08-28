@@ -48,6 +48,7 @@
 - mobile sidebar, login, logout states
 - if availabelAmount === 0, disable dish
 - profile interval order fetch (tailwind ping)
+- redirect to main page, if last item were deleted in bucket page
 
 ## backlog
 

@@ -110,7 +110,7 @@ export default function Home({ params: { id } }) {
           t={t}
           handleClear={handleClear}
           close={closeModal}
-          selectedRest={selectedItems.dishes.at(-1).restaurant.title}
+          selectedRest={selectedItems.dishes.at(-1)?.restaurant.title}
           currentRest={restaurantInfo.title}
         />
       )}
