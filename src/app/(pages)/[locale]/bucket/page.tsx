@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 
 //jotai
 import { useAtomValue } from "jotai";
-import atoms from "../../_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 //widgets
 import BucketForm from "@/app/widgets/BucketPage/BucketForm";
@@ -19,7 +19,7 @@ import { RESTAURANT_BUCKET } from "@/app/services/query/restaurantQuery";
 import { useBucketFormScheme } from "@/app/hooks/formSchemes";
 import useProductItem from "@/app/hooks/useProductItem";
 import { useGetRestaurantById } from "@/app/services/useRestaurants";
-import { useOrders } from "@/app/services/useOrders";
+import { useOrderSubmit } from "@/app/services/useOrders";
 import useToast from "@/app/hooks/useToast";
 
 import { useQueryClient } from "@tanstack/react-query";
@@ -34,7 +34,7 @@ export default function Bucket() {
   const { form } = useBucketFormScheme();
   const { restId, selectedItems, totalPrice, isDelivery, maxCookTime } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
-  const { handleOrder } = useOrders();
+  const { handleOrder } = useOrderSubmit();
 
   const handleOrderSubmit = async (values: OrderForm) => {
     if (restaurantInfo?.id && userProfile?.id) {

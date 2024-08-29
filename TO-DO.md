@@ -13,14 +13,16 @@
 
 ✅ - make restaurant blockable
 
-- add filter orders in profile
-- interval fetch orders
-- dish isChange flag
+- find default imgs for dish and banner
+
+<!-- - add filter orders in profile -->
+- ✅ interval fetch orders
+<!-- - dish isChange flag -->
   ✅ - order statuses
 
 - categories for dishes and restaurants (names)
 - add description in collections
-- request orders by users id in profile page (interval)
+- ✅ request orders by users id in profile page (interval)
 <!-- ex: https://github.com/payloadcms/public-demo/blob/master/src/payload/collections/Media.ts -->
 
 - test test test
@@ -30,18 +32,17 @@
 ✅ - enable auth
 ✅ - fix all form translates, validations
 -button states (loading, pending, disabled)
-
-- add snackbar
+- Check Mini Items UI Data
+✅ - add snackbar
 - free delivery ui (yx-eat)
-- add filter ui in profile
-- if count > totalAmount, show snackbar with warning
+<!-- - add filter ui in profile -->
+✅ - if count > totalAmount, show snackbar with warning
 - self care address message
 - Footer modals (feedback, report)
-- profile page (with add/remove addresses)
-- connect with backend;
-- dishes info modal (on click, lazy load)
+<!-- - profile page (with add/remove addresses) -->
+✅- dishes info modal (on click, lazy load)
 - is delivery state on bucket page
-- komentary restoranu (input)
+✅- komentary restoranu (input)
 - free after amount ui block in id page
 - localstorage timestamp
 - bucket form submittion modal ()
@@ -49,7 +50,7 @@
 - if availabelAmount === 0, disable dish
 - profile interval order fetch (tailwind ping)
 - redirect to main page, if last item were deleted in bucket page
-
+- restaurant by id. if no restaurant, show no rest ui
 ## backlog
 
 - phone validation

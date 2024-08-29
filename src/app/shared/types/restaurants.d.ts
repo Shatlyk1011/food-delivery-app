@@ -14,6 +14,13 @@ interface MainPageRestaurant {
   };
 }
 
+interface RestaurantLocalInfo {
+  id: string;
+  name: string;
+  deliveryPrice: number;
+  isDelivery: boolean;
+}
+
 interface Categories {
   title: string;
 }
@@ -56,6 +63,10 @@ interface Dish {
   gram: number;
   availableAmount: number;
   cookTime: number;
+  categories?: {
+    id: string
+    title: string
+  }
   image: {
     url: string;
     alt: string;

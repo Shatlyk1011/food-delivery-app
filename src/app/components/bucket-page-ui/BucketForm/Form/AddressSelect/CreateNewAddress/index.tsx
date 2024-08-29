@@ -86,8 +86,8 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
                 {/* <DialogClose className="rounded-md border border-error bg-bg-1 px-4 py-2 text-error hover:bg-error hover:text-white">
                   {t("Index.delete")}
                 </DialogClose> */}
-                <DialogClose asChild type="button">
-                  <Button disabled={true} type="button">
+                <DialogClose asChild >
+                  <Button  type="button">
                     {t("Index.add")}
                   </Button>
                 </DialogClose>

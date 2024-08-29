@@ -40,8 +40,8 @@ const useProductItem = () => {
   };
 
   const addItem = (itemToAdd: any, restaurantInfo: RestaurantLocalInfo) => {
-    const last = selectedItems?.dishes?.at(-1);
-    if (last && last.restaurant.id !== restaurantInfo.id) {
+    const last = selectedItems?.dishes.at(-1);
+    if (last && last.restaurant?.id !== restaurantInfo.id) {
       setClearModal(true);
       return;
     }

@@ -259,10 +259,13 @@ const Orders: CollectionConfig = {
           throw new Error("Что то пошло не так. Выбранные блюда не найдены.");
         }
 
-        data.dishes = foundDishes.docs?.map((dish) => ({
+        const findAndCountDishes = foundDishes.docs?.map((dish) => ({
           dish: dish.id,
           quantity: dishes.find((d: any) => d.id === dish.id)?.quantity || 1,
         }));
+        // ??? use this data for total amount. reduce amount of operations
+        console.log('findAndCountDishes',findAndCountDishes)
+        data.dishes = findAndCountDishes
 
         const totalAmount = foundDishes.docs.reduce((acc, dish) => {
           const quantity = dishes.find((d) => d.id === dish.id)?.quantity || 1;

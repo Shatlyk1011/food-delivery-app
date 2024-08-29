@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 //jotai
-import { useAtom, useAtomValue } from "jotai";
-import atoms from "../_providers/jotai";
+import { useAtom } from "jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 //services
 import { useGetCategories } from "@/app/services/useCategories";

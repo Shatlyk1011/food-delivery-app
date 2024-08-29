@@ -17,6 +17,29 @@ interface OrderData {
   city?: string;
 }
 
+interface UserOrder {
+  id: string
+  district: string
+  apartment: string
+  houseNumber: number
+  orderStatus: OrderStatus
+  isDelivery:boolean
+  totalAmount: number
+  restaurantName: string
+  dishes: {
+    quantity: number 
+    dish: {
+      title: string
+      price: number
+      image: {
+        url: string
+        alt: string
+      }
+    }
+  }[]
+  createdAt: string
+}
+
 interface OrderForm {
   apartment: string;
   city: string;

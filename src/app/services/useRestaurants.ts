@@ -57,6 +57,8 @@ export const useGetRestaurantById = (schema?: string) => {
       console.log("data.data.Restaurant", data.data.Restaurant);
       return data.data.Restaurant;
     },
+    // ???
+    onError:(err) => console.log('ID',err)
   });
 
   const withCategories: WithCategories[] = data?.dishes?.reduce((acc, dish) => {

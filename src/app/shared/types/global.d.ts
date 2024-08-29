@@ -15,13 +15,6 @@ interface TitleValue {
   value: string;
 }
 
-interface RestaurantLocalInfo {
-  id: string;
-  name: string;
-  deliveryPrice: number;
-  isDelivery: boolean;
-}
-
 interface RestaurantWithDishesInfo {
   dishes: any[];
   isDelivery: boolean;
@@ -34,3 +27,5 @@ type AddressData = {
   apartment: string;
   phoneNumber?: number;
 };
+
+type OrderStatus = 'pending' | 'recieved' | 'sended' | 'delivered'

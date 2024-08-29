@@ -259,6 +259,9 @@ const Restaurants: CollectionConfig = {
       hasMany: true,
       relationTo: "dishes",
       type: "relationship",
+      admin: {
+        position: 'sidebar'
+      }
     },
     {
       name: "budgetCategory",
@@ -292,7 +295,7 @@ const Restaurants: CollectionConfig = {
         read: () => true,
         update: admins,
       },
-      defaultValue: false,
+      defaultValue: true,
       label: "Заблокировано",
       required: false,
       type: "checkbox",
@@ -303,7 +306,7 @@ const Restaurants: CollectionConfig = {
         read: () => true,
         update: admins,
       },
-      label: "Чей ресторан?",
+      label: "Какой ресторан?",
       relationTo: "customers",
       required: true,
       type: "relationship",
@@ -322,6 +325,21 @@ const Restaurants: CollectionConfig = {
       type: "relationship",
     },
   ],
+  hooks: {
+    beforeRead: [
+      async ({ doc, req,  }) => {
+        if(checkRole(['admin', "author"], req.user)) {
+          return doc
+        }
+
+        if(doc.isBlocked) {
+          throw new Error('Errors.isBlocked')
+        }
+
+        return doc;
+      },
+    ],
+  },
   labels: { plural: "Рестораны", singular: "Ресторан" },
   slug: "restaurants",
 };

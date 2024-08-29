@@ -2,7 +2,6 @@
 //   in: { title: "all" }
 // }
 
-//shared/types/restaurants
 export const RESTAURANTS = `
   query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String, $query:String) {
     Restaurants(
@@ -35,7 +34,6 @@ export const RESTAURANTS = `
   }
 `;
 
-//shared/types/restaurantId
 export const RESTAURANT = `
   query Restaurant($id: String!) {
     Restaurant(id: $id) {
@@ -98,7 +96,6 @@ export const RESTAURANT_BUCKET = `
   }
 `;
 
-//shared/types/restaurants
 export const CATEGORIES = `
   query Categories($limit: Int!,) {
     Categories(limit: $limit) {

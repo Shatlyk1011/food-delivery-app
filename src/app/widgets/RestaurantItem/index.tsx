@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from "react";
+import { FC } from "react";
 
 import { Link } from "@/app/(pages)/_providers/i18n/i18config";
 
@@ -28,8 +28,8 @@ const computedPriceNumber = (budgetCategory: string) => {
 
 const Index: FC<Props> = ({ item, t }) => {
   return (
-    <div className="inline-block px-4 pb-5 xl:px-2">
-      <figure className="relative mb-2 max-h-52 min-h-52  cursor-pointer overflow-hidden rounded-[14px]">
+    <div className="inline-block relative px-4 pb-5 xl:px-2" >
+      <figure tabIndex={0} className="relative focus:outline-none focus:ring-4 w-full h-full focus:ring-text-2 focus:ring-offset-2 mb-2 max-h-52 min-h-52 cursor-pointer overflow-hidden rounded-[14px]" >
         <Link href={`/restaurant/${item.id}`} className="">
           <img
             className="absolute inset-0 h-full w-full bg-gray-2 object-cover"

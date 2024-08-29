@@ -55,7 +55,7 @@ export default function Home({ params: { id } }) {
             />
 
             <div className="basis-[80%] md:basis-full">
-              {/* {restaurantInfo === null && <p>По вашему запросу, ничего не найдено</p>} */}
+              {restaurantInfo === null && <p>По вашему запросу, ничего не найдено</p>}
               {restaurantInfo && (
                 <Banner
                   bannerUrl={restaurantInfo?.bannerImage?.url}

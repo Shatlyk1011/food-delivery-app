@@ -1,6 +1,6 @@
 "use client";
 import { useProfileFormScheme } from "@/app/hooks/formSchemes";
-//Components
+//components
 import Button from "@/app/components/shared-ui/Button";
 import Input from "@/app/components/shared-ui/Input";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
