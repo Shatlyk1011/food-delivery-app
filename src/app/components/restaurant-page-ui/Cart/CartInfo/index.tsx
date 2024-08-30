@@ -8,10 +8,10 @@ interface Props {
   isDelivery: boolean;
   t: any;
   deliveryPrice: number;
-  deliveryTime: number;
+  selfCareTime: number;
 }
 
-const Index: FC<Props> = ({ isDelivery, t, deliveryPrice, deliveryTime }) => {
+const Index: FC<Props> = ({ isDelivery, t, deliveryPrice, selfCareTime }) => {
   return (
     <div className="mb-2.5 flex items-center gap-2.5 bg-bg-1">
       {isDelivery ? (
@@ -22,7 +22,7 @@ const Index: FC<Props> = ({ isDelivery, t, deliveryPrice, deliveryTime }) => {
           deliveryTitle={t("Index.delivery")}
         />
       ) : (
-        <DeliveryItem t={t} isDelivery={isDelivery} deliveryTime={deliveryTime} deliveryTitle={t("Index.selfCare")} />
+        <DeliveryItem t={t} isDelivery={isDelivery} deliveryTime={selfCareTime} deliveryTitle={t("Index.selfCare")} />
       )}
       <InfoIcon className="h-6 w-6 cursor-text fill-text-4" width={24} height={24} />
     </div>

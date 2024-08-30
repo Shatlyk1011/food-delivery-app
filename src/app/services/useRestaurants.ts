@@ -58,7 +58,7 @@ export const useGetRestaurantById = (schema?: string) => {
       return data.data.Restaurant;
     },
     // ???
-    onError:(err) => console.log('ID',err)
+    onError: (err) => console.log("ID", err),
   });
 
   const withCategories: WithCategories[] = data?.dishes?.reduce((acc, dish) => {
@@ -67,7 +67,7 @@ export const useGetRestaurantById = (schema?: string) => {
     let categoryObj = acc.find((item) => item.title === category);
 
     if (!categoryObj) {
-      categoryObj = { category: category, dishes: [] };
+      categoryObj = { category, dishes: [] };
       acc.push(categoryObj);
     }
 

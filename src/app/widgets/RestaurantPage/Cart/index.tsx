@@ -49,12 +49,16 @@ const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
         </button>
       </div>
 
-      <CartTabs
-        t={t}
-        handleChange={toggleDelivery}
-        isDelivery={hasSelectedRestDelivery}
-        selectedDelivery={hasSelectedRestDelivery ? selectedDelivery : false}
-      />
+      {selectedItems?.dishes.length > 0 && (
+        <CartTabs
+          t={t}
+          handleChange={toggleDelivery}
+          isDelivery={hasSelectedRestDelivery}
+          selectedDelivery={hasSelectedRestDelivery ? selectedDelivery : false}
+        />
+      )}
+
+      {!selectedItems.dishes.length && <p>Вы еще ничего не добавляли</p>}
 
       <ul className="perfect-scrollbar h-[calc(100vh-430px)] space-y-4 p-4 pt-0">
         {selectedItems?.dishes?.map((item, index) => (
@@ -67,15 +71,17 @@ const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
         ))}
       </ul>
 
-      <div className="mx-4 mb-6 border-t border-text-4 pt-4">
-        <CartInfo
-          deliveryTime={maxCookTime}
-          deliveryPrice={restaurantInfo?.deliveryPrice}
-          isDelivery={selectedDelivery}
-          t={t}
-        />
-        <CartButton submitTitle={t("Index.toBucket")} total={totalPrice} />
-      </div>
+      {selectedItems?.dishes.length > 0 && (
+        <div className="mx-4 mb-6 border-t border-text-4 pt-4">
+          <CartInfo
+            selfCareTime={maxCookTime}
+            deliveryPrice={restaurantInfo?.deliveryPrice}
+            isDelivery={selectedDelivery}
+            t={t}
+          />
+          <CartButton submitTitle={t("Index.toBucket")} total={totalPrice} />
+        </div>
+      )}
     </div>
   );
 };

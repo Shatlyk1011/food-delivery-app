@@ -15,7 +15,7 @@ const Index: FC<Props> = ({ dish, addItem, addTitle, handleDish }) => {
     <div className="m-1 max-w-full rounded-[14px] bg-bg-1 p-3 md:p-2">
       <div className=" relative mb-2.5 h-44 w-full overflow-hidden rounded-[14px] " onClick={handleDish}>
         <Image
-          className="hover:brightness-115 duration-200"
+          className="cursor-pointer duration-200 hover:brightness-110"
           objectFit="cover"
           src={dish.image.url}
           fill={true}
