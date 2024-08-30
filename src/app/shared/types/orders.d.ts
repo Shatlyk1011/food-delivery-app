@@ -17,27 +17,32 @@ interface OrderData {
   city?: string;
 }
 
+interface OrderResponse {
+  id: string;
+  totalAmount: 972;
+}
+
 interface UserOrder {
-  id: string
-  district: string
-  apartment: string
-  houseNumber: number
-  orderStatus: OrderStatus
-  isDelivery:boolean
-  totalAmount: number
-  restaurantName: string
+  id: string;
+  district: string;
+  apartment: string;
+  houseNumber: number;
+  orderStatus: OrderStatus;
+  isDelivery: boolean;
+  totalAmount: number;
+  restaurantName: string;
   dishes: {
-    quantity: number 
+    quantity: number;
     dish: {
-      title: string
-      price: number
+      title: string;
+      price: number;
       image: {
-        url: string
-        alt: string
-      }
-    }
-  }[]
-  createdAt: string
+        url: string;
+        alt: string;
+      };
+    };
+  }[];
+  createdAt: string;
 }
 
 interface OrderForm {

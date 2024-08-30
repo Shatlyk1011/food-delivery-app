@@ -7,13 +7,14 @@ import DeliveryItem from "@/app/components/shared-ui/DeliveryItem";
 import Link from "next/link";
 
 interface Props {
-  t: any;
   form: any;
-  isDelivery: boolean;
   deliveryTime: string | number;
+  isDelivery: boolean;
+  handleCriticalErrors: () => void;
+  t: any;
 }
 
-const Index: FC<Props> = ({ form, isDelivery, t, deliveryTime }) => {
+const Index: FC<Props> = ({ form, deliveryTime, isDelivery, handleCriticalErrors, t }) => {
   return (
     <div>
       <h2 className="le/ading-6 mb-2.5 text-2xl font-bold md:text-base">{t("BucketForm.fillForm")}</h2>
@@ -40,6 +41,7 @@ const Index: FC<Props> = ({ form, isDelivery, t, deliveryTime }) => {
           ) : (
             <Link
               href="/"
+              onClick={handleCriticalErrors}
               className="border-b border-[transparent] text-sm font-medium text-text-3 transition hover:border-[currentColor]"
             >
               {t("Actions.chooseRestaurant")}

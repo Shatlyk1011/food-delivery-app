@@ -9,9 +9,10 @@ interface Props {
   deliveryPrice: number;
   restaurantTitle: string;
   restaurantId: string;
+  disabled: boolean;
 }
 
-const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaurantTitle, restaurantId }) => {
+const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaurantTitle, restaurantId, disabled }) => {
   return (
     <div className="w-full rounded-[32px] bg-bg-1 p-8 md:rounded-3xl md:p-6 sm:p-4">
       <h5 className="mb-2.5 border-b border-gray-1 pb-2.5 text-xl font-medium leading-6 sm:text-lg">
@@ -47,8 +48,9 @@ const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaura
 
       <button
         type="submit"
+        disabled={disabled}
         onSubmit={onSubmit}
-        className="h-12 w-full rounded-[14px] bg-primary px-3 text-center font-medium leading-[48px] hover:bg-accent sm:h-10 sm:leading-[40px]"
+        className="h-12 w-full rounded-[14px] bg-primary px-3 text-center font-medium leading-[48px] hover:bg-accent disabled:cursor-not-allowed disabled:bg-black/10 disabled:text-black/50 sm:h-10 sm:leading-[40px]"
       >
         {t("BucketPage.submit")}
       </button>

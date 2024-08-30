@@ -58,10 +58,11 @@ const Customers: CollectionConfig = {
 
     {
       name: "restaurant",
-      admin: {
-        hidden: true,
-      },
       hasMany: true,
+      access: {
+        read: admins,
+        update: admins,
+      },
       label: "Ресторан",
       relationTo: "restaurants",
       type: "relationship",

@@ -32,15 +32,20 @@ export default function Bucket() {
   const toast = useToast();
 
   const { form } = useBucketFormScheme();
-  const { restId, selectedItems, totalPrice, isDelivery, maxCookTime } = useProductItem();
+  const { restId, selectedItems, totalPrice, clearItems, isDelivery, maxCookTime } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
-  const { handleOrder } = useOrderSubmit();
+  const { handleOrder, isSubmitPending } = useOrderSubmit();
+
+  const handleCriticalErrors = () => {
+    clearItems();
+    localStorage.clear();
+  };
 
   const handleOrderSubmit = async (values: OrderForm) => {
     if (restaurantInfo?.id && userProfile?.id) {
       const { apartment, district, houseNumber, phoneNumber, comment } = values;
 
-      handleOrder({
+      const res = await handleOrder({
         orderedByUser: userProfile.id,
         apartment,
         district,
@@ -55,12 +60,17 @@ export default function Bucket() {
           quantity: Math.min(count, availableAmount),
         })),
       });
+      //order response
+      if (res.id) {
+        // toast('success')
+      }
+      console.log("res", res);
     } else if (!userProfile) {
       toast("Actions.loginToOrder", "info", { duration: 3000 });
     } else {
       // snackbar error message
       toast("Errors.somethingWentWrong", "warning", { duration: 3000 });
-      localStorage.clear();
+      handleCriticalErrors();
     }
   };
 
@@ -87,6 +97,7 @@ export default function Bucket() {
                   t={t}
                   isDelivery={isDelivery}
                   deliveryTime={isDelivery ? restaurantInfo?.deliveryTime.slice(1) : maxCookTime}
+                  handleCriticalErrors={handleCriticalErrors}
                 />
               </div>
               <div className="">
@@ -102,6 +113,7 @@ export default function Bucket() {
                 t={t}
                 totalPrice={totalPrice}
                 deliveryPrice={isDelivery && restaurantInfo?.deliveryPrice}
+                disabled={isSubmitPending}
               />
             </div>
           </form>

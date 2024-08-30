@@ -17,9 +17,9 @@ const Index: FC<Props> = ({ dish, addItem, addTitle, handleDish }) => {
         <Image
           className="cursor-pointer duration-200 hover:brightness-110"
           objectFit="cover"
-          src={dish.image.url}
+          src={dish.image?.url || ""}
           fill={true}
-          alt={dish.image.alt}
+          alt={dish.image?.alt || "Тут должно было быть изображение"}
         />
       </div>
 

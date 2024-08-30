@@ -15,7 +15,7 @@ const Index: FC<Props> = ({ item, decrease, increase }) => {
     <div className="py-2.5">
       <div className="flex flex-wrap space-x-2">
         <div className="relative h-20 w-20 overflow-hidden rounded-xl">
-          <Image src={item.image.url} objectFit="cover" fill={true} alt="alt name" />
+          <Image src={item.image?.url || ""} objectFit="cover" fill={true} alt="alt name" />
         </div>
         <div className="flex flex-1 justify-between space-y-1">
           <div>

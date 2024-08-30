@@ -264,8 +264,8 @@ const Orders: CollectionConfig = {
           quantity: dishes.find((d: any) => d.id === dish.id)?.quantity || 1,
         }));
         // ??? use this data for total amount. reduce amount of operations
-        console.log('findAndCountDishes',findAndCountDishes)
-        data.dishes = findAndCountDishes
+        console.log("findAndCountDishes", findAndCountDishes);
+        data.dishes = findAndCountDishes;
 
         const totalAmount = foundDishes.docs.reduce((acc, dish) => {
           const quantity = dishes.find((d) => d.id === dish.id)?.quantity || 1;

@@ -31,9 +31,11 @@
 
 ## client
 
-✅ - enable auth
-✅ - fix all form translates, validations
+✅- enable auth
+✅- fix all form translates, validations
 
+- default images
+- hide search if its not in main page
 - button states (loading, pending, disabled)
 - Check Mini Items UI Data
   ✅ - add snackbar

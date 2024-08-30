@@ -13,7 +13,7 @@ const Index: FC<Props> = ({ item, increaseItem, decreaseItem }) => {
   return (
     <div className="flex items-center space-x-2">
       <div className="relative h-16 w-16 overflow-hidden rounded-xl">
-        <Image src={item.image.url} objectFit="cover" fill={true} alt="dish photo" />
+        <Image src={item.image?.url || ""} objectFit="cover" fill={true} alt="dish photo" />
       </div>
 
       <div className="flex-1 self-start">
