@@ -6,7 +6,9 @@
     "city": "Город",
     "back": "Назад",
     "delivery": "Доставка",
+    "deliveryDetailed": "Время доставки",
     "selfCare": "Самовывоз",
+    "selfCareTitle": "Место получения",
     "selfCareDetailed": "Время приготовления",
     "orderType": "Способ получения",
     "gr": "гр",
@@ -96,7 +98,9 @@
     "menuReturn": "Вернуться к списку ресторанов",
     "clearTrash": "Очистить корзину",
     "yesClear": "Очистить",
-    "noClear": "Нет, оставить"
+    "noClear": "Нет, оставить",
+    "restaurantComment": "Коментарий ресторану",
+    "restaurantCommentPlaceholder": "Можете написать пожелания к своему заказу..."
   },
 
   "ProfilePage": {

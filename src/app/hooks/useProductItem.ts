@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 //jotai
 import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom, useSetAtom } from "jotai";
@@ -11,73 +12,94 @@ const useProductItem = () => {
 
   const [selectedItems, setSelectedItems] = useAtom(atoms.selectedItems);
   const setClearModal = useSetAtom(atoms.isClearBucketModal);
-  const increaseItem = (itemToIncrease: any) => {
-    const increasedCount = selectedItems.dishes.map((item) => {
-      if (item.id === itemToIncrease.id) {
-        if (item.count === item.availableAmount) {
-          toast("Actions.maxAvailableAmount", "info", { position: "bottom-center" });
-          return item;
+
+  const increaseItem = useCallback((itemToIncrease: any) => {
+    setSelectedItems((prev) => {
+      const increasedCount = prev.dishes.map((item) => {
+        if (item.id === itemToIncrease.id) {
+          if (item.count === item.availableAmount) {
+            toast("Actions.maxAvailableAmount", "info", { position: "bottom-left" });
+            return item;
+          }
+          return { ...item, count: item.count + 1 };
         }
-        return { ...item, count: item.count + 1 };
-      } else return item;
-    });
-    setSelectedItems((prev) => ({ ...prev, dishes: increasedCount }));
-  };
-
-  const decreaseItem = (itemToDecrease: any) => {
-    const filteredItems = selectedItems.dishes.filter((item) => {
-      if (item.id === itemToDecrease.id && item.count === 1) return false;
-      return true;
-    });
-
-    const updatedItems = filteredItems.map((item) => {
-      if (item.id === itemToDecrease.id && item.count > 1) {
-        return { ...item, count: item.count - 1 };
-      }
-      return item;
-    });
-    setSelectedItems((prev) => ({ ...prev, dishes: updatedItems }));
-  };
-
-  const addItem = (itemToAdd: any, restaurantInfo: RestaurantLocalInfo) => {
-    const last = selectedItems?.dishes.at(-1);
-    if (last && last.restaurant?.id !== restaurantInfo.id) {
-      setClearModal(true);
-      return;
-    }
-    const exists = selectedItems.dishes.find((item) => item.id === itemToAdd.id);
-    if (exists) {
-      increaseItem(itemToAdd);
-    } else {
-      setSelectedItems({
-        dishes: [...selectedItems.dishes, { ...itemToAdd, count: 1 }],
-        isDelivery: restaurantInfo.isDelivery,
+        return item;
       });
-    }
-  };
+      return { ...prev, dishes: increasedCount };
+    });
+  }, []);
 
-  const toggleDelivery = (isDelivery: boolean) => {
-    setSelectedItems((prev) => ({
-      ...prev,
-      isDelivery,
-    }));
-  };
+  const decreaseItem = useCallback(
+    (itemToDecrease: any) => {
+      setSelectedItems((prev) => {
+        const filteredItems = prev.dishes.filter((item) => {
+          if (item.id === itemToDecrease.id && item.count === 1) return false;
+          return true;
+        });
 
-  const clearItems = () => {
+        const updatedItems = filteredItems.map((item) => {
+          if (item.id === itemToDecrease.id && item.count > 1) {
+            return { ...item, count: item.count - 1 };
+          }
+          return item;
+        });
+
+        return { ...prev, dishes: updatedItems };
+      });
+    },
+    [setSelectedItems],
+  );
+
+  const addItem = useCallback(
+    (itemToAdd: any, restaurantInfo: RestaurantLocalInfo) => {
+      const last = selectedItems?.dishes.at(-1);
+      if (last && last.restaurant?.id !== restaurantInfo.id) {
+        setClearModal(true);
+        return;
+      }
+
+      const exists = selectedItems.dishes.find((item) => item.id === itemToAdd.id);
+      if (exists) {
+        increaseItem(itemToAdd);
+      } else {
+        setSelectedItems((prev) => ({
+          dishes: [...prev.dishes, { ...itemToAdd, count: 1 }],
+          isDelivery: restaurantInfo.isDelivery,
+        }));
+      }
+    },
+    [selectedItems, setClearModal, setSelectedItems, increaseItem],
+  );
+
+  const toggleDelivery = useCallback(
+    (isDelivery: boolean) => {
+      setSelectedItems((prev) => ({
+        ...prev,
+        isDelivery,
+      }));
+    },
+    [setSelectedItems],
+  );
+
+  const clearItems = useCallback(() => {
     setSelectedItems(DEFAULT_RESTAURANT_INFO);
-  };
+  }, [setSelectedItems]);
 
-  const totalPrice = (() => selectedItems?.dishes?.reduce((prev, curr) => prev + curr.price * curr.count || 1, 0))();
+  const totalPrice = useMemo(() => {
+    return selectedItems?.dishes?.reduce((prev, curr) => prev + curr.price * curr.count || 1, 0);
+  }, [selectedItems.dishes]);
 
-  const totalDishes = (() => selectedItems?.dishes?.reduce((curr, item) => curr + item.count || 1, 0))();
+  const totalDishes = useMemo(() => {
+    return selectedItems?.dishes?.reduce((curr, item) => curr + item.count || 1, 0);
+  }, [selectedItems.dishes]);
 
-  const maxCookTime = (() => {
+  const maxCookTime = useMemo(() => {
     let max = 0;
     selectedItems?.dishes?.forEach((item) => {
       if (item.cookTime > max) max = item.cookTime;
     });
     return max;
-  })();
+  }, [selectedItems.dishes]);
 
   const isDelivery = selectedItems.isDelivery;
 

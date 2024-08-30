@@ -3,6 +3,16 @@ type LoginResponse = { exp: number; token: string; user: any };
 
 type UserData = { id: string; name: string; phone: string; addresses: AddressData[] };
 
+interface BannerInfo {
+  title: string;
+  deliveryTime: string;
+  address: string;
+}
+
+interface CartInfo extends BannerInfo {
+  deliveryPrice: number;
+}
+
 type PaginationMeta = {
   page: number;
   pageCount: number;
@@ -28,4 +38,4 @@ type AddressData = {
   phoneNumber?: number;
 };
 
-type OrderStatus = 'pending' | 'recieved' | 'sended' | 'delivered'
+type OrderStatus = "pending" | "recieved" | "sended" | "delivered";

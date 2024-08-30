@@ -6,8 +6,10 @@
     "city": "Şäher",
     "back": "Yza",
     "delivery": "Eltip bermek",
+    "deliveryDetailed": "Eltip bermegiň wagty",
     "selfCare": "Özbaşdak almak",
     "selfCareDetailed": "Bişirilýän wagty",
+    "selfCareTitle": "Alynýan salgy",
     "orderType": "Almagyň usuly",
     "gr": "gr",
     "clear": "Arassala",
@@ -96,7 +98,9 @@
     "menuReturn": "Restoranlaryň sanawyna dolan",
     "clearTrash": "Sebeti arrassala",
     "yesClear": "Arrassala",
-    "noClear": "Ýok, islämok"
+    "noClear": "Ýok, islämok",
+    "restaurantComment": "Restoran üçin teswir",
+    "restaurantCommentPlaceholder": "Sargyt üçin isleglegiňizi ýazyp bilersiňiz..."
   },
 
   "ProfilePage": {

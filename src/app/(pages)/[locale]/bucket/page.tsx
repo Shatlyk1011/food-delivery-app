@@ -55,6 +55,8 @@ export default function Bucket() {
           quantity: Math.min(count, availableAmount),
         })),
       });
+    } else if (!userProfile) {
+      toast("Actions.loginToOrder", "info", { duration: 3000 });
     } else {
       // snackbar error message
       toast("Errors.somethingWentWrong", "warning", { duration: 3000 });

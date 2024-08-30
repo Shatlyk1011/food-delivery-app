@@ -48,9 +48,9 @@ const Index: FC<Props> = ({ t }) => {
       )}
       <div className="mt-4 pr-4 text-text-1">
         <Input
-          label="Restoran üçin teswir"
-          placeholder="Gaýrat сделай sogan не ложи, please"
-          className="rounded-xl placeholder:text-text-4"
+          className="rounded-[10px] placeholder:text-text-4"
+          label={t("BucketPage.restaurantComment")}
+          placeholder={t("BucketPage.restaurantCommentPlaceholder")}
         />
       </div>
     </div>

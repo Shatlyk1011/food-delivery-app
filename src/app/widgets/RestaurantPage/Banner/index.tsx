@@ -5,7 +5,7 @@ import BannerItems from "@/app/components/restaurant-page-ui/BannerItems";
 
 interface Props {
   bannerUrl: string;
-  bannerInfo: { title: string; deliveryTime: string };
+  bannerInfo: BannerInfo;
   t: any;
 }
 

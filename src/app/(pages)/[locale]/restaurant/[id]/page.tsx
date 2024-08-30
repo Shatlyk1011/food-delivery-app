@@ -60,7 +60,11 @@ export default function Home({ params: { id } }) {
                 <Banner
                   bannerUrl={restaurantInfo?.bannerImage?.url}
                   t={t}
-                  bannerInfo={{ deliveryTime: restaurantInfo?.deliveryTime, title: restaurantInfo?.title }}
+                  bannerInfo={{
+                    deliveryTime: restaurantInfo?.deliveryTime,
+                    title: restaurantInfo?.title,
+                    address: restaurantInfo?.address,
+                  }}
                 />
               )}
               <div className="w-full">
@@ -97,6 +101,8 @@ export default function Home({ params: { id } }) {
                 restaurantInfo={{
                   title: selectedItems.dishes.at(-1)?.restaurant.title || restaurantInfo?.title,
                   deliveryPrice: restaurantInfo?.deliveryPrice,
+                  deliveryTime: restaurantInfo?.deliveryTime,
+                  address: restaurantInfo?.address,
                 }}
                 isDelivery={restaurantInfo?.isDelivery}
               />

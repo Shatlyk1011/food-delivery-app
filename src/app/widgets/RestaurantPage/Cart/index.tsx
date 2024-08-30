@@ -9,7 +9,7 @@ import CartButton from "@/app/components/restaurant-page-ui/Cart/CartButton";
 import useProductItem from "@/app/hooks/useProductItem";
 
 interface Props {
-  restaurantInfo: { deliveryPrice: number; title: string };
+  restaurantInfo: CartInfo;
   t: any;
   isDelivery: boolean;
 }
@@ -73,12 +73,7 @@ const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
 
       {selectedItems?.dishes.length > 0 && (
         <div className="mx-4 mb-6 border-t border-text-4 pt-4">
-          <CartInfo
-            selfCareTime={maxCookTime}
-            deliveryPrice={restaurantInfo?.deliveryPrice}
-            isDelivery={selectedDelivery}
-            t={t}
-          />
+          <CartInfo selfCareTime={maxCookTime} restaurantInfo={restaurantInfo} isDelivery={selectedDelivery} t={t} />
           <CartButton submitTitle={t("Index.toBucket")} total={totalPrice} />
         </div>
       )}

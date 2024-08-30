@@ -3,14 +3,15 @@ import { FC } from "react";
 //components
 import { ClockIcon, StarIcon, InfoIcon } from "@/app/icons";
 import InfoItem from "./InfoItem";
+import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 
 interface Props {
-  bannerInfo: { title: string; deliveryTime: string };
+  bannerInfo: BannerInfo;
   t: any;
 }
 
 const Index: FC<Props> = ({ bannerInfo, t }) => {
-  const { title, deliveryTime } = bannerInfo;
+  const { title, deliveryTime, address } = bannerInfo;
 
   const items = [
     {
@@ -24,9 +25,6 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
       //length of reviews
       subtitle: null,
     },
-    {
-      icon: <InfoIcon className="md:h-5 md:w-5" />,
-    },
   ];
   return (
     <div className="">
@@ -38,6 +36,14 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
         {items.map((item, index) => (
           <InfoItem key={index} item={item} />
         ))}
+        <Popover>
+          <PopoverTrigger className="rounded-[14px] bg-bg-1/85 px-3 py-3">
+            <InfoIcon />
+          </PopoverTrigger>
+          <PopoverContent className="font-base px-5 py-3 text-base tracking-wide">
+            <span className="font-medium">{t("MainPage.address")}</span>: {address}
+          </PopoverContent>
+        </Popover>
       </div>
     </div>
   );

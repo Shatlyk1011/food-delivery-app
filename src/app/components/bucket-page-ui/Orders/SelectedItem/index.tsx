@@ -19,8 +19,10 @@ const Index: FC<Props> = ({ item, decrease, increase }) => {
         </div>
         <div className="flex flex-1 justify-between space-y-1">
           <div>
-            <h5 className="line-clamp-2  text-base font-medium">{item.description}</h5>
-            <p className="mt-1 text-sm font-medium text-text-4">{item.gramm}gr</p>
+            <h5 className="line-clamp-2  text-base font-medium">
+              {item.title} - <span className="font-normal">{item.description}</span>
+            </h5>
+            <p className="mt-1 text-sm font-medium text-text-4">{item.gram}gr</p>
           </div>
           <div className="ml-2 flex items-center justify-between">
             <div className="flex items-center space-x-4 sm:flex-col sm:space-x-0 sm:space-y-2">
