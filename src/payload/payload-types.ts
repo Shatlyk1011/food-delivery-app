@@ -138,7 +138,7 @@ export interface Order {
   houseNumber: string;
   entrance?: string | null;
   phoneNumber: number;
-  orderStatus?: ('pending' | 'recieved' | 'sended' | 'delivered') | null;
+  orderStatus?: ('pending' | 'recieved' | 'sended' | 'delivered' | 'rejected') | null;
   isDelivery: boolean;
   totalAmount?: number | null;
   restaurantName?: string | null;

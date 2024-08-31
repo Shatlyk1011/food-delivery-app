@@ -129,6 +129,10 @@ const Orders: CollectionConfig = {
           label: "Доставлено",
           value: "delivered",
         },
+        {
+          label: "Отказано",
+          value: "rejected",
+        },
       ],
       required: false,
       type: "select",

@@ -32,7 +32,9 @@
     "cancel": "Отмена",
     "continue": "Продолжить",
     "noReview": "Мало отзывов",
-    "description": "Описание"
+    "description": "Описание",
+    "quantity": "Количество",
+    "dishes": "Блюда"
   },
 
   "Login": {
@@ -110,15 +112,28 @@
     "deliveryAddress": "Адрес доставки",
     "yourEmail": "Ваш email",
     "chooseAddress": "Выберите адрес доставки",
+
     "history": "История заказов",
     "restaurantName": "Название ресторана",
     "dishesName": "Названия блюд",
     "price": "Цена",
+    "deliveryType": "Тип заказа",
+    "orderTime": "Время заказа",
     "status": "Статус",
     "changeAddressSettings": "Изменить параметры адреса",
     "city": "Город",
     "houseNumber": " Дом",
-    "appartmentOffice": "Квартра / офис"
+    "appartmentOffice": "Квартра / офис",
+
+    "dishTitle": "Название"
+  },
+
+  "Status": {
+    "pending": "В ожидании",
+    "recieved": "Принято",
+    "sended": "Отправлено",
+    "delivered": "Доставлено",
+    "rejected": "Отказано"
   },
 
   "Placeholder": {

@@ -34,6 +34,7 @@ module.exports = {
       success: "#208B3A",
       warning: "#F8961E",
       error: "#D00000",
+      info: "#4361ee",
     },
 
     container: {

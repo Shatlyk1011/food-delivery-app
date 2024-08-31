@@ -15,7 +15,7 @@ export default function Profile() {
   const { userOrders } = useGetUserOrderList(userProfile?.id);
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-7xl flex-col space-y-6 px-8 py-8 xl:px-6 md:px-4">
+    <div className="mx-auto flex min-h-screen max-w-7xl flex-col space-y-4 px-8 py-8 xl:px-6 md:px-4">
       <OrdersTable t={t} userOrders={userOrders} />
     </div>
   );

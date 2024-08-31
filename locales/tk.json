@@ -32,7 +32,9 @@
     "cancel": "Ýatyr",
     "continue": "Dowam et",
     "noReview": "Seslenme az",
-    "description": "Teswirleme"
+    "description": "Teswirleme",
+    "quantity": "Mukdary",
+    "dishes": "Tagamlar"
   },
 
   "Login": {
@@ -110,15 +112,28 @@
     "deliveryAddress": "Eltip berilmeli adresiňiz",
     "yourEmail": "Email poçtaňyz",
     "chooseAddress": "Eltip berilmeli adresiňizi saýlaň",
+
     "history": "Sargytlaryňyz",
     "restaurantName": "Restoranyň ady",
     "dishesName": "Tagamlaryň atlary",
     "price": "Baha",
+    "deliveryType": "Sargytyň görnüşi",
+    "orderTime": "Sargyt wagty",
     "status": "Ýagdaýy",
     "changeAddressSettings": "Adresiňiziň maglumatyny uýtgetmek",
     "city": "Şäher",
     "houseNumber": "Jaý belgiňiz",
-    "appartmentOffice": "Kwartira / ofisyňyz"
+    "appartmentOffice": "Kwartira / ofisyňyz",
+
+    "dishTitle": "Ady"
+  },
+
+  "Status": {
+    "pending": "Garaşylyar",
+    "recieved": "Alyndy",
+    "sended": "Iberildi",
+    "delivered": "Eltip berildi",
+    "rejected": "Ret edildi"
   },
 
   "Placeholder": {

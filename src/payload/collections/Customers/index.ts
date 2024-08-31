@@ -60,7 +60,7 @@ const Customers: CollectionConfig = {
       name: "restaurant",
       hasMany: true,
       access: {
-        read: admins,
+        read: () => true,
         update: admins,
       },
       label: "Ресторан",

@@ -32,10 +32,6 @@ export const USER_ORDERS = `
           dish {
             title
             price
-            image {
-              url
-              alt
-            }
           }
         }
         createdAt

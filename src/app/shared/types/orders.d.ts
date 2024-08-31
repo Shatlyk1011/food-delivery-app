@@ -31,18 +31,19 @@ interface UserOrder {
   isDelivery: boolean;
   totalAmount: number;
   restaurantName: string;
-  dishes: {
-    quantity: number;
-    dish: {
-      title: string;
-      price: number;
-      image: {
-        url: string;
-        alt: string;
-      };
-    };
-  }[];
+  dishes: UserOrderDish[];
   createdAt: string;
+}
+interface UserOrderDish {
+  quantity: number;
+  dish: {
+    title: string;
+    price: number;
+    image: {
+      url: string;
+      alt: string;
+    };
+  };
 }
 
 interface OrderForm {

@@ -40,3 +40,33 @@ export const defaultFilters: Filters = {
   sortBy: null,
   tag: "all",
 };
+
+export const PROFILE_OUTER_HEAD = [
+  { title: "ProfilePage.restaurantName", className: "w-[20%]" },
+  { title: "MainPage.address", className: "w-[16%]" },
+  { title: "ProfilePage.price", className: "w-[11%]" },
+  { title: "ProfilePage.deliveryType", className: "w-[16%]" },
+  { title: "ProfilePage.orderTime", className: "w-[16%]" },
+];
+
+export const PROFILE_INNER_HEAD = [
+  { title: "ProfilePage.dishTitle", className: "w-[40%]" },
+  { title: "ProfilePage.price", className: "w-[30%]" },
+  { title: "Index.quantity", className: "w-[30%]" },
+];
+
+export const ORDER_STATUSES = {
+  pending: "Status.pending",
+  recieved: "Status.recieved",
+  sended: "Status.sended",
+  delivered: "Status.delivered",
+  rejected: "Status.rejected",
+};
+
+export const STATUS_CLASSES = {
+  pending: "text-[#A4ABB6]",
+  recieved: "text-[#2DCCFF]",
+  sended: "text-warning",
+  delivered: "text-success",
+  rejected: "text-error",
+};

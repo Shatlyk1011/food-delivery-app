@@ -38,4 +38,4 @@ type AddressData = {
   phoneNumber?: number;
 };
 
-type OrderStatus = "pending" | "recieved" | "sended" | "delivered";
+type OrderStatus = "pending" | "recieved" | "sended" | "delivered" | "rejected";

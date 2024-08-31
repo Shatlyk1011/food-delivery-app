@@ -1438,6 +1438,7 @@ enum Order_orderStatus {
   recieved
   sended
   delivered
+  rejected
 }
 
 type Order_Dishes {
@@ -1560,6 +1561,7 @@ enum Order_orderStatus_Input {
   recieved
   sended
   delivered
+  rejected
 }
 
 input Order_isDelivery_operator {
@@ -7742,6 +7744,7 @@ enum Order_orderStatus_MutationInput {
   recieved
   sended
   delivered
+  rejected
 }
 
 input mutationOrder_DishesInput {
@@ -7775,6 +7778,7 @@ enum OrderUpdate_orderStatus_MutationInput {
   recieved
   sended
   delivered
+  rejected
 }
 
 input mutationOrderUpdate_DishesInput {
