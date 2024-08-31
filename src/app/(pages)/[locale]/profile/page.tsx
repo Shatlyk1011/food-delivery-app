@@ -7,19 +7,16 @@ import { useGetUserOrderList } from "@/app/services/useOrders";
 import { useAtomValue } from "jotai";
 import atoms from "@/app/(pages)/_providers/jotai";
 
-
 export default function Profile() {
   const t = useTranslations();
 
   const userProfile = useAtomValue(atoms.userProfile);
 
-  const {userOrders} = useGetUserOrderList(userProfile?.id)
-  console.log('userOrders', userOrders)
+  const { userOrders } = useGetUserOrderList(userProfile?.id);
 
   return (
-    <div className="mx-auto min-h-screen flex max-w-7xl flex-col space-y-6 px-8 py-8 xl:px-6 md:px-4">
-      {/* {userOrders.length} */}
-      <OrdersTable t={t} />
+    <div className="mx-auto flex min-h-screen max-w-7xl flex-col space-y-6 px-8 py-8 xl:px-6 md:px-4">
+      <OrdersTable t={t} userOrders={userOrders} />
     </div>
   );
 }

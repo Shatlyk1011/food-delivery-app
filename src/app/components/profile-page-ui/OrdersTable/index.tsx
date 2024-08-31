@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../../shared-ui/Table";
 
 const data = [
@@ -7,7 +8,13 @@ const data = [
 
 const HEAD_CELLS = ["ProfilePage.restaurantName", "ProfilePage.dishesName", "ProfilePage.price", "ProfilePage.status"];
 
-export default function OrdersTable({ t }: { t: any }) {
+interface Props {
+  userOrders: UserOrder[];
+  t: any;
+}
+
+const OrdersTable: FC<Props> = ({ userOrders, t }) => {
+  console.log("userOrders", userOrders);
   return (
     <>
       <h1 className="pt-2 text-2xl">{t("ProfilePage.history")}</h1>
@@ -33,4 +40,6 @@ export default function OrdersTable({ t }: { t: any }) {
       </Table>
     </>
   );
-}
+};
+
+export default OrdersTable;

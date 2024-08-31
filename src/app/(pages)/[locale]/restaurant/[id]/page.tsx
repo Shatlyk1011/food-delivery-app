@@ -58,7 +58,7 @@ export default function Home({ params: { id } }) {
               {restaurantInfo === null && <p>По вашему запросу, ничего не найдено</p>}
               {restaurantInfo && (
                 <Banner
-                  bannerUrl={restaurantInfo?.bannerImage?.url}
+                  bannerImageUrl={restaurantInfo?.bannerImage?.url}
                   t={t}
                   bannerInfo={{
                     deliveryTime: restaurantInfo?.deliveryTime,

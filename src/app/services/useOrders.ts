@@ -25,7 +25,7 @@ export const useOrderSubmit = () => {
 };
 
 export const useGetUserOrderList = (userId: string | undefined) => {
-  const { data } = useQuery<any, any, UserOrder, any>({
+  const { data } = useQuery<any, any, UserOrder[], any>({
     queryKey: ["user_orders"],
     enabled: Boolean(userId),
     // refetchInterval: 1500,
@@ -39,7 +39,7 @@ export const useGetUserOrderList = (userId: string | undefined) => {
         },
       });
       console.log("userOrders", data.data);
-      return data.data.Orders;
+      return data.data.Orders.docs;
     },
   });
 

@@ -28,8 +28,11 @@ const computedPriceNumber = (budgetCategory: string) => {
 
 const Index: FC<Props> = ({ item, t }) => {
   return (
-    <div className="inline-block relative px-4 pb-5 xl:px-2" >
-      <figure tabIndex={0} className="relative focus:outline-none focus:ring-4 w-full h-full focus:ring-text-2 focus:ring-offset-2 mb-2 max-h-52 min-h-52 cursor-pointer overflow-hidden rounded-[14px]" >
+    <div className="relative inline-block px-4 pb-5 xl:px-2">
+      <figure
+        tabIndex={0}
+        className="relative mb-2 h-full max-h-52 min-h-52 w-full cursor-pointer overflow-hidden rounded-[14px] focus:outline-none focus:ring-4 focus:ring-text-2 focus:ring-offset-2"
+      >
         <Link href={`/restaurant/${item.id}`} className="">
           <img
             className="absolute inset-0 h-full w-full bg-gray-2 object-cover"

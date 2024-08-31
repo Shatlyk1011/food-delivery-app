@@ -46,13 +46,6 @@ const nextConfig = {
     domains: ["localhost", process.env.NEXT_PUBLIC_SERVER_URL]
       .filter(Boolean)
       .map((url) => url.replace(/https?:\/\//, "")),
-    remotePatterns: [
-      {
-        hostname: "images.unsplash.com",
-        port: "",
-        protocol: "https",
-      },
-    ],
   },
   reactStrictMode: true,
   redirects,
