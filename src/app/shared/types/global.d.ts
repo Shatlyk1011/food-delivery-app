@@ -27,7 +27,7 @@ interface TitleValue {
 
 interface RestaurantWithDishesInfo {
   dishes: any[];
-  isDelivery: boolean;
+  // isDelivery: boolean;
   timestamp?: number;
 }
 

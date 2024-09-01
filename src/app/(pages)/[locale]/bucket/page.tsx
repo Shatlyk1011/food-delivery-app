@@ -34,7 +34,7 @@ export default function Bucket() {
   const toast = useToast();
 
   const { form } = useBucketFormScheme();
-  const { restId, selectedItems, totalPrice, clearItems, isDelivery, maxCookTime } = useProductItem();
+  const { restId, selectedItems, totalPrice, clearItems } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
   const { handleOrder, isSubmitPending } = useOrderSubmit();
 
@@ -55,7 +55,7 @@ export default function Bucket() {
         restaurantID: restaurantInfo.id,
         houseNumber,
         phoneNumber: +phoneNumber,
-        isDelivery,
+        isDelivery: true,
         city: "Turkmenabat",
         commentToCourier: comment,
         dishes: selectedItems.dishes.map(({ id, count, availableAmount }) => ({
@@ -100,8 +100,8 @@ export default function Bucket() {
                 <BucketForm
                   form={form}
                   t={t}
-                  isDelivery={isDelivery}
-                  deliveryTime={isDelivery ? restaurantInfo?.deliveryTime.slice(1) : maxCookTime}
+                  isDelivery={true}
+                  deliveryTime={restaurantInfo?.deliveryTime.slice(1)}
                   clearLocalStorage={clearLocalStorage}
                 />
               </div>
@@ -117,7 +117,7 @@ export default function Bucket() {
                 restaurantTitle={restaurantInfo?.title}
                 t={t}
                 totalPrice={totalPrice}
-                deliveryPrice={isDelivery && restaurantInfo?.deliveryPrice}
+                deliveryPrice={restaurantInfo?.deliveryPrice}
                 disabled={isSubmitPending}
               />
             </div>

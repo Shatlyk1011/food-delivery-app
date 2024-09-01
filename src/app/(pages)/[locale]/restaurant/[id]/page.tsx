@@ -72,7 +72,7 @@ export default function Home({ params: { id } }) {
                   <ProductSkeleton length={12} />
                 ) : (
                   withCategories?.map(({ dishes, category }) => {
-                    const { title, deliveryPrice, isDelivery } = restaurantInfo;
+                    const { title, deliveryPrice } = restaurantInfo;
                     return (
                       <div key={category} className="mt-5">
                         <p className="ml-1 text-2xl font-medium capitalize">{category}</p>
@@ -82,7 +82,7 @@ export default function Home({ params: { id } }) {
                               key={d.id}
                               dish={d}
                               handleDish={() => setSelectedDish(d)}
-                              addItem={() => addItem(d, { id, name: title, deliveryPrice, isDelivery })}
+                              addItem={() => addItem(d, { id, name: title, deliveryPrice })}
                               addTitle={t("Index.add")}
                             />
                           ))}

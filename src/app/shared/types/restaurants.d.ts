@@ -18,7 +18,7 @@ interface RestaurantLocalInfo {
   id: string;
   name: string;
   deliveryPrice: number;
-  isDelivery: boolean;
+  // isDelivery: boolean;
 }
 
 interface Categories {
@@ -64,9 +64,9 @@ interface Dish {
   availableAmount: number;
   cookTime: number;
   categories?: {
-    id: string
-    title: string
-  }
+    id: string;
+    title: string;
+  };
   image: {
     url: string;
     alt: string;

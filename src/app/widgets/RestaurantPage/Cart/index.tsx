@@ -1,7 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 //components
-import CartTabs from "@/app/components/restaurant-page-ui/Cart/CartTabs";
 import AddedItem from "@/app/components/restaurant-page-ui/Cart/AddedItem";
 import CartInfo from "@/app/components/restaurant-page-ui/Cart/CartInfo";
 import CartButton from "@/app/components/restaurant-page-ui/Cart/CartButton";
@@ -14,31 +13,8 @@ interface Props {
   isDelivery: boolean;
 }
 
-const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
-  const [hasSelectedRestDelivery, setHasSelectedRestDelivery] = useState(undefined);
-  const {
-    selectedItems,
-    increaseItem,
-    decreaseItem,
-    clearItems,
-    totalPrice,
-    toggleDelivery,
-    isDelivery: selectedDelivery,
-    maxCookTime,
-  } = useProductItem();
-
-  useEffect(() => {
-    if (selectedItems.dishes.length > 0) {
-      const lastDish = selectedItems.dishes.at(-1);
-      if (lastDish?.restaurant.isDelivery === false) {
-        setHasSelectedRestDelivery(false);
-      } else {
-        setHasSelectedRestDelivery(true);
-      }
-    } else {
-      setHasSelectedRestDelivery(isDelivery);
-    }
-  }, [isDelivery, selectedItems]);
+const Index: FC<Props> = ({ restaurantInfo, t }) => {
+  const { selectedItems, increaseItem, decreaseItem, clearItems, totalPrice } = useProductItem();
 
   return (
     <div className="h-[calc(100vh-140px)] overflow-hidden rounded-[16px] bg-bg-1">
@@ -49,18 +25,9 @@ const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
         </button>
       </div>
 
-      {selectedItems?.dishes.length > 0 && (
-        <CartTabs
-          t={t}
-          handleChange={toggleDelivery}
-          isDelivery={hasSelectedRestDelivery}
-          selectedDelivery={hasSelectedRestDelivery ? selectedDelivery : false}
-        />
-      )}
-
       {!selectedItems.dishes.length && <p>Вы еще ничего не добавляли</p>}
 
-      <ul className="perfect-scrollbar h-[calc(100vh-430px)] space-y-4 p-4 pt-0">
+      <ul className="perfect-scrollbar h-[calc(100vh-354px)] space-y-4 p-4 pt-0">
         {selectedItems?.dishes?.map((item, index) => (
           <AddedItem
             key={index}
@@ -73,7 +40,7 @@ const Index: FC<Props> = ({ restaurantInfo, t, isDelivery }) => {
 
       {selectedItems?.dishes.length > 0 && (
         <div className="mx-4 mb-6 border-t border-text-4 pt-4">
-          <CartInfo selfCareTime={maxCookTime} restaurantInfo={restaurantInfo} isDelivery={selectedDelivery} t={t} />
+          <CartInfo selfCareTime={30} restaurantInfo={restaurantInfo} isDelivery={true} t={t} />
           <CartButton submitTitle={t("Index.toBucket")} total={totalPrice} />
         </div>
       )}

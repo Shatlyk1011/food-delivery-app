@@ -17,7 +17,7 @@ const Index: FC<Props> = ({ t, handleChange, isDelivery, selectedDelivery }) => 
   const toast = useToast();
 
   const handleClick = (title: string, value: boolean) => {
-    if (title === "Index.delivery" && isDelivery !== value) {
+    if (title === "Index.selfCare") {
       toast("Actions.noDeliveryAvailable", "warning");
     } else {
       handleChange(value);
