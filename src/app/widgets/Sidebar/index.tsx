@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 //widgets
 import Overlap from "./Overlap";
 //components
-import { CloseIcon } from "@/app/icons";
+import { CloseIcon, LogoIcon } from "@/app/icons";
 import useSidebar from "@/app/hooks/useSidebar";
 
 const Index = () => {
@@ -29,7 +29,10 @@ const Index = () => {
           <button className="cursor-pointer" onClick={handleClose}>
             <CloseIcon className="h-6 w-6" />
           </button>
-          <span className="w-full text-center">Logo</span>
+          <div className="mx-auto flex items-center justify-center space-x-2">
+            <LogoIcon width={32} height={32} />
+            <span className="text-center text-sm font-medium">Ashpez</span>
+          </div>
         </header>
 
         <ul className="flex flex-col text-base *:border-b *:border-gray-1 *:p-4 *:hover:cursor-pointer">

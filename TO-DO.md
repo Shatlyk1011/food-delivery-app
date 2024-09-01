@@ -13,8 +13,6 @@
 
 ✅ - make restaurant blockable
 
-- find default imgs for dish and banner
-
 <!-- - add filter orders in profile -->
 
 - ✅ interval fetch orders
@@ -35,18 +33,18 @@
 ✅- fix all form translates, validations
 
 - default images
-- hide search if its not in main page
+  ✅ hide search if its not in main page
 - button states (loading, pending, disabled)
-- Check Mini Items UI Data
+- ✅ Check Mini Items UI Data
   ✅ - add snackbar
 - free delivery ui (yx-eat)
   <!-- - add filter ui in profile -->
   ✅ - if count > totalAmount, show snackbar with warning
-- self care address message
+  ✅ - self care address message
 - Footer modals (feedback, report)
   <!-- - profile page (with add/remove addresses) -->
   ✅- dishes info modal (on click, lazy load)
-- is delivery state on bucket page
+- ✅ is delivery state on bucket page
   ✅- komentary restoranu (input)
 - free after amount ui block in id page
 - localstorage timestamp

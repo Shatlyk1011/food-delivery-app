@@ -260,13 +260,13 @@ const Restaurants: CollectionConfig = {
       relationTo: "dishes",
       type: "relationship",
       admin: {
-        position: 'sidebar'
-      }
+        position: "sidebar",
+      },
     },
     {
       name: "budgetCategory",
       access: {
-        read: admins,
+        read: () => true,
         update: admins,
       },
       defaultValue: "2",
@@ -327,13 +327,13 @@ const Restaurants: CollectionConfig = {
   ],
   hooks: {
     beforeRead: [
-      async ({ doc, req,  }) => {
-        if(checkRole(['admin', "author"], req.user)) {
-          return doc
+      async ({ doc, req }) => {
+        if (checkRole(["admin", "author"], req.user)) {
+          return doc;
         }
 
-        if(doc.isBlocked) {
-          throw new Error('Errors.isBlocked')
+        if (doc.isBlocked) {
+          throw new Error("Errors.isBlocked");
         }
 
         return doc;

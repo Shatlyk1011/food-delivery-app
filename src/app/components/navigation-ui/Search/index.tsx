@@ -1,14 +1,16 @@
 import { FC, useState } from "react";
 
 import { SearchIcon } from "@/app/icons";
+import { cn } from "@/app/shared/lib/utils";
 
 interface Props {
   handleQuery: (val: string) => void;
   searchPlaceholder: string;
   searchTitle: string;
+  disabled: boolean;
 }
 
-const Index: FC<Props> = ({ handleQuery, searchTitle, searchPlaceholder }) => {
+const Index: FC<Props> = ({ handleQuery, searchTitle, searchPlaceholder, disabled }) => {
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e: any) => {
@@ -18,11 +20,15 @@ const Index: FC<Props> = ({ handleQuery, searchTitle, searchPlaceholder }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex h-12 justify-between overflow-hidden rounded-[14px] border-2 border-primary md:h-10 md:w-full"
+      className={cn(
+        "flex h-12 justify-between overflow-hidden rounded-[14px] border-2 border-primary md:h-10 md:w-full",
+        disabled && "border-gray-1",
+      )}
     >
       <label className="flex w-full items-center space-x-2.5 px-2.5 py-3 xl:space-x-1.5 xl:p-1.5">
         <SearchIcon className="fill-text-4" />
         <input
+          disabled={disabled}
           type="text"
           placeholder={searchPlaceholder}
           className="w-full bg-white outline-none md:text-sm md:placeholder:text-sm"
@@ -30,7 +36,11 @@ const Index: FC<Props> = ({ handleQuery, searchTitle, searchPlaceholder }) => {
           value={query}
         />
       </label>
-      <button type="submit" className="bg-primary px-4 py-2 font-medium">
+      <button
+        type="submit"
+        disabled={disabled}
+        className="bg-primary px-4 py-2 font-medium disabled:bg-gray-2 disabled:text-black/40"
+      >
         <span className="hidden md:block">
           <SearchIcon />
         </span>
