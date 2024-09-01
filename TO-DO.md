@@ -20,6 +20,8 @@
 
   ✅ - order statuses
 
+- id with title + 4 random str
+
 - categories for dishes and restaurants (names)
 - ✅ request orders by users id in profile page (interval)
 - add description in collections
@@ -48,10 +50,10 @@
   ✅- komentary restoranu (input)
 - free after amount ui block in id page
 - ✅ localstorage timestamp
-- bucket form submittion modal ()
+<!-- - bucket form submittion modal () -->
 - mobile sidebar, login, logout states
 - if availabelAmount === 0, disable dish
-- profile interval order fetch (tailwind ping)
+- ✅ profile interval order fetch (tailwind ping)
 - redirect to main page, if last item were deleted in bucket page
 - restaurant by id. if no restaurant, show no rest ui
 
