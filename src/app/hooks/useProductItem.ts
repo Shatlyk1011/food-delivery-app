@@ -65,6 +65,8 @@ const useProductItem = () => {
         setSelectedItems((prev) => ({
           dishes: [...prev.dishes, { ...itemToAdd, count: 1 }],
           isDelivery: restaurantInfo.isDelivery,
+          //15 hours
+          timestamp: new Date().getTime() + 15 * 360 * 1000,
         }));
       }
     },

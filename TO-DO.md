@@ -21,8 +21,8 @@
   ✅ - order statuses
 
 - categories for dishes and restaurants (names)
-- add description in collections
 - ✅ request orders by users id in profile page (interval)
+- add description in collections
 <!-- ex: https://github.com/payloadcms/public-demo/blob/master/src/payload/collections/Media.ts -->
 
 - test test test
@@ -47,7 +47,7 @@
 - ✅ is delivery state on bucket page
   ✅- komentary restoranu (input)
 - free after amount ui block in id page
-- localstorage timestamp
+- ✅ localstorage timestamp
 - bucket form submittion modal ()
 - mobile sidebar, login, logout states
 - if availabelAmount === 0, disable dish
