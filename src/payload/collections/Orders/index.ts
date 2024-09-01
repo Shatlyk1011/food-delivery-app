@@ -235,7 +235,9 @@ const Orders: CollectionConfig = {
         const { restaurantID, dishes, orderStatus } = data;
         //if changes appear in admin panel, change only orderStatus, and return data
         if (checkRole(["admin", "author"], req.user)) {
-          originalDoc.orderStatus = orderStatus;
+          if (originalDoc.orderStatus === "delivered") {
+            return originalDoc;
+          }
           return data;
         }
         if (!restaurantID || !dishes || dishes.length === 0) {

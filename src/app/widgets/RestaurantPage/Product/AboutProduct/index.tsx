@@ -15,8 +15,8 @@ export default function AboutProduct({ dish, handleClose, t }: Props) {
             <Image
               className="overflow-hidden rounded-xl"
               objectFit="contain"
-              src={dish.image.url}
-              alt={dish.image.alt}
+              src={dish.image?.url || ""}
+              alt={dish.image?.alt || ""}
               fill={true}
             />
           </figcaption>

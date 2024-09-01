@@ -9,7 +9,7 @@ interface Props {
 
 const Index: FC<Props> = ({ dishes, t }) => {
   return (
-    <div className=" px-8">
+    <div className=" px-8 last:pb-6">
       <h2 className="py-2 pt-5 text-lg font-medium">{t("Index.dishes")}</h2>
       <div className="flex flex-col">
         <ul className="flex w-[40%] border-b border-black/20 text-sm font-medium text-black/85 [&>*]:px-4 [&>*]:py-3">

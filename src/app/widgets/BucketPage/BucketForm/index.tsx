@@ -10,11 +10,11 @@ interface Props {
   form: any;
   deliveryTime: string | number;
   isDelivery: boolean;
-  handleCriticalErrors: () => void;
+  clearLocalStorage: () => void;
   t: any;
 }
 
-const Index: FC<Props> = ({ form, deliveryTime, isDelivery, handleCriticalErrors, t }) => {
+const Index: FC<Props> = ({ form, deliveryTime, isDelivery, clearLocalStorage, t }) => {
   return (
     <div>
       <h2 className="le/ading-6 mb-2.5 text-2xl font-bold md:text-base">{t("BucketForm.fillForm")}</h2>
@@ -41,7 +41,7 @@ const Index: FC<Props> = ({ form, deliveryTime, isDelivery, handleCriticalErrors
           ) : (
             <Link
               href="/"
-              onClick={handleCriticalErrors}
+              onClick={clearLocalStorage}
               className="border-b border-[transparent] text-sm font-medium text-text-3 transition hover:border-[currentColor]"
             >
               {t("Actions.chooseRestaurant")}

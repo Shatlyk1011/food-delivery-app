@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 //jotai
 import { useAtomValue } from "jotai";
@@ -28,6 +29,7 @@ export default function Bucket() {
   const t = useTranslations();
   const queryClient = useQueryClient();
   const userProfile = useAtomValue(atoms.userProfile);
+  const router = useRouter();
 
   const toast = useToast();
 
@@ -36,12 +38,13 @@ export default function Bucket() {
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
   const { handleOrder, isSubmitPending } = useOrderSubmit();
 
-  const handleCriticalErrors = () => {
+  const clearLocalStorage = () => {
     clearItems();
     localStorage.clear();
   };
 
   const handleOrderSubmit = async (values: OrderForm) => {
+    console.log("hmhm");
     if (restaurantInfo?.id && userProfile?.id) {
       const { apartment, district, houseNumber, phoneNumber, comment } = values;
 
@@ -52,7 +55,7 @@ export default function Bucket() {
         restaurantID: restaurantInfo.id,
         houseNumber,
         phoneNumber: +phoneNumber,
-        isDelivery: restaurantInfo.isDelivery,
+        isDelivery,
         city: "Turkmenabat",
         commentToCourier: comment,
         dishes: selectedItems.dishes.map(({ id, count, availableAmount }) => ({
@@ -61,16 +64,18 @@ export default function Bucket() {
         })),
       });
       //order response
-      if (res.id) {
-        // toast('success')
+      if (res?.id) {
+        router.push("/profile");
+        toast("Actions.successOrder", "success", { duration: 15000, closeButton: true });
+        clearLocalStorage();
       }
       console.log("res", res);
     } else if (!userProfile) {
-      toast("Actions.loginToOrder", "info", { duration: 3000 });
+      toast("Actions.loginToOrder", "warning");
     } else {
       // snackbar error message
-      toast("Errors.somethingWentWrong", "warning", { duration: 3000 });
-      handleCriticalErrors();
+      toast("Errors.somethingWentWrong", "warning");
+      clearLocalStorage();
     }
   };
 
@@ -97,7 +102,7 @@ export default function Bucket() {
                   t={t}
                   isDelivery={isDelivery}
                   deliveryTime={isDelivery ? restaurantInfo?.deliveryTime.slice(1) : maxCookTime}
-                  handleCriticalErrors={handleCriticalErrors}
+                  clearLocalStorage={clearLocalStorage}
                 />
               </div>
               <div className="">

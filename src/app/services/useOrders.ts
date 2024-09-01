@@ -16,7 +16,7 @@ export const useOrderSubmit = () => {
         },
       });
       console.log("data.data", data.data);
-      return data.data.CreateOrder;
+      return data.data.createOrder;
     },
     onError: (err) => console.log("register mutation error", err),
   });

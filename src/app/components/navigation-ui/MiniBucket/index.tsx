@@ -20,7 +20,11 @@ const Index: FC<Props> = ({ t }) => {
 
   const router = useRouter();
 
-  const handleToBucket = () => router.push("/bucket");
+  const handleToBucket = () => {
+    if (selectedItems.dishes.length > 0) {
+      router.push("/bucket");
+    }
+  };
   return (
     <Popover>
       <PopoverTrigger asChild className="right-50 md:hidden">
@@ -58,8 +62,9 @@ const Index: FC<Props> = ({ t }) => {
           </div>
           <PopoverClose
             onClick={handleToBucket}
+            disabled={selectedItems?.dishes?.length === 0}
             type="button"
-            className="mt-6 flex w-full justify-between rounded-[14px] bg-primary px-[18px] py-2.5 text-xl hover:bg-accent "
+            className="mt-6 flex w-full justify-between rounded-[14px] bg-primary px-[18px] py-2.5 text-xl hover:bg-accent disabled:bg-black/10 disabled:text-black/50"
           >
             <p className="">{t("Index.toBucket")}</p>
             <p className="font-medium">{totalPrice}TMT</p>

@@ -57,4 +57,6 @@
 
 ## backlog
 
+- disable self care (temporary) - add time functionality in form - later
+- global promocodes
 - phone validation

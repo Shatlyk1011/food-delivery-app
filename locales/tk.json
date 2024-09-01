@@ -74,14 +74,15 @@
     "menu": "Menýu",
     "currentRestaurant": "Häzirki restoran",
     "changeRestaurant1": "Ozalky",
-    "changeRestaurant2": "restorandan goşulan naharlaryň hemmesi arabadan aýrylar."
+    "changeRestaurant2": "restorandan goşulan naharlaryň hemmesi sebetden aýrylar."
   },
 
   "BucketForm": {
     "fillForm": "Anketany dolduryň",
-    "district": "Kiçi etrapça",
-    "houseNumber": "Jaý belgisi",
-    "kw": "Kw / Ofis",
+    "district": "Kiçi etrapça *",
+    "houseNumber": "Jaý belgisi *",
+    "kw": "Kw / Ofis  *",
+    "phoneNumber": "Telefon belgiňiz *",
     "entrance": "Giriş",
     "leaveComment": "Kurýer üçin teswir (köçäniň ady we ş.m.)",
     "deliveryTime": "Eltip bermegiň wagty",
@@ -181,6 +182,7 @@
     "noDeliveryAvailable": "Häzirki wagtda bu restoranda dostawka ýok.",
     "loginToAddAddresses": "Öz salgylaryňyzy görmek ücin profiliňize girmegiňizi haýyş edýäris.",
     "loginToOrder": "Sargyt etmek üçin sistema girmegiňizi haýyş edýäris.",
-    "chooseRestaurant": "Restoran saýlamagyňyzy haýyş edýäris."
+    "chooseRestaurant": "Restoran saýlamagyňyzy haýyş edýäris.",
+    "successOrder": "Sargyt üstünlikli döredildi. Sargytyňyzy doly anyklamak üçin size dolandyryjy jaň edip biler."
   }
 }

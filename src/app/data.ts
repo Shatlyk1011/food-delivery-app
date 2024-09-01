@@ -17,7 +17,7 @@ export const BUCKET_INPUTS = [
   { name: "entrance", placeholder: "BucketForm.entrance", styles: "sm:row-start-2 sm:col-span-2", type: "number" },
   {
     name: "phoneNumber",
-    placeholder: "Index.phoneNumber",
+    placeholder: "BucketForm.phoneNumber",
     styles: "row-start-2 sm:row-start-3 col-span-4",
     type: "tel",
     maxLength: 8,

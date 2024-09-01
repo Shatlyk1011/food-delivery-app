@@ -42,7 +42,7 @@ export default async function RootLayout({ children, params: { locale } }: Props
               <TailwindIndicator />
             </TanstackQueryProvider>
           </NextIntlClientProvider>
-          <Toaster duration={2000} richColors visibleToasts={2} theme="light" position="bottom-left" />
+          <Toaster duration={3000} richColors visibleToasts={2} theme="light" position="bottom-left" />
         </JotaiProvider>
       </body>
     </html>
