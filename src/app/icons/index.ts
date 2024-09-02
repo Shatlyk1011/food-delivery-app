@@ -29,3 +29,4 @@ export * from "./WalkIcon";
 export * from "./WarningIcon";
 export * from "./TrashIcon";
 export * from "./LogoIcon";
+export * from "./EmptyBucketIcon";

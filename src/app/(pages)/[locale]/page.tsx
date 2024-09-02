@@ -44,7 +44,9 @@ export default function Home() {
           <CategoriesBar categories={categories} handleFilters={handleFilters} />
           <div className="manual_grid_300 -mx-4 mt-8 xl:-mx-2 xl:mt-5">
             {filteredRestaurants?.map((rests) =>
-              rests?.map((item) => <RestaurantItem item={item} key={item.id} t={t} />),
+              rests?.map((item) => (
+                <RestaurantItem item={item} isDeliveryFree={item.deliveryPrice === 0} key={item.id} t={t} />
+              )),
             )}
             {(isFetchingNextPage || isLoading) && <RestaurantItemSkeleton length={8} />}
           </div>

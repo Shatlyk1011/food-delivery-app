@@ -16,6 +16,7 @@
     "bucket": "Sebet",
     "toBucket": "Sebet",
     "noItems": "Siz entäk hic zat goşaňyzok",
+    "emptyBucket": "Sebetiňiz entäk boş",
     "add": "Gosmak",
     "phoneNumber": "Telefon belgiňiz",
     "min": "min",
@@ -34,7 +35,8 @@
     "noReview": "Seslenme az",
     "description": "Teswirleme",
     "quantity": "Mukdary",
-    "dishes": "Tagamlar"
+    "dishes": "Tagamlar",
+    "freeDelivery": "Eltip bermek mugt"
   },
 
   "Login": {

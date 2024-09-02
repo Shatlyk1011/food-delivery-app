@@ -31,12 +31,12 @@ export const useGetRestaurantsQuery = (
   });
 
   //use memo?
-  const filteredRestaurants = data?.pages?.map((rests, idx) => {
+  //filter by delivery time
+  const filteredRestaurants = data?.pages?.map((rests, idx): MainPageRestaurant[] => {
     if (deliveryTime !== 0) {
       const res = [];
       const filterByTime = rests.filter((item) => +item.workingHours.closeTime.slice(1) >= deliveryTime);
       res[idx] = filterByTime;
-
       return res.flat(2);
     }
     return data?.pages.flat(2);
@@ -65,7 +65,7 @@ export const useGetRestaurantById = (schema?: string) => {
     let categoryObj = acc.find((item) => item.title === category);
 
     if (!categoryObj) {
-      categoryObj = { category, dishes: [] };
+      categoryObj = { title: category, dishes: [] };
       acc.push(categoryObj);
     }
 

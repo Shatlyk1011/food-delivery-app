@@ -13,14 +13,14 @@
 
 ✅ - make restaurant blockable
 
+- add order field to restaurants
+
 <!-- - add filter orders in profile -->
 
 - ✅ interval fetch orders
   <!-- - dish isChange flag -->
 
   ✅ - order statuses
-
-- id with title + 4 random str
 
 - categories for dishes and restaurants (names)
 - ✅ request orders by users id in profile page (interval)
@@ -34,12 +34,14 @@
 ✅- enable auth
 ✅- fix all form translates, validations
 
+- LANGUAGE BUUUG!
+
 - default images
   ✅ hide search if its not in main page
 - button states (loading, pending, disabled)
 - ✅ Check Mini Items UI Data
-  ✅ - add snackbar
-- free delivery ui (yx-eat)
+- ✅ add snackbar
+- ✅ free delivery ui (yx-eat)
   <!-- - add filter ui in profile -->
   ✅ - if count > totalAmount, show snackbar with warning
   ✅ - self care address message

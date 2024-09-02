@@ -4,6 +4,7 @@ import { FC } from "react";
 import AddedItem from "@/app/components/restaurant-page-ui/Cart/AddedItem";
 import CartInfo from "@/app/components/restaurant-page-ui/Cart/CartInfo";
 import CartButton from "@/app/components/restaurant-page-ui/Cart/CartButton";
+import { EmptyBucketIcon } from "@/app/icons";
 
 import useProductItem from "@/app/hooks/useProductItem";
 
@@ -25,17 +26,22 @@ const Index: FC<Props> = ({ restaurantInfo, t }) => {
         </button>
       </div>
 
-      {!selectedItems.dishes.length && <p>Вы еще ничего не добавляли</p>}
-
       <ul className="perfect-scrollbar h-[calc(100vh-354px)] space-y-4 p-4 pt-0">
-        {selectedItems?.dishes?.map((item, index) => (
-          <AddedItem
-            key={index}
-            item={item}
-            increaseItem={() => increaseItem(item)}
-            decreaseItem={() => decreaseItem(item)}
-          />
-        ))}
+        {selectedItems && selectedItems.dishes?.length > 0 ? (
+          selectedItems?.dishes?.map((item, index) => (
+            <AddedItem
+              key={index}
+              item={item}
+              increaseItem={() => increaseItem(item)}
+              decreaseItem={() => decreaseItem(item)}
+            />
+          ))
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center pt-2  text-center">
+            <EmptyBucketIcon className="text-text-4/70" />
+            <p className="mt-4 px-2 text-xl font-semibold leading-[1.25] text-text-2 ">{t("Index.emptyBucket")}</p>
+          </div>
+        )}
       </ul>
 
       {selectedItems?.dishes.length > 0 && (

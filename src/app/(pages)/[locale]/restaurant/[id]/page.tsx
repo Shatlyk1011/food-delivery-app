@@ -71,18 +71,18 @@ export default function Home({ params: { id } }) {
                 {isPending ? (
                   <ProductSkeleton length={12} />
                 ) : (
-                  withCategories?.map(({ dishes, category }) => {
-                    const { title, deliveryPrice } = restaurantInfo;
+                  withCategories?.map(({ dishes, title }) => {
+                    const { title: restaurantTitle, deliveryPrice } = restaurantInfo;
                     return (
-                      <div key={category} className="mt-5">
-                        <p className="ml-1 text-2xl font-medium capitalize">{category}</p>
+                      <div key={title} className="mt-5">
+                        <p className="ml-1 text-2xl font-medium capitalize">{title}</p>
                         <div className="manual_grid_220 mt-2 2xl:mt-4 md:w-full">
                           {dishes?.map((d) => (
                             <Product
                               key={d.id}
                               dish={d}
                               handleDish={() => setSelectedDish(d)}
-                              addItem={() => addItem(d, { id, name: title, deliveryPrice })}
+                              addItem={() => addItem(d, { id, name: restaurantTitle, deliveryPrice })}
                               addTitle={t("Index.add")}
                             />
                           ))}

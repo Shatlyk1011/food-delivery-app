@@ -2,10 +2,11 @@ import { FC } from "react";
 
 import { Link } from "@/app/(pages)/_providers/i18n/i18config";
 
-import { StarIcon, UsdIcon } from "@/app/icons";
+import { MotocycleIcon, StarIcon, UsdIcon } from "@/app/icons";
 
 interface Props {
   item: MainPageRestaurant;
+  isDeliveryFree: boolean;
   t: any;
 }
 
@@ -26,7 +27,7 @@ const computedPriceNumber = (budgetCategory: string) => {
   }
 };
 
-const Index: FC<Props> = ({ item, t }) => {
+const Index: FC<Props> = ({ item, isDeliveryFree, t }) => {
   return (
     <div className="relative inline-block px-4 pb-5 xl:px-2">
       <figure
@@ -40,6 +41,12 @@ const Index: FC<Props> = ({ item, t }) => {
             alt={item.bannerImage?.alt || "image"}
           />
         </Link>
+        {isDeliveryFree && (
+          <div className="absolute left-2 top-2 z-10 flex items-center space-x-1 rounded-full bg-white/80 px-1 py-[3px] pr-1.5 text-black">
+            <MotocycleIcon className="box-content h-4 w-4 rounded-full bg-[#5AC31A] p-1 text-white" />
+            <p className="text-xs font-medium tracking-normal text-text-1">{t("Index.freeDelivery")}</p>
+          </div>
+        )}
 
         <div className="absolute bottom-0 right-0 z-10 rounded-[14px] rounded-br-none bg-black/60 px-2 py-3 leading-[1] text-white">
           {deliveryTime(item.deliveryTime || "", t)}

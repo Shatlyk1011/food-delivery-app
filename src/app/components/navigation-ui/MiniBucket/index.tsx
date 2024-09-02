@@ -6,7 +6,7 @@ import useProductItem from "@/app/hooks/useProductItem";
 //components
 import EmptyBucket from "@/app/components/shared-ui/EmptyBucket";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
-import { BucketIcon } from "@/app/icons";
+import { BucketIcon, EmptyBucketIcon } from "@/app/icons";
 import { PopoverClose } from "@radix-ui/react-popover";
 import MiniItem from "./MiniItem";
 import MiniDishesCount from "../TotalDishesCount";
@@ -50,15 +50,21 @@ const Index: FC<Props> = ({ t }) => {
             </button>
           </div>
           <div className="perfect-scrollbar h-96 space-y-6">
-            {selectedItems?.dishes?.map((item) => (
-              <MiniItem
-                key={item.id}
-                item={item}
-                decrease={() => decreaseItem(item)}
-                increase={() => increaseItem(item)}
-              />
-            ))}
-            {!selectedItems?.dishes?.length && <EmptyBucket title={t("Index.noItems")} />}
+            {selectedItems && selectedItems.dishes.length > 0 ? (
+              selectedItems?.dishes?.map((item) => (
+                <MiniItem
+                  key={item.id}
+                  item={item}
+                  decrease={() => decreaseItem(item)}
+                  increase={() => increaseItem(item)}
+                />
+              ))
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center pt-2 text-center">
+                <EmptyBucketIcon className="text-text-4/70" />
+                <p className="mt-4 px-2 text-xl font-semibold leading-[1.25] text-text-2 ">{t("Index.emptyBucket")}</p>
+              </div>
+            )}
           </div>
           <PopoverClose
             onClick={handleToBucket}

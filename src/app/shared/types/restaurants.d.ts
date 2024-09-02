@@ -77,6 +77,6 @@ interface Dish {
 }
 
 interface WithCategories {
-  category: string;
+  title: string;
   dishes: Dish[];
 }
