@@ -88,7 +88,7 @@ export default function Bucket() {
   }, [restId]);
 
   return (
-    <main className="min-h-[calc(100vh-336px)] w-full bg-bg-2 px-10 py-12 xl:p-8 md:px-4 md:py-6 sm:px-3 sm:py-4">
+    <main className="min-h-[calc(100vh-313px)] w-full bg-bg-2 px-10 py-12 xl:p-8 md:px-4 md:py-6 sm:px-3 sm:py-4">
       <Form {...form}>
         <div className="mx-auto max-w-[1140px] xl:max-w-[720px]">
           <form

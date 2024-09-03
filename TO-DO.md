@@ -45,6 +45,7 @@
   <!-- - add filter ui in profile -->
   ✅ - if count > totalAmount, show snackbar with warning
   ✅ - self care address message
+- upload default image and get url
 - Footer modals (feedback, report)
   <!-- - profile page (with add/remove addresses) -->
   ✅- dishes info modal (on click, lazy load)

@@ -29,7 +29,7 @@ const Index: FC<Props> = () => {
   const links = ["MainPage.about", "MainPage.advertisement", "MainPage.collab", "MainPage.feedback"];
 
   return (
-    <footer className="z-[2000] h-auto w-full bg-gray-3 px-40 py-14 shadow-2xl 2xl:px-20 xl:px-10 lg:px-5 lg:py-7 md:mt-4">
+    <footer className="z-[2000] h-auto w-full bg-gray-3 px-40 py-10 shadow-2xl 2xl:px-20 xl:px-10 lg:px-5 lg:py-6 md:mt-4">
       <div className="mx-auto flex max-w-[1440px] flex-col space-y-8 md:pt-1">
         <div className="flex flex-wrap justify-between gap-x-6 lg:items-center lg:justify-evenly lg:gap-y-6">
           {contacts.map(({ icon, title, subtitle }) => (

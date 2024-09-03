@@ -61,13 +61,8 @@ const Index: FC<Props> = ({}) => {
           <MenuIcon className="h-6 w-6" />
         </SidebarTrigger>
 
-        <Link
-          href={"/"}
-          className={cn("md:hidden", isBucketPage && "flex items-center space-x-2 md:flex-1 md:justify-center")}
-          type="button"
-        >
-          <LogoIcon />
-          {isBucketPage && <div className="text-lg font-medium text-[#000001]">Ashpez</div>}
+        <Link href={"/"} className={cn("md:hidden", isBucketPage && " md:flex-1 md:justify-center")} type="button">
+          <LogoIcon className="text-white transition hover:text-[#FBDB65]" />
         </Link>
 
         {!isBucketPage && (
