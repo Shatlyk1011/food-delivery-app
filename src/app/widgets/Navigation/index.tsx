@@ -36,7 +36,7 @@ const Index: FC<Props> = ({}) => {
   const t = useTranslations();
   const pathName = usePathname();
 
-  const { handleChange } = useChangeLanguage();
+  const { handleChange, languageTitle } = useChangeLanguage();
 
   const [isAuth, setAuth] = useAtom(atoms.isAuth);
   const setUserProfile = useSetAtom(atoms.userProfile);
@@ -79,7 +79,7 @@ const Index: FC<Props> = ({}) => {
         )}
       </div>
       <div className="flex items-center space-x-4 md:space-x-0">
-        <Language languageTitle={"Язык"} handleChange={handleChange} />
+        <Language languageTitle={languageTitle} handleChange={handleChange} />
         <MiniBucket t={t} />
         {isAuth ? (
           <>

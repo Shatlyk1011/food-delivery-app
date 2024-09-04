@@ -30,8 +30,7 @@ const Index = () => {
             <CloseIcon className="h-6 w-6" />
           </button>
           <div className="mx-auto flex items-center justify-center space-x-2">
-            <LogoIcon width={32} height={32} />
-            <span className="text-center text-sm font-medium">Ashpez</span>
+            <LogoIcon width={96} height={48} />
           </div>
         </header>
 

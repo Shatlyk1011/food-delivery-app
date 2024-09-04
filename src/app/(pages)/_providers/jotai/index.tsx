@@ -8,6 +8,7 @@ const isSidebarOpen = atom(false);
 const isAuth = atom(false);
 const query = atom("");
 
+const selectedLanguage = atomWithStorage("LANGUAGE", "ru");
 const selectedCity = atomWithStorage("CITY", "Turkmenabat");
 const selectedItems = atomWithStorage<RestaurantWithDishesInfo>("DISHES", DEFAULT_RESTAURANT_INFO, {
   getItem(key, initialValue) {
@@ -36,6 +37,7 @@ const userProfile = atomWithStorage<UserData | null>("USER_PROFILE", null);
 const atoms = {
   isSidebarOpen,
   selectedItems,
+  selectedLanguage,
   isAuth,
   query,
   selectedCity,
