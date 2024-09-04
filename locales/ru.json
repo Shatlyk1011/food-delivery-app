@@ -36,7 +36,8 @@
     "description": "Описание",
     "quantity": "Количество",
     "dishes": "Блюда",
-    "freeDelivery": "Бесплатная доставка"
+    "freeDelivery": "Бесплатная доставка",
+    "availableLater": "Будет позже"
   },
 
   "Login": {

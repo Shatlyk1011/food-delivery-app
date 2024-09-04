@@ -1429,6 +1429,7 @@ type Order {
   dishes: [Order_Dishes!]
   restaurantID: String!
   orderedByUser: String!
+  deliveryPrice: String
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -1479,6 +1480,7 @@ input Order_where {
   dishes__id: Order_dishes__id_operator
   restaurantID: Order_restaurantID_operator
   orderedByUser: Order_orderedByUser_operator
+  deliveryPrice: Order_deliveryPrice_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -1662,6 +1664,17 @@ input Order_orderedByUser_operator {
   all: [String]
 }
 
+input Order_deliveryPrice_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input Order_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -1713,6 +1726,7 @@ input Order_where_and {
   dishes__id: Order_dishes__id_operator
   restaurantID: Order_restaurantID_operator
   orderedByUser: Order_orderedByUser_operator
+  deliveryPrice: Order_deliveryPrice_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -1738,6 +1752,7 @@ input Order_where_or {
   dishes__id: Order_dishes__id_operator
   restaurantID: Order_restaurantID_operator
   orderedByUser: Order_orderedByUser_operator
+  deliveryPrice: Order_deliveryPrice_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -1773,6 +1788,7 @@ type OrdersDocAccessFields {
   dishes: OrdersDocAccessFields_dishes
   restaurantID: OrdersDocAccessFields_restaurantID
   orderedByUser: OrdersDocAccessFields_orderedByUser
+  deliveryPrice: OrdersDocAccessFields_deliveryPrice
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
 }
@@ -2195,6 +2211,29 @@ type OrdersDocAccessFields_orderedByUser_Update {
 }
 
 type OrdersDocAccessFields_orderedByUser_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryPrice {
+  create: OrdersDocAccessFields_deliveryPrice_Create
+  read: OrdersDocAccessFields_deliveryPrice_Read
+  update: OrdersDocAccessFields_deliveryPrice_Update
+  delete: OrdersDocAccessFields_deliveryPrice_Delete
+}
+
+type OrdersDocAccessFields_deliveryPrice_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryPrice_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryPrice_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryPrice_Delete {
   permission: Boolean!
 }
 
@@ -5481,6 +5520,7 @@ type OrdersFields {
   dishes: OrdersFields_dishes
   restaurantID: OrdersFields_restaurantID
   orderedByUser: OrdersFields_orderedByUser
+  deliveryPrice: OrdersFields_deliveryPrice
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
 }
@@ -5903,6 +5943,29 @@ type OrdersFields_orderedByUser_Update {
 }
 
 type OrdersFields_orderedByUser_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryPrice {
+  create: OrdersFields_deliveryPrice_Create
+  read: OrdersFields_deliveryPrice_Read
+  update: OrdersFields_deliveryPrice_Update
+  delete: OrdersFields_deliveryPrice_Delete
+}
+
+type OrdersFields_deliveryPrice_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryPrice_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryPrice_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryPrice_Delete {
   permission: Boolean!
 }
 
@@ -7735,6 +7798,7 @@ input mutationOrderInput {
   dishes: [mutationOrder_DishesInput]
   restaurantID: String!
   orderedByUser: String!
+  deliveryPrice: String
   updatedAt: String
   createdAt: String
 }
@@ -7769,6 +7833,7 @@ input mutationOrderUpdateInput {
   dishes: [mutationOrderUpdate_DishesInput]
   restaurantID: String
   orderedByUser: String
+  deliveryPrice: String
   updatedAt: String
   createdAt: String
 }

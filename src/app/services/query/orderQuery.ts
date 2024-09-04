@@ -24,6 +24,7 @@ export const USER_ORDERS = `
         apartment
         houseNumber
         orderStatus
+        deliveryPrice
         isDelivery
         totalAmount
         restaurantName

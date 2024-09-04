@@ -20,7 +20,7 @@ const Index: FC<Props> = ({ form, deliveryTime, isDelivery, clearLocalStorage, t
       <h2 className="le/ading-6 mb-2.5 text-2xl font-bold md:text-base">{t("BucketForm.fillForm")}</h2>
       <h3 className={`mb-2.5 text-base font-medium leading-5 md:text-sm `}>
         {t("Index.orderType")}: &nbsp;
-        <span className={isDelivery ? "text-warning" : "text-success"}>
+        <span className={isDelivery ? "text-success" : "text-warning"}>
           {isDelivery ? t("Index.delivery") : t("Index.selfCare")}
         </span>
       </h3>

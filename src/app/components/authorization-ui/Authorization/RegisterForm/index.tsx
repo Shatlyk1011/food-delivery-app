@@ -35,7 +35,11 @@ const Index: FC<Props> = ({ t, classes }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder={t(`Placeholder.${key}`)} {...field} className="h-12 w-full px-[14px]" />
+                  <Input
+                    placeholder={t(`Placeholder.${key}`)}
+                    {...field}
+                    className="h-12 w-full px-[14px] sm:h-10 sm:px-2.5"
+                  />
                 </FormControl>
                 <FormMessage className="mt-1" />
               </FormItem>
@@ -43,7 +47,10 @@ const Index: FC<Props> = ({ t, classes }) => {
           />
         ))}
 
-        <button type="submit" className="h-12 w-full rounded-md bg-primary text-xl font-medium hover:bg-accent">
+        <button
+          type="submit"
+          className="h-12 w-full rounded-md bg-primary text-xl font-medium hover:bg-accent sm:h-10 sm:text-base"
+        >
           {t("Login.register")}
         </button>
       </form>

@@ -1,5 +1,4 @@
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
-import Image from "next/image";
+import { Dialog, DialogContent, DialogTitle } from "@/app/components/shared-ui/Dialog";
 
 interface Props {
   dish: Dish;
@@ -12,12 +11,10 @@ export default function AboutProduct({ dish, handleClose, t }: Props) {
       <DialogContent className="max-h-[520px] max-w-[780px] rounded-[20px] px-6 py-6 lg:max-w-[90%] md:p-4">
         <div className="box-border flex space-x-10 md:flex-col md:space-x-0 md:space-y-6">
           <figcaption className="relative my-auto min-h-[260px] min-w-[260px] flex-1 md:min-h-[180px]">
-            <Image
-              className="overflow-hidden rounded-xl"
-              objectFit="contain"
+            <img
+              className="h-full w-full overflow-hidden rounded-xl object-cover"
               src={dish.image?.url || ""}
               alt={dish.image?.alt || ""}
-              fill={true}
             />
           </figcaption>
           <div className="flex w-full flex-col">

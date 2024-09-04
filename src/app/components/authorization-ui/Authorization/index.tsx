@@ -3,8 +3,12 @@ import { FC, Suspense, useState } from "react";
 
 //components
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
-const LoginForm = dynamic(() => import("./LoginForm"));
-const RegisterForm = dynamic(() => import("./RegisterForm"));
+const LoginForm = dynamic(() => import("./LoginForm"), {
+  loading: () => <p>loading...</p>,
+});
+const RegisterForm = dynamic(() => import("./RegisterForm"), {
+  loading: () => <p>loading...</p>,
+});
 
 interface Props {
   t: any;
@@ -19,19 +23,19 @@ const Index: FC<Props> = ({ t }) => {
         <button type="button">{t("Login.login")}</button>
       </DialogTrigger>
 
-      <DialogContent className="gap-0 rounded-md p-0 text-center">
-        <DialogTitle className="mb-[6px] mt-8 text-3xl font-bold">
+      <DialogContent className="mx-auto gap-0 rounded-md p-0 text-center sm:max-w-[90%]">
+        <DialogTitle className="mb-[6px] mt-8 text-3xl font-bold sm:mt-5 sm:text-2xl">
           {isLogin ? t("Login.login") : t("Login.register")}
         </DialogTitle>
-        <p className="mb-[18px] text-text-3">{isLogin ? t("Login.loginViaEmail") : t("Login.registerAccount")}</p>
+        <p className="mb-[18px] text-text-3 sm:mb-3">
+          {isLogin ? t("Login.loginViaEmail") : t("Login.registerAccount")}
+        </p>
 
-        <Suspense fallback={"Loading..."}>
-          {isLogin ? <LoginForm classes="px-6" t={t} /> : <RegisterForm classes="px-6" t={t} />}
-        </Suspense>
+        {isLogin ? <LoginForm classes="px-6" t={t} /> : <RegisterForm classes="px-6" t={t} />}
 
-        <p className="leading54 px-6 py-2.5 text-text-3">{t("Login.rules")}</p>
+        <p className="leading px-6 py-2.5 text-text-3 sm:px-4 sm:text-sm">{t("Login.rules")}</p>
 
-        <div className="border-t border-text-4 pb-3 pt-4 font-medium">
+        <div className="border-t border-text-4 pb-3 pt-4 font-medium sm:pb-2 sm:pt-2 sm:text-sm">
           <p>
             <span className="text-text-3">{isLogin ? t("Login.noAccount") : t("Login.haveAccount")} </span>
             <button
@@ -41,11 +45,11 @@ const Index: FC<Props> = ({ t }) => {
               {isLogin ? t("Login.register") : t("Login.login")}
             </button>
           </p>
-          {isLogin && (
+          {/* {isLogin && (
             <button className="mt-1 cursor-pointer border-b border-[transparent] py-0.5 transition hover:border-text-2">
               {t("Login.resetPassword")}
             </button>
-          )}
+          )} */}
         </div>
       </DialogContent>
     </Dialog>

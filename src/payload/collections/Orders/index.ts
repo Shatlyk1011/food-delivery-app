@@ -137,21 +137,21 @@ const Orders: CollectionConfig = {
       required: false,
       type: "select",
     },
-    {
-      name: "isDelivery",
-      label: "Доставка?",
-      required: true,
-      admin: {
-        position: "sidebar",
-        readOnly: true,
-      },
-      type: "checkbox",
-    },
 
     {
       name: "totalAmount",
       type: "number",
-      label: "Общая сумма заказа (с учетом доставки)",
+      label: "Общая сумма заказа",
+      admin: {
+        position: "sidebar",
+        readOnly: true,
+      },
+    },
+    {
+      name: "deliveryPrice",
+      label: "Стоимость доставки",
+      required: false,
+      type: "text",
       admin: {
         position: "sidebar",
         readOnly: true,
@@ -166,7 +166,6 @@ const Orders: CollectionConfig = {
         readOnly: true,
       },
     },
-
     {
       name: "commentToCourier",
       label: "Коментарий курьеру",
@@ -186,6 +185,16 @@ const Orders: CollectionConfig = {
         position: "sidebar",
         readOnly: true,
       },
+    },
+    {
+      name: "isDelivery",
+      label: "Доставка?",
+      required: true,
+      admin: {
+        position: "sidebar",
+        readOnly: true,
+      },
+      type: "checkbox",
     },
     {
       name: "dishes",
@@ -243,44 +252,45 @@ const Orders: CollectionConfig = {
         if (!restaurantID || !dishes || dishes.length === 0) {
           return data;
         }
-        const restaurant = await req.payload.find({
-          collection: "restaurants",
-          where: { _id: { equals: restaurantID } },
-        });
+        const [restaurantResult, foundDishes] = await Promise.all([
+          req.payload.find({
+            collection: "restaurants",
+            where: { _id: { equals: restaurantID } },
+          }),
+          req.payload.find({
+            collection: "dishes",
+            where: {
+              _id: { in: dishes.map((d: any) => d.id) },
+              restaurant: { equals: restaurantID },
+            },
+          }),
+        ]);
 
-        if (!restaurant.docs.length) {
-          throw new Error("Что то пошло не так. Ресторан не найден");
+        const restaurant = restaurantResult.docs[0];
+        if (!restaurant) {
+          throw new Error("Что-то пошло не так. Ресторан не найден");
         }
 
-        const dishIds = dishes.map((d: any) => d.id);
-        const foundDishes = await req.payload.find({
-          collection: "dishes",
-          where: {
-            _id: { in: dishIds },
-            restaurant: { equals: restaurantID },
-          },
-        });
-
-        if (!dishIds.length) {
-          throw new Error("Что то пошло не так. Выбранные блюда не найдены.");
+        if (!foundDishes.docs.length) {
+          throw new Error("Что-то пошло не так. Выбранные блюда не найдены.");
         }
 
-        const findAndCountDishes = foundDishes.docs?.map((dish) => ({
-          dish: dish.id,
-          quantity: dishes.find((d: any) => d.id === dish.id)?.quantity || 1,
-        }));
-        // ??? use this data for total amount. reduce amount of operations
+        let totalAmount = 0;
+        const findAndCountDishes = foundDishes.docs.map((dish) => {
+          const quantity = dishes.find((d: any) => d.id === dish.id)?.quantity || 1;
+          totalAmount += dish.price * quantity;
+          return { dish: dish.id, quantity };
+        });
+
         console.log("findAndCountDishes", findAndCountDishes);
+        console.log("totalAmount", totalAmount);
+        console.log("freeAfterAmount", restaurant.freeAfterAmount);
+        const deliveryPrice = totalAmount > restaurant.freeAfterAmount ? 0 : restaurant.deliveryPrice;
+        console.log("deliveryPrice", deliveryPrice);
         data.dishes = findAndCountDishes;
-
-        const totalAmount = foundDishes.docs.reduce((acc, dish) => {
-          const quantity = dishes.find((d) => d.id === dish.id)?.quantity || 1;
-          return acc + dish.price * quantity;
-        }, 0);
-
-        data.totalAmount = totalAmount + restaurant.docs[0]?.deliveryPrice || -1;
-        data.restaurantName = restaurant.docs[0]?.title || "Название ресторана не найдено...";
-        return data;
+        data.totalAmount = totalAmount + deliveryPrice;
+        data.deliveryPrice = deliveryPrice;
+        data.restaurantName = restaurant.title || "Название ресторана не найдено...";
       },
     ],
   },

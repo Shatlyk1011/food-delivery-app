@@ -43,10 +43,10 @@ export const defaultFilters: Filters = {
 
 export const PROFILE_OUTER_HEAD = [
   { title: "ProfilePage.restaurantName", className: "w-[20%]" },
-  { title: "MainPage.address", className: "w-[16%]" },
+  { title: "MainPage.address", className: "w-[15%]" },
   { title: "ProfilePage.price", className: "w-[11%]" },
-  { title: "ProfilePage.deliveryType", className: "w-[16%]" },
-  { title: "ProfilePage.orderTime", className: "w-[16%]" },
+  { title: "ProfilePage.deliveryType", className: "w-[18%]" },
+  { title: "ProfilePage.orderTime", className: "w-[15%]" },
 ];
 
 export const PROFILE_INNER_HEAD = [
@@ -64,9 +64,9 @@ export const ORDER_STATUSES = {
 };
 
 export const STATUS_CLASSES = {
-  pending: "text-[#A4ABB6]",
-  recieved: "text-[#2DCCFF]",
-  sended: "text-warning",
-  delivered: "text-success",
-  rejected: "text-error",
+  pending: "text-[#FFA500]",
+  recieved: "text-[#4CAF50]",
+  sended: "text-[#1E90FF]",
+  delivered: "text-[#008000]",
+  rejected: "text-[#FF4500]",
 };

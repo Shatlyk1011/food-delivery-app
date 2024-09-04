@@ -21,9 +21,11 @@ const Index: FC<Props> = ({ restaurantInfo, t }) => {
     <div className="h-[calc(100vh-140px)] overflow-hidden rounded-[16px] bg-bg-1">
       <div className="flex h-16 items-center justify-between px-4 py-2">
         <h5 className="text-xl font-medium 2xl:text-lg xl:text-base">{restaurantInfo.title}</h5>
-        <button className="text-base text-text-4 hover:text-text-3" onClick={clearItems}>
-          {t("Index.clear")}
-        </button>
+        {selectedItems?.dishes.length > 0 && (
+          <button className="text-base text-text-4 hover:text-text-3" onClick={clearItems}>
+            {t("Index.clear")}
+          </button>
+        )}
       </div>
 
       <ul className="perfect-scrollbar h-[calc(100vh-354px)] space-y-4 p-4 pt-0">

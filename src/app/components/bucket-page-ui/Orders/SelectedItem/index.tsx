@@ -1,6 +1,5 @@
 "use client";
 import { FC } from "react";
-import Image from "next/image";
 
 import IncreaseDecrease from "@/app/components/shared-ui/IncreaseDecrease";
 
@@ -15,7 +14,7 @@ const Index: FC<Props> = ({ item, decrease, increase }) => {
     <div className="py-2.5">
       <div className="flex flex-wrap space-x-2">
         <div className="relative h-20 w-20 overflow-hidden rounded-xl">
-          <Image src={item.image?.url || ""} objectFit="cover" fill={true} alt="alt name" />
+          <img src={item.image?.url || ""} className="h-full w-full object-cover" alt="alt name" />
         </div>
         <div className="flex flex-1 justify-between space-y-1">
           <div>
@@ -32,7 +31,7 @@ const Index: FC<Props> = ({ item, decrease, increase }) => {
                 decrease={decrease}
                 className="w-20 space-x-3 xl:w-24 md:w-[68px] md:space-x-1"
               />
-              <p className="text-base font-medium md:text-sm">{item.price}TMT</p>
+              <p className="min-w-16 text-base font-medium md:text-sm">{item.price}TMT</p>
             </div>
           </div>
         </div>

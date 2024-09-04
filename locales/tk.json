@@ -36,7 +36,8 @@
     "description": "Teswirleme",
     "quantity": "Mukdary",
     "dishes": "Tagamlar",
-    "freeDelivery": "Eltip bermek mugt"
+    "freeDelivery": "Eltip bermek mugt",
+    "availableLater": "Elýeter däl"
   },
 
   "Login": {

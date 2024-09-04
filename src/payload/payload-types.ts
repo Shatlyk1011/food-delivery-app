@@ -153,6 +153,7 @@ export interface Order {
     | null;
   restaurantID: string;
   orderedByUser: string;
+  deliveryPrice?: string | null;
   updatedAt: string;
   createdAt: string;
 }

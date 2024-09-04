@@ -16,7 +16,7 @@ const Index: FC<Props> = ({ count, decrease, increase, className }) => {
       <button type="button" onClick={decrease}>
         <MinusIcon width={20} height={20} />
       </button>
-      <p className="md:text-sm">{count ?? 1}</p>
+      <p className="min-w-4 text-center md:text-sm">{count ?? 1}</p>
       <button type="button" onClick={increase}>
         <PlusIcon width={20} height={20} />
       </button>

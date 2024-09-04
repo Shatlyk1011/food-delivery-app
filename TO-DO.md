@@ -13,6 +13,7 @@
 
 ✅ - make restaurant blockable
 
+- seo (edil ozi)
 - add order field to restaurants
 
 <!-- - add filter orders in profile -->
@@ -34,18 +35,19 @@
 ✅- enable auth
 ✅- fix all form translates, validations
 
-- LANGUAGE BUUUG!
+- create address function
 
-- default images
+-✅ LANGUAGE BUUUG!
+
+- ✅ (use url) default images
   ✅ hide search if its not in main page
-- button states (loading, pending, disabled)
+- ✅ button states (loading, pending, disabled)
 - ✅ Check Mini Items UI Data
 - ✅ add snackbar
 - ✅ free delivery ui (yx-eat)
   <!-- - add filter ui in profile -->
   ✅ - if count > totalAmount, show snackbar with warning
   ✅ - self care address message
-- upload default image and get url
 - Footer modals (feedback, report)
   <!-- - profile page (with add/remove addresses) -->
   ✅- dishes info modal (on click, lazy load)
@@ -55,7 +57,7 @@
 - ✅ localstorage timestamp
 <!-- - bucket form submittion modal () -->
 - mobile sidebar, login, logout states
-- if availabelAmount === 0, disable dish
+- ✅ if availabelAmount === 0, disable dish
 - ✅ profile interval order fetch (tailwind ping)
 - redirect to main page, if last item were deleted in bucket page
 - restaurant by id. if no restaurant, show no rest ui
