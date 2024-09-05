@@ -1,13 +1,15 @@
 import dynamic from "next/dynamic";
-import { FC, Suspense, useState } from "react";
+import { FC, useState } from "react";
+
+import Spinner from "@/app/components/shared-ui/Spinner";
 
 //components
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
 const LoginForm = dynamic(() => import("./LoginForm"), {
-  loading: () => <p>loading...</p>,
+  loading: () => <Spinner />,
 });
 const RegisterForm = dynamic(() => import("./RegisterForm"), {
-  loading: () => <p>loading...</p>,
+  loading: () => <Spinner />,
 });
 
 interface Props {

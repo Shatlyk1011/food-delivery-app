@@ -42,10 +42,11 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
   },
   rateLimit: {
-    max: 10000, // limit each IP per windowMs
+    max: 1000, // limit each IP per windowMs
+    window: 15 * 60 * 1000, // 2 minutes
     trustProxy: true,
-    window: 2 * 60 * 1000, // 2 minutes
   },
+  maxDepth: 10,
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),
