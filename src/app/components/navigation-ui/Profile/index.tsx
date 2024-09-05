@@ -8,6 +8,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared
 import { ProfileIcon } from "@/app/icons";
 import { LogoutIcon } from "@/app/icons/LogoutIcon";
 
+import { USER_PROFILE } from "@/app/shared/constants";
+
 import useAuth from "@/app/hooks/useAuth";
 
 //jotai
@@ -31,7 +33,7 @@ const Index: FC<Props> = ({ t }) => {
   const handleLogout = () => {
     logout();
     setAuth(false);
-    localStorage.clear();
+    localStorage.removeItem(USER_PROFILE);
   };
 
   return (

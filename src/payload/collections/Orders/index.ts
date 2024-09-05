@@ -240,8 +240,28 @@ const Orders: CollectionConfig = {
   timestamps: true,
   hooks: {
     beforeChange: [
-      async ({ data, req, originalDoc }) => {
-        const { restaurantID, dishes, orderStatus } = data;
+      async ({ data, req, originalDoc, operation }) => {
+        const { restaurantID, dishes } = data;
+
+        if (operation === "create") {
+          const now = new Date();
+          const thirtyMinutesAgo = new Date(now.getTime() - 60 * 1000);
+
+          const recentOrders = await req.payload.find({
+            collection: "orders",
+            where: {
+              orderedByUser: { equals: req.user.id },
+              createdAt: { greater_than: thirtyMinutesAgo },
+            },
+            limit: 0,
+            depth: 0,
+          });
+          console.log("recentOrders", recentOrders);
+          if (recentOrders.totalDocs >= 5) {
+            throw new Error("Пожалуйста, подождите...");
+          }
+        }
+
         //if changes appear in admin panel, change only orderStatus, and return data
         if (checkRole(["admin", "author"], req.user)) {
           if (originalDoc.orderStatus === "delivered") {
@@ -249,6 +269,7 @@ const Orders: CollectionConfig = {
           }
           return data;
         }
+
         if (!restaurantID || !dishes || dishes.length === 0) {
           return data;
         }
@@ -282,11 +303,7 @@ const Orders: CollectionConfig = {
           return { dish: dish.id, quantity };
         });
 
-        console.log("findAndCountDishes", findAndCountDishes);
-        console.log("totalAmount", totalAmount);
-        console.log("freeAfterAmount", restaurant.freeAfterAmount);
         const deliveryPrice = totalAmount > restaurant.freeAfterAmount ? 0 : restaurant.deliveryPrice;
-        console.log("deliveryPrice", deliveryPrice);
         data.dishes = findAndCountDishes;
         data.totalAmount = totalAmount + deliveryPrice;
         data.deliveryPrice = deliveryPrice;

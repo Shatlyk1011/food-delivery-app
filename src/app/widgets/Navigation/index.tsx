@@ -1,11 +1,15 @@
 "use client";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useRouter } from "@/app/(pages)/_providers/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+//hooks
 import useChangeLanguage from "@/app/hooks/useChangeLanguage";
+import { loginMe } from "@/app/services/useAuthentication";
+
+import { cn } from "@/app/shared/lib/utils";
 
 //components
 import { MenuIcon } from "lucide-react";
@@ -25,9 +29,6 @@ import { CITIES } from "@/app/data";
 import { useAtom, useSetAtom } from "jotai";
 import atoms from "@/app/(pages)/_providers/jotai";
 
-import { loginMe } from "@/app/services/useAuthentication";
-import { cn } from "@/app/shared/lib/utils";
-
 interface Props {}
 
 const Index: FC<Props> = ({}) => {
@@ -44,8 +45,10 @@ const Index: FC<Props> = ({}) => {
 
   const { currentUser } = loginMe();
 
-  setAuth(Boolean(currentUser));
-  setUserProfile(currentUser);
+  useEffect(() => {
+    setAuth(Boolean(currentUser));
+    setUserProfile(currentUser);
+  }, [currentUser]);
 
   const isBucketPage = pathName.includes("bucket");
   return (

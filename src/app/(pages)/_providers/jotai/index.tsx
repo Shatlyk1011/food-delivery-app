@@ -3,14 +3,16 @@ import { atomWithStorage } from "jotai/utils";
 
 import { DEFAULT_RESTAURANT_INFO } from "@/app/data";
 
+import { DISHES, LANGUAGE, USER_PROFILE, CITY } from "@/app/shared/constants";
+
 const isClearBucketModal = atom(false);
 const isSidebarOpen = atom(false);
 const isAuth = atom(false);
 const query = atom("");
 
-const selectedLanguage = atomWithStorage("LANGUAGE", "ru");
-const selectedCity = atomWithStorage("CITY", "Turkmenabat");
-const selectedItems = atomWithStorage<RestaurantWithDishesInfo>("DISHES", DEFAULT_RESTAURANT_INFO, {
+const selectedLanguage = atomWithStorage(LANGUAGE, "ru");
+const selectedCity = atomWithStorage(CITY, "Turkmenabat");
+const selectedItems = atomWithStorage<RestaurantWithDishesInfo>(DISHES, DEFAULT_RESTAURANT_INFO, {
   getItem(key, initialValue) {
     const storedVal = localStorage.getItem(key);
 
@@ -32,7 +34,7 @@ const selectedItems = atomWithStorage<RestaurantWithDishesInfo>("DISHES", DEFAUL
     localStorage.removeItem(key);
   },
 });
-const userProfile = atomWithStorage<UserData | null>("USER_PROFILE", null);
+const userProfile = atomWithStorage<UserData | null>(USER_PROFILE, null);
 
 const atoms = {
   isSidebarOpen,

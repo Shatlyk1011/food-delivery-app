@@ -11,9 +11,9 @@ module.exports = {
       sm: { max: "500px" },
     },
     colors: {
-      primary: "rgb(255, 209, 102)",
+      primary: "rgb(	251, 219, 101)",
       accent: "rgb(255, 225, 156)",
-      onHover: "rgba(255, 209, 102,0.8)",
+      onHover: "rgba(	251, 219, 101,0.8)",
 
       "gray-1": "#DCE1E7",
       "gray-2": "#E9ECEF",

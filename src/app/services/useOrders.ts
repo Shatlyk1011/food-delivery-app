@@ -5,7 +5,7 @@ import axios from "../shared/lib/axios";
 import { ORDER_MUTATION, USER_ORDERS } from "./query/orderQuery";
 
 export const useOrderSubmit = () => {
-  const { mutateAsync, isPending } = useMutation<OrderResponse, any, OrderData, any>({
+  const { mutateAsync } = useMutation<OrderResponse, any, OrderData, any>({
     mutationFn: async (orderData: OrderData) => {
       console.log("orderData", orderData);
       const { data } = await axios({
@@ -21,7 +21,7 @@ export const useOrderSubmit = () => {
     onError: (err) => console.log("register mutation error", err),
   });
 
-  return { handleOrder: mutateAsync, isSubmitPending: isPending };
+  return { handleOrder: mutateAsync };
 };
 
 export const useGetUserOrderList = (userId: string | undefined) => {

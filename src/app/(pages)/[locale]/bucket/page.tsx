@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
@@ -15,6 +15,8 @@ import Orders from "@/app/widgets/BucketPage/Orders";
 import { Form } from "@/app/components/shared-ui/Form/form";
 
 import { RESTAURANT_BUCKET } from "@/app/services/query/restaurantQuery";
+
+import { DISHES } from "@/app/shared/constants";
 
 //hooks
 import { useBucketFormScheme } from "@/app/hooks/formSchemes";
@@ -36,44 +38,51 @@ export default function Bucket() {
   const { form } = useBucketFormScheme();
   const { restId, selectedItems, totalPrice, clearItems } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
-  const { handleOrder, isSubmitPending } = useOrderSubmit();
+  const { handleOrder } = useOrderSubmit();
+  const [isLoading, setLoading] = useState(false);
 
   const clearLocalStorage = () => {
     clearItems();
-    localStorage.clear();
+    localStorage.removeItem(DISHES);
   };
 
   const handleOrderSubmit = async (values: OrderForm) => {
-    console.log("hmhm");
     if (restaurantInfo?.id && userProfile?.id) {
       const { apartment, district, houseNumber, phoneNumber, comment } = values;
-
-      const res = await handleOrder({
-        orderedByUser: userProfile.id,
-        apartment,
-        district,
-        restaurantID: restaurantInfo.id,
-        houseNumber,
-        phoneNumber: +phoneNumber,
-        isDelivery: true,
-        city: "Turkmenabat",
-        commentToCourier: comment,
-        dishes: selectedItems.dishes.map(({ id, count, availableAmount }) => ({
-          id,
-          quantity: Math.min(count, availableAmount),
-        })),
-      });
-      //order response
-      if (res?.id) {
-        router.push("/profile");
-        toast("Actions.successOrder", "success", { duration: 15000, closeButton: true });
-        clearLocalStorage();
+      try {
+        setLoading(true);
+        const res = await handleOrder({
+          orderedByUser: userProfile.id,
+          apartment,
+          district,
+          restaurantID: restaurantInfo.id,
+          houseNumber,
+          phoneNumber: +phoneNumber,
+          isDelivery: true,
+          city: "Turkmenabat",
+          commentToCourier: comment,
+          dishes: selectedItems.dishes.map(({ id, count, availableAmount }) => ({
+            id,
+            quantity: Math.min(count, availableAmount),
+          })),
+        });
+        //order response
+        if (res?.id) {
+          router.replace("/profile");
+          toast("Actions.successOrder", "success", { duration: 15000, closeButton: true });
+          clearLocalStorage();
+        }
+        console.log("res", res);
+      } catch (err) {
+        console.log("error", err);
+      } finally {
+        setLoading(true);
       }
-      console.log("res", res);
     } else if (!userProfile) {
       toast("Actions.loginToOrder", "warning");
+    } else if (!selectedItems?.dishes.length) {
+      toast("Index.emptyBucket", "info");
     } else {
-      // snackbar error message
       toast("Errors.somethingWentWrong", "warning");
       clearLocalStorage();
     }
@@ -118,7 +127,7 @@ export default function Bucket() {
                 t={t}
                 totalPrice={totalPrice}
                 deliveryPrice={restaurantInfo?.deliveryPrice}
-                disabled={isSubmitPending}
+                disabled={isLoading}
               />
             </div>
           </form>
