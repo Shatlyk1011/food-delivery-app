@@ -64,19 +64,15 @@ interface Dish {
   availableAmount: number;
   cookTime: number;
   categories?: {
-    id: string;
-    title: string;
+    category: string;
   };
   image: {
     url: string;
     alt: string;
   };
-  categories: {
-    title: string;
-  };
 }
 
 interface WithCategories {
-  title: string;
+  category: string;
   dishes: Dish[];
 }

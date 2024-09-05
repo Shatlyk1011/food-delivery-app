@@ -1,9 +1,11 @@
 import { FC } from "react";
+import Link from "next/link";
 
 //components
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/app/components/shared-ui/Collapsible";
 import { ChevronDown } from "lucide-react";
 import InnerTable from "./InnerTable";
+import EmptyBucket from "@/app/components/shared-ui/EmptyBucket";
 
 import { getLocaleDate } from "@/app/hooks/getLocaleData";
 
@@ -18,10 +20,7 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
   return (
     <section className="h-[100vh-366px] w-full">
       <h1 className="mb-4 pt-2 text-2xl font-semibold">{t("ProfilePage.history")}</h1>
-      <p className="w-[75%] text-balance text-lg leading-6 xl:w-full">
-        Здесь вы найдете историю ваших заказов и текущий статус активных заявок. Стадию выполнения можно отслеживать в
-        колонке «Статус». Информация обновляется в <em>реальном времени</em>.
-      </p>
+      <p className="w-[75%] text-balance text-lg leading-6 xl:w-full">{t("ProfilePage.info")}</p>
       <div className="w-full overflow-auto">
         <div className="mt-4 min-w-[800px] border border-black/15 shadow-xl">
           {/* /header */}
@@ -77,6 +76,14 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
                   </div>
                 </Collapsible>
               ),
+            )}
+            {userOrders && !userOrders.length && (
+              <div className="py-4 text-center">
+                <EmptyBucket title={t("ProfilePage.emptyHistory")} classes="bg-white text-base " />
+                <Link href={"/"} className="mt-1 rounded-full bg-gray-2 px-4 py-2  text-sm font-medium text-black/80">
+                  {t("BucketPage.menuReturn")}
+                </Link>
+              </div>
             )}
           </div>
         </div>

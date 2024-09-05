@@ -363,7 +363,14 @@ input Restaurant_BannerImage_where_or {
 
 type Category {
   id: String
-  title: String
+  category: String!
+  value: String!
+  type: Category_type!
+}
+
+enum Category_type {
+  dish
+  restaurant
 }
 
 type Dish {
@@ -1421,15 +1428,15 @@ type Order {
   entrance: String
   phoneNumber: Float!
   orderStatus: Order_orderStatus
-  isDelivery: Boolean!
   totalAmount: Float
+  deliveryPrice: String
   restaurantName: String
   commentToCourier: String
   commentToRestaurant: String
+  isDelivery: Boolean!
   dishes: [Order_Dishes!]
   restaurantID: String!
   orderedByUser: String!
-  deliveryPrice: String
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -1470,17 +1477,17 @@ input Order_where {
   entrance: Order_entrance_operator
   phoneNumber: Order_phoneNumber_operator
   orderStatus: Order_orderStatus_operator
-  isDelivery: Order_isDelivery_operator
   totalAmount: Order_totalAmount_operator
+  deliveryPrice: Order_deliveryPrice_operator
   restaurantName: Order_restaurantName_operator
   commentToCourier: Order_commentToCourier_operator
   commentToRestaurant: Order_commentToRestaurant_operator
+  isDelivery: Order_isDelivery_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
   restaurantID: Order_restaurantID_operator
   orderedByUser: Order_orderedByUser_operator
-  deliveryPrice: Order_deliveryPrice_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -1566,11 +1573,6 @@ enum Order_orderStatus_Input {
   rejected
 }
 
-input Order_isDelivery_operator {
-  equals: Boolean
-  not_equals: Boolean
-}
-
 input Order_totalAmount_operator {
   equals: Float
   not_equals: Float
@@ -1578,6 +1580,17 @@ input Order_totalAmount_operator {
   greater_than: Float
   less_than_equal: Float
   less_than: Float
+  exists: Boolean
+}
+
+input Order_deliveryPrice_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
   exists: Boolean
 }
 
@@ -1612,6 +1625,11 @@ input Order_commentToRestaurant_operator {
   not_in: [String]
   all: [String]
   exists: Boolean
+}
+
+input Order_isDelivery_operator {
+  equals: Boolean
+  not_equals: Boolean
 }
 
 input Order_dishes__dish_operator {
@@ -1664,17 +1682,6 @@ input Order_orderedByUser_operator {
   all: [String]
 }
 
-input Order_deliveryPrice_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
 input Order_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -1716,17 +1723,17 @@ input Order_where_and {
   entrance: Order_entrance_operator
   phoneNumber: Order_phoneNumber_operator
   orderStatus: Order_orderStatus_operator
-  isDelivery: Order_isDelivery_operator
   totalAmount: Order_totalAmount_operator
+  deliveryPrice: Order_deliveryPrice_operator
   restaurantName: Order_restaurantName_operator
   commentToCourier: Order_commentToCourier_operator
   commentToRestaurant: Order_commentToRestaurant_operator
+  isDelivery: Order_isDelivery_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
   restaurantID: Order_restaurantID_operator
   orderedByUser: Order_orderedByUser_operator
-  deliveryPrice: Order_deliveryPrice_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -1742,17 +1749,17 @@ input Order_where_or {
   entrance: Order_entrance_operator
   phoneNumber: Order_phoneNumber_operator
   orderStatus: Order_orderStatus_operator
-  isDelivery: Order_isDelivery_operator
   totalAmount: Order_totalAmount_operator
+  deliveryPrice: Order_deliveryPrice_operator
   restaurantName: Order_restaurantName_operator
   commentToCourier: Order_commentToCourier_operator
   commentToRestaurant: Order_commentToRestaurant_operator
+  isDelivery: Order_isDelivery_operator
   dishes__dish: Order_dishes__dish_operator
   dishes__quantity: Order_dishes__quantity_operator
   dishes__id: Order_dishes__id_operator
   restaurantID: Order_restaurantID_operator
   orderedByUser: Order_orderedByUser_operator
-  deliveryPrice: Order_deliveryPrice_operator
   updatedAt: Order_updatedAt_operator
   createdAt: Order_createdAt_operator
   id: Order_id_operator
@@ -1780,15 +1787,15 @@ type OrdersDocAccessFields {
   entrance: OrdersDocAccessFields_entrance
   phoneNumber: OrdersDocAccessFields_phoneNumber
   orderStatus: OrdersDocAccessFields_orderStatus
-  isDelivery: OrdersDocAccessFields_isDelivery
   totalAmount: OrdersDocAccessFields_totalAmount
+  deliveryPrice: OrdersDocAccessFields_deliveryPrice
   restaurantName: OrdersDocAccessFields_restaurantName
   commentToCourier: OrdersDocAccessFields_commentToCourier
   commentToRestaurant: OrdersDocAccessFields_commentToRestaurant
+  isDelivery: OrdersDocAccessFields_isDelivery
   dishes: OrdersDocAccessFields_dishes
   restaurantID: OrdersDocAccessFields_restaurantID
   orderedByUser: OrdersDocAccessFields_orderedByUser
-  deliveryPrice: OrdersDocAccessFields_deliveryPrice
   updatedAt: OrdersDocAccessFields_updatedAt
   createdAt: OrdersDocAccessFields_createdAt
 }
@@ -1954,29 +1961,6 @@ type OrdersDocAccessFields_orderStatus_Delete {
   permission: Boolean!
 }
 
-type OrdersDocAccessFields_isDelivery {
-  create: OrdersDocAccessFields_isDelivery_Create
-  read: OrdersDocAccessFields_isDelivery_Read
-  update: OrdersDocAccessFields_isDelivery_Update
-  delete: OrdersDocAccessFields_isDelivery_Delete
-}
-
-type OrdersDocAccessFields_isDelivery_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_isDelivery_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_isDelivery_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_isDelivery_Delete {
-  permission: Boolean!
-}
-
 type OrdersDocAccessFields_totalAmount {
   create: OrdersDocAccessFields_totalAmount_Create
   read: OrdersDocAccessFields_totalAmount_Read
@@ -1997,6 +1981,29 @@ type OrdersDocAccessFields_totalAmount_Update {
 }
 
 type OrdersDocAccessFields_totalAmount_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryPrice {
+  create: OrdersDocAccessFields_deliveryPrice_Create
+  read: OrdersDocAccessFields_deliveryPrice_Read
+  update: OrdersDocAccessFields_deliveryPrice_Update
+  delete: OrdersDocAccessFields_deliveryPrice_Delete
+}
+
+type OrdersDocAccessFields_deliveryPrice_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryPrice_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryPrice_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_deliveryPrice_Delete {
   permission: Boolean!
 }
 
@@ -2066,6 +2073,29 @@ type OrdersDocAccessFields_commentToRestaurant_Update {
 }
 
 type OrdersDocAccessFields_commentToRestaurant_Delete {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_isDelivery {
+  create: OrdersDocAccessFields_isDelivery_Create
+  read: OrdersDocAccessFields_isDelivery_Read
+  update: OrdersDocAccessFields_isDelivery_Update
+  delete: OrdersDocAccessFields_isDelivery_Delete
+}
+
+type OrdersDocAccessFields_isDelivery_Create {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_isDelivery_Read {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_isDelivery_Update {
+  permission: Boolean!
+}
+
+type OrdersDocAccessFields_isDelivery_Delete {
   permission: Boolean!
 }
 
@@ -2211,29 +2241,6 @@ type OrdersDocAccessFields_orderedByUser_Update {
 }
 
 type OrdersDocAccessFields_orderedByUser_Delete {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_deliveryPrice {
-  create: OrdersDocAccessFields_deliveryPrice_Create
-  read: OrdersDocAccessFields_deliveryPrice_Read
-  update: OrdersDocAccessFields_deliveryPrice_Update
-  delete: OrdersDocAccessFields_deliveryPrice_Delete
-}
-
-type OrdersDocAccessFields_deliveryPrice_Create {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_deliveryPrice_Read {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_deliveryPrice_Update {
-  permission: Boolean!
-}
-
-type OrdersDocAccessFields_deliveryPrice_Delete {
   permission: Boolean!
 }
 
@@ -4580,13 +4587,15 @@ type Categories {
 }
 
 input Category_where {
-  title: Category_title_operator
+  category: Category_category_operator
+  value: Category_value_operator
+  type: Category_type_operator
   id: Category_id_operator
   AND: [Category_where_and]
   OR: [Category_where_or]
 }
 
-input Category_title_operator {
+input Category_category_operator {
   equals: String
   not_equals: String
   like: String
@@ -4594,7 +4603,29 @@ input Category_title_operator {
   in: [String]
   not_in: [String]
   all: [String]
-  exists: Boolean
+}
+
+input Category_value_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Category_type_operator {
+  equals: Category_type_Input
+  not_equals: Category_type_Input
+  in: [Category_type_Input]
+  not_in: [Category_type_Input]
+  all: [Category_type_Input]
+}
+
+enum Category_type_Input {
+  dish
+  restaurant
 }
 
 input Category_id_operator {
@@ -4609,14 +4640,18 @@ input Category_id_operator {
 }
 
 input Category_where_and {
-  title: Category_title_operator
+  category: Category_category_operator
+  value: Category_value_operator
+  type: Category_type_operator
   id: Category_id_operator
   AND: [Category_where_and]
   OR: [Category_where_or]
 }
 
 input Category_where_or {
-  title: Category_title_operator
+  category: Category_category_operator
+  value: Category_value_operator
+  type: Category_type_operator
   id: Category_id_operator
   AND: [Category_where_and]
   OR: [Category_where_or]
@@ -4635,29 +4670,77 @@ type categoriesDocAccess {
 }
 
 type CategoriesDocAccessFields {
-  title: CategoriesDocAccessFields_title
+  category: CategoriesDocAccessFields_category
+  value: CategoriesDocAccessFields_value
+  type: CategoriesDocAccessFields_type
 }
 
-type CategoriesDocAccessFields_title {
-  create: CategoriesDocAccessFields_title_Create
-  read: CategoriesDocAccessFields_title_Read
-  update: CategoriesDocAccessFields_title_Update
-  delete: CategoriesDocAccessFields_title_Delete
+type CategoriesDocAccessFields_category {
+  create: CategoriesDocAccessFields_category_Create
+  read: CategoriesDocAccessFields_category_Read
+  update: CategoriesDocAccessFields_category_Update
+  delete: CategoriesDocAccessFields_category_Delete
 }
 
-type CategoriesDocAccessFields_title_Create {
+type CategoriesDocAccessFields_category_Create {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_title_Read {
+type CategoriesDocAccessFields_category_Read {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_title_Update {
+type CategoriesDocAccessFields_category_Update {
   permission: Boolean!
 }
 
-type CategoriesDocAccessFields_title_Delete {
+type CategoriesDocAccessFields_category_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_value {
+  create: CategoriesDocAccessFields_value_Create
+  read: CategoriesDocAccessFields_value_Read
+  update: CategoriesDocAccessFields_value_Update
+  delete: CategoriesDocAccessFields_value_Delete
+}
+
+type CategoriesDocAccessFields_value_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_value_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_value_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_value_Delete {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_type {
+  create: CategoriesDocAccessFields_type_Create
+  read: CategoriesDocAccessFields_type_Read
+  update: CategoriesDocAccessFields_type_Update
+  delete: CategoriesDocAccessFields_type_Delete
+}
+
+type CategoriesDocAccessFields_type_Create {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_type_Read {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_type_Update {
+  permission: Boolean!
+}
+
+type CategoriesDocAccessFields_type_Delete {
   permission: Boolean!
 }
 
@@ -5512,15 +5595,15 @@ type OrdersFields {
   entrance: OrdersFields_entrance
   phoneNumber: OrdersFields_phoneNumber
   orderStatus: OrdersFields_orderStatus
-  isDelivery: OrdersFields_isDelivery
   totalAmount: OrdersFields_totalAmount
+  deliveryPrice: OrdersFields_deliveryPrice
   restaurantName: OrdersFields_restaurantName
   commentToCourier: OrdersFields_commentToCourier
   commentToRestaurant: OrdersFields_commentToRestaurant
+  isDelivery: OrdersFields_isDelivery
   dishes: OrdersFields_dishes
   restaurantID: OrdersFields_restaurantID
   orderedByUser: OrdersFields_orderedByUser
-  deliveryPrice: OrdersFields_deliveryPrice
   updatedAt: OrdersFields_updatedAt
   createdAt: OrdersFields_createdAt
 }
@@ -5686,29 +5769,6 @@ type OrdersFields_orderStatus_Delete {
   permission: Boolean!
 }
 
-type OrdersFields_isDelivery {
-  create: OrdersFields_isDelivery_Create
-  read: OrdersFields_isDelivery_Read
-  update: OrdersFields_isDelivery_Update
-  delete: OrdersFields_isDelivery_Delete
-}
-
-type OrdersFields_isDelivery_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_isDelivery_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_isDelivery_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_isDelivery_Delete {
-  permission: Boolean!
-}
-
 type OrdersFields_totalAmount {
   create: OrdersFields_totalAmount_Create
   read: OrdersFields_totalAmount_Read
@@ -5729,6 +5789,29 @@ type OrdersFields_totalAmount_Update {
 }
 
 type OrdersFields_totalAmount_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryPrice {
+  create: OrdersFields_deliveryPrice_Create
+  read: OrdersFields_deliveryPrice_Read
+  update: OrdersFields_deliveryPrice_Update
+  delete: OrdersFields_deliveryPrice_Delete
+}
+
+type OrdersFields_deliveryPrice_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryPrice_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryPrice_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_deliveryPrice_Delete {
   permission: Boolean!
 }
 
@@ -5798,6 +5881,29 @@ type OrdersFields_commentToRestaurant_Update {
 }
 
 type OrdersFields_commentToRestaurant_Delete {
+  permission: Boolean!
+}
+
+type OrdersFields_isDelivery {
+  create: OrdersFields_isDelivery_Create
+  read: OrdersFields_isDelivery_Read
+  update: OrdersFields_isDelivery_Update
+  delete: OrdersFields_isDelivery_Delete
+}
+
+type OrdersFields_isDelivery_Create {
+  permission: Boolean!
+}
+
+type OrdersFields_isDelivery_Read {
+  permission: Boolean!
+}
+
+type OrdersFields_isDelivery_Update {
+  permission: Boolean!
+}
+
+type OrdersFields_isDelivery_Delete {
   permission: Boolean!
 }
 
@@ -5943,29 +6049,6 @@ type OrdersFields_orderedByUser_Update {
 }
 
 type OrdersFields_orderedByUser_Delete {
-  permission: Boolean!
-}
-
-type OrdersFields_deliveryPrice {
-  create: OrdersFields_deliveryPrice_Create
-  read: OrdersFields_deliveryPrice_Read
-  update: OrdersFields_deliveryPrice_Update
-  delete: OrdersFields_deliveryPrice_Delete
-}
-
-type OrdersFields_deliveryPrice_Create {
-  permission: Boolean!
-}
-
-type OrdersFields_deliveryPrice_Read {
-  permission: Boolean!
-}
-
-type OrdersFields_deliveryPrice_Update {
-  permission: Boolean!
-}
-
-type OrdersFields_deliveryPrice_Delete {
   permission: Boolean!
 }
 
@@ -7415,29 +7498,77 @@ type categoriesAccess {
 }
 
 type CategoriesFields {
-  title: CategoriesFields_title
+  category: CategoriesFields_category
+  value: CategoriesFields_value
+  type: CategoriesFields_type
 }
 
-type CategoriesFields_title {
-  create: CategoriesFields_title_Create
-  read: CategoriesFields_title_Read
-  update: CategoriesFields_title_Update
-  delete: CategoriesFields_title_Delete
+type CategoriesFields_category {
+  create: CategoriesFields_category_Create
+  read: CategoriesFields_category_Read
+  update: CategoriesFields_category_Update
+  delete: CategoriesFields_category_Delete
 }
 
-type CategoriesFields_title_Create {
+type CategoriesFields_category_Create {
   permission: Boolean!
 }
 
-type CategoriesFields_title_Read {
+type CategoriesFields_category_Read {
   permission: Boolean!
 }
 
-type CategoriesFields_title_Update {
+type CategoriesFields_category_Update {
   permission: Boolean!
 }
 
-type CategoriesFields_title_Delete {
+type CategoriesFields_category_Delete {
+  permission: Boolean!
+}
+
+type CategoriesFields_value {
+  create: CategoriesFields_value_Create
+  read: CategoriesFields_value_Read
+  update: CategoriesFields_value_Update
+  delete: CategoriesFields_value_Delete
+}
+
+type CategoriesFields_value_Create {
+  permission: Boolean!
+}
+
+type CategoriesFields_value_Read {
+  permission: Boolean!
+}
+
+type CategoriesFields_value_Update {
+  permission: Boolean!
+}
+
+type CategoriesFields_value_Delete {
+  permission: Boolean!
+}
+
+type CategoriesFields_type {
+  create: CategoriesFields_type_Create
+  read: CategoriesFields_type_Read
+  update: CategoriesFields_type_Update
+  delete: CategoriesFields_type_Delete
+}
+
+type CategoriesFields_type_Create {
+  permission: Boolean!
+}
+
+type CategoriesFields_type_Read {
+  permission: Boolean!
+}
+
+type CategoriesFields_type_Update {
+  permission: Boolean!
+}
+
+type CategoriesFields_type_Delete {
   permission: Boolean!
 }
 
@@ -7790,15 +7921,15 @@ input mutationOrderInput {
   entrance: String
   phoneNumber: Float!
   orderStatus: Order_orderStatus_MutationInput
-  isDelivery: Boolean
   totalAmount: Float
+  deliveryPrice: String
   restaurantName: String
   commentToCourier: String
   commentToRestaurant: String
+  isDelivery: Boolean
   dishes: [mutationOrder_DishesInput]
   restaurantID: String!
   orderedByUser: String!
-  deliveryPrice: String
   updatedAt: String
   createdAt: String
 }
@@ -7825,15 +7956,15 @@ input mutationOrderUpdateInput {
   entrance: String
   phoneNumber: Float
   orderStatus: OrderUpdate_orderStatus_MutationInput
-  isDelivery: Boolean
   totalAmount: Float
+  deliveryPrice: String
   restaurantName: String
   commentToCourier: String
   commentToRestaurant: String
+  isDelivery: Boolean
   dishes: [mutationOrderUpdate_DishesInput]
   restaurantID: String
   orderedByUser: String
-  deliveryPrice: String
   updatedAt: String
   createdAt: String
 }
@@ -8075,11 +8206,25 @@ input mutationMediaUpdateInput {
 }
 
 input mutationCategoryInput {
-  title: String
+  category: String!
+  value: String!
+  type: Category_type_MutationInput!
+}
+
+enum Category_type_MutationInput {
+  dish
+  restaurant
 }
 
 input mutationCategoryUpdateInput {
-  title: String
+  category: String
+  value: String
+  type: CategoryUpdate_type_MutationInput
+}
+
+enum CategoryUpdate_type_MutationInput {
+  dish
+  restaurant
 }
 
 input mutationPayloadPreferenceInput {

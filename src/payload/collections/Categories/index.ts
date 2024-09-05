@@ -12,8 +12,8 @@ const Categories: CollectionConfig = {
   },
 
   admin: {
-    defaultColumns: ["title"],
-    useAsTitle: "title",
+    defaultColumns: ["category", "value", "type"],
+    useAsTitle: "category",
     hidden: ({ user }: any) => {
       if (checkRole(["admin"], user)) {
         return false;
@@ -25,9 +25,34 @@ const Categories: CollectionConfig = {
   //realise options with label
   fields: [
     {
-      name: "title",
-      label: "Категория",
+      name: "category",
       type: "text",
+      label: "Категория",
+      required: true,
+      unique: true,
+    },
+    {
+      name: "value",
+      type: "text",
+      label: "Значение (value)",
+      required: true,
+      unique: true,
+    },
+    {
+      name: "type",
+      type: "select",
+      label: "Тип (блюдо или ресторан)",
+      required: true,
+      options: [
+        {
+          label: "Блюдо",
+          value: "dish",
+        },
+        {
+          label: "Ресторан",
+          value: "restaurant",
+        },
+      ],
     },
   ],
   labels: { plural: "Категории", singular: "Категория" },

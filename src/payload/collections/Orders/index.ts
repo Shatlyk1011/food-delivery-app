@@ -13,7 +13,7 @@ const Orders: CollectionConfig = {
         if (checkRole(["admin"], req.user)) {
           return true;
         }
-        if (req.headers.referer.includes("/admin/")) {
+        if (checkRole(["author"], req.user)) {
           return {
             restaurantID: {
               in: req.user.restaurant,

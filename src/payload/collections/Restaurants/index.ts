@@ -103,6 +103,12 @@ const Restaurants: CollectionConfig = {
       label: "Цена доставки (в манатах)",
       required: true,
       type: "number",
+      validate: (value) => {
+        if (value < 0) {
+          return "Цена доставки не может быть меньше 0.";
+        }
+        return true;
+      },
     },
     {
       name: "freeAfterAmount",
@@ -110,6 +116,12 @@ const Restaurants: CollectionConfig = {
       label: "Бесплатно после (в манатах)",
       required: false,
       type: "number",
+      validate: (value) => {
+        if (value < 20) {
+          return "Значение не может быть меньше 20.";
+        }
+        return true;
+      },
     },
     //open times close times
     {
@@ -247,12 +259,18 @@ const Restaurants: CollectionConfig = {
       name: "categories",
       access: {
         create: admins,
-        read: admins,
+        read: () => true,
       },
       hasMany: true,
-      label: "Категории ресторана (макс 3)",
+      required: false,
+      label: "Категории ресторана",
       relationTo: "categories",
       type: "relationship",
+      filterOptions: {
+        type: {
+          equals: "restaurant",
+        },
+      },
     },
     {
       name: "dishes",

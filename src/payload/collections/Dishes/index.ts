@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload/types";
 
 import adminAndCreatedByUser from "../../access/adminAndCreatedByUser";
+import { checkRole } from "../../access/checkRole";
 
 const Dishes: CollectionConfig = {
   access: {
@@ -43,6 +44,12 @@ const Dishes: CollectionConfig = {
       label: "Цена (в манатах)",
       required: true,
       type: "number",
+      validate: (value) => {
+        if (value < 0) {
+          return "Цена блюда не может быть меньше 0.";
+        }
+        return true;
+      },
     },
 
     {
@@ -50,12 +57,24 @@ const Dishes: CollectionConfig = {
       label: "Вес (в граммах)",
       required: true,
       type: "number",
+      validate: (value) => {
+        if (value < 0) {
+          return "Вес блюда не может быть меньше 0.";
+        }
+        return true;
+      },
     },
     {
       name: "availableAmount",
       defaultValue: 30,
       label: "Доступно в наличии",
       required: false,
+      validate: (value) => {
+        if (value < 0) {
+          return "Значение не может быть меньше 0.";
+        }
+        return true;
+      },
       admin: {
         position: "sidebar",
       },
@@ -66,6 +85,12 @@ const Dishes: CollectionConfig = {
       name: "cookTime",
       defaultValue: 30,
       label: "Время приготовления (в минутах)",
+      validate: (value) => {
+        if (value < 0) {
+          return "Время приготовления не может быть меньше 0.";
+        }
+        return true;
+      },
       required: true,
       type: "number",
     },
@@ -74,11 +99,19 @@ const Dishes: CollectionConfig = {
       name: "categories",
       access: {
         read: () => true,
+        update: ({ req: { user } }) => {
+          return checkRole(["admin", "author"], user);
+        },
       },
       label: "Категория блюда",
       required: false,
       type: "relationship",
       relationTo: "categories",
+      filterOptions: {
+        type: {
+          equals: "dish",
+        },
+      },
     },
     {
       name: "image",

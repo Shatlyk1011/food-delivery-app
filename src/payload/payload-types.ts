@@ -96,7 +96,9 @@ export interface Customer {
  */
 export interface Category {
   id: string;
-  title?: string | null;
+  category: string;
+  value: string;
+  type: 'dish' | 'restaurant';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -139,11 +141,12 @@ export interface Order {
   entrance?: string | null;
   phoneNumber: number;
   orderStatus?: ('pending' | 'recieved' | 'sended' | 'delivered' | 'rejected') | null;
-  isDelivery: boolean;
   totalAmount?: number | null;
+  deliveryPrice?: string | null;
   restaurantName?: string | null;
   commentToCourier?: string | null;
   commentToRestaurant?: string | null;
+  isDelivery: boolean;
   dishes?:
     | {
         dish?: (string | null) | Dish;
@@ -153,7 +156,6 @@ export interface Order {
     | null;
   restaurantID: string;
   orderedByUser: string;
-  deliveryPrice?: string | null;
   updatedAt: string;
   createdAt: string;
 }

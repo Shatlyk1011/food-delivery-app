@@ -60,12 +60,12 @@ export const useGetRestaurantById = (schema?: string) => {
   });
 
   const withCategories: WithCategories[] = data?.dishes?.reduce((acc, dish) => {
-    let category = dish.categories?.title || "Others"; // Default to 'Others' if no category is provided
+    let category = dish.categories?.category || "Others"; // Default to 'Others' if no category is provided
 
-    let categoryObj = acc.find((item) => item.title === category);
+    let categoryObj = acc.find((item) => item.category === category);
 
     if (!categoryObj) {
-      categoryObj = { title: category, dishes: [] };
+      categoryObj = { category, dishes: [] };
       acc.push(categoryObj);
     }
 

@@ -75,7 +75,7 @@ export const RESTAURANT = `
           alt
         }
         categories {
-          title
+          category
         }
       }
 

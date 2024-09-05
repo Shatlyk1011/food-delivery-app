@@ -110,7 +110,7 @@
   },
 
   "ProfilePage": {
-    "yourProfile": "Siziň Profiliňiz",
+    "yourProfile": "Siziň profiliňiz",
     "yourName": "Adyňyz",
     "phoneNumber": "Telefon belgiňiz",
     "deliveryAddress": "Eltip berilmeli adresiňiz",
@@ -118,6 +118,8 @@
     "chooseAddress": "Eltip berilmeli adresiňizi saýlaň",
 
     "history": "Sargytlaryňyz",
+    "info": "Profiliňizde sargytlaryňyzyň taryhyny we aktiw sargytlaryň häzirki ýagdaýyny görüp bilersiňiz. Aktiw sargytlaryň ýagdaýyny “Ýagdaýy” sütüninde yzarlap bolýar. Maglumat hakyky wagtda täzelenýär.",
+    "emptyHistory": "Siz entek hiç zat sargyt etmediňiz",
     "restaurantName": "Restoranyň ady",
     "dishesName": "Tagamlaryň atlary",
     "price": "Baha",

@@ -28,8 +28,9 @@ export const useGetUserOrderList = (userId: string | undefined) => {
   const { data } = useQuery<any, any, UserOrder[], any>({
     queryKey: ["user_orders"],
     enabled: Boolean(userId),
-    // refetchInterval: 1500,
+    // refetchInterval: 6000,
     refetchInterval: 3000,
+
     queryFn: async () => {
       const { data } = await axios({
         withCredentials: true,

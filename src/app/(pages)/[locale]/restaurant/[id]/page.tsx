@@ -71,11 +71,11 @@ export default function Home({ params: { id } }) {
                 {isPending ? (
                   <ProductSkeleton length={12} />
                 ) : (
-                  withCategories?.map(({ dishes, title }) => {
-                    const { title: restaurantTitle, deliveryPrice } = restaurantInfo;
+                  withCategories?.map(({ dishes, category }) => {
+                    const { title, deliveryPrice } = restaurantInfo;
                     return (
-                      <div key={title} className="mt-5">
-                        <p className="ml-1 text-2xl font-semibold capitalize">{title}</p>
+                      <div key={category} className="mt-5">
+                        <p className="ml-1 text-2xl font-semibold capitalize">{category}</p>
                         <div className="manual_grid_220 mt-2 2xl:mt-4 md:w-full">
                           {dishes?.map((d) => {
                             const isDishDisabled = d.availableAmount === 0;
@@ -85,7 +85,7 @@ export default function Home({ params: { id } }) {
                                 isDishDisabled={isDishDisabled}
                                 dish={d}
                                 handleDish={() => setSelectedDish(d)}
-                                addItem={() => addItem(d, { id, name: restaurantTitle, deliveryPrice })}
+                                addItem={() => addItem(d, { id, name: title, deliveryPrice })}
                                 btnTitle={isDishDisabled ? t("Index.availableLater") : t("Index.add")}
                               />
                             );
