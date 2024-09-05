@@ -4,6 +4,7 @@ import { getMessages } from "next-intl/server";
 import { Provider as JotaiProvider } from "jotai";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import NextTopLoader from "nextjs-toploader";
 
 //widgets
 import TailwindIndicator from "@/app/components/tailwind-indicator/tailwind-indicator";
@@ -42,6 +43,15 @@ export default async function RootLayout({ children, params: { locale } }: Props
               <TailwindIndicator />
             </TanstackQueryProvider>
           </NextIntlClientProvider>
+          <NextTopLoader
+            color="#FBDB65"
+            zIndex={2000}
+            initialPosition={0.45}
+            crawlSpeed={400}
+            height={5}
+            easing="ease"
+            crawl={true}
+          />
           <Toaster duration={3000} richColors visibleToasts={2} theme="light" position="bottom-left" />
         </JotaiProvider>
       </body>
