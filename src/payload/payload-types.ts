@@ -174,7 +174,6 @@ export interface User {
         apartment: string;
         houseNumber: string;
         entrance?: string | null;
-        phoneNumber: number;
         id?: string | null;
       }[]
     | null;

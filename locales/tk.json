@@ -128,8 +128,8 @@
     "status": "Ýagdaýy",
     "changeAddressSettings": "Adresiňiziň maglumatyny uýtgetmek",
     "city": "Şäher",
-    "houseNumber": "Jaý belgiňiz",
-    "appartmentOffice": "Kwartira / ofisyňyz",
+    "houseNumber": "Jaý belgiňiz *",
+    "appartmentOffice": "Kwartira / ofisyňyz *",
 
     "dishTitle": "Ady"
   },

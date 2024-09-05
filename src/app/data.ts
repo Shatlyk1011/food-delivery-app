@@ -30,6 +30,17 @@ export const BUCKET_INPUTS = [
   },
 ];
 
+export const ADDRES_INPUTS = [
+  [
+    // { name: "city", label: "ProfilePage.city", placeholder: "Placeholder.enterCity", defaultValue: "Turkmenabat" },
+    { name: "district", label: "BucketForm.district", placeholder: "Placeholder.enterDistrict" },
+  ],
+  [
+    { name: "houseNumber", label: "ProfilePage.houseNumber", placeholder: "Placeholder.enterHouseNumber" },
+    { name: "apartment", label: "ProfilePage.appartmentOffice", placeholder: "Placeholder.enterAppartmentOffice" },
+  ],
+];
+
 export const DEFAULT_RESTAURANT_INFO: RestaurantWithDishesInfo = {
   dishes: [],
   // isDelivery: true,

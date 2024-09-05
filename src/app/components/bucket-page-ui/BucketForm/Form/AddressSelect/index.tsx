@@ -1,20 +1,23 @@
 import dynamic from "next/dynamic";
 import { FC, useState } from "react";
 
+import { useAtom } from "jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
+
 //components
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
-const CreateNewAddress = dynamic(() => import("./CreateNewAddress"));
+const CreateNewAddress = dynamic(() => import("./CreateNewAddress"), { ssr: false });
 import { ChevronDown } from "lucide-react";
 import { HomeIcon } from "@/app/icons";
 import useToast from "@/app/hooks/useToast";
 
 interface Props {
-  userProfile: UserData | null;
-  setUserProfile: (user: UserData) => void;
   onChange: (address: AddressData) => void;
   t: any;
 }
-const Index: FC<Props> = ({ userProfile, setUserProfile, onChange, t }) => {
+const Index: FC<Props> = ({ onChange, t }) => {
+  const [userProfile, setUserProfile] = useAtom(atoms.userProfile);
+
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -23,7 +26,7 @@ const Index: FC<Props> = ({ userProfile, setUserProfile, onChange, t }) => {
   const handleChange = (address: AddressData) => {
     const { district, houseNumber, apartment } = address;
     setSelected(`${district}, ${houseNumber}/${apartment}`);
-    onChange({ ...address, phoneNumber: +userProfile?.phone });
+    onChange(address);
   };
 
   const handleOpen = () => {

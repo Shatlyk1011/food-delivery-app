@@ -36,7 +36,6 @@ type AddressData = {
   district: string;
   houseNumber: string;
   apartment: string;
-  phoneNumber?: number;
 };
 
 type OrderStatus = "pending" | "recieved" | "sended" | "delivered" | "rejected";

@@ -2993,7 +2993,6 @@ type User_Addresses {
   apartment: String
   houseNumber: String
   entrance: String
-  phoneNumber: Float
   id: String
 }
 
@@ -3023,7 +3022,6 @@ input User_where {
   addresses__apartment: User_addresses__apartment_operator
   addresses__houseNumber: User_addresses__houseNumber_operator
   addresses__entrance: User_addresses__entrance_operator
-  addresses__phoneNumber: User_addresses__phoneNumber_operator
   addresses__id: User_addresses__id_operator
   roles: User_roles_operator
   updatedAt: User_updatedAt_operator
@@ -3106,15 +3104,6 @@ input User_addresses__entrance_operator {
   exists: Boolean
 }
 
-input User_addresses__phoneNumber_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-}
-
 input User_addresses__id_operator {
   equals: String
   not_equals: String
@@ -3190,7 +3179,6 @@ input User_where_and {
   addresses__apartment: User_addresses__apartment_operator
   addresses__houseNumber: User_addresses__houseNumber_operator
   addresses__entrance: User_addresses__entrance_operator
-  addresses__phoneNumber: User_addresses__phoneNumber_operator
   addresses__id: User_addresses__id_operator
   roles: User_roles_operator
   updatedAt: User_updatedAt_operator
@@ -3209,7 +3197,6 @@ input User_where_or {
   addresses__apartment: User_addresses__apartment_operator
   addresses__houseNumber: User_addresses__houseNumber_operator
   addresses__entrance: User_addresses__entrance_operator
-  addresses__phoneNumber: User_addresses__phoneNumber_operator
   addresses__id: User_addresses__id_operator
   roles: User_roles_operator
   updatedAt: User_updatedAt_operator
@@ -3320,7 +3307,6 @@ type UsersDocAccessFields_addresses_Fields {
   apartment: UsersDocAccessFields_addresses_apartment
   houseNumber: UsersDocAccessFields_addresses_houseNumber
   entrance: UsersDocAccessFields_addresses_entrance
-  phoneNumber: UsersDocAccessFields_addresses_phoneNumber
   id: UsersDocAccessFields_addresses_id
 }
 
@@ -3436,29 +3422,6 @@ type UsersDocAccessFields_addresses_entrance_Update {
 }
 
 type UsersDocAccessFields_addresses_entrance_Delete {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_addresses_phoneNumber {
-  create: UsersDocAccessFields_addresses_phoneNumber_Create
-  read: UsersDocAccessFields_addresses_phoneNumber_Read
-  update: UsersDocAccessFields_addresses_phoneNumber_Update
-  delete: UsersDocAccessFields_addresses_phoneNumber_Delete
-}
-
-type UsersDocAccessFields_addresses_phoneNumber_Create {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_addresses_phoneNumber_Read {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_addresses_phoneNumber_Update {
-  permission: Boolean!
-}
-
-type UsersDocAccessFields_addresses_phoneNumber_Delete {
   permission: Boolean!
 }
 
@@ -6612,7 +6575,6 @@ type UsersFields_addresses_Fields {
   apartment: UsersFields_addresses_apartment
   houseNumber: UsersFields_addresses_houseNumber
   entrance: UsersFields_addresses_entrance
-  phoneNumber: UsersFields_addresses_phoneNumber
   id: UsersFields_addresses_id
 }
 
@@ -6728,29 +6690,6 @@ type UsersFields_addresses_entrance_Update {
 }
 
 type UsersFields_addresses_entrance_Delete {
-  permission: Boolean!
-}
-
-type UsersFields_addresses_phoneNumber {
-  create: UsersFields_addresses_phoneNumber_Create
-  read: UsersFields_addresses_phoneNumber_Read
-  update: UsersFields_addresses_phoneNumber_Update
-  delete: UsersFields_addresses_phoneNumber_Delete
-}
-
-type UsersFields_addresses_phoneNumber_Create {
-  permission: Boolean!
-}
-
-type UsersFields_addresses_phoneNumber_Read {
-  permission: Boolean!
-}
-
-type UsersFields_addresses_phoneNumber_Update {
-  permission: Boolean!
-}
-
-type UsersFields_addresses_phoneNumber_Delete {
   permission: Boolean!
 }
 
@@ -8046,7 +7985,6 @@ input mutationUser_AddressesInput {
   apartment: String!
   houseNumber: String!
   entrance: String
-  phoneNumber: Float!
   id: String
 }
 
@@ -8077,7 +8015,6 @@ input mutationUserUpdate_AddressesInput {
   apartment: String!
   houseNumber: String!
   entrance: String
-  phoneNumber: Float!
   id: String
 }
 

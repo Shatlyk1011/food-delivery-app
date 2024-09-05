@@ -36,6 +36,7 @@
 ✅- fix all form translates, validations
 
 - create address function
+- handle comment to restaurant
 
 -✅ LANGUAGE BUUUG!
 

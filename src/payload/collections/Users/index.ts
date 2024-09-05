@@ -93,12 +93,6 @@ const Users: CollectionConfig = {
           required: false,
           type: "text",
         },
-        {
-          name: "phoneNumber",
-          label: "Номер телефана",
-          required: true,
-          type: "number",
-        },
       ],
       label: "Адреса",
       required: false,

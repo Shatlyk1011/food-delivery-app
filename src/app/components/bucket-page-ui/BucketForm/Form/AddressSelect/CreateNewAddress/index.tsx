@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-//Components
+//components
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
 import Input from "@/app/components/shared-ui/Input";
@@ -10,16 +10,7 @@ import { PlusIcon } from "@/app/icons";
 import { useCreateAddress } from "@/app/services/useCreateAddress";
 import { useCreateAddressFormScheme } from "@/app/hooks/formSchemes";
 
-const ADRES_INPUTS = [
-  [
-    { name: "district", label: "BucketForm.district", placeholder: "Placeholder.enterDistrict" },
-    { name: "houseNumber", label: "ProfilePage.houseNumber", placeholder: "Placeholder.enterHouseNumber" },
-  ],
-  [
-    { name: "apartment", label: "ProfilePage.appartmentOffice", placeholder: "Placeholder.enterAppartmentOffice" },
-    { name: "city", label: "ProfilePage.city", placeholder: "Placeholder.enterCity" },
-  ],
-];
+import { ADDRES_INPUTS } from "@/app/data";
 
 interface Props {
   userProfile: UserData | null;
@@ -32,15 +23,20 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
   const { form } = useCreateAddressFormScheme();
   const { createAddress, isPending } = useCreateAddress();
 
-  const { id, addresses, phone } = userProfile;
+  const { id, addresses } = userProfile;
 
   const handleSubmit = async (newAddress: AddressData) => {
-    const updatedUser = { id, userData: { addresses: [{ ...newAddress, phoneNumber: +phone }, ...addresses] } };
-    const { updateUser } = await createAddress(updatedUser);
+    //stuck
+    console.log("newAddress", newAddress);
+    const updatedUser = { id, userData: { addresses: [newAddress, ...addresses] } };
+
+    //STUCK HERE
+    const { addresses, id } = await createAddress(updatedUser);
     if (userProfile.addresses.length === updateUser.addresses.length) return;
+
     setUserProfile(updateUser);
-    form.reset();
     setIsDialogOpen(false);
+    form.reset();
   };
 
   return (
@@ -56,7 +52,7 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
         <Form {...form}>
           <form>
             <div className="space flex w-full flex-col space-y-8 px-3">
-              {ADRES_INPUTS.map((row, i) => (
+              {ADDRES_INPUTS.map((row, i) => (
                 <div key={i} className="flex w-full space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6">
                   {row.map(({ name, label, placeholder }) => (
                     <FormField
@@ -71,7 +67,7 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
                               label={t(label)}
                               placeholder={t(placeholder)}
                               disabled={name === "city"}
-                              type={name === "district" ? "string" : "number"}
+                              type="text"
                             />
                           </FormControl>
                           <FormMessage />
@@ -83,14 +79,11 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
               ))}
 
               <div className="flex justify-end space-x-2">
-                {/* <DialogClose className="rounded-md border border-error bg-bg-1 px-4 py-2 text-error hover:bg-error hover:text-white">
-                  {t("Index.delete")}
-                </DialogClose> */}
-                <DialogClose asChild >
-                  <Button  type="button">
-                    {t("Index.add")}
-                  </Button>
-                </DialogClose>
+                {/* <DialogClose asChild type="button"> */}
+                <Button type="button" disabled={isPending} onClick={form.handleSubmit(handleSubmit)}>
+                  {t("Index.add")}
+                </Button>
+                {/* </DialogClose> */}
               </div>
             </div>
           </form>

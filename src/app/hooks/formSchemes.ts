@@ -64,7 +64,7 @@ export const useProfileFormScheme = () => {
     defaultValues: {
       name: "",
       phoneNumber: "",
-      adres: "",
+      address: "",
       email: "",
     },
   });

@@ -128,8 +128,8 @@
     "status": "Статус",
     "changeAddressSettings": "Изменить параметры адреса",
     "city": "Город",
-    "houseNumber": " Дом",
-    "appartmentOffice": "Квартра / офис",
+    "houseNumber": "Дом *",
+    "appartmentOffice": "Квартра / офис *",
 
     "dishTitle": "Название"
   },
