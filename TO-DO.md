@@ -133,6 +133,8 @@ const OrderRefetchComponent = () => {
 };
 
 export default OrderRefetchComponent;
+
+
 3. Add Component to Admin Panel
 Next, you'll need to integrate this custom component into the Payload CMS admin dashboard.
 

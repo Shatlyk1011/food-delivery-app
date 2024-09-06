@@ -15,6 +15,8 @@ import Restaurants from "./collections/Restaurants";
 import Users from "./collections/Users";
 import Categories from "./collections/Categories";
 
+import OrderRefetchComponent from "./components/OrdersRefetch";
+
 const m = path.resolve(__dirname, "./emptyModuleMock.js");
 
 export default buildConfig({
@@ -31,6 +33,9 @@ export default buildConfig({
         },
       },
     }),
+    components: {
+      beforeDashboard: [OrderRefetchComponent],
+    },
     css: path.resolve(__dirname, "payload.styles.css"),
   },
   collections: [Restaurants, Orders, Dishes, Cities, Users, Customers, Media, Categories],
