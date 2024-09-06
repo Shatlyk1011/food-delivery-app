@@ -6,7 +6,6 @@ const USER_INFO = `
     district
     houseNumber
     apartment
-    phoneNumber
   }
 `;
 

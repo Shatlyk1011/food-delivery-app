@@ -1,6 +1,7 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 //components
 import { PopoverClose } from "@radix-ui/react-popover";
@@ -21,19 +22,22 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ t }) => {
-  const router = useRouter();
-
+  const { push } = useRouter();
+  const pathname = usePathname();
   const { logout } = useAuth();
   const setAuth = useSetAtom(atoms.isAuth);
 
   const handleToProfile = () => {
-    router.push("/profile");
+    push("/profile");
   };
 
   const handleLogout = () => {
     logout();
     setAuth(false);
     localStorage.removeItem(USER_PROFILE);
+    if (pathname.includes("/profile")) {
+      push("/");
+    }
   };
 
   return (

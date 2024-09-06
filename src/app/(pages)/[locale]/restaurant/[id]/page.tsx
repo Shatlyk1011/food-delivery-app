@@ -45,7 +45,7 @@ export default function Home({ params: { id } }) {
   return (
     <main className="box-content bg-bg-2">
       <div className="mx-auto max-w-[1440px]">
-        <div className="flex justify-between px-4 py-8 2xl:py-6 md:px-3 md:py-4">
+        <div className="flex justify-between px-4 py-8 2xl:py-6 lg:px-2.5 lg:py-4 md:px-2 md:py-2.5">
           <div className="flex flex-1 space-x-8 2xl:space-x-4 md:space-x-0">
             <MenuSidebar
               menuTitle={t("RestaurantPage.menu")}

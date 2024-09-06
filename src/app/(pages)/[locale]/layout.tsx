@@ -45,6 +45,7 @@ export default async function RootLayout({ children, params: { locale } }: Props
           </NextIntlClientProvider>
           <NextTopLoader
             color="#FBDB65"
+            speed={300}
             zIndex={2000}
             initialPosition={0.45}
             crawlSpeed={400}
