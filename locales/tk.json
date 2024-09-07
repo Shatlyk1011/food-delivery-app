@@ -77,7 +77,8 @@
     "menu": "Menýu",
     "currentRestaurant": "Häzirki restoran",
     "changeRestaurant1": "Ozalky",
-    "changeRestaurant2": "restorandan goşulan naharlaryň hemmesi sebetden aýrylar."
+    "changeRestaurant2": "restorandan goşulan naharlaryň hemmesi sebetden aýrylar.",
+    "freeDeliveryAfter": "Mugt eltip bermek - {price} TMT gowrak sargytlar üçin"
   },
 
   "BucketForm": {

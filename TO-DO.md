@@ -43,7 +43,7 @@
 - client categories field
 
 - ✅ (use url) default images
-  ✅ hide search if its not in main page
+- ✅ hide search if its not in main page
 - ✅ button states (loading, pending, disabled)
 - ✅ Check Mini Items UI Data
 - ✅ add snackbar
@@ -55,8 +55,8 @@
   <!-- - profile page (with add/remove addresses) -->
   ✅- dishes info modal (on click, lazy load)
 - ✅ is delivery state on bucket page
-  ✅- komentary restoranu (input)
-- free after amount ui block in id page
+- ✅ komentary restoranu (input)
+- ✅ free after amount ui block in id page
 - ✅ localstorage timestamp
 <!-- - bucket form submittion modal () -->
 - mobile sidebar, login, logout states

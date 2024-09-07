@@ -19,6 +19,7 @@ const Cart = dynamic(() => import("@/app/widgets/RestaurantPage/Cart"), { ssr: f
 const ClearCartModal = dynamic(() => import("@/app/widgets/RestaurantPage/ClearCartModal"), { ssr: false });
 
 import ProductSkeleton from "@/app/widgets/RestaurantPage/Product/Skeleton";
+import { CakeIcon } from "@/app/icons";
 
 const AboutProduct = dynamic(() => import("@/app/widgets/RestaurantPage/Product/AboutProduct"));
 
@@ -68,6 +69,12 @@ export default function Home({ params: { id } }) {
                 />
               )}
               <div className="w-full">
+                {restaurantInfo?.deliveryPrice >= 0 && (
+                  <div className="mt-5 flex items-center space-x-2.5 rounded-2xl bg-[#FFD166]/10 px-4 py-3 text-text-4">
+                    <CakeIcon className="h-10 w-10 fill-primary" />
+                    <p>{t("RestaurantPage.freeDeliveryAfter", { price: restaurantInfo?.freeAfterAmount })}</p>
+                  </div>
+                )}
                 {isPending ? (
                   <ProductSkeleton length={12} />
                 ) : (
