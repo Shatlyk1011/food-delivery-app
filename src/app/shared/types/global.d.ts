@@ -1,7 +1,7 @@
 type LoginCredentials = { email: string; password: string };
 type LoginResponse = { exp: number; token: string; user: any };
 
-type UserData = { id: string; name: string; phone: string; addresses: AddressData[] };
+type UserData = { id: string; phone: string; addresses: AddressData[] };
 
 interface BannerInfo {
   title: string;
@@ -32,10 +32,10 @@ interface RestaurantWithDishesInfo {
 }
 
 type AddressData = {
-  city: string;
   district: string;
   houseNumber: string;
   apartment: string;
+  city?: string;
 };
 
 type OrderStatus = "pending" | "recieved" | "sended" | "delivered" | "rejected";

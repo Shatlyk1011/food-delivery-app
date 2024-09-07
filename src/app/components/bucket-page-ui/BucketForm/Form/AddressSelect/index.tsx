@@ -50,11 +50,13 @@ const Index: FC<Props> = ({ onChange, t }) => {
         <ul className="cursor-pointer ">
           <li>{userProfile && <CreateNewAddress t={t} userProfile={userProfile} setUserProfile={setUserProfile} />}</li>
           {userProfile?.addresses?.map((address, i) => (
-            <li key={i} onClick={() => handleChange(address)}>
-              <PopoverClose className="line-clamp-2 w-full px-6 py-[18px] text-start hover:bg-onHover md:px-5 md:py-4 sm:px-4 sm:py-3">
-                {address.district}, {address.houseNumber}/{address.apartment}
-              </PopoverClose>
-            </li>
+            <PopoverClose
+              className="line-clamp-2 w-full px-4 py-[14px] text-start hover:bg-onHover md:px-5 md:py-4 sm:px-4 sm:py-3"
+              key={i}
+              onClick={() => handleChange(address)}
+            >
+              {address.district}, {address.houseNumber}/{address.apartment}
+            </PopoverClose>
           ))}
         </ul>
       </PopoverContent>

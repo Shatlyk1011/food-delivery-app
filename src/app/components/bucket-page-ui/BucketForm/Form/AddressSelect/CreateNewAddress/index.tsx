@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 //components
-import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/app/components/shared-ui/Dialog";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/app/components/shared-ui/Form/form";
 import Input from "@/app/components/shared-ui/Input";
 import Button from "@/app/components/shared-ui/Button";
@@ -26,15 +26,13 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
   const { id, addresses } = userProfile;
 
   const handleSubmit = async (newAddress: AddressData) => {
-    //stuck
-    console.log("newAddress", newAddress);
     const updatedUser = { id, userData: { addresses: [newAddress, ...addresses] } };
+    const updatedAddresses = await createAddress({
+      ...updatedUser,
+      userData: { addresses: updatedUser.userData.addresses.slice(0, 4) },
+    });
 
-    //STUCK HERE
-    const { addresses, id } = await createAddress(updatedUser);
-    if (userProfile.addresses.length === updateUser.addresses.length) return;
-
-    setUserProfile(updateUser);
+    setUserProfile(updatedAddresses);
     setIsDialogOpen(false);
     form.reset();
   };
@@ -64,6 +62,7 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
                           <FormControl>
                             <Input
                               {...field}
+                              maxLength={name === "district" ? 20 : 6}
                               label={t(label)}
                               placeholder={t(placeholder)}
                               disabled={name === "city"}
