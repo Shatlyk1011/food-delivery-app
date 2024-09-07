@@ -3,6 +3,8 @@ import type { CollectionConfig } from "payload/types";
 import { admins } from "../../access/admins";
 import { checkRole } from "../../access/checkRole";
 
+import OrderRefetchComponent from "../../components/OrdersRefetch";
+
 const Orders: CollectionConfig = {
   access: {
     create: ({ req: { user } }) => checkRole(["user"], user),
@@ -24,7 +26,7 @@ const Orders: CollectionConfig = {
       if (checkRole(["user"], req.user)) {
         return {
           orderedByUser: {
-            equals: req.user.id, // Users can only read orders they created
+            equals: req.user.id,
           },
         };
       }
@@ -41,6 +43,11 @@ const Orders: CollectionConfig = {
   admin: {
     defaultColumns: ["dishes", "district", "phoneNumber", "apartment", "houseNumber", "orderStatus", "createdAt"],
     useAsTitle: "title",
+    components: {
+      views: {
+        List: OrderRefetchComponent,
+      },
+    },
   },
   fields: [
     {

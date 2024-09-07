@@ -24,10 +24,9 @@ export const useOrderSubmit = () => {
   return { handleOrder: mutateAsync };
 };
 
-export const useGetUserOrderList = (userId: string | undefined) => {
+export const useGetUserOrderList = () => {
   const { data } = useQuery<any, any, UserOrder[], any>({
     queryKey: ["user_orders"],
-    enabled: Boolean(userId),
     // refetchInterval: 6000,
     refetchInterval: 3000,
 
@@ -36,7 +35,7 @@ export const useGetUserOrderList = (userId: string | undefined) => {
         withCredentials: true,
         data: {
           query: USER_ORDERS,
-          variables: { userId, limit: 20, page: 1 },
+          variables: { limit: 20, page: 1 },
         },
       });
       console.log("userOrders", data.data);

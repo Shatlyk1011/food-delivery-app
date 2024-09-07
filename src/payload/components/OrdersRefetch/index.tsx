@@ -1,61 +1,97 @@
 import axios from "../../../app/shared/lib/axios";
 import React, { useEffect, useState } from "react";
+import { useAuth } from "payload/components/utilities";
 
-import { USER_ORDERS } from "../../../app/services/query/orderQuery";
-
-import payload from "payload";
-
-const OrderRefetchComponent = () => {
+const OrdersComponent = () => {
+  const { user } = useAuth();
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // STUCK
-  // payload.find({
-  //   collection: "orders",
-  //   where: {
-  //     orderedByUser: { equals: req.user.id },
-  //     createdAt: { greater_than: thirtyMinutesAgo },
-  //   },
-  //   limit: 0,
-  //   depth: 0,
-  // });
-
-  const fetchOrders = async () => {
-    const { data } = await axios("http://localhost:3000/api/orders", {
-      withCredentials: true,
-      data: {
-        query: USER_ORDERS,
-        variables: { userId: "123", limit: 20, page: 1 },
-      },
-    });
-    console.log("orders", data);
-  };
-
+  // IMPROVEMENT REQUIRED. ADD CUSTOM TABLE. REDIRECT BY ID. LIMIT QUERY DATA.
+  console.log("user", user);
   useEffect(() => {
-    const interval = setInterval(() => {
-      console.log("Refetching orders...");
-      fetchOrders();
-    }, 5000);
-    return () => clearInterval(interval); // Clear the interval on component unmount
-  }, [fetchOrders]);
+    let intervalId;
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setOrders(data);
-  //   }
-  // }, [data]);
+    const fetchOrders = async () => {
+      if (!user) return;
+
+      try {
+        const { data } = await axios("http://localhost:3000/api/graphql", {
+          method: "POST",
+          data: {
+            query: `
+            query Orders($page: Int!, $limit: Int!) {
+              Orders(
+                limit: $limit,
+                page: $page,
+                sort: "-createdAt"
+              ) {
+                docs {
+                  id
+                  district
+                  apartment
+                  houseNumber
+                  orderStatus
+                  deliveryPrice
+                  isDelivery
+                  totalAmount
+                  restaurantName
+                  dishes {
+                    quantity
+                    dish {
+                      title
+                      price
+                    }
+                  }
+                  createdAt
+                }
+              }
+            }
+          `,
+            variables: { limit: 20, page: 1 },
+          },
+        });
+        console.log("data.data", data.data);
+
+        setOrders(data.data.createOrder);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        setLoading(false); // Stop loading even if there's an error
+      }
+    };
+
+    // Fetch orders immediately and set up interval fetching
+    fetchOrders();
+    intervalId = setInterval(() => {
+      fetchOrders();
+    }, 4000);
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [user]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
-      <h2>Latest Orders</h2>
+      <h3>Orders</h3>
       <ul>
-        {orders.map((order) => (
-          <li key={order.id}>
-            {order.name} - {order.status}
-          </li>
-        ))}
+        {orders?.length ? (
+          orders.map((order) => (
+            <li key={order.id}>
+              {order.title} - {order.createdAt}
+            </li>
+          ))
+        ) : (
+          <p>No orders found.</p>
+        )}
       </ul>
     </div>
   );
 };
 
-export default OrderRefetchComponent;
+export default OrdersComponent;

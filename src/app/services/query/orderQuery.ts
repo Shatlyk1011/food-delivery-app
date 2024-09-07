@@ -9,11 +9,8 @@ mutation CreateOrder($orderData: mutationOrderInput!) {
 
 //shared/types/restaurants
 export const USER_ORDERS = `
-  query Orders($userId: String!, $page: Int!, $limit: Int!) {
+  query Orders( $page: Int!, $limit: Int!) {
     Orders(
-      where: {
-        orderedByUser: { equals: $userId }
-      },
       limit: $limit,
       page: $page,
       sort: "-createdAt"
