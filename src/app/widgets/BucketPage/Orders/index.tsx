@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import useProductItem from "@/app/hooks/useProductItem";
 
 //components
+import { FormControl, FormField, FormItem } from "@/app/components/shared-ui/Form/form";
 import SelectedItem from "@/app/components/bucket-page-ui/Orders/SelectedItem";
 import ClearBucketDialog from "@/app/components/bucket-page-ui/ClearBucketDialog";
 import EmptyBucket from "@/app/components/shared-ui/EmptyBucket";
@@ -47,10 +48,20 @@ const Index: FC<Props> = ({ t }) => {
         </div>
       )}
       <div className="mt-4 pr-4 text-text-1">
-        <Input
-          className="rounded-[10px] placeholder:text-text-4"
-          label={t("BucketPage.restaurantComment")}
-          placeholder={t("BucketPage.restaurantCommentPlaceholder")}
+        <h3 className="pb-2 text-sm">{t("BucketPage.restaurantComment")}</h3>
+        <FormField
+          name="commentToRestaurant"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder={t("BucketPage.restaurantCommentPlaceholder")}
+                  className="rounded-xl placeholder:font-[inherit] placeholder:text-sm placeholder:text-text-4 sm:rounded-[10px]"
+                />
+              </FormControl>
+            </FormItem>
+          )}
         />
       </div>
     </div>

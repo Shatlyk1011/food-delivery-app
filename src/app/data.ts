@@ -6,15 +6,34 @@ export const LANGUAGES = [
 ];
 
 export const BUCKET_INPUTS = [
-  { name: "district", placeholder: "BucketForm.district", styles: "sm:row-start-1 sm:col-span-2", type: "text" },
+  {
+    name: "district",
+    placeholder: "BucketForm.district",
+    styles: "sm:row-start-1 sm:col-span-2",
+    type: "text",
+    maxLength: 20,
+  },
   {
     name: "houseNumber",
     placeholder: "BucketForm.houseNumber",
     styles: "sm:row-start-1 sm:col-span-2",
-    type: "number",
+    type: "string",
+    maxLength: 12,
   },
-  { name: "apartment", placeholder: "BucketForm.kw", styles: "sm:row-start-2 sm:col-span-2", type: "number" },
-  { name: "entrance", placeholder: "BucketForm.entrance", styles: "sm:row-start-2 sm:col-span-2", type: "number" },
+  {
+    name: "apartment",
+    placeholder: "BucketForm.kw",
+    styles: "sm:row-start-2 sm:col-span-2",
+    type: "string",
+    maxLength: 10,
+  },
+  {
+    name: "entrance",
+    placeholder: "BucketForm.entrance",
+    styles: "sm:row-start-2 sm:col-span-2",
+    type: "string",
+    maxLength: 10,
+  },
   {
     name: "phoneNumber",
     placeholder: "BucketForm.phoneNumber",
@@ -23,7 +42,7 @@ export const BUCKET_INPUTS = [
     maxLength: 8,
   },
   {
-    name: "comment",
+    name: "commentToCourier",
     placeholder: "BucketForm.leaveComment",
     styles: "row-start-3 sm:row-start-4 col-span-4",
     type: "text",

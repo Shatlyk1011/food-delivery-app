@@ -49,7 +49,8 @@ export const useBucketFormScheme = () => {
       apartment: "",
       entrance: "",
       phoneNumber: "",
-      comment: "",
+      commentToCourier: "",
+      commentToRestaurant: "",
     },
   });
 

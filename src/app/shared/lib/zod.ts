@@ -31,7 +31,7 @@ export const registerScheme = (t: (arg: string) => string) =>
       }),
   });
 
-// Bucket form scheme
+// Bucket form scheme (OrderForm type)
 export const bucketFormScheme = (t: (arg: string) => string) =>
   z.object({
     district: z.string().min(4, {
@@ -52,9 +52,8 @@ export const bucketFormScheme = (t: (arg: string) => string) =>
       .min(8, {
         message: t("Zod.invalidPhone"),
       }),
-    comment: z.string().min(0, {
-      message: t("Zod.invalidComment"),
-    }),
+    commentToCourier: z.string(),
+    commentToRestaurant: z.string(),
   });
 
 // Profile scheme

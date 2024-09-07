@@ -48,7 +48,7 @@ export default function Bucket() {
 
   const handleOrderSubmit = async (values: OrderForm) => {
     if (restaurantInfo?.id && userProfile?.id) {
-      const { apartment, district, houseNumber, phoneNumber, comment } = values;
+      const { apartment, commentToCourier, district, entrance, houseNumber, phoneNumber, commentToRestaurant } = values;
       try {
         setLoading(true);
         const res = await handleOrder({
@@ -60,7 +60,9 @@ export default function Bucket() {
           phoneNumber: +phoneNumber,
           isDelivery: true,
           city: "Turkmenabat",
-          commentToCourier: comment,
+          commentToCourier,
+          commentToRestaurant,
+          entrance,
           dishes: selectedItems.dishes.map(({ id, count, availableAmount }) => ({
             id,
             quantity: Math.min(count, availableAmount),
@@ -76,7 +78,7 @@ export default function Bucket() {
       } catch (err) {
         console.log("error", err);
       } finally {
-        setLoading(true);
+        setLoading(false);
       }
     } else if (!userProfile) {
       toast("Actions.loginToOrder", "warning");

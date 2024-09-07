@@ -1,9 +1,9 @@
 interface OrderData {
-  orderedByUser: string;
   district: string;
   apartment: string;
   houseNumber: string;
   phoneNumber: number;
+  orderedByUser: string;
   isDelivery: boolean;
   restaurantID: string;
   dishes: {
@@ -48,9 +48,11 @@ interface UserOrderDish {
 
 interface OrderForm {
   apartment: string;
-  city: string;
   district: string;
   houseNumber: string;
   phoneNumber: string;
-  comment?: string;
+  city?: string;
+  entrance?: string;
+  commentToCourier?: string;
+  commentToRestaurant?: string;
 }
