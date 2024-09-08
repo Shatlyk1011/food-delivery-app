@@ -277,6 +277,7 @@ const Restaurants: CollectionConfig = {
       hasMany: true,
       relationTo: "dishes",
       type: "relationship",
+      label: "Блюда (доступные)",
       admin: {
         position: "sidebar",
       },

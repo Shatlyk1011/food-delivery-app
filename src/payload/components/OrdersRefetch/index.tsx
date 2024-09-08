@@ -1,14 +1,32 @@
 import axios from "../../../app/shared/lib/axios";
+import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+
+//utils
 import { useAuth } from "payload/components/utilities";
+import { getLocaleDate } from "../../../app//hooks/getLocaleData";
+
+import styles from "./styles.module.scss";
+
+export const ORDER_STATUSES = {
+  pending: "В ожидании",
+  recieved: "Принято",
+  sended: "Отправлено",
+  delivered: "Доставлено",
+  rejected: "Отказано",
+};
 
 const OrdersComponent = () => {
   const { user } = useAuth();
+  const history = useHistory();
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
 
+  const isLight = localStorage?.getItem("payload-theme") === "light";
+
+  const handleRedirect = (id: string) => {
+    history.push(`/admin/collections/orders/${id}`);
+  };
   // IMPROVEMENT REQUIRED. ADD CUSTOM TABLE. REDIRECT BY ID. LIMIT QUERY DATA.
-  console.log("user", user);
   useEffect(() => {
     let intervalId;
 
@@ -32,32 +50,21 @@ const OrdersComponent = () => {
                   apartment
                   houseNumber
                   orderStatus
-                  deliveryPrice
-                  isDelivery
                   totalAmount
-                  restaurantName
-                  dishes {
-                    quantity
-                    dish {
-                      title
-                      price
-                    }
-                  }
+                  deliveryPrice
                   createdAt
                 }
               }
             }
           `,
-            variables: { limit: 20, page: 1 },
+            variables: { limit: 30, page: 1 },
           },
         });
         console.log("data.data", data.data);
 
-        setOrders(data.data.createOrder);
-        setLoading(false);
+        setOrders(data.data.Orders.docs);
       } catch (error) {
         console.error("Error fetching orders:", error);
-        setLoading(false); // Stop loading even if there's an error
       }
     };
 
@@ -72,24 +79,42 @@ const OrdersComponent = () => {
     };
   }, [user]);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
   return (
-    <div>
-      <h3>Orders</h3>
-      <ul>
-        {orders?.length ? (
-          orders.map((order) => (
-            <li key={order.id}>
-              {order.title} - {order.createdAt}
-            </li>
-          ))
-        ) : (
-          <p>No orders found.</p>
-        )}
-      </ul>
+    <div className={`${styles.container} ${isLight && styles.light}`}>
+      <h3>Заказы</h3>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Район</th>
+            <th>Дом/кв</th>
+            <th className={styles.text_center}>Текущий статус</th>
+            <th className={styles.text_center}>Общая стоимость (с учетом доставки)</th>
+            <th>Дата создания</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {orders?.length &&
+            orders.map(
+              ({ id, district, apartment, houseNumber, orderStatus, totalAmount, deliveryPrice, createdAt }) => (
+                <tr onClick={() => handleRedirect(id)}>
+                  <td>{district}</td>
+                  <td>
+                    {apartment} / {houseNumber}
+                  </td>
+                  <td className={`${styles.text_center} ${styles[orderStatus]}`}>{ORDER_STATUSES[orderStatus]}</td>
+                  <td className={styles.text_center}>{+totalAmount + +deliveryPrice || 0}</td>
+                  <td>{getLocaleDate(createdAt)}</td>
+                </tr>
+              ),
+            )}
+        </tbody>
+      </table>
+      {orders?.length === 0 && (
+        <div className={styles.emptyBLock}>
+          <div className={styles.title}>Заказов пока нету</div>
+        </div>
+      )}
     </div>
   );
 };

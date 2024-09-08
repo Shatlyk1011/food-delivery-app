@@ -4,7 +4,7 @@ input[disabled],
 textarea[disabled],
 select[disabled] {
   background-color: #eaf0f7 !important;
-  color: #282828 !important;
+  color: #222 !important;
   opacity: 1 !important;
 }
 
@@ -13,7 +13,7 @@ html[data-theme="dark"] {
   input[disabled],
   textarea[disabled],
   select[disabled] {
-    background-color: #282828 !important;
+    background-color: #404040 !important;
     color: #eaf0f7 !important;
     opacity: 1 !important;
   }

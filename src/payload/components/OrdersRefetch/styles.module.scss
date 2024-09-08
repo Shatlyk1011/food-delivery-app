@@ -1,0 +1,120 @@
+.text_center {
+  text-align: center;
+}
+
+.container {
+  padding: 24px 48px;
+  background: #222;
+  max-width: 1440px;
+
+  &.light {
+    background: #eeeff2;
+
+    table {
+      thead {
+        tr {
+          th {
+            color: #444;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          border-top: 1px solid rgb(#000, 0.1);
+
+          &:last-child {
+            border-bottom: 1px solid rgb(#000, 0.1);
+          }
+          &:hover {
+            background: rgb(#000, 0.05);
+          }
+        }
+      }
+    }
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 12px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      width: 100%;
+      font-size: 12px;
+      text-align: left;
+
+      tr {
+        th {
+          color: #aaa;
+          font-weight: 500;
+          letter-spacing: 0.17px;
+          padding: 12px 6px;
+          width: 20%;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        cursor: pointer;
+        transition: all 0.1s linear;
+        width: 100%;
+        border-top: 1px solid rgb(#fff, 0.1);
+
+        &:last-child {
+          border-bottom: 1px solid rgb(#fff, 0.1);
+        }
+        &:hover {
+          background: rgb(#fff, 0.075);
+        }
+        td {
+          padding: 12px 6px;
+
+          &.pending {
+            color: #ffa500;
+          }
+          &.recieved {
+            color: #4caf50;
+          }
+          &.sended {
+            color: #1e90ff;
+          }
+          &.delivered {
+            color: #008000;
+          }
+          &.rejected {
+            color: #ff4500;
+          }
+        }
+      }
+    }
+  }
+}
+
+.blockContainer {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px;
+  .title {
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+  }
+}
+
+.emptyBLock {
+  width: 100%;
+  padding: 10px;
+  .title {
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+  }
+}

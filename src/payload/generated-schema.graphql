@@ -1,43 +1,43 @@
 type Query {
-  Restaurant(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Restaurant
-  Restaurants(where: Restaurant_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Restaurants
-  countRestaurants(where: Restaurant_where, locale: LocaleInputType): countRestaurants
+  Restaurant(id: String!): Restaurant
+  Restaurants(where: Restaurant_where, limit: Int, page: Int, sort: String): Restaurants
+  countRestaurants(where: Restaurant_where): countRestaurants
   docAccessRestaurant(id: String!): restaurantsDocAccess
-  Order(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Order
-  Orders(where: Order_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Orders
-  countOrders(where: Order_where, locale: LocaleInputType): countOrders
+  Order(id: String!): Order
+  Orders(where: Order_where, limit: Int, page: Int, sort: String): Orders
+  countOrders(where: Order_where): countOrders
   docAccessOrder(id: String!): ordersDocAccess
-  Dish(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Dish
-  Dishes(where: Dish_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Dishes
-  countDishes(where: Dish_where, locale: LocaleInputType): countDishes
+  Dish(id: String!): Dish
+  Dishes(where: Dish_where, limit: Int, page: Int, sort: String): Dishes
+  countDishes(where: Dish_where): countDishes
   docAccessDish(id: String!): dishesDocAccess
-  City(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): City
-  Cities(where: City_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Cities
-  countCities(where: City_where, locale: LocaleInputType): countCities
+  City(id: String!): City
+  Cities(where: City_where, limit: Int, page: Int, sort: String): Cities
+  countCities(where: City_where): countCities
   docAccessCity(id: String!): citiesDocAccess
-  User(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): User
-  Users(where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Users
-  countUsers(where: User_where, locale: LocaleInputType): countUsers
+  User(id: String!): User
+  Users(where: User_where, limit: Int, page: Int, sort: String): Users
+  countUsers(where: User_where): countUsers
   docAccessUser(id: String!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Customer(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Customer
-  Customers(where: Customer_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Customers
-  countCustomers(where: Customer_where, locale: LocaleInputType): countCustomers
+  Customer(id: String!): Customer
+  Customers(where: Customer_where, limit: Int, page: Int, sort: String): Customers
+  countCustomers(where: Customer_where): countCustomers
   docAccessCustomer(id: String!): customersDocAccess
   meCustomer: customersMe
   initializedCustomer: Boolean
-  Media(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Media
-  allMedia(where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): allMedia
-  countallMedia(where: Media_where, locale: LocaleInputType): countallMedia
+  Media(id: String!): Media
+  allMedia(where: Media_where, limit: Int, page: Int, sort: String): allMedia
+  countallMedia(where: Media_where): countallMedia
   docAccessMedia(id: String!): mediaDocAccess
-  Category(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Category
-  Categories(where: Category_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Categories
-  countCategories(where: Category_where, locale: LocaleInputType): countCategories
+  Category(id: String!): Category
+  Categories(where: Category_where, limit: Int, page: Int, sort: String): Categories
+  countCategories(where: Category_where): countCategories
   docAccessCategory(id: String!): categoriesDocAccess
-  PayloadPreference(id: String!, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadPreference
-  PayloadPreferences(where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): PayloadPreferences
-  countPayloadPreferences(where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
+  PayloadPreference(id: String!): PayloadPreference
+  PayloadPreferences(where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
+  countPayloadPreferences(where: PayloadPreference_where): countPayloadPreferences
   docAccessPayloadPreference(id: String!): payload_preferencesDocAccess
   Access: Access
 }
@@ -53,13 +53,13 @@ type Restaurant {
   workingHours: Restaurant_WorkingHours
   isClosed: Boolean
   isDelivery: Boolean!
-  bannerImage(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Restaurant_BannerImage_where): Media
-  categories(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Category!]
-  dishes(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Dish!]
+  bannerImage(where: Restaurant_BannerImage_where): Media
+  categories: [Category!]
+  dishes: [Dish!]
   budgetCategory: Restaurant_budgetCategory
   isBlocked: Boolean
-  relatedToUser(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Customer
-  cities(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [City!]
+  relatedToUser: Customer
+  cities: [City!]
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -109,7 +109,7 @@ enum Restaurant_WorkingHours_closeTime {
 type Media {
   id: String
   alt: String!
-  createdBy(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Customer
+  createdBy: Customer
   updatedAt: DateTime
   createdAt: DateTime
   url: String
@@ -126,7 +126,7 @@ type Customer {
   id: String
   name: String
   phone: String
-  restaurant(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Restaurant!]
+  restaurant: [Restaurant!]
   isBlocked: Boolean
   roles: [Customer_roles!]
   updatedAt: DateTime
@@ -139,17 +139,6 @@ type Customer {
   loginAttempts: Float
   lockUntil: DateTime
   password: String!
-}
-
-enum LocaleInputType {
-  ru
-  tk
-}
-
-enum FallbackLocaleInputType {
-  ru
-  tk
-  none
 }
 
 enum Customer_roles {
@@ -381,10 +370,10 @@ type Dish {
   gram: Float!
   availableAmount: Float
   cookTime: Float!
-  categories(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Category
-  image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Dish_Image_where): Media
-  restaurant(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Restaurant!
-  createdBy(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Customer
+  categories: Category
+  image(where: Dish_Image_where): Media
+  restaurant: Restaurant!
+  createdBy: Customer
   isBlocked: Boolean
   updatedAt: DateTime
   createdAt: DateTime
@@ -1450,7 +1439,7 @@ enum Order_orderStatus {
 }
 
 type Order_Dishes {
-  dish(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Dish
+  dish: Dish
   quantity: Float
   id: String
 }
@@ -4729,7 +4718,7 @@ type CategoriesDeleteDocAccess {
 
 type PayloadPreference {
   id: String
-  user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadPreference_User_Relationship!
+  user: PayloadPreference_User_Relationship!
   key: String
   value: JSON
   updatedAt: DateTime
@@ -7683,20 +7672,20 @@ type PayloadPreferencesDeleteAccess {
 }
 
 type Mutation {
-  createRestaurant(data: mutationRestaurantInput!, locale: LocaleInputType): Restaurant
-  updateRestaurant(id: String!, autosave: Boolean, data: mutationRestaurantUpdateInput!, locale: LocaleInputType): Restaurant
+  createRestaurant(data: mutationRestaurantInput!): Restaurant
+  updateRestaurant(id: String!, autosave: Boolean, data: mutationRestaurantUpdateInput!): Restaurant
   deleteRestaurant(id: String!): Restaurant
-  createOrder(data: mutationOrderInput!, locale: LocaleInputType): Order
-  updateOrder(id: String!, autosave: Boolean, data: mutationOrderUpdateInput!, locale: LocaleInputType): Order
+  createOrder(data: mutationOrderInput!): Order
+  updateOrder(id: String!, autosave: Boolean, data: mutationOrderUpdateInput!): Order
   deleteOrder(id: String!): Order
-  createDish(data: mutationDishInput!, locale: LocaleInputType): Dish
-  updateDish(id: String!, autosave: Boolean, data: mutationDishUpdateInput!, locale: LocaleInputType): Dish
+  createDish(data: mutationDishInput!): Dish
+  updateDish(id: String!, autosave: Boolean, data: mutationDishUpdateInput!): Dish
   deleteDish(id: String!): Dish
-  createCity(data: mutationCityInput!, locale: LocaleInputType): City
-  updateCity(id: String!, autosave: Boolean, data: mutationCityUpdateInput!, locale: LocaleInputType): City
+  createCity(data: mutationCityInput!): City
+  updateCity(id: String!, autosave: Boolean, data: mutationCityUpdateInput!): City
   deleteCity(id: String!): City
-  createUser(data: mutationUserInput!, locale: LocaleInputType): User
-  updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!, locale: LocaleInputType): User
+  createUser(data: mutationUserInput!): User
+  updateUser(id: String!, autosave: Boolean, data: mutationUserUpdateInput!): User
   deleteUser(id: String!): User
   refreshTokenUser(token: String): usersRefreshedUser
   logoutUser: String
@@ -7705,8 +7694,8 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
-  createCustomer(data: mutationCustomerInput!, locale: LocaleInputType): Customer
-  updateCustomer(id: String!, autosave: Boolean, data: mutationCustomerUpdateInput!, locale: LocaleInputType): Customer
+  createCustomer(data: mutationCustomerInput!): Customer
+  updateCustomer(id: String!, autosave: Boolean, data: mutationCustomerUpdateInput!): Customer
   deleteCustomer(id: String!): Customer
   refreshTokenCustomer(token: String): customersRefreshedCustomer
   logoutCustomer: String
@@ -7715,14 +7704,14 @@ type Mutation {
   forgotPasswordCustomer(disableEmail: Boolean, email: String!, expiration: Int): Boolean!
   resetPasswordCustomer(password: String, token: String): customersResetPassword
   verifyEmailCustomer(token: String): Boolean
-  createMedia(data: mutationMediaInput!, locale: LocaleInputType): Media
-  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!, locale: LocaleInputType): Media
+  createMedia(data: mutationMediaInput!): Media
+  updateMedia(id: String!, autosave: Boolean, data: mutationMediaUpdateInput!): Media
   deleteMedia(id: String!): Media
-  createCategory(data: mutationCategoryInput!, locale: LocaleInputType): Category
-  updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!, locale: LocaleInputType): Category
+  createCategory(data: mutationCategoryInput!): Category
+  updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!): Category
   deleteCategory(id: String!): Category
-  createPayloadPreference(data: mutationPayloadPreferenceInput!, locale: LocaleInputType): PayloadPreference
-  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, locale: LocaleInputType): PayloadPreference
+  createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
+  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
 }
 
