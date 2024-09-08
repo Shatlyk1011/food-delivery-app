@@ -116,12 +116,6 @@ const Restaurants: CollectionConfig = {
       label: "Бесплатно после (в манатах)",
       required: false,
       type: "number",
-      validate: (value) => {
-        if (value < 20) {
-          return "Значение не может быть меньше 20.";
-        }
-        return true;
-      },
     },
     //open times close times
     {
