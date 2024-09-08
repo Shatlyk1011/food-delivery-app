@@ -39,6 +39,12 @@ const Categories: CollectionConfig = {
       unique: true,
     },
     {
+      name: "order",
+      type: "number",
+      label: "Порядок",
+      required: false,
+    },
+    {
       name: "type",
       type: "select",
       label: "Тип (блюдо или ресторан)",

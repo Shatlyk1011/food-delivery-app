@@ -38,4 +38,6 @@ type AddressData = {
   city?: string;
 };
 
+type CategoryTypes = "dish" | "restaurant";
+
 type OrderStatus = "pending" | "recieved" | "sended" | "delivered" | "rejected";

@@ -19,13 +19,13 @@ const Index: FC<Props> = ({ categories, active, setActive, t }) => {
       </PopoverTrigger>
       <PopoverContent className="ml-4 w-fit rounded-xl border border-gray-2 py-3 pl-3 shadow-xl">
         <ul className="perfect-scrollbar h-80 w-52 space-y-2">
-          {categories?.map(({ title }, idx) => (
-            <li key={title} onClick={() => setActive(idx)} className="mr-1">
+          {categories?.map(({ category }, idx) => (
+            <li key={category} onClick={() => setActive(idx)} className="mr-1">
               <PopoverClose
                 disabled={true}
                 className={`h-12 w-full cursor-pointer rounded-xl px-[18px] text-start leading-[48px] transition duration-100 hover:bg-onHover disabled:cursor-text disabled:bg-white disabled:text-text-3 2xl:h-11 2xl:px-4 2xl:leading-10 md:h-10 md:text-sm md:leading-[36px] ${active === idx && "bg-accent"}`}
               >
-                {t(`Categories.${title}`)}
+                {category}
               </PopoverClose>
             </li>
           ))}

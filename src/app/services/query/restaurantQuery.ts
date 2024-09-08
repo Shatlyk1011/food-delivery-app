@@ -97,10 +97,15 @@ export const RESTAURANT_BUCKET = `
 `;
 
 export const CATEGORIES = `
-  query Categories($limit: Int!,) {
-    Categories(limit: $limit) {
+query Categories($type: Category_type_Input!, $limit: Int!) {
+  Categories(
+    where: { type: { equals: $type }}, 
+    limit: $limit,
+    sort: "order"
+      ) {
       docs {
-        title
+        category
+        value
       }
     }
   }

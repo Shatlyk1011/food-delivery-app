@@ -98,6 +98,7 @@ export interface Category {
   id: string;
   category: string;
   value: string;
+  order?: number | null;
   type: 'dish' | 'restaurant';
 }
 /**

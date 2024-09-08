@@ -22,7 +22,8 @@ interface RestaurantLocalInfo {
 }
 
 interface Categories {
-  title: string;
+  category: string;
+  value: string;
 }
 
 type SortBy = "" | "deliveryTime" | "budgetCategory" | "-budgetCategory";
