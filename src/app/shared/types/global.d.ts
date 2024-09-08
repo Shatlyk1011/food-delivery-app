@@ -41,3 +41,10 @@ type AddressData = {
 type CategoryTypes = "dish" | "restaurant";
 
 type OrderStatus = "pending" | "recieved" | "sended" | "delivered" | "rejected";
+
+interface FeedbackOrCoop {
+  name?: string;
+  phoneNumber?: string;
+  description: string;
+  type: "cooperation" | "feedback";
+}

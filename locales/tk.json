@@ -69,7 +69,7 @@
     "about": "Biz barada",
     "advertisement": "Reklama",
     "collab": "Hyzmatdaşlyk",
-    "feedback": "Syn galdyrmak",
+    "feedback": "Seslenme galdyrmak",
     "rights": "Hukuklar goralandyr"
   },
 
@@ -191,5 +191,19 @@
     "chooseRestaurant": "Restoran saýlamagyňyzy haýyş edýäris.",
     "successOrder": "Sargyt üstünlikli döredildi. Sargytyňyzy doly anyklamak üçin size dolandyryjy jaň edip biler.",
     "successAddress": "Täze salgyňyz üstünlikli goşuldy"
+  },
+
+  "Footer": {
+    "coopHeading": "Hyzmatdaşlyk",
+    "coopSubHead": "Gurluşyňyzyň mümkinçiliklerini giňeltmek we täze müşderileri çekmek isleýärsiňizmi? Formany dolduryň we biz siz bilen gysga wagtyň içinde habarlaşarys.",
+    "coopTellAbout": "Gysgaça, öz ýeriňiz barada ýazyň we salgyňyzy belläň *",
+    "coopRestriction": "Bellik: Häzirki wagtda biziň platformamyz diňe Türkmenabat şäherinde elýeterlidir.",
+    "coopSend": "Ugratmak",
+
+    "feedbackHeading": "Serwisimiz barada seslenme ýazmak",
+    "feedbackSubHeading": "Hyzmatymyza berýän ünsüňize we bize gowulaşmaga kömek etmäge taýýardygyňyz ücin minnetdarlyk bildirýäris",
+    "feedbackSend": "Ugratmak",
+    "feedbackTitle": "Meseläni suratlandyryň",
+    "feedbackPlaceholder": "Seslenmäni ugratmak kararyna geleniňizi beýan ediň"
   }
 }

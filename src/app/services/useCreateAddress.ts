@@ -16,14 +16,12 @@ export const useCreateAddress = () => {
     { id: string; userData: { addresses: AddressData[] } }
   >({
     mutationFn: async ({ id, userData }) => {
-      console.log("userData123123", userData.addresses.slice(0, 6));
       const { data } = await axios({
         data: {
           query: CREATE_ADDRESS_MUTATION,
           variables: { id, userData },
         },
       });
-      console.log("hook", data.data.updateUser);
       return await data.data.updateUser;
     },
     onSuccess: (data) => {

@@ -14,6 +14,7 @@ import Orders from "./collections/Orders";
 import Restaurants from "./collections/Restaurants";
 import Users from "./collections/Users";
 import Categories from "./collections/Categories";
+import FeedbackAndCooperations from "./collections/FeedbackAndCooperations";
 
 const m = path.resolve(__dirname, "./emptyModuleMock.js");
 
@@ -33,7 +34,7 @@ export default buildConfig({
     }),
     css: path.resolve(__dirname, "payload.styles.css"),
   },
-  collections: [Restaurants, Orders, Dishes, Cities, Users, Customers, Media, Categories],
+  collections: [Restaurants, Orders, Dishes, Cities, Users, Customers, Media, Categories, FeedbackAndCooperations],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
   editor: lexicalEditor({}),

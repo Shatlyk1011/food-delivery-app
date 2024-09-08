@@ -16,6 +16,7 @@ export interface Config {
     customers: Customer;
     media: Media;
     categories: Category;
+    FeedbackAndCooperations: FeedbackAndCooperation;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -189,6 +190,19 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeedbackAndCooperations".
+ */
+export interface FeedbackAndCooperation {
+  id: string;
+  name: string;
+  phoneNumber?: string | null;
+  description: string;
+  type: 'cooperation' | 'feedback';
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

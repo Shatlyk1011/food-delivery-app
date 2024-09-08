@@ -35,6 +35,10 @@ type Query {
   Categories(where: Category_where, limit: Int, page: Int, sort: String): Categories
   countCategories(where: Category_where): countCategories
   docAccessCategory(id: String!): categoriesDocAccess
+  FeedbackAndCooperation(id: String!): FeedbackAndCooperation
+  FeedbackAndCooperations(where: FeedbackAndCooperation_where, limit: Int, page: Int, sort: String): FeedbackAndCooperations
+  countFeedbackAndCooperations(where: FeedbackAndCooperation_where): countFeedbackAndCooperations
+  docAccessFeedbackAndCooperation(id: String!): FeedbackAndCooperationsDocAccess
   PayloadPreference(id: String!): PayloadPreference
   PayloadPreferences(where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(where: PayloadPreference_where): countPayloadPreferences
@@ -4754,6 +4758,324 @@ type CategoriesDeleteDocAccess {
   where: JSONObject
 }
 
+type FeedbackAndCooperation {
+  id: String
+  name: String!
+  phoneNumber: String
+  description: String!
+  type: FeedbackAndCooperation_type!
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+enum FeedbackAndCooperation_type {
+  cooperation
+  feedback
+}
+
+type FeedbackAndCooperations {
+  docs: [FeedbackAndCooperation]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input FeedbackAndCooperation_where {
+  name: FeedbackAndCooperation_name_operator
+  phoneNumber: FeedbackAndCooperation_phoneNumber_operator
+  description: FeedbackAndCooperation_description_operator
+  type: FeedbackAndCooperation_type_operator
+  updatedAt: FeedbackAndCooperation_updatedAt_operator
+  createdAt: FeedbackAndCooperation_createdAt_operator
+  id: FeedbackAndCooperation_id_operator
+  AND: [FeedbackAndCooperation_where_and]
+  OR: [FeedbackAndCooperation_where_or]
+}
+
+input FeedbackAndCooperation_name_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input FeedbackAndCooperation_phoneNumber_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input FeedbackAndCooperation_description_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+}
+
+input FeedbackAndCooperation_type_operator {
+  equals: FeedbackAndCooperation_type_Input
+  not_equals: FeedbackAndCooperation_type_Input
+  in: [FeedbackAndCooperation_type_Input]
+  not_in: [FeedbackAndCooperation_type_Input]
+  all: [FeedbackAndCooperation_type_Input]
+}
+
+enum FeedbackAndCooperation_type_Input {
+  cooperation
+  feedback
+}
+
+input FeedbackAndCooperation_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input FeedbackAndCooperation_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input FeedbackAndCooperation_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input FeedbackAndCooperation_where_and {
+  name: FeedbackAndCooperation_name_operator
+  phoneNumber: FeedbackAndCooperation_phoneNumber_operator
+  description: FeedbackAndCooperation_description_operator
+  type: FeedbackAndCooperation_type_operator
+  updatedAt: FeedbackAndCooperation_updatedAt_operator
+  createdAt: FeedbackAndCooperation_createdAt_operator
+  id: FeedbackAndCooperation_id_operator
+  AND: [FeedbackAndCooperation_where_and]
+  OR: [FeedbackAndCooperation_where_or]
+}
+
+input FeedbackAndCooperation_where_or {
+  name: FeedbackAndCooperation_name_operator
+  phoneNumber: FeedbackAndCooperation_phoneNumber_operator
+  description: FeedbackAndCooperation_description_operator
+  type: FeedbackAndCooperation_type_operator
+  updatedAt: FeedbackAndCooperation_updatedAt_operator
+  createdAt: FeedbackAndCooperation_createdAt_operator
+  id: FeedbackAndCooperation_id_operator
+  AND: [FeedbackAndCooperation_where_and]
+  OR: [FeedbackAndCooperation_where_or]
+}
+
+type countFeedbackAndCooperations {
+  totalDocs: Int
+}
+
+type FeedbackAndCooperationsDocAccess {
+  fields: FeedbackAndCooperationsDocAccessFields
+  create: FeedbackAndCooperationsCreateDocAccess
+  read: FeedbackAndCooperationsReadDocAccess
+  update: FeedbackAndCooperationsUpdateDocAccess
+  delete: FeedbackAndCooperationsDeleteDocAccess
+}
+
+type FeedbackAndCooperationsDocAccessFields {
+  name: FeedbackAndCooperationsDocAccessFields_name
+  phoneNumber: FeedbackAndCooperationsDocAccessFields_phoneNumber
+  description: FeedbackAndCooperationsDocAccessFields_description
+  type: FeedbackAndCooperationsDocAccessFields_type
+  updatedAt: FeedbackAndCooperationsDocAccessFields_updatedAt
+  createdAt: FeedbackAndCooperationsDocAccessFields_createdAt
+}
+
+type FeedbackAndCooperationsDocAccessFields_name {
+  create: FeedbackAndCooperationsDocAccessFields_name_Create
+  read: FeedbackAndCooperationsDocAccessFields_name_Read
+  update: FeedbackAndCooperationsDocAccessFields_name_Update
+  delete: FeedbackAndCooperationsDocAccessFields_name_Delete
+}
+
+type FeedbackAndCooperationsDocAccessFields_name_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_name_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_name_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_name_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_phoneNumber {
+  create: FeedbackAndCooperationsDocAccessFields_phoneNumber_Create
+  read: FeedbackAndCooperationsDocAccessFields_phoneNumber_Read
+  update: FeedbackAndCooperationsDocAccessFields_phoneNumber_Update
+  delete: FeedbackAndCooperationsDocAccessFields_phoneNumber_Delete
+}
+
+type FeedbackAndCooperationsDocAccessFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_description {
+  create: FeedbackAndCooperationsDocAccessFields_description_Create
+  read: FeedbackAndCooperationsDocAccessFields_description_Read
+  update: FeedbackAndCooperationsDocAccessFields_description_Update
+  delete: FeedbackAndCooperationsDocAccessFields_description_Delete
+}
+
+type FeedbackAndCooperationsDocAccessFields_description_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_description_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_description_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_description_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_type {
+  create: FeedbackAndCooperationsDocAccessFields_type_Create
+  read: FeedbackAndCooperationsDocAccessFields_type_Read
+  update: FeedbackAndCooperationsDocAccessFields_type_Update
+  delete: FeedbackAndCooperationsDocAccessFields_type_Delete
+}
+
+type FeedbackAndCooperationsDocAccessFields_type_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_type_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_type_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_type_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_updatedAt {
+  create: FeedbackAndCooperationsDocAccessFields_updatedAt_Create
+  read: FeedbackAndCooperationsDocAccessFields_updatedAt_Read
+  update: FeedbackAndCooperationsDocAccessFields_updatedAt_Update
+  delete: FeedbackAndCooperationsDocAccessFields_updatedAt_Delete
+}
+
+type FeedbackAndCooperationsDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_createdAt {
+  create: FeedbackAndCooperationsDocAccessFields_createdAt_Create
+  read: FeedbackAndCooperationsDocAccessFields_createdAt_Read
+  update: FeedbackAndCooperationsDocAccessFields_createdAt_Update
+  delete: FeedbackAndCooperationsDocAccessFields_createdAt_Delete
+}
+
+type FeedbackAndCooperationsDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type FeedbackAndCooperationsReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type FeedbackAndCooperationsUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type FeedbackAndCooperationsDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadPreference {
   id: String
   user: PayloadPreference_User_Relationship!
@@ -5051,6 +5373,7 @@ type Access {
   customers: customersAccess
   media: mediaAccess
   categories: categoriesAccess
+  FeedbackAndCooperations: FeedbackAndCooperationsAccess
   payload_preferences: payload_preferencesAccess
 }
 
@@ -7582,6 +7905,181 @@ type CategoriesDeleteAccess {
   where: JSONObject
 }
 
+type FeedbackAndCooperationsAccess {
+  fields: FeedbackAndCooperationsFields
+  create: FeedbackAndCooperationsCreateAccess
+  read: FeedbackAndCooperationsReadAccess
+  update: FeedbackAndCooperationsUpdateAccess
+  delete: FeedbackAndCooperationsDeleteAccess
+}
+
+type FeedbackAndCooperationsFields {
+  name: FeedbackAndCooperationsFields_name
+  phoneNumber: FeedbackAndCooperationsFields_phoneNumber
+  description: FeedbackAndCooperationsFields_description
+  type: FeedbackAndCooperationsFields_type
+  updatedAt: FeedbackAndCooperationsFields_updatedAt
+  createdAt: FeedbackAndCooperationsFields_createdAt
+}
+
+type FeedbackAndCooperationsFields_name {
+  create: FeedbackAndCooperationsFields_name_Create
+  read: FeedbackAndCooperationsFields_name_Read
+  update: FeedbackAndCooperationsFields_name_Update
+  delete: FeedbackAndCooperationsFields_name_Delete
+}
+
+type FeedbackAndCooperationsFields_name_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_name_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_name_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_name_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_phoneNumber {
+  create: FeedbackAndCooperationsFields_phoneNumber_Create
+  read: FeedbackAndCooperationsFields_phoneNumber_Read
+  update: FeedbackAndCooperationsFields_phoneNumber_Update
+  delete: FeedbackAndCooperationsFields_phoneNumber_Delete
+}
+
+type FeedbackAndCooperationsFields_phoneNumber_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_phoneNumber_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_phoneNumber_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_phoneNumber_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_description {
+  create: FeedbackAndCooperationsFields_description_Create
+  read: FeedbackAndCooperationsFields_description_Read
+  update: FeedbackAndCooperationsFields_description_Update
+  delete: FeedbackAndCooperationsFields_description_Delete
+}
+
+type FeedbackAndCooperationsFields_description_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_description_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_description_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_description_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_type {
+  create: FeedbackAndCooperationsFields_type_Create
+  read: FeedbackAndCooperationsFields_type_Read
+  update: FeedbackAndCooperationsFields_type_Update
+  delete: FeedbackAndCooperationsFields_type_Delete
+}
+
+type FeedbackAndCooperationsFields_type_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_type_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_type_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_type_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_updatedAt {
+  create: FeedbackAndCooperationsFields_updatedAt_Create
+  read: FeedbackAndCooperationsFields_updatedAt_Read
+  update: FeedbackAndCooperationsFields_updatedAt_Update
+  delete: FeedbackAndCooperationsFields_updatedAt_Delete
+}
+
+type FeedbackAndCooperationsFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_createdAt {
+  create: FeedbackAndCooperationsFields_createdAt_Create
+  read: FeedbackAndCooperationsFields_createdAt_Read
+  update: FeedbackAndCooperationsFields_createdAt_Update
+  delete: FeedbackAndCooperationsFields_createdAt_Delete
+}
+
+type FeedbackAndCooperationsFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type FeedbackAndCooperationsCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type FeedbackAndCooperationsReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type FeedbackAndCooperationsUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type FeedbackAndCooperationsDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_preferencesAccess {
   fields: PayloadPreferencesFields
   create: PayloadPreferencesCreateAccess
@@ -7772,6 +8270,9 @@ type Mutation {
   createCategory(data: mutationCategoryInput!): Category
   updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!): Category
   deleteCategory(id: String!): Category
+  createFeedbackAndCooperation(data: mutationFeedbackAndCooperationInput!): FeedbackAndCooperation
+  updateFeedbackAndCooperation(id: String!, autosave: Boolean, data: mutationFeedbackAndCooperationUpdateInput!): FeedbackAndCooperation
+  deleteFeedbackAndCooperation(id: String!): FeedbackAndCooperation
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
   updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
@@ -8215,6 +8716,34 @@ input mutationCategoryUpdateInput {
 enum CategoryUpdate_type_MutationInput {
   dish
   restaurant
+}
+
+input mutationFeedbackAndCooperationInput {
+  name: String!
+  phoneNumber: String
+  description: String!
+  type: FeedbackAndCooperation_type_MutationInput!
+  updatedAt: String
+  createdAt: String
+}
+
+enum FeedbackAndCooperation_type_MutationInput {
+  cooperation
+  feedback
+}
+
+input mutationFeedbackAndCooperationUpdateInput {
+  name: String
+  phoneNumber: String
+  description: String
+  type: FeedbackAndCooperationUpdate_type_MutationInput
+  updatedAt: String
+  createdAt: String
+}
+
+enum FeedbackAndCooperationUpdate_type_MutationInput {
+  cooperation
+  feedback
 }
 
 input mutationPayloadPreferenceInput {

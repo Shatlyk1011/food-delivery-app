@@ -1,7 +1,21 @@
+"use client";
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import { LocationIcon, MessageIcon, PhoneIcon } from "@/app/icons";
+
+import { useCreateFeedbackOrCoop } from "@/app/services/useFeedbackAndCoop";
+
+//components
+import Spinner from "@/app/components/shared-ui/Spinner";
+const CooperationModal = dynamic(() => import("@/app/components/footer-ui/CooperationModal"), {
+  loading: () => <Spinner />,
+});
+
+const FeedbackModal = dynamic(() => import("@/app/components/footer-ui/FeedbackModal"), {
+  loading: () => <Spinner />,
+});
 
 interface Props {}
 
@@ -23,10 +37,21 @@ const contacts = [
   },
 ];
 
+const defaultStates = { cooperationModal: false, feedbackModal: false };
+
 const Index: FC<Props> = () => {
   const t = useTranslations();
 
-  const links = ["MainPage.about", "MainPage.advertisement", "MainPage.collab", "MainPage.feedback"];
+  const [modals, setModals] = useState(defaultStates);
+
+  const { createFeedbackOrCoop } = useCreateFeedbackOrCoop();
+
+  const links = [
+    { title: "MainPage.about" },
+    { title: "MainPage.advertisement" },
+    { title: "MainPage.collab", fn: () => setModals((prev) => ({ ...prev, cooperationModal: true })) },
+    { title: "MainPage.feedback", fn: () => setModals((prev) => ({ ...prev, feedbackModal: true })) },
+  ];
 
   return (
     <footer className="z-[2000] h-auto w-full bg-gray-3 px-40 py-10 shadow-2xl 2xl:px-20 xl:px-10 lg:px-5 lg:py-6 md:mt-4">
@@ -46,9 +71,14 @@ const Index: FC<Props> = () => {
         <div className="border-t border-gray-2 py-6">
           <div className="flex gap-y-2 xl:flex-col">
             <ul className="flex flex-wrap gap-x-8 gap-y-2 xl:mb-4 xl:justify-center sm:flex-col sm:items-center">
-              {links.map((link) => (
-                <li aria-label="button" className="cursor-pointer transition hover:text-black/75" key={link}>
-                  {t(link as any)}
+              {links.map(({ title, fn }) => (
+                <li
+                  aria-label="button"
+                  onClick={fn}
+                  className="cursor-pointer transition hover:text-black/75"
+                  key={title}
+                >
+                  {t(title)}
                 </li>
               ))}
             </ul>
@@ -56,6 +86,17 @@ const Index: FC<Props> = () => {
           </div>
         </div>
       </div>
+
+      {(modals.cooperationModal || modals.feedbackModal) && (
+        <div className="fixed left-0 top-0 z-50 flex h-screen w-full items-center justify-center bg-bg-cover">
+          {modals.cooperationModal && (
+            <CooperationModal submit={createFeedbackOrCoop} handleClose={() => setModals(defaultStates)} t={t} />
+          )}
+          {modals.feedbackModal && (
+            <FeedbackModal submit={createFeedbackOrCoop} handleClose={() => setModals(defaultStates)} t={t} />
+          )}
+        </div>
+      )}
     </footer>
   );
 };
