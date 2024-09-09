@@ -7,20 +7,22 @@ import { CloseIcon } from "@/app/icons";
 
 interface Props {
   handleClose: () => void;
-  submit: (form: FeedbackOrCoop) => void;
+  submit: (form: FeedbackOrCoop) => Promise<void>;
   t: any;
 }
 
 const Index: FC<Props> = ({ handleClose, submit, t }) => {
-  const [feedbackForm, setFeedbackForm] = useState({
+  const [feedbackForm, setFeedbackForm] = useState<FeedbackOrCoop>({
     description: "",
     type: "feedback",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    await submit(feedbackForm);
   };
 
+  console.log("feedbackForm", feedbackForm);
   return (
     <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-8 xl:px-5 xl:py-6 md:px-4 md:py-5">
       <h2 className="mb-3 text-center text-3xl font-semibold xl:text-2xl md:mb-2 md:text-xl">
@@ -40,7 +42,7 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
         <Textarea
           className="h-32 resize-none"
           label={t("Footer.feedbackTitle")}
-          onChange={(e) => ({ ...feedbackForm, description: e.target.value })}
+          onChange={(e) => setFeedbackForm({ ...feedbackForm, description: e.target.value })}
           placeholder={t("Footer.feedbackPlaceholder")}
         />
 

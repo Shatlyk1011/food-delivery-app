@@ -21,9 +21,9 @@
 - ✅ interval fetch orders
   <!-- - dish isChange flag -->
 
-  ✅ - order statuses
+- ✅ order statuses
 
-- categories for dishes and restaurants (names)
+- ✅ categories for dishes and restaurants (names)
 - ✅ request orders by users id in profile page (interval)
 - add description in collections
 <!-- ex: https://github.com/payloadcms/public-demo/blob/master/src/payload/collections/Media.ts -->
@@ -36,12 +36,12 @@
 - ✅ fix all form translates, validations
 - login/register error (obrabotka)
 
-- create address function
-- handle comment to restaurant
+- ✅ create address function
+- ✅ handle comment to restaurant
 
 - ✅ LANGUAGE BUUUG!
 
-- client categories field
+- ✅ client categories field
 
 - ✅ (use url) default images
 - ✅ hide search if its not in main page

@@ -4760,7 +4760,7 @@ type CategoriesDeleteDocAccess {
 
 type FeedbackAndCooperation {
   id: String
-  name: String!
+  name: String
   phoneNumber: String
   description: String!
   type: FeedbackAndCooperation_type!
@@ -4807,6 +4807,7 @@ input FeedbackAndCooperation_name_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input FeedbackAndCooperation_phoneNumber_operator {
@@ -8719,7 +8720,7 @@ enum CategoryUpdate_type_MutationInput {
 }
 
 input mutationFeedbackAndCooperationInput {
-  name: String!
+  name: String
   phoneNumber: String
   description: String!
   type: FeedbackAndCooperation_type_MutationInput!

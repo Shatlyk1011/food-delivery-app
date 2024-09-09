@@ -197,7 +197,7 @@ export interface User {
  */
 export interface FeedbackAndCooperation {
   id: string;
-  name: string;
+  name?: string | null;
   phoneNumber?: string | null;
   description: string;
   type: 'cooperation' | 'feedback';

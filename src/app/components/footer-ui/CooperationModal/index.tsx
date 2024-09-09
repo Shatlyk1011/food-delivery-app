@@ -8,20 +8,21 @@ import { CloseIcon } from "@/app/icons";
 
 interface Props {
   handleClose: () => void;
-  submit: (form: FeedbackOrCoop) => void;
+  submit: (form: FeedbackOrCoop) => Promise<void>;
   t: any;
 }
 
 const Index: FC<Props> = ({ handleClose, submit, t }) => {
-  const [coopForm, setCoopForm] = useState({
+  const [coopForm, setCoopForm] = useState<FeedbackOrCoop>({
     name: "",
     phoneNumber: "",
     description: "",
     type: "cooperation",
   });
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    await submit(coopForm);
   };
 
   return (
@@ -44,13 +45,13 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
           <Input
             label={`${t("ProfilePage.yourName")} *`}
             value={coopForm.name}
-            onChange={(e) => ({ ...coopForm, name: e.target.value })}
+            onChange={(e) => setCoopForm({ ...coopForm, name: e.target.value })}
             required
           />
           <Input
             label={t("ProfilePage.phoneNumber")}
             value={coopForm.phoneNumber}
-            onChange={(e) => ({ ...coopForm, phoneNumber: e.target.value })}
+            onChange={(e) => setCoopForm({ ...coopForm, phoneNumber: e.target.value })}
             type="text"
             maxLength={8}
           />
@@ -58,7 +59,7 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
         <Textarea
           className="h-32 resize-none"
           label={t("Footer.coopTellAbout")}
-          onChange={(e) => ({ ...coopForm, description: e.target.value })}
+          onChange={(e) => setCoopForm({ ...coopForm, description: e.target.value })}
           minLength={20}
           maxLength={200}
           required
