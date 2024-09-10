@@ -20,7 +20,7 @@ const Index: FC<Props> = ({ isDelivery, t, restaurantInfo, selfCareTime }) => {
         <DeliveryItem
           t={t}
           isDelivery={isDelivery}
-          deliveryPrice={deliveryPrice + "TMT"}
+          deliveryPrice={deliveryPrice + " TMT"}
           deliveryTitle={t("Index.delivery")}
         />
       ) : (

@@ -124,6 +124,8 @@ const Dishes: CollectionConfig = {
       name: "restaurant",
       label: "Выберите свой ресторан",
       relationTo: "restaurants",
+      //can me true to let 1 dish be available in several restaurants
+      // hasMany: true,
       required: true,
       type: "relationship",
     },

@@ -21,7 +21,7 @@ const Index: FC<Props> = ({ item, increase, decrease }) => {
           </p>
           <div>
             <p className="text-sm font-medium text-text-2">
-              {item.price}TMT • <span className="text-text-4">{item.gramm}gr</span>
+              {item.price}TMT • <span className="text-text-4">{item.gram}gr</span>
             </p>
           </div>
         </div>

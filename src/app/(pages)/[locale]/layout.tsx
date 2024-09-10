@@ -38,21 +38,23 @@ export default async function RootLayout({ children, params: { locale } }: Props
             <TanstackQueryProvider>
               <Header />
               <Sidebar />
+              <NextTopLoader
+                color="#FBDB65"
+                showSpinner={false}
+                speed={300}
+                zIndex={3000}
+                initialPosition={0.3}
+                crawlSpeed={400}
+                height={6}
+                easing="ease"
+                crawl={true}
+              />
               <div className="mt-20 w-full md:mt-16">{children}</div>
               <Footer />
               <TailwindIndicator />
             </TanstackQueryProvider>
           </NextIntlClientProvider>
-          <NextTopLoader
-            color="#FBDB65"
-            speed={300}
-            zIndex={2000}
-            initialPosition={0.45}
-            crawlSpeed={400}
-            height={5}
-            easing="ease"
-            crawl={true}
-          />
+
           <Toaster duration={3000} richColors visibleToasts={2} theme="light" position="bottom-left" />
         </JotaiProvider>
       </body>

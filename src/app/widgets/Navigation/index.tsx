@@ -59,7 +59,7 @@ const Index: FC<Props> = ({}) => {
           <p>{t("Index.back")}</p>
         </button>
       )}
-      <div className="flex items-center justify-center space-x-3  xl:space-x-2 md:justify-start">
+      <div className="flex items-center justify-center space-x-3 xl:space-x-2 md:w-full md:justify-start">
         <SidebarTrigger>
           <MenuIcon className="h-6 w-6" />
         </SidebarTrigger>
@@ -81,19 +81,12 @@ const Index: FC<Props> = ({}) => {
           <Regions cities={CITIES} regionsTitle={t("Index.chooseCity")} regionTitle={t("Index.city")} />
         )}
       </div>
-      <div className="flex items-center space-x-4 md:space-x-0">
+      <div className="flex items-center space-x-4 md:space-x-3">
         <Language languageTitle={languageTitle} handleChange={handleChange} />
         <MiniBucket t={t} />
-        {isAuth ? (
-          <>
-            <Profile t={t} />
-          </>
-        ) : (
-          <div className="flex md:space-x-4">
-            <MiniBucketMobile t={t} />
-            <Authorization t={t} />
-          </div>
-        )}
+
+        <MiniBucketMobile t={t} />
+        {isAuth ? <Profile t={t} /> : <Authorization t={t} />}
       </div>
     </header>
   );
