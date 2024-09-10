@@ -42,7 +42,7 @@ const Index: FC<Props> = ({ t }) => {
 
   return (
     <Popover>
-      <PopoverTrigger type="button" className="flex items-center rounded-3xl bg-gray-1 p-2 md:hidden">
+      <PopoverTrigger type="button" className="flex items-center rounded-3xl bg-gray-1 p-2">
         <ProfileIcon className="fill-bg-1" />
       </PopoverTrigger>
       <PopoverContent className="mr-2 mt-2 w-64 border border-gray-1 bg-gray-3 shadow-xl">

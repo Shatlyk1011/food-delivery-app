@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 //jotai
 import atoms from "@/app/(pages)/_providers/jotai";
-import { useAtom } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 
 //hooks
 import useAuth from "./useAuth";
@@ -15,8 +15,9 @@ import { BucketIcon, EarthIcon, ExitIcon, HomeIcon, LocationIcon, ProfileIcon } 
 import MiniDishesCount from "@/app/components/navigation-ui/TotalDishesCount";
 import { CITIES, LANGUAGES } from "../data";
 
-const useSidebar = (isAuth = true) => {
+const useSidebar = () => {
   const router = useRouter();
+  const isAuth = useAtomValue(atoms.isAuth);
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(atoms.isSidebarOpen);
   const [selectedCity, setSelectedCity] = useAtom(atoms.selectedCity);
   const [overlap, setOverlap] = useState("");
@@ -87,7 +88,8 @@ const useSidebar = (isAuth = true) => {
       title: t("logout"),
       icon: <ExitIcon className="h-5 w-5" />,
       onClick: () => {
-        handleClose(), logout();
+        handleClose();
+        logout();
       },
       authRequired: true,
     },

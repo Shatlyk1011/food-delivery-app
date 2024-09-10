@@ -25,7 +25,7 @@ const Index: FC<Props> = ({ t }) => {
         <button type="button">{t("Login.login")}</button>
       </DialogTrigger>
 
-      <DialogContent className="mx-auto gap-0 rounded-md p-0 text-center sm:max-w-[90%]">
+      <DialogContent className="mx-auto gap-0 rounded-md p-0 text-center md:max-w-[90%]">
         <DialogTitle className="mb-[6px] mt-8 text-3xl font-bold sm:mt-5 sm:text-2xl">
           {isLogin ? t("Login.login") : t("Login.register")}
         </DialogTitle>
