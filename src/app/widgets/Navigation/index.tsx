@@ -52,14 +52,14 @@ const Index: FC<Props> = ({}) => {
 
   const isBucketPage = pathName.includes("bucket");
   return (
-    <header className="fixed top-0 z-20 flex h-20 w-screen items-center justify-between space-x-10 bg-bg-1 py-4 pl-3 pr-6 shadow-md xl:space-x-6 xl:pl-2 xl:pr-4 lg:space-x-4 md:h-16 md:space-x-2 md:px-3 md:py-2">
+    <header className="fixed top-0 z-20 flex h-20 w-screen items-center justify-between space-x-10 bg-bg-1 py-4 pl-3 pr-6 shadow-md lg:space-x-4 md:h-16 md:space-x-2 md:px-3 md:py-2 xl:space-x-6 xl:pl-2 xl:pr-4">
       {isBucketPage && (
         <button className="flex items-center space-x-2 text-text-3 md:hidden" onClick={back}>
           <BackIcon fill="text-text-3" />
           <p>{t("Index.back")}</p>
         </button>
       )}
-      <div className="flex items-center justify-center space-x-3 xl:space-x-2 md:w-full md:justify-start">
+      <div className="flex items-center justify-center space-x-3 md:w-full md:justify-start xl:space-x-2">
         <SidebarTrigger>
           <MenuIcon className="h-6 w-6" />
         </SidebarTrigger>

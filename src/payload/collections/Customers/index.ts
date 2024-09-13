@@ -33,8 +33,8 @@ const Customers: CollectionConfig = {
 
   auth: {
     depth: 0,
-    tokenExpiration: 604800,
     maxLoginAttempts: 20,
+    tokenExpiration: 604800,
   },
 
   fields: [
@@ -58,11 +58,11 @@ const Customers: CollectionConfig = {
 
     {
       name: "restaurant",
-      hasMany: true,
       access: {
         read: () => true,
         update: admins,
       },
+      hasMany: true,
       label: "Ресторан",
       relationTo: "restaurants",
       type: "relationship",

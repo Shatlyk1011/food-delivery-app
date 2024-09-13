@@ -26,7 +26,7 @@ const Index: FC<Props> = ({ t, handleFilters }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="z-10 flex items-center rounded-xl px-[18px] py-3 2xl:px-3 2xl:py-2 xl:px-2 xl:py-1 md:space-x-1">
+        <button className="z-10 flex items-center rounded-xl px-[18px] py-3 2xl:px-3 2xl:py-2 md:space-x-1 xl:px-2 xl:py-1">
           <h6 className="font-medium 2xl:text-sm 2xl:leading-8 xl:leading-4">{t("Index.delivery")}</h6>
           <p className="flex items-center justify-center space-x-1 2xl:text-sm 2xl:leading-8 md:hidden">
             : <span className="pl-4">{deliveryTimes[active]}</span>

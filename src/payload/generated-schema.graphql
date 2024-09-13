@@ -36,7 +36,12 @@ type Query {
   countCategories(where: Category_where): countCategories
   docAccessCategory(id: String!): categoriesDocAccess
   FeedbackAndCooperation(id: String!): FeedbackAndCooperation
-  FeedbackAndCooperations(where: FeedbackAndCooperation_where, limit: Int, page: Int, sort: String): FeedbackAndCooperations
+  FeedbackAndCooperations(
+    where: FeedbackAndCooperation_where
+    limit: Int
+    page: Int
+    sort: String
+  ): FeedbackAndCooperations
   countFeedbackAndCooperations(where: FeedbackAndCooperation_where): countFeedbackAndCooperations
   docAccessFeedbackAndCooperation(id: String!): FeedbackAndCooperationsDocAccess
   PayloadPreference(id: String!): PayloadPreference
@@ -8272,10 +8277,18 @@ type Mutation {
   updateCategory(id: String!, autosave: Boolean, data: mutationCategoryUpdateInput!): Category
   deleteCategory(id: String!): Category
   createFeedbackAndCooperation(data: mutationFeedbackAndCooperationInput!): FeedbackAndCooperation
-  updateFeedbackAndCooperation(id: String!, autosave: Boolean, data: mutationFeedbackAndCooperationUpdateInput!): FeedbackAndCooperation
+  updateFeedbackAndCooperation(
+    id: String!
+    autosave: Boolean
+    data: mutationFeedbackAndCooperationUpdateInput!
+  ): FeedbackAndCooperation
   deleteFeedbackAndCooperation(id: String!): FeedbackAndCooperation
   createPayloadPreference(data: mutationPayloadPreferenceInput!): PayloadPreference
-  updatePayloadPreference(id: String!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!): PayloadPreference
+  updatePayloadPreference(
+    id: String!
+    autosave: Boolean
+    data: mutationPayloadPreferenceUpdateInput!
+  ): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
 }
 

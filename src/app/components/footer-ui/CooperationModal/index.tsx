@@ -26,8 +26,8 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
   };
 
   return (
-    <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-8 xl:px-5 xl:py-6 md:px-4 md:py-5">
-      <h2 className="mb-3 text-center text-3xl font-semibold xl:text-2xl md:mb-2 md:text-xl">
+    <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-8 md:px-4 md:py-5 xl:px-5 xl:py-6">
+      <h2 className="mb-3 text-center text-3xl font-semibold md:mb-2 md:text-xl xl:text-2xl">
         {t("Footer.coopHeading")}
       </h2>
       <button
