@@ -24,7 +24,7 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
       <div className="w-full overflow-auto">
         <div className="mt-4 min-w-[800px] border border-black/15 shadow-xl">
           {/* /header */}
-          <ul className="flex w-full items-center bg-gray-2/70 text-base font-bold text-black/80 xl:text-sm md:text-xs [&>*]:p-4 xl:[&>*]:p-2.5 md:[&>*]:p-2">
+          <ul className="flex w-full items-center bg-gray-2/70 text-base font-bold text-black/80 md:text-xs xl:text-sm [&>*]:p-4 md:[&>*]:p-2 xl:[&>*]:p-2.5">
             <li className="w-[5%]"></li>
             {PROFILE_OUTER_HEAD.map(({ title, className }) => (
               <li className={`${className}`} key={title}>
@@ -41,7 +41,7 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
               ({ restaurantName, district, apartment, totalAmount, createdAt, isDelivery, orderStatus, dishes }, i) => (
                 <Collapsible key={createdAt}>
                   <div className="flex flex-col">
-                    <ul className="flex items-center border-b border-black/20 xl:text-sm md:text-xs [&>*]:p-4 xl:[&>*]:p-2.5 md:[&>*]:p-1.5">
+                    <ul className="flex items-center border-b border-black/20 md:text-xs xl:text-sm [&>*]:p-4 md:[&>*]:p-1.5 xl:[&>*]:p-2.5">
                       <li className="w-[5%] ">
                         <CollapsibleTrigger asChild>
                           <button className="justify-center rounded-full p-2 duration-150 hover:bg-gray-2">

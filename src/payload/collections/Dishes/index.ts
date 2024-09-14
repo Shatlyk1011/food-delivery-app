@@ -66,33 +66,33 @@ const Dishes: CollectionConfig = {
     },
     {
       name: "availableAmount",
+      admin: {
+        position: "sidebar",
+      },
       defaultValue: 30,
       label: "Доступно в наличии",
       required: false,
+      type: "number",
       validate: (value) => {
         if (value < 0) {
           return "Значение не может быть меньше 0.";
         }
         return true;
       },
-      admin: {
-        position: "sidebar",
-      },
-      type: "number",
     },
 
     {
       name: "cookTime",
       defaultValue: 30,
       label: "Время приготовления (в минутах)",
+      required: true,
+      type: "number",
       validate: (value) => {
         if (value < 0) {
           return "Время приготовления не может быть меньше 0.";
         }
         return true;
       },
-      required: true,
-      type: "number",
     },
 
     {
@@ -103,15 +103,15 @@ const Dishes: CollectionConfig = {
           return checkRole(["admin", "author"], user);
         },
       },
-      label: "Категория блюда",
-      required: false,
-      type: "relationship",
-      relationTo: "categories",
       filterOptions: {
         type: {
           equals: "dish",
         },
       },
+      label: "Категория блюда",
+      relationTo: "categories",
+      required: false,
+      type: "relationship",
     },
     {
       name: "image",
@@ -124,6 +124,8 @@ const Dishes: CollectionConfig = {
       name: "restaurant",
       label: "Выберите свой ресторан",
       relationTo: "restaurants",
+      //can me true to let 1 dish be available in several restaurants
+      // hasMany: true,
       required: true,
       type: "relationship",
     },

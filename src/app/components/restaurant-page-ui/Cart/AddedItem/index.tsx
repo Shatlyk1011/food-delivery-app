@@ -18,7 +18,7 @@ const Index: FC<Props> = ({ item, increaseItem, decreaseItem }) => {
       <div className="flex-1 self-start">
         <h6 className="line-clamp-2 text-sm">{item?.title}</h6>
         <div className="text-xs font-medium">
-          {item?.price} TMT, <span className="font-base text-text-4">{item?.gramm}</span>
+          {item?.price} TMT, <span className="font-base text-text-4">{item?.gram}gr</span>
         </div>
       </div>
       <div className="flex-1">

@@ -18,11 +18,11 @@ export default function AboutProduct({ dish, handleClose, t }: Props) {
             />
           </figcaption>
           <div className="flex w-full flex-col">
-            <DialogTitle className="text-2xl font-medium xl:text-lg md:text-base">{dish.title}</DialogTitle>
+            <DialogTitle className="text-2xl font-medium md:text-base xl:text-lg">{dish.title}</DialogTitle>
             <div className="mb-1 text-base leading-5 text-text-4 md:text-sm">
               {dish.gram} {t("Index.gr")}
             </div>
-            <h4 className="mb-3 mt-2 text-xl font-medium xl:text-lg md:text-base">{dish.price}TMT</h4>
+            <h4 className="mb-3 mt-2 text-xl font-medium md:text-base xl:text-lg">{dish.price}TMT</h4>
             <div className="border-t border-text-4/60">
               <p className="pb-1 pt-2 text-sm text-text-3">{t("Index.description")}</p>
               <p className="text-base leading-[1.4]">{dish.description}</p>

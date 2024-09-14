@@ -21,10 +21,10 @@ const Index: FC<Props> = ({ dish, isDishDisabled, addItem, btnTitle, handleDish 
         />
       </div>
       <div className="mb-2.5 h-fit font-medium">
-        <h4 className="text-xl xl:text-lg md:text-base">
+        <h4 className="text-xl md:text-base xl:text-lg">
           {dish.title} - {dish.price}TMT
         </h4>
-        <p className="line-clamp-2 text-base xl:text-sm md:text-xs">{dish.description}</p>
+        <p className="line-clamp-2 text-base md:text-xs xl:text-sm">{dish.description}</p>
       </div>
       <div className="flex flex-1 flex-col justify-end">
         <div className="mb-1 text-base leading-5 text-text-4 md:text-sm">{dish.gram}gr</div>

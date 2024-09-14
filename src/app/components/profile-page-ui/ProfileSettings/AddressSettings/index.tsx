@@ -28,7 +28,7 @@ export default function AddressSettings({ t }: { t: any }) {
       </div>
       <PopoverContent
         align="start"
-        className="w-full max-w-md space-y-1 rounded-md bg-gray-3 p-1 text-sm shadow-none xl:max-w-96 sm:max-w-72"
+        className="w-full max-w-md space-y-1 rounded-md bg-gray-3 p-1 text-sm shadow-none sm:max-w-72 xl:max-w-96"
       >
         {Array(4)
           .fill(0)

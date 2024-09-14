@@ -11,7 +11,8 @@
 ✅ - create Orders collection. learn how to work with forms with payload.
 ✅ (not tested yet)- add fields to user collection: addresses, isBlocked, history of Orders
 
-✅ - make restaurant blockable
+- remove unused libs
+  ✅ - make restaurant blockable
 
 - seo (edil ozi)
 - add order field to restaurants
@@ -50,9 +51,9 @@
 - ✅ add snackbar
 - ✅ free delivery ui (yx-eat)
   <!-- - add filter ui in profile -->
-  ✅ - if count > totalAmount, show snackbar with warning
-  ✅ - self care address message
-- Footer modals (feedback, report)
+- ✅ if count > totalAmount, show snackbar with warning
+- ✅ self care address message
+- ✅ Footer modals (feedback, report)
   <!-- - profile page (with add/remove addresses) -->
   ✅- dishes info modal (on click, lazy load)
 - ✅ is delivery state on bucket page
@@ -60,7 +61,7 @@
 - ✅ free after amount ui block in id page
 - ✅ localstorage timestamp
 <!-- - bucket form submittion modal () -->
-- mobile sidebar, login, logout states
+- ✅ mobile sidebar, login, logout states
 - ✅ if availabelAmount === 0, disable dish
 - ✅ profile interval order fetch (tailwind ping)
 - redirect to main page, if last item were deleted in bucket page

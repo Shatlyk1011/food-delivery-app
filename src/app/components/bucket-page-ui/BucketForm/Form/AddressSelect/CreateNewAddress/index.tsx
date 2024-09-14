@@ -45,11 +45,11 @@ export default function CreateNewAddress({ userProfile, setUserProfile, t }: Pro
       </DialogTrigger>
       <DialogContent className="max-w-2xl rounded-md bg-bg-1  md:max-w-[92%]">
         <DialogTitle>
-          <p className="pb-4 pr-6 text-xl font-semibold">{t("BucketForm.addNewAddress")}</p>
+          <p className="mb-3 ml-2 mr-6 text-xl font-semibold">{t("BucketForm.addNewAddress")}</p>
         </DialogTitle>
         <Form {...form}>
           <form>
-            <div className="space flex w-full flex-col space-y-8 px-3">
+            <div className="flex w-full flex-col space-y-6 px-2">
               {ADDRES_INPUTS.map((row, i) => (
                 <div key={i} className="flex w-full space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6">
                   {row.map(({ name, label, placeholder }) => (

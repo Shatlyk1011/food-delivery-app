@@ -37,7 +37,7 @@ const Index: FC<Props> = ({ handleFilters, t }) => {
           <h6 className="font-normal 2xl:text-sm 2xl:leading-6 md:hidden">{t("MainPage.sortBy")}</h6>
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[360px] overflow-hidden rounded-[14px] p-0 shadow-xl 2xl:mr-8 xl:mr-5 md:mr-4 md:w-[265px]">
+      <PopoverContent className="w-[360px] overflow-hidden rounded-[14px] p-0 shadow-xl 2xl:mr-8 md:mr-4 md:w-[265px] xl:mr-5">
         <div className="w-full rounded-[14px] bg-bg-1 shadow-md">
           <div>
             <div className="flex items-center justify-between border-b border-gray-2">

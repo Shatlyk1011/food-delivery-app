@@ -54,7 +54,7 @@ const Index: FC<Props> = () => {
   ];
 
   return (
-    <footer className="z-[2000] h-auto w-full bg-gray-3 px-40 py-10 shadow-2xl 2xl:px-20 xl:px-10 lg:px-5 lg:py-6 md:mt-4">
+    <footer className="z-[2000] h-auto w-full bg-gray-3 px-40 py-10 shadow-2xl 2xl:px-20 lg:px-5 lg:py-6 md:mt-4 xl:px-10">
       <div className="mx-auto flex max-w-[1440px] flex-col space-y-8 md:pt-1">
         <div className="flex flex-wrap justify-between gap-x-6 lg:items-center lg:justify-evenly lg:gap-y-6">
           {contacts.map(({ icon, title, subtitle }) => (
@@ -70,7 +70,7 @@ const Index: FC<Props> = () => {
 
         <div className="border-t border-gray-2 py-6">
           <div className="flex gap-y-2 xl:flex-col">
-            <ul className="flex flex-wrap gap-x-8 gap-y-2 xl:mb-4 xl:justify-center sm:flex-col sm:items-center">
+            <ul className="flex flex-wrap gap-x-8 gap-y-2 sm:flex-col sm:items-center xl:mb-4 xl:justify-center">
               {links.map(({ title, fn }) => (
                 <li
                   aria-label="button"
