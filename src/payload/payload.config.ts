@@ -6,21 +6,22 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "path";
 import { buildConfig } from "payload/config";
 
+import Categories from "./collections/Categories";
 import Cities from "./collections/Cities";
 import Customers from "./collections/Customers";
 import Dishes from "./collections/Dishes";
+import FeedbackAndCooperations from "./collections/FeedbackAndCooperations";
 import Media from "./collections/Media";
 import Orders from "./collections/Orders";
 import Restaurants from "./collections/Restaurants";
 import Users from "./collections/Users";
-import Categories from "./collections/Categories";
-import FeedbackAndCooperations from "./collections/FeedbackAndCooperations";
 
 const m = path.resolve(__dirname, "./emptyModuleMock.js");
 
 export default buildConfig({
   admin: {
     bundler: webpackBundler(), // bundler-config
+    css: path.resolve(__dirname, "payload.styles.css"),
     user: Customers.slug,
     webpack: (config) => ({
       ...config,
@@ -32,7 +33,6 @@ export default buildConfig({
         },
       },
     }),
-    css: path.resolve(__dirname, "payload.styles.css"),
   },
   collections: [Restaurants, Orders, Dishes, Cities, Users, Customers, Media, Categories, FeedbackAndCooperations],
   cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ""].filter(Boolean),
@@ -42,12 +42,12 @@ export default buildConfig({
     disablePlaygroundInProduction: false,
     schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
   },
+  maxDepth: 10,
   rateLimit: {
     max: 1000, // limit each IP per windowMs
-    window: 15 * 60 * 1000, // 2 minutes
     trustProxy: true,
+    window: 15 * 60 * 1000, // 2 minutes
   },
-  maxDepth: 10,
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),

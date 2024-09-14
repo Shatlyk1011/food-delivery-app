@@ -11,7 +11,8 @@
 ✅ - create Orders collection. learn how to work with forms with payload.
 ✅ (not tested yet)- add fields to user collection: addresses, isBlocked, history of Orders
 
-✅ - make restaurant blockable
+- remove unused libs
+  ✅ - make restaurant blockable
 
 - seo (edil ozi)
 - add order field to restaurants
