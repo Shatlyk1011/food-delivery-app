@@ -10,6 +10,7 @@
 ✅ - learn to work with graphql
 ✅ - create Orders collection. learn how to work with forms with payload.
 ✅ (not tested yet)- add fields to user collection: addresses, isBlocked, history of Orders
+GET SECRET KEEYYYYYYYYYYYYYYS
 
 - remove unused libs
   ✅ - make restaurant blockable
