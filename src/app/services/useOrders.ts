@@ -38,7 +38,6 @@ export const useGetUserOrderList = () => {
           variables: { limit: 20, page: 1 },
         },
       });
-      console.log("userOrders", data.data);
       return data.data.Orders.docs;
     },
   });

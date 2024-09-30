@@ -7,11 +7,12 @@ import { CloseIcon } from "@/app/icons";
 
 interface Props {
   handleClose: () => void;
-  submit: (form: FeedbackOrCoop) => Promise<void>;
+  submit: (form: FeedbackOrCoop) => Promise<FeedbackOrCoopResponse>;
+  disabled: boolean;
   t: any;
 }
 
-const Index: FC<Props> = ({ handleClose, submit, t }) => {
+const Index: FC<Props> = ({ handleClose, submit, disabled, t }) => {
   const [feedbackForm, setFeedbackForm] = useState<FeedbackOrCoop>({
     description: "",
     type: "feedback",
@@ -19,12 +20,11 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    await submit(feedbackForm);
+    const res = await submit(feedbackForm);
+    if (res.id) handleClose();
   };
-
-  console.log("feedbackForm", feedbackForm);
   return (
-    <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-8 md:px-4 md:py-5 xl:px-5 xl:py-6">
+    <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-7 md:px-4 md:py-5 xl:px-5 xl:py-6">
       <h2 className="mb-3 text-center text-3xl font-semibold md:mb-2 md:text-xl xl:text-2xl">
         {t("Footer.feedbackHeading")}
       </h2>
@@ -47,7 +47,12 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
         />
 
         <div className="mt-3 w-full text-right">
-          <Button className=" text-sm font-medium md:w-full md:text-xs">{t("Footer.feedbackSend")}</Button>
+          <Button
+            className="text-sm font-medium disabled:bg-bg-2 disabled:text-text-1/70 md:w-full md:text-xs"
+            disabled={disabled}
+          >
+            {t("Footer.feedbackSend")}
+          </Button>
         </div>
       </form>
     </div>

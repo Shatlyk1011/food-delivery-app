@@ -44,7 +44,7 @@ const Index: FC<Props> = () => {
 
   const [modals, setModals] = useState(defaultStates);
 
-  const { createFeedbackOrCoop } = useCreateFeedbackOrCoop();
+  const { createFeedbackOrCoop, isPending } = useCreateFeedbackOrCoop();
 
   const links = [
     { title: "MainPage.about" },
@@ -90,10 +90,20 @@ const Index: FC<Props> = () => {
       {(modals.cooperationModal || modals.feedbackModal) && (
         <div className="fixed left-0 top-0 z-50 flex h-screen w-full items-center justify-center bg-bg-cover">
           {modals.cooperationModal && (
-            <CooperationModal submit={createFeedbackOrCoop} handleClose={() => setModals(defaultStates)} t={t} />
+            <CooperationModal
+              submit={createFeedbackOrCoop}
+              handleClose={() => setModals(defaultStates)}
+              disabled={isPending}
+              t={t}
+            />
           )}
           {modals.feedbackModal && (
-            <FeedbackModal submit={createFeedbackOrCoop} handleClose={() => setModals(defaultStates)} t={t} />
+            <FeedbackModal
+              submit={createFeedbackOrCoop}
+              handleClose={() => setModals(defaultStates)}
+              disabled={isPending}
+              t={t}
+            />
           )}
         </div>
       )}

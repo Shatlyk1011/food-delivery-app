@@ -75,3 +75,8 @@ GET SECRET KEEYYYYYYYYYYYYYYS
 - phone validation
 
 // REFETCH INSTRUCTION
+
+# TEST BUGS
+
+- order creates with empty order list
+- FIX notes

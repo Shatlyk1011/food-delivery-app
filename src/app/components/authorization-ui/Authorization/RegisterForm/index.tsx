@@ -46,6 +46,8 @@ const Index: FC<Props> = ({ t, classes }) => {
                       {...field}
                       type={isPassword && !showPassword ? "password" : "text"}
                       className="h-12 w-full px-[14px] sm:h-10 sm:px-2.5"
+                      onFocus={(e) => e.target.removeAttribute("readonly")}
+                      readOnly
                     />
                   </FormControl>
                   <FormMessage className="mt-1" />

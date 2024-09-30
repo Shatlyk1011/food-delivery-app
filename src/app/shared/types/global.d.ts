@@ -42,9 +42,15 @@ type CategoryTypes = "dish" | "restaurant";
 
 type OrderStatus = "pending" | "recieved" | "sended" | "delivered" | "rejected";
 
+type FeedbackType = "cooperation" | "feedback";
 interface FeedbackOrCoop {
   name?: string;
   phoneNumber?: string;
   description: string;
-  type: "cooperation" | "feedback";
+  type: FeedbackType;
+}
+
+interface FeedbackOrCoopResponse {
+  id: string;
+  type: FeedbackType;
 }

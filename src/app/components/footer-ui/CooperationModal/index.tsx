@@ -8,11 +8,12 @@ import { CloseIcon } from "@/app/icons";
 
 interface Props {
   handleClose: () => void;
-  submit: (form: FeedbackOrCoop) => Promise<void>;
+  submit: (form: FeedbackOrCoop) => Promise<FeedbackOrCoopResponse>;
+  disabled: boolean;
   t: any;
 }
 
-const Index: FC<Props> = ({ handleClose, submit, t }) => {
+const Index: FC<Props> = ({ handleClose, submit, disabled, t }) => {
   const [coopForm, setCoopForm] = useState<FeedbackOrCoop>({
     name: "",
     phoneNumber: "",
@@ -22,11 +23,12 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    await submit(coopForm);
+    const res = await submit(coopForm);
+    if (res.id) handleClose();
   };
 
   return (
-    <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-8 md:px-4 md:py-5 xl:px-5 xl:py-6">
+    <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-7 md:px-4 md:py-5 xl:px-5 xl:py-6">
       <h2 className="mb-3 text-center text-3xl font-semibold md:mb-2 md:text-xl xl:text-2xl">
         {t("Footer.coopHeading")}
       </h2>
@@ -60,7 +62,7 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
           className="h-32 resize-none"
           label={t("Footer.coopTellAbout")}
           onChange={(e) => setCoopForm({ ...coopForm, description: e.target.value })}
-          minLength={20}
+          minLength={16}
           maxLength={200}
           required
         />
@@ -69,7 +71,12 @@ const Index: FC<Props> = ({ handleClose, submit, t }) => {
           <em>{t("Footer.coopRestriction")}</em>
         </p>
         <div className="w-full text-right">
-          <Button className="mt-2 text-sm font-medium md:w-full md:text-xs">{t("Footer.coopSend")}</Button>
+          <Button
+            className="mt-2 text-sm font-medium disabled:bg-bg-2 disabled:text-text-1/70 md:w-full md:text-xs"
+            disabled={disabled}
+          >
+            {t("Footer.coopSend")}
+          </Button>
         </div>
       </form>
     </div>

@@ -70,10 +70,7 @@ export const useProfileFormScheme = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("values", values);
-  }
-  return { form, onSubmit };
+  return { form };
 };
 
 export const useCreateAddressFormScheme = () => {

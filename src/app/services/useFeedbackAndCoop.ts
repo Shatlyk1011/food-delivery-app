@@ -8,7 +8,7 @@ import useToast from "../hooks/useToast";
 
 export const useCreateFeedbackOrCoop = () => {
   const toast = useToast();
-  const { mutateAsync } = useMutation<any, any, any>({
+  const { mutateAsync, isPending } = useMutation<FeedbackOrCoopResponse, any, any>({
     mutationFn: async (form: FeedbackOrCoop) => {
       const { data } = await axios({
         data: {
@@ -16,12 +16,12 @@ export const useCreateFeedbackOrCoop = () => {
           variables: { data: form },
         },
       });
-      console.log("data.data", data.data);
-      return await data.data;
+      return await data.data.createFeedbackAndCooperation;
     },
-    onSuccess: () => {
-      toast("Actions.successAddress", "success");
+    onSuccess: (data) => {
+      // FIX test required
+      toast(`Actions.${data.type}`, "success", { duration: 2000 });
     },
   });
-  return { createFeedbackOrCoop: mutateAsync };
+  return { createFeedbackOrCoop: mutateAsync, isPending };
 };

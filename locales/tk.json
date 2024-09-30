@@ -190,7 +190,9 @@
     "loginToOrder": "Sargyt etmek üçin sistema girmegiňizi haýyş edýäris.",
     "chooseRestaurant": "Restoran saýlamagyňyzy haýyş edýäris.",
     "successOrder": "Sargyt üstünlikli döredildi. Sargytyňyzy doly anyklamak üçin size menedjer jaň edip biler.",
-    "successAddress": "Täze salgyňyz üstünlikli goşuldy"
+    "successAddress": "Täze salgyňyz üstünlikli goşuldy",
+    "cooperation": "Sag boluň, biz siz bilen hökman habarlaşarys",
+    "feedback": "Seslenmäni ugradanyňyz ücin sag boluň."
   },
 
   "Footer": {

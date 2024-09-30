@@ -17,22 +17,29 @@ const useAuth = () => {
   const queryClient = useQueryClient();
 
   const login = async (variables: LoginCredentials): Promise<LoginResponse> => {
-    const { data } = await axios({
-      // withCredentials: true,
-      data: {
-        query: LOGIN_MUTATION,
-        variables,
-      },
-    });
+    try {
+      const { data } = await axios({
+        data: {
+          query: LOGIN_MUTATION,
+          variables,
+        },
+      });
 
-    const response = (await data.data.loginUser) as LoginResponse;
+      const response = (await data.data.loginUser) as LoginResponse;
 
-    if (response?.token) {
-      setAuth(true);
-      setUserProfile(response?.user);
-      location.reload();
+      if (data.errors) {
+        throw new Error(data.errors[0].message);
+      }
+
+      if (response?.token) {
+        setAuth(true);
+        setUserProfile(response?.user);
+        location.reload();
+      }
+      return response;
+    } catch (err) {
+      toast(err, "error", { duration: 4000 });
     }
-    return response;
   };
 
   const logout = async () => {
@@ -45,6 +52,7 @@ const useAuth = () => {
     queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     if (data.data.logoutUser) {
       toast("Actions.logoutUser", "info");
+      // FIX: clear local storage?
     }
   };
 

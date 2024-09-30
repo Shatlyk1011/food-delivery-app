@@ -16,10 +16,8 @@ export default async function (req) {
 
   if (pathname.includes("/profile")) {
     const cookie = req.cookies.get(USER_TOKEN);
-    console.log("cookie", cookie);
     if (!cookie) {
       const redirectUrl = new URL("/", req.url);
-      console.log("redirectUrl", redirectUrl);
       return NextResponse.redirect(redirectUrl);
     }
   }
