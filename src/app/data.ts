@@ -75,8 +75,8 @@ export const PROFILE_OUTER_HEAD = [
   { title: "ProfilePage.restaurantName", className: "w-[20%]" },
   { title: "MainPage.address", className: "w-[15%]" },
   { title: "ProfilePage.price", className: "w-[11%]" },
-  { title: "ProfilePage.deliveryType", className: "w-[18%]" },
-  { title: "ProfilePage.orderTime", className: "w-[15%]" },
+  { title: "ProfilePage.deliveryType", className: "w-[16%]" },
+  { title: "ProfilePage.orderTime", className: "w-[17%]" },
 ];
 
 export const PROFILE_INNER_HEAD = [

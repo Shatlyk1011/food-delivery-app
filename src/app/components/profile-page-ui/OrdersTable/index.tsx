@@ -38,7 +38,17 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
           {/* //body */}
           <div className="w-full">
             {userOrders?.map(
-              ({ restaurantName, district, apartment, totalAmount, createdAt, isDelivery, orderStatus, dishes }, i) => (
+              ({
+                restaurantName,
+                district,
+                apartment,
+                totalAmount,
+                createdAt,
+                deliveryPrice,
+                isDelivery,
+                orderStatus,
+                dishes,
+              }) => (
                 <Collapsible key={createdAt}>
                   <div className="flex flex-col">
                     <ul className="flex items-center border-b border-black/20 md:text-xs xl:text-sm [&>*]:p-4 md:[&>*]:p-1.5 xl:[&>*]:p-2.5">
@@ -49,15 +59,15 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
                           </button>
                         </CollapsibleTrigger>
                       </li>
-                      <li className="w-[20%] ">{restaurantName}</li>
+                      <li className="w-[20%]">{restaurantName}</li>
                       <li className="w-[15%] ">
                         {district} / {apartment}
                       </li>
                       <li className="w-[11%] ">{totalAmount} TMT</li>
-                      <li className={`w-[18%] ${isDelivery ? "text-success" : "text-warning"}`}>
+                      <li className={`w-[16%] ${isDelivery ? "text-success" : "text-warning"}`}>
                         {isDelivery ? t("Index.delivery") : t("Index.selfCare")}
                       </li>
-                      <li className="w-[15%] ">{getLocaleDate(createdAt)}</li>
+                      <li className="w-[17%] ">{getLocaleDate(createdAt)}</li>
                       <li className={`flex w-[16%] items-center space-x-2 ${STATUS_CLASSES[orderStatus]}`}>
                         <p>{t(ORDER_STATUSES[orderStatus])}</p>
                         {orderStatus !== "delivered" && orderStatus !== "rejected" && (
@@ -70,7 +80,7 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
                     </ul>
                     <div>
                       <CollapsibleContent asChild className="w-full ">
-                        <InnerTable dishes={dishes} t={t} />
+                        <InnerTable deliveryPrice={deliveryPrice} dishes={dishes} t={t} />
                       </CollapsibleContent>
                     </div>
                   </div>

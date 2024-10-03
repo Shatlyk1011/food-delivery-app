@@ -270,7 +270,7 @@ const Orders: CollectionConfig = {
         }
 
         //if changes appear in admin panel, change only orderStatus, and return data
-        if (checkRole(["admin", "author"], req.user)) {
+        if (checkRole(["author"], req.user)) {
           if (originalDoc.orderStatus === "delivered") {
             return originalDoc;
           }
@@ -312,7 +312,7 @@ const Orders: CollectionConfig = {
 
         const deliveryPrice = totalAmount > restaurant.freeAfterAmount ? 0 : restaurant.deliveryPrice;
         data.dishes = findAndCountDishes;
-        data.totalAmount = totalAmount + deliveryPrice;
+        data.totalAmount = totalAmount;
         data.deliveryPrice = deliveryPrice;
         data.restaurantName = restaurant.title || "Название ресторана не найдено...";
       },

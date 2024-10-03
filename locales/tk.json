@@ -37,7 +37,8 @@
     "quantity": "Mukdary",
     "dishes": "Tagamlar",
     "freeDelivery": "Eltip bermek mugt",
-    "availableLater": "Elýeter däl"
+    "availableLater": "Elýeter däl",
+    "deliveryPrice": "Стоимость доставки"
   },
 
   "Login": {

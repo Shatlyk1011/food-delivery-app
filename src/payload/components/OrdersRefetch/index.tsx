@@ -26,7 +26,6 @@ const OrdersComponent = () => {
   const handleRedirect = (id: string) => {
     history.push(`/admin/collections/orders/${id}`);
   };
-  // IMPROVEMENT REQUIRED. ADD CUSTOM TABLE. REDIRECT BY ID. LIMIT QUERY DATA.
   useEffect(() => {
     let intervalId;
 
@@ -57,7 +56,7 @@ const OrdersComponent = () => {
               }
             }
           `,
-            variables: { limit: 30, page: 1 },
+            variables: { limit: 50, page: 1 },
           },
         });
         console.log("data.data", data.data);
