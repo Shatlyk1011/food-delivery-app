@@ -47,7 +47,7 @@ export default function Bucket() {
   };
 
   const handleOrderSubmit = async (values: OrderForm) => {
-    if (restaurantInfo?.id && userProfile?.id) {
+    if (restaurantInfo?.id && userProfile?.id && selectedItems?.dishes.length) {
       const { apartment, commentToCourier, district, entrance, houseNumber, phoneNumber, commentToRestaurant } = values;
       try {
         setLoading(true);
@@ -90,6 +90,15 @@ export default function Bucket() {
     }
   };
 
+  console.log(restaurantInfo?.freeAfterAmount);
+
+  useEffect(() => {
+    if (!selectedItems?.dishes.length) {
+      router.replace("/");
+      toast("Index.emptyBucket", "info");
+    }
+  }, [selectedItems?.dishes]);
+
   useEffect(() => {
     if (restId && !restaurantInfo) {
       //fetch restaurant data and user profile again
@@ -124,12 +133,11 @@ export default function Bucket() {
             <div className="basis-[448px] ">
               <TotalPrice
                 restaurantId={restaurantInfo?.id}
-                onSubmit={handleOrderSubmit}
                 restaurantTitle={restaurantInfo?.title}
-                t={t}
                 totalPrice={totalPrice}
-                deliveryPrice={restaurantInfo?.deliveryPrice}
+                deliveryPrice={totalPrice >= restaurantInfo?.freeAfterAmount ? 0 : restaurantInfo?.deliveryPrice}
                 disabled={isLoading}
+                t={t}
               />
             </div>
           </form>

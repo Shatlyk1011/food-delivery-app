@@ -92,6 +92,7 @@ export const RESTAURANT_BUCKET = `
       deliveryTime
       deliveryPrice
       isDelivery
+      freeAfterAmount
     }
   }
 `;

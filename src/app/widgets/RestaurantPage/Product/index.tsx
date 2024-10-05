@@ -15,7 +15,7 @@ const Index: FC<Props> = ({ dish, isDishDisabled, addItem, btnTitle, handleDish 
     <div className="relative m-1 flex max-w-full flex-col overflow-hidden rounded-[14px] bg-bg-1 p-3 md:p-2">
       <div className=" relative mb-2.5 h-44 w-full overflow-hidden rounded-[14px] " onClick={handleDish}>
         <img
-          className="h-full w-full cursor-pointer object-cover duration-200 hover:brightness-110"
+          className="h-full w-full cursor-pointer object-cover duration-200 hover:brightness-105"
           src={dish.image?.url || ""}
           alt={dish.image?.alt || "Тут должно было быть изображение"}
         />

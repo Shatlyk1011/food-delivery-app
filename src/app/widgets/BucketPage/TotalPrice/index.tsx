@@ -3,16 +3,15 @@ import { FC } from "react";
 import { cn } from "@/app/shared/lib/utils";
 
 interface Props {
-  onSubmit: any;
-  t: any;
   totalPrice: string;
   deliveryPrice: number;
   restaurantTitle: string;
   restaurantId: string;
   disabled: boolean;
+  t: any;
 }
 
-const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaurantTitle, restaurantId, disabled }) => {
+const Index: FC<Props> = ({ totalPrice, deliveryPrice, restaurantTitle, restaurantId, disabled, t }) => {
   return (
     <div className="w-full rounded-[32px] bg-bg-1 p-8 md:rounded-3xl md:p-6 sm:p-4">
       <h5 className="mb-2.5 border-b border-gray-1 pb-2.5 text-xl font-medium leading-6 sm:text-lg">
@@ -31,12 +30,13 @@ const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaura
           {t("BucketPage.price")}
           <span>{totalPrice}TMT</span>
         </li>
-        {deliveryPrice > 0 && (
-          <li className="flex justify-between sm:text-sm">
-            {t("Index.delivery")}
-            <span>{deliveryPrice}TMT</span>
-          </li>
-        )}
+        <li className="flex justify-between sm:text-sm">
+          {t("Index.delivery")}
+
+          <span className={deliveryPrice == 0 && "text-success"}>
+            {deliveryPrice == 0 ? t("Index.freeDelivery") : `${deliveryPrice}TMT`}
+          </span>
+        </li>
 
         <li className="flex justify-between py-2.5 font-medium">
           {t("BucketPage.totalPrice")}
@@ -49,7 +49,6 @@ const Index: FC<Props> = ({ t, totalPrice, deliveryPrice = 0, onSubmit, restaura
       <button
         type="submit"
         disabled={disabled}
-        onSubmit={onSubmit}
         className="h-12 w-full rounded-[14px] bg-primary px-3 text-center font-medium leading-[48px] hover:bg-accent disabled:cursor-not-allowed disabled:bg-black/10 disabled:text-black/50 sm:h-10 sm:leading-[40px]"
       >
         {t("BucketPage.submit")}

@@ -64,7 +64,6 @@ const useProductItem = () => {
       } else {
         setSelectedItems((prev) => ({
           dishes: [...prev.dishes, { ...itemToAdd, count: 1 }],
-          // isDelivery: restaurantInfo.isDelivery,
           //6 hours
           timestamp: new Date().getTime() + 6 * 360 * 1000,
         }));
@@ -95,16 +94,6 @@ const useProductItem = () => {
     return selectedItems?.dishes?.reduce((curr, item) => curr + item.count || 1, 0);
   }, [selectedItems.dishes]);
 
-  // const maxCookTime = useMemo(() => {
-  //   let max = 0;
-  //   selectedItems?.dishes?.forEach((item) => {
-  //     if (item.cookTime > max) max = item.cookTime;
-  //   });
-  //   return max;
-  // }, [selectedItems.dishes]);
-
-  // const isDelivery = selectedItems.isDelivery;
-
   const restId = selectedItems.dishes.at(-1)?.restaurant.id;
 
   return {
@@ -117,7 +106,6 @@ const useProductItem = () => {
     totalPrice,
     totalDishes,
     toggleDelivery,
-    // maxCookTime,
   };
 };
 
