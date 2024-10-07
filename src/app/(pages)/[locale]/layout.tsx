@@ -12,20 +12,25 @@ import Footer from "@/app/widgets/Footer";
 import Header from "@/app/widgets/Navigation";
 import Sidebar from "@/app/widgets/Sidebar";
 
+import { siteConfig } from "@/app/shared/site";
+import { constructMetadata } from "@/app/shared/lib/utils";
+
 import TanstackQueryProvider from "@/app/(pages)/_providers/tanstack-query";
 
 import "@/app/shared/styles/globals.scss";
 
 const inter = Inter({ subsets: ["cyrillic"] });
 
+export const metadata: Metadata = constructMetadata({
+  title: siteConfig.name,
+  description: siteConfig.description,
+  image: siteConfig.ogImage,
+});
+
 interface Props {
   children: React.ReactNode;
   params: { locale: string };
 }
-
-export const metadata: Metadata = {
-  title: "Food Delivery App",
-};
 
 export default async function RootLayout({ children, params: { locale } }: Props) {
   const messages = await getMessages();

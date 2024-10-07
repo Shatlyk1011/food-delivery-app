@@ -12,6 +12,9 @@
 ✅ (not tested yet)- add fields to user collection: addresses, isBlocked, history of Orders
 ✅ -GET SECRET KEEYYYYYYYYYYYYYYS
 
+- .env in orders fetch component
+- FIX - es
+
 - remove unused libs
   ✅ - make restaurant blockable
 

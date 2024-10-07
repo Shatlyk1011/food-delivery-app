@@ -7,6 +7,7 @@ import atoms from "@/app/(pages)/_providers/jotai";
 import { LOGIN_MUTATION, LOGOUT_MUTATION } from "../services/query/authQuery";
 import { useQueryClient } from "@tanstack/react-query";
 import useToast from "./useToast";
+import { DISHES } from "../shared/constants";
 
 const useAuth = () => {
   const setAuth = useSetAtom(atoms.isAuth);
@@ -52,7 +53,7 @@ const useAuth = () => {
     queryClient.invalidateQueries({ queryKey: ["currentUser"] });
     if (data.data.logoutUser) {
       toast("Actions.logoutUser", "info");
-      // FIX: clear local storage?
+      localStorage?.removeItem(DISHES);
     }
   };
 
