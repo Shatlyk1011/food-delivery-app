@@ -9,6 +9,8 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ deliveryPrice, dishes, t }) => {
+  const totalPrice = dishes?.reduce((acc, { dish: { price }, quantity }) => acc + price * quantity, 0);
+
   return (
     <div className=" px-8 last:pb-6">
       <h2 className="pb-2 pt-5 text-lg font-medium md:text-sm xl:pt-4 xl:text-base">{t("Index.dishes")}</h2>
@@ -31,14 +33,15 @@ const Index: FC<Props> = ({ deliveryPrice, dishes, t }) => {
           </ul>
         ))}
       </div>
-      <p className="mt-2 w-[40%] border-b border-black/20 px-4 py-2 text-sm font-medium xl:w-[60%] xl:px-3">
+      <p className="mt-2 flex w-[40%] justify-between border-b border-black/20 px-4 py-2 text-sm font-medium xl:w-[60%] xl:px-3">
         {Boolean(+deliveryPrice) ? (
-          <span>
+          <span className="font-medium opacity-80">
             {t("Index.deliveryPrice")} : {deliveryPrice} TMT
           </span>
         ) : (
           <span className="text-success">{t("Index.freeDelivery")}</span>
         )}
+        <span className="font-medium text-info">Общая стоимость: {totalPrice + +deliveryPrice}</span>
       </p>
     </div>
   );

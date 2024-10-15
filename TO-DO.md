@@ -83,4 +83,3 @@
 # TEST BUGS
 
 - order creates with empty order list
-- FIX notes

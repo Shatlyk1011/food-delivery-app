@@ -70,10 +70,10 @@ module.exports = {
     },
     screens: {
       "2xl": { max: "1400px" },
+      xl: { max: "1080px" },
       lg: { max: "820px" },
       md: { max: "720px" },
       sm: { max: "500px" },
-      xl: { max: "1080px" },
     },
   },
 };

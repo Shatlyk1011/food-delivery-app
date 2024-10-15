@@ -51,7 +51,7 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
               }) => (
                 <Collapsible key={createdAt}>
                   <div className="flex flex-col">
-                    <ul className="flex items-center border-b border-black/20 md:text-xs xl:text-sm [&>*]:p-4 md:[&>*]:p-1.5 xl:[&>*]:p-2.5">
+                    <ul className="flex items-center break-words border-b border-black/20 md:text-xs xl:text-sm [&>*]:p-4 md:[&>*]:p-1.5 xl:[&>*]:p-2.5">
                       <li className="w-[5%] ">
                         <CollapsibleTrigger asChild>
                           <button className="justify-center rounded-full p-2 duration-150 hover:bg-gray-2">
@@ -63,7 +63,7 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
                       <li className="w-[15%] ">
                         {district} / {apartment}
                       </li>
-                      <li className="w-[11%] ">{totalAmount} TMT</li>
+                      <li className="w-[11%] ">{totalAmount + +deliveryPrice} TMT</li>
                       <li className={`w-[16%] ${isDelivery ? "text-success" : "text-warning"}`}>
                         {isDelivery ? t("Index.delivery") : t("Index.selfCare")}
                       </li>
