@@ -15,6 +15,7 @@ export const ORDER_STATUSES = {
   delivered: "Доставлено",
   rejected: "Отказано",
 };
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const OrdersComponent = () => {
   const { user } = useAuth();
@@ -93,7 +94,7 @@ const OrdersComponent = () => {
         </thead>
 
         <tbody>
-          {orders?.length &&
+          {orders?.length > 0 &&
             orders.map(
               ({ id, district, apartment, houseNumber, orderStatus, totalAmount, deliveryPrice, createdAt }) => (
                 <tr onClick={() => handleRedirect(id)}>

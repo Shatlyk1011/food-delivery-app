@@ -38,7 +38,7 @@ const Index: FC<Props> = ({ t }) => {
               {t("Index.clear")}
             </button>
           </div>
-          <div className="perfect-scrollbar h-96 space-y-6 pl-4 pr-1">
+          <div className="perfect-scrollbar h-96 space-y-6 pl-4 pr-2">
             {selectedItems?.dishes?.map((item) => (
               <MiniItem
                 key={item.id}

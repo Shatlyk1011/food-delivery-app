@@ -8,11 +8,11 @@ interface Props {
 export default function AboutProduct({ dish, handleClose, t }: Props) {
   return (
     <Dialog open={Boolean(dish)} onOpenChange={handleClose}>
-      <DialogContent className="max-h-[520px] max-w-[780px] rounded-[20px] px-6 py-6 lg:max-w-[90%] md:p-4">
+      <DialogContent className="max-h-[520px] max-w-[780px] rounded-[20px] px-6 py-6 lg:max-w-[90%] md:p-4 sm:p-3">
         <div className="box-border flex space-x-10 md:flex-col md:space-x-0 md:space-y-6">
-          <figcaption className="relative my-auto min-h-[260px] min-w-[260px] flex-1 md:min-h-[180px]">
+          <figcaption className="relative my-auto min-h-[260px] min-w-[260px] flex-1 overflow-hidden rounded-xl md:h-[180px]">
             <img
-              className="h-full w-full overflow-hidden rounded-xl object-cover"
+              className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover md:object-contain"
               src={dish.image?.url || ""}
               alt={dish.image?.alt || ""}
             />

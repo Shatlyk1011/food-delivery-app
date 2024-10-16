@@ -90,8 +90,6 @@ export default function Bucket() {
     }
   };
 
-  console.log(restaurantInfo?.freeAfterAmount);
-
   useEffect(() => {
     if (!selectedItems?.dishes.length) {
       router.replace("/");
