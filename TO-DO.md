@@ -12,6 +12,7 @@
 ✅ (not tested yet)- add fields to user collection: addresses, isBlocked, history of Orders
 ✅ -GET SECRET KEEYYYYYYYYYYYYYYS
 
+- withCategories; make sure adding "others" to the end of list
 - .env in orders fetch component
 - FIX - es
 - control working times (in backend?)
