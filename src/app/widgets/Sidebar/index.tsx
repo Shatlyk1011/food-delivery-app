@@ -30,7 +30,7 @@ const Index = () => {
             <CloseIcon className="h-6 w-6" />
           </button>
           <div className="mx-auto flex items-center justify-center space-x-2">
-            <LogoIcon width={96} height={48} />
+            <LogoIcon width={96} height={48} className="text-white transition hover:text-[#FBDB65]" />
           </div>
         </header>
 
