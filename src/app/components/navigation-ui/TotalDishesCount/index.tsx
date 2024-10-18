@@ -1,20 +1,14 @@
-import useProductItem from "@/app/hooks/useProductItem";
-
 const Index = ({ className }: { className?: string }) => {
-  const { totalDishes } = useProductItem();
-  if (totalDishes > 0)
-    return (
-      <div
-        //FIX
-        // https://tailwindcss.com/docs/animation
-        className={`hidden rounded-full bg-gray-1 px-2 py-3 text-[10px] font-bold leading-[0] text-text-2 xl:block  ${className}`}
-      >
-        <div className="h- relative flex w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2f2]  opacity-75"></span>
-          <span className="relative inline-flex h-2.5 w-2.5 rounded-full text-white">{totalDishes}</span>
-        </div>
+  return (
+    <div
+      className={`hidden rounded-full bg-gray-1 px-2.5 py-1.5 text-[10px] font-bold leading-[0] text-text-2 xl:block ${className}`}
+    >
+      <div className="relative flex items-center justify-center">
+        <span className="absolute inline-flex animate-ping rounded-full bg-info px-2.5 py-2.5 opacity-60"></span>
+        <span className="relative inline-flex h-full w-full rounded-full text-center text-xs text-black">2</span>
       </div>
-    );
+    </div>
+  );
 };
 
 export default Index;

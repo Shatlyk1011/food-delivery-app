@@ -2,10 +2,10 @@ import { useRouter } from "next/navigation";
 import { FC } from "react";
 //components
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerTrigger } from "@/app/components/shared-ui/Drawer";
-import { BucketIcon } from "@/app/icons";
-import MiniDishesCount from "../TotalDishesCount";
 import EmptyBucket from "@/app/components/shared-ui/EmptyBucket";
+import MiniDishesCount from "../TotalDishesCount";
 import MiniItem from "../MiniBucket/MiniItem";
+import { BucketIcon } from "@/app/icons";
 
 import useProductItem from "@/app/hooks/useProductItem";
 

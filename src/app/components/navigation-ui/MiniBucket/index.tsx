@@ -4,7 +4,6 @@ import { FC } from "react";
 import useProductItem from "@/app/hooks/useProductItem";
 
 //components
-import EmptyBucket from "@/app/components/shared-ui/EmptyBucket";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 import { BucketIcon, EmptyBucketIcon } from "@/app/icons";
 import { PopoverClose } from "@radix-ui/react-popover";
@@ -30,8 +29,8 @@ const Index: FC<Props> = ({ t }) => {
       <PopoverTrigger asChild className="right-50 md:hidden">
         <button className="relative flex h-12 items-center space-x-1.5 rounded-[16px] bg-primary px-4 py-2.5 md:h-10 md:px-3">
           <BucketIcon />
-          <p className="font-medium xl:hidden">{totalPrice ?? 2000}TMT</p>
-          <MiniDishesCount className="absolute -right-3 -top-2 " />
+          <p className="font-medium xl:hidden">{totalPrice}TMT</p>
+          <MiniDishesCount className="absolute -right-2 -top-2 " />
         </button>
       </PopoverTrigger>
       <PopoverContent
