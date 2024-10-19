@@ -16,6 +16,7 @@
 - .env in orders fetch component
 - FIX - es
 - control working times (in backend?)
+- control whether the restaurant closed or not
 
 - remove unused libs
   ✅ - make restaurant blockable

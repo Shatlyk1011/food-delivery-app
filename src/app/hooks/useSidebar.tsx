@@ -9,6 +9,7 @@ import { atom, useAtom, useAtomValue } from "jotai";
 //hooks
 import useAuth from "./useAuth";
 import useChangeLanguage from "./useChangeLanguage";
+import useProductItem from "./useProductItem";
 
 //components
 import { BucketIcon, EarthIcon, ExitIcon, HomeIcon, LocationIcon, ProfileIcon } from "../icons";
@@ -18,6 +19,9 @@ import { CITIES, LANGUAGES } from "../data";
 const useSidebar = () => {
   const router = useRouter();
   const isAuth = useAtomValue(atoms.isAuth);
+
+  const { totalDishes } = useProductItem();
+
   const [isSidebarOpen, setIsSidebarOpen] = useAtom(atoms.isSidebarOpen);
   const [selectedCity, setSelectedCity] = useAtom(atoms.selectedCity);
   const [overlap, setOverlap] = useState("");
@@ -70,7 +74,7 @@ const useSidebar = () => {
       icon: <BucketIcon className="h-5 w-5" />,
       onClick: handleToBucket,
       authRequired: true,
-      miniDishesCount: <MiniDishesCount className="right-0staging relative" />,
+      miniDishesCount: <MiniDishesCount count={totalDishes} className="right-0staging relative" />,
     },
     {
       title: selectedCity ? `${t("city")}: ${selectedCity}` : t("chooseCity"),

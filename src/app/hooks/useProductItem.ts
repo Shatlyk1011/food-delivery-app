@@ -51,8 +51,9 @@ const useProductItem = () => {
   );
 
   const addItem = useCallback(
-    (itemToAdd: any, restaurantInfo: RestaurantLocalInfo) => {
+    (itemToAdd: Dish, restaurantInfo: RestaurantLocalInfo) => {
       const last = selectedItems?.dishes.at(-1);
+
       if (last && last.restaurant?.id !== restaurantInfo.id) {
         setClearModal(true);
         return;
@@ -94,7 +95,7 @@ const useProductItem = () => {
     return selectedItems?.dishes?.reduce((curr, item) => curr + item.count || 1, 0);
   }, [selectedItems.dishes]);
 
-  const restId = selectedItems.dishes.at(-1)?.restaurant.id;
+  const restId = selectedItems.dishes.at(-1)?.restaurant?.id;
 
   return {
     selectedItems,

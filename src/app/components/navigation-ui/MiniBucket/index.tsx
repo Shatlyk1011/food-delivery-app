@@ -15,7 +15,7 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ t }) => {
-  const { selectedItems, increaseItem, decreaseItem, clearItems, totalPrice } = useProductItem();
+  const { selectedItems, totalDishes, increaseItem, decreaseItem, clearItems, totalPrice } = useProductItem();
 
   const router = useRouter();
 
@@ -30,7 +30,7 @@ const Index: FC<Props> = ({ t }) => {
         <button className="relative flex h-12 items-center space-x-1.5 rounded-[16px] bg-primary px-4 py-2.5 md:h-10 md:px-3">
           <BucketIcon />
           <p className="font-medium xl:hidden">{totalPrice}TMT</p>
-          <MiniDishesCount className="absolute -right-2 -top-2 " />
+          <MiniDishesCount count={totalDishes} className="absolute -right-2 -top-2 " />
         </button>
       </PopoverTrigger>
       <PopoverContent
