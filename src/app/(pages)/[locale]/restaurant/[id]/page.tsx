@@ -82,8 +82,8 @@ export default function RestaurantId({ params: { id } }) {
               )}
               <div className="w-full">
                 {restaurantInfo && restaurantInfo.freeAfterAmount > 0 && restaurantInfo.deliveryPrice !== 0 && (
-                  <div className="mt-5 flex items-center space-x-2.5 rounded-2xl bg-[#FFD166]/10 px-4 py-3 text-text-4">
-                    <CakeIcon className="h-10 w-10 fill-primary" />
+                  <div className="mt-5 flex items-center space-x-2.5 rounded-2xl bg-[#FFD166]/10 px-4 py-3 text-text-4 md:px-3 md:py-2.5 md:text-xs">
+                    <CakeIcon className="h-10 w-10 fill-primary md:h-8 md:w-8" />
                     <p>{t("RestaurantPage.freeDeliveryAfter", { price: restaurantInfo?.freeAfterAmount })}</p>
                   </div>
                 )}

@@ -11,7 +11,7 @@ interface Props {
 const Index: FC<Props> = ({ count, decrease, increase, className }) => {
   return (
     <div
-      className={`max-w-22 flex h-8 w-full justify-between rounded-[14px] bg-gray-2/80 p-1 px-2 md:h-7 md:p-[2px] sm:rounded-xl ${className}`}
+      className={`max-w-22 flex h-8 w-full items-center justify-between rounded-[14px] bg-gray-2/80 p-1 px-2 md:h-7 md:p-[2px] sm:rounded-xl ${className}`}
     >
       <button type="button" onClick={decrease}>
         <MinusIcon width={20} height={20} />
