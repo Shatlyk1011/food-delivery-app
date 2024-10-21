@@ -21,12 +21,12 @@ export default function Home() {
   const t = useTranslations();
 
   const [query, setQuery] = useAtom(atoms.query);
+  const [filters, setFilters] = useState<Filters>(defaultFilters);
 
   const clearFilters = () => {
     setQuery("");
     setFilters(defaultFilters);
   };
-  const [filters, setFilters] = useState<Filters>(defaultFilters);
 
   const handleFilters = (key: keyof Filters, value: any) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <main className="min-h-[calc(100vh-313px)]">
-      <div className="mx-auto box-content max-w-[1440px] px-8 pt-12 2xl:pt-8 md:px-3 md:pt-4 xl:px-5 xl:pt-6">
+      <div className="mx-auto box-content max-w-[1440px] px-8 pt-12 2xl:pt-8 xl:px-5 xl:pt-6 md:px-3 md:pt-4">
         <h1 className="mb-8 text-5xl font-bold 2xl:mb-6 2xl:text-4xl md:mb-3 md:text-2xl">{t("MainPage.heading")}</h1>
         <div>
           <CategoriesBar categories={categories} handleFilters={handleFilters} />

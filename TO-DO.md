@@ -18,6 +18,8 @@
 - control working times (in backend?)
 - control whether the restaurant closed or not
 
+- ?skeleton for entire id page
+
 - remove unused libs
   ✅ - make restaurant blockable
 

@@ -16,7 +16,7 @@ const Index: FC<Props> = ({ menuTitle, backTitle, withCategories, classes }) => 
   const { push } = useRouter();
 
   return (
-    <aside className={`relative w-96 2xl:w-64 ${classes}`}>
+    <aside className={`relative z-[11] w-96 2xl:w-64 ${classes}`}>
       <div className="sticky right-0 top-24">
         <BackButton backTitle={backTitle} onClick={() => push("/")} />
         <h3 className="mt-12 px-[14px] py-4 text-xl font-medium">{menuTitle}</h3>

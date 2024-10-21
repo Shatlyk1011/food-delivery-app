@@ -10,6 +10,7 @@ import atoms from "@/app/(pages)/_providers/jotai";
 //hooks
 import useProductItem from "@/app/hooks/useProductItem";
 import { useGetRestaurantById } from "@/app/services/useRestaurants";
+import { isRestaurantOpen } from "@/app/hooks/getTimesTillMidnight";
 
 //widgets
 import Banner from "@/app/widgets/RestaurantPage/Banner";
@@ -23,13 +24,19 @@ import { CakeIcon } from "@/app/icons";
 
 const AboutProduct = dynamic(() => import("@/app/widgets/RestaurantPage/Product/AboutProduct"));
 
-export default function Home({ params: { id } }) {
+export default function RestaurantId({ params: { id } }) {
   const t = useTranslations();
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
   const selectedItems = useAtomValue(atoms.selectedItems);
 
-  const { restaurantInfo, withCategories, getRestaurant, isPending } = useGetRestaurantById();
-  const { addItem, clearItems } = useProductItem();
+  const { restaurantInfo, withCategories, getRestaurant, isLoading } = useGetRestaurantById();
+
+  const isRestaurantAvailable = isRestaurantOpen(
+    restaurantInfo?.workingHours?.openTime,
+    restaurantInfo?.workingHours?.closeTime,
+  );
+
+  const { addItem, clearItems, handleUnavailableWarning } = useProductItem(isRestaurantAvailable);
 
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
   const closeModal = () => {
@@ -39,6 +46,7 @@ export default function Home({ params: { id } }) {
     clearItems();
     closeModal();
   };
+
   useEffect(() => {
     getRestaurant(id);
   }, []);
@@ -56,7 +64,11 @@ export default function Home({ params: { id } }) {
             />
 
             <div className="basis-[80%] md:basis-full">
-              {restaurantInfo === null && <p>По вашему запросу, ничего не найдено</p>}
+              {restaurantInfo === null && (
+                <p className="px-3 py-20 text-center text-2xl font-medium md:text-xl sm:text-lg">
+                  Что то пошло не так, возможно этот ресторан закрылся
+                </p>
+              )}
               {restaurantInfo && (
                 <Banner
                   bannerImageUrl={restaurantInfo?.bannerImage?.url}
@@ -75,8 +87,10 @@ export default function Home({ params: { id } }) {
                     <p>{t("RestaurantPage.freeDeliveryAfter", { price: restaurantInfo?.freeAfterAmount })}</p>
                   </div>
                 )}
-                {isPending ? (
-                  <ProductSkeleton length={12} />
+                {isLoading ? (
+                  <div className="manual_grid_220 mt-2 2xl:mt-4 md:w-full">
+                    <ProductSkeleton length={12} />
+                  </div>
                 ) : (
                   withCategories?.map(({ dishes, category }) => {
                     const { title, deliveryPrice } = restaurantInfo;
@@ -122,6 +136,13 @@ export default function Home({ params: { id } }) {
         </div>
         {selectedDish && <AboutProduct dish={selectedDish} handleClose={() => setSelectedDish(null)} t={t} />}
       </div>
+      {!isRestaurantAvailable && (
+        <button
+          type="button"
+          onClick={handleUnavailableWarning}
+          className="fixed left-0 top-0 z-[10] h-screen w-full bg-white/30"
+        ></button>
+      )}
       {isClearModal && (
         <ClearCartModal
           t={t}

@@ -12,7 +12,7 @@ const Index: FC<Props> = ({ backTitle, onClick }) => {
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center rounded-xl bg-bg-1 px-[14px] py-4 transition hover:bg-opacity-70"
+      className="z-[11] flex w-full items-center rounded-xl bg-bg-1 px-[14px] py-4 transition hover:bg-opacity-70"
     >
       <BackIcon />
       <p className="ml-2 text-base font-medium">{backTitle}</p>

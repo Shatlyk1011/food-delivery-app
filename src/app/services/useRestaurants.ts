@@ -1,10 +1,11 @@
 import axios from "@/app/shared/lib/axios";
 
-import { DEFAULT_LIMIT } from "@/app/shared/constants";
+import { DEFAULT_DELIVERY_TIME, DEFAULT_LIMIT } from "@/app/shared/constants";
 
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 
 import { RESTAURANT, RESTAURANTS } from "./query/restaurantQuery";
+import { useState } from "react";
 
 export const useGetRestaurantsQuery = (
   { sortBy, deliveryTime, tag }: Filters,
@@ -33,7 +34,7 @@ export const useGetRestaurantsQuery = (
   //use memo?
   //filter by delivery time
   const filteredRestaurants = data?.pages?.map((rests, idx): MainPageRestaurant[] => {
-    if (deliveryTime !== 0) {
+    if (deliveryTime !== DEFAULT_DELIVERY_TIME) {
       const res = [];
       const filterByTime = rests.filter((item) => +item.workingHours.closeTime.slice(1) >= deliveryTime);
       res[idx] = filterByTime;
@@ -45,17 +46,24 @@ export const useGetRestaurantsQuery = (
 };
 
 export const useGetRestaurantById = (schema?: string) => {
-  const { data, mutate, isPending } = useMutation<RestaurantId, { id: string }, any>({
+  const [isLoading, setLoading] = useState(true);
+  const { data, mutate } = useMutation<RestaurantId, { id: string }, any>({
     mutationKey: ["restaurantId"],
     mutationFn: async (id: string): Promise<RestaurantId> => {
-      const { data } = await axios({
-        data: {
-          query: schema || RESTAURANT,
-          variables: { id },
-        },
-      });
-      console.log("data.data.Restaurant", data.data.Restaurant);
-      return data.data.Restaurant;
+      try {
+        const { data } = await axios({
+          data: {
+            query: schema || RESTAURANT,
+            variables: { id },
+          },
+        });
+        console.log("data.data.Restaurant", data.data.Restaurant);
+        return data.data.Restaurant;
+      } catch (err) {
+        console.log("err", err);
+      } finally {
+        setLoading(false);
+      }
     },
   });
 
@@ -74,5 +82,5 @@ export const useGetRestaurantById = (schema?: string) => {
     return acc;
   }, []);
 
-  return { restaurantInfo: data, withCategories, getRestaurant: mutate, isPending };
+  return { restaurantInfo: data, withCategories, getRestaurant: mutate, isLoading };
 };
