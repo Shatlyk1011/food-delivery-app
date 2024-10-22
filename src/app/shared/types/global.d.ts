@@ -7,6 +7,7 @@ interface BannerInfo {
   title: string;
   deliveryTime: string;
   address: string;
+  workingHours: WorkingHours;
 }
 
 interface CartInfo extends BannerInfo {
@@ -54,3 +55,5 @@ interface FeedbackOrCoopResponse {
   id: string;
   type: FeedbackType;
 }
+
+type ToastTypes = "error" | "success" | "warning" | "info";

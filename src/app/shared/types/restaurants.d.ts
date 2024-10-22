@@ -1,3 +1,8 @@
+type WorkingHours = {
+  openTime: string;
+  closeTime: string;
+};
+
 interface MainPageRestaurant {
   id: string;
   title: string;
@@ -42,10 +47,7 @@ interface RestaurantId {
   deliveryTime: string;
   deliveryPrice: number;
   freeAfterAmount: number;
-  workingHours: {
-    openTime: string;
-    closeTime: string;
-  };
+  workingHours: WorkingHours;
   isClosed: boolean;
   isDelivery: boolean;
   bannerImage: {

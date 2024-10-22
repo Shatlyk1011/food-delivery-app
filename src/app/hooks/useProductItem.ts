@@ -3,9 +3,10 @@ import { useCallback, useMemo } from "react";
 import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom, useSetAtom } from "jotai";
 
+import useToast from "./useToast";
+
 //MEMOIZE
 import { DEFAULT_RESTAURANT_INFO } from "../data";
-import useToast from "./useToast";
 
 const useProductItem = (isRestaurantAvailable: boolean = true) => {
   const toast = useToast();
@@ -14,7 +15,7 @@ const useProductItem = (isRestaurantAvailable: boolean = true) => {
   const setClearModal = useSetAtom(atoms.isClearBucketModal);
 
   const handleUnavailableWarning = () => {
-    toast("Actions.closedRestaurant", "info");
+    toast("Actions.closedRestaurant", "warning");
   };
 
   const increaseItem = useCallback(

@@ -77,6 +77,7 @@ export default function RestaurantId({ params: { id } }) {
                     deliveryTime: restaurantInfo?.deliveryTime,
                     title: restaurantInfo?.title,
                     address: restaurantInfo?.address,
+                    workingHours: restaurantInfo?.workingHours,
                   }}
                 />
               )}
