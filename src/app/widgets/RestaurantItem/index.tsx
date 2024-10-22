@@ -30,28 +30,25 @@ const computedPriceNumber = (budgetCategory: string) => {
 const Index: FC<Props> = ({ item, isDeliveryFree, t }) => {
   return (
     <div className="relative inline-block px-4 pb-5 xl:px-2">
-      <figure
-        tabIndex={0}
-        className="relative mb-2 h-full max-h-52 min-h-52 w-full cursor-pointer overflow-hidden rounded-[14px] focus:outline-none focus:ring-4 focus:ring-text-2 focus:ring-offset-2"
-      >
-        <Link href={`/restaurant/${item.id}`} className="">
+      <Link href={`/restaurant/${item.id}`} className="group focus:outline-none">
+        <figure className="relative mb-2 h-full max-h-52 min-h-52 w-full cursor-pointer overflow-hidden rounded-[14px] outline-none ring-text-2 ring-offset-2 group-focus-visible:ring-2">
           <img
-            className="absolute inset-0 h-full w-full bg-gray-2 object-cover"
+            className="absolute h-full w-full bg-gray-2 object-cover"
             src={item.bannerImage?.url || ""}
             alt={item.bannerImage?.alt || "image"}
           />
-        </Link>
-        {isDeliveryFree && (
-          <div className="absolute left-2 top-2 z-10 flex items-center space-x-1 rounded-full bg-white/80 px-1 py-[3px] pr-1.5 text-black">
-            <MotocycleIcon className="box-content h-4 w-4 rounded-full bg-[#5AC31A] p-1 text-white" />
-            <p className="text-xs font-medium tracking-normal text-text-1">{t("Index.freeDelivery")}</p>
-          </div>
-        )}
+          {isDeliveryFree && (
+            <div className="absolute left-2 top-2 z-10 flex items-center space-x-1 rounded-full bg-white/80 px-1 py-[3px] pr-1.5 text-black">
+              <MotocycleIcon className="box-content h-4 w-4 rounded-full bg-[#5AC31A] p-1 text-white" />
+              <p className="text-xs font-medium tracking-normal text-text-1">{t("Index.freeDelivery")}</p>
+            </div>
+          )}
 
-        <div className="absolute bottom-0 right-0 z-10 rounded-[14px] rounded-br-none bg-black/60 px-2 py-3 leading-[1] text-white">
-          {deliveryTime(item.deliveryTime || "", t)}
-        </div>
-      </figure>
+          <div className="absolute bottom-0 right-0 z-10 rounded-[14px] rounded-br-none bg-black/60 px-2 py-3 leading-[1] text-white">
+            {deliveryTime(item.deliveryTime || "", t)}
+          </div>
+        </figure>
+      </Link>
       <div>
         <h5 className="mb-0.5 line-clamp-2 text-2xl font-medium">{item.title}</h5>
 

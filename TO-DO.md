@@ -15,10 +15,10 @@
 - withCategories; make sure adding "others" to the end of list
 - .env in orders fetch component
 - FIX - es
-- control working times (in backend?)
-- control whether the restaurant closed or not
+  ✅ - control working times (in backend?)
+  ✅ - control whether the restaurant closed or not
 
-- ?skeleton for entire id page
+  ✅ - skeleton for entire id page
 
 - remove unused libs
   ✅ - make restaurant blockable
