@@ -17,6 +17,7 @@
 - FIX - es
 - control working times (in backend?)
 - control whether the restaurant closed or not
+- comment to courier/rest about big amount of money
 
 - remove unused libs
   ✅ - make restaurant blockable

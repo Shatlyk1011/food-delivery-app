@@ -80,7 +80,7 @@ export default function Bucket() {
       } finally {
         setLoading(false);
       }
-    } else if (!userProfile) {
+    } else if (!userProfile || !userProfile.id) {
       toast("Actions.loginToOrder", "warning");
     } else if (!selectedItems?.dishes.length) {
       toast("Index.emptyBucket", "info");
@@ -106,14 +106,14 @@ export default function Bucket() {
   }, [restId]);
 
   return (
-    <main className="min-h-[calc(100vh-313px)] w-full bg-bg-2 px-10 py-12 md:px-4 md:py-6 sm:px-3 sm:py-4 xl:p-8">
+    <main className="min-h-[calc(100vh-313px)] w-full bg-bg-2 px-10 py-12 xl:p-8 md:px-4 md:py-6 sm:px-3 sm:py-4">
       <Form {...form}>
         <div className="mx-auto max-w-[1140px] xl:max-w-[720px]">
           <form
-            className="flex justify-between space-x-10 md:space-y-6 sm:space-y-4 xl:flex-col xl:space-x-0 xl:space-y-8"
+            className="flex justify-between space-x-10 xl:flex-col xl:space-x-0 xl:space-y-8 md:space-y-6 sm:space-y-4"
             onSubmit={form.handleSubmit(handleOrderSubmit)}
           >
-            <div className="flex basis-[600px] flex-col justify-between space-y-8 md:space-y-6 sm:space-y-4 xl:basis-full">
+            <div className="flex basis-[600px] flex-col justify-between space-y-8 xl:basis-full md:space-y-6 sm:space-y-4">
               <div className="rounded-[32px] bg-bg-1 p-8 shadow-sm md:rounded-3xl md:p-6 sm:p-4 ">
                 <BucketForm
                   form={form}
