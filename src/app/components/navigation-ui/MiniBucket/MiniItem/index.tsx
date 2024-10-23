@@ -1,5 +1,4 @@
 import { FC } from "react";
-import Image from "next/image";
 
 import IncreaseDecrease from "@/app/components/shared-ui/IncreaseDecrease";
 interface Props {

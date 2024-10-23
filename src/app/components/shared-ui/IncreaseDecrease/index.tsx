@@ -3,9 +3,9 @@ import { FC } from "react";
 
 interface Props {
   count: string;
+  decrease: () => void;
+  increase: () => void;
   className?: string;
-  increase?: () => void;
-  decrease?: () => void;
 }
 
 const Index: FC<Props> = ({ count, decrease, increase, className }) => {
