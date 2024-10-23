@@ -9,7 +9,7 @@ import { EmptyBucketIcon } from "@/app/icons";
 import useProductItem from "@/app/hooks/useProductItem";
 
 interface Props {
-  restaurantInfo: CartInfo;
+  restaurantInfo: Omit<CartInfo, "workingHours">;
   t: any;
   isDelivery: boolean;
 }

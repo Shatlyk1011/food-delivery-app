@@ -93,6 +93,10 @@ export const RESTAURANT_BUCKET = `
       deliveryPrice
       isDelivery
       freeAfterAmount
+      workingHours {
+        openTime
+        closeTime
+      }
     }
   }
 `;

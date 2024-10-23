@@ -3,6 +3,8 @@ import type { CollectionConfig } from "payload/types";
 import { admins } from "../../access/admins";
 import { checkRole } from "../../access/checkRole";
 
+import { CLOSE_HOURS, DELIVERY_TIMES, OPEN_HOURS } from "./data";
+
 const Restaurants: CollectionConfig = {
   access: {
     create: admins,
@@ -67,32 +69,7 @@ const Restaurants: CollectionConfig = {
       },
       defaultValue: "60",
       label: "Время доставки ",
-      options: [
-        {
-          label: "30 - мин",
-          value: "30",
-        },
-        {
-          label: "45 - мин",
-          value: "45",
-        },
-        {
-          label: "60 - мин",
-          value: "60",
-        },
-        {
-          label: "90 - мин",
-          value: "90",
-        },
-        {
-          label: "120 - мин",
-          value: "120",
-        },
-        {
-          label: "120+ - мин",
-          value: "not_today",
-        },
-      ],
+      options: DELIVERY_TIMES,
       required: true,
       type: "select",
     },
@@ -124,104 +101,14 @@ const Restaurants: CollectionConfig = {
         {
           name: "openTime",
           label: "Время открытия",
-          options: [
-            {
-              label: "07:00",
-              value: "0700",
-            },
-            {
-              label: "07:30",
-              value: "0730",
-            },
-            {
-              label: "08:00",
-              value: "0800",
-            },
-            {
-              label: "08:30",
-              value: "0830",
-            },
-            {
-              label: "09:00",
-              value: "0900",
-            },
-            {
-              label: "09:30",
-              value: "0930",
-            },
-            {
-              label: "10:00",
-              value: "1000",
-            },
-            {
-              label: "10:30",
-              value: "1030",
-            },
-            {
-              label: "11:00",
-              value: "1100",
-            },
-            {
-              label: "11:30",
-              value: "1130",
-            },
-            {
-              label: "12:00",
-              value: "1200",
-            },
-          ],
+          options: OPEN_HOURS,
           required: true,
           type: "select",
         },
         {
           name: "closeTime",
           label: "Время закрытия",
-          options: [
-            {
-              label: "19:00",
-              value: "1900",
-            },
-            {
-              label: "19:30",
-              value: "1930",
-            },
-            {
-              label: "20:00",
-              value: "2000",
-            },
-            {
-              label: "20:30",
-              value: "2030",
-            },
-            {
-              label: "21:00",
-              value: "2100",
-            },
-            {
-              label: "21:30",
-              value: "2130",
-            },
-            {
-              label: "22:00",
-              value: "2200",
-            },
-            {
-              label: "22:30",
-              value: "2230",
-            },
-            {
-              label: "23:00",
-              value: "2300",
-            },
-            {
-              label: "23:30",
-              value: "2330",
-            },
-            {
-              label: "00:00",
-              value: "2400",
-            },
-          ],
+          options: CLOSE_HOURS,
           required: true,
           type: "select",
         },

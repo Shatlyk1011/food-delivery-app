@@ -11,7 +11,11 @@ interface Props {
 }
 
 const Index: FC<Props> = ({ bannerInfo, t }) => {
-  const { title, deliveryTime, address } = bannerInfo;
+  const { title, deliveryTime, address, workingHours } = bannerInfo;
+
+  const convertTimeFormat = (timeString: string) => {
+    return timeString.slice(1, 3) + ":" + timeString.slice(3);
+  };
 
   const items = [
     {
@@ -26,6 +30,7 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
       subtitle: null,
     },
   ];
+
   return (
     <div className="">
       <h3 className="mb-3 text-5xl font-medium leading-10 tracking-tight text-white lg:text-4xl md:text-3xl">
@@ -37,11 +42,19 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
           <InfoItem key={index} item={item} />
         ))}
         <Popover>
-          <PopoverTrigger className="rounded-[14px] bg-bg-1/85 px-3 py-3">
+          <PopoverTrigger type="button" aria-label="button" className="rounded-[14px] bg-bg-1/85 px-3 py-3">
             <InfoIcon />
           </PopoverTrigger>
-          <PopoverContent className="font-base px-5 py-3 text-base tracking-wide">
-            <span className="font-medium">{t("MainPage.address")}</span>: {address}
+          <PopoverContent className="font-base px-5 py-3 text-base font-medium tracking-wide">
+            <div>
+              {t("MainPage.workingHours")}:{" "}
+              <span className="font-normal">
+                {convertTimeFormat(workingHours.openTime)} - {convertTimeFormat(workingHours.closeTime)}
+              </span>
+            </div>
+            <div className="line-clamp-[10]">
+              {t("MainPage.address")}: <span className="font-normal">{address}</span>
+            </div>
           </PopoverContent>
         </Popover>
       </div>

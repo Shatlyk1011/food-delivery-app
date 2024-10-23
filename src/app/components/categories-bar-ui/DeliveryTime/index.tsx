@@ -6,7 +6,9 @@ import { CheckIcon, ChevronRightIcon } from "@/app/icons";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 import { PopoverClose } from "@radix-ui/react-popover";
 
-import getTimesTillMidnight from "@/app/hooks/getTimesTillMidnight";
+import { getTimesTillMidnight } from "@/app/hooks/getTimesTillMidnight";
+
+import { DEFAULT_DELIVERY_TIME } from "@/app/shared/constants";
 
 interface Props {
   handleFilters: (key: keyof Filters, value: any) => void;
@@ -16,17 +18,17 @@ interface Props {
 const Index: FC<Props> = ({ t, handleFilters }) => {
   const [active, setActive] = useState(0);
 
-  const deliveryTimes = [t("Index.now"), ...getTimesTillMidnight()];
+  const deliveryTimes = [t("Index.now"), ...getTimesTillMidnight().times];
 
   const handleSelect = (time: string, idx: number) => {
-    const convertedTime = idx === 0 ? 0 : +time.replace(":", "");
+    const convertedTime = idx === 0 ? DEFAULT_DELIVERY_TIME : +time.replace(":", "");
     setActive(idx);
     handleFilters("deliveryTime", convertedTime);
   };
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="z-10 flex items-center rounded-xl px-[18px] py-3 2xl:px-3 2xl:py-2 md:space-x-1 xl:px-2 xl:py-1">
+        <button className="z-10 flex items-center rounded-xl px-[18px] py-3 2xl:px-3 2xl:py-2 xl:px-2 xl:py-1 md:space-x-1">
           <h6 className="font-medium 2xl:text-sm 2xl:leading-8 xl:leading-4">{t("Index.delivery")}</h6>
           <p className="flex items-center justify-center space-x-1 2xl:text-sm 2xl:leading-8 md:hidden">
             : <span className="pl-4">{deliveryTimes[active]}</span>

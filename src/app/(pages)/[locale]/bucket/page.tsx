@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 //jotai
 import { useAtomValue } from "jotai";
@@ -19,13 +20,12 @@ import { RESTAURANT_BUCKET } from "@/app/services/query/restaurantQuery";
 import { DISHES } from "@/app/shared/constants";
 
 //hooks
-import { useBucketFormScheme } from "@/app/hooks/formSchemes";
-import useProductItem from "@/app/hooks/useProductItem";
+import { isRestaurantOpen } from "@/app/hooks/getTimesTillMidnight";
 import { useGetRestaurantById } from "@/app/services/useRestaurants";
+import { useBucketFormScheme } from "@/app/hooks/formSchemes";
 import { useOrderSubmit } from "@/app/services/useOrders";
+import useProductItem from "@/app/hooks/useProductItem";
 import useToast from "@/app/hooks/useToast";
-
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function Bucket() {
   const t = useTranslations();
@@ -36,10 +36,15 @@ export default function Bucket() {
   const toast = useToast();
 
   const { form } = useBucketFormScheme();
-  const { restId, selectedItems, totalPrice, clearItems } = useProductItem();
+  const { restId, selectedItems, totalPrice, clearItems, handleUnavailableWarning } = useProductItem();
   const { restaurantInfo, getRestaurant } = useGetRestaurantById(RESTAURANT_BUCKET);
   const { handleOrder } = useOrderSubmit();
   const [isLoading, setLoading] = useState(false);
+
+  const isRestaurantAvailable = isRestaurantOpen(
+    restaurantInfo?.workingHours?.openTime,
+    restaurantInfo?.workingHours?.closeTime,
+  );
 
   const clearLocalStorage = () => {
     clearItems();
@@ -47,6 +52,10 @@ export default function Bucket() {
   };
 
   const handleOrderSubmit = async (values: OrderForm) => {
+    if (!isRestaurantAvailable) {
+      handleUnavailableWarning();
+      return;
+    }
     if (restaurantInfo?.id && userProfile?.id && selectedItems?.dishes.length) {
       const { apartment, commentToCourier, district, entrance, houseNumber, phoneNumber, commentToRestaurant } = values;
       try {

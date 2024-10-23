@@ -9,7 +9,7 @@ interface Props {
   selfCareTime: number;
   isDelivery: boolean;
   t: any;
-  restaurantInfo: CartInfo;
+  restaurantInfo: Omit<CartInfo, "workingHours">;
 }
 
 const Index: FC<Props> = ({ isDelivery, t, restaurantInfo, selfCareTime }) => {

@@ -1,7 +1,6 @@
 import { ToasterProps, toast } from "sonner";
 import { useTranslations } from "next-intl";
 
-type ToastTypes = "error" | "success" | "warning" | "info";
 const useToast = () => {
   const t = useTranslations();
 

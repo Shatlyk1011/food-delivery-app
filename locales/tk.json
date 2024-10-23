@@ -67,6 +67,7 @@
     "phone": "Telefon",
     "email": "Email",
     "address": "Salgy",
+    "workingHours": "Iş wagty",
     "about": "Biz barada",
     "advertisement": "Reklama",
     "collab": "Hyzmatdaşlyk",
@@ -193,7 +194,8 @@
     "successOrder": "Sargyt üstünlikli döredildi. Sargytyňyzy doly anyklamak üçin size menedjer jaň edip biler.",
     "successAddress": "Täze salgyňyz üstünlikli goşuldy",
     "cooperation": "Sag boluň, biz siz bilen hökman habarlaşarys",
-    "feedback": "Seslenmäni ugradanyňyz ücin sag boluň."
+    "feedback": "Seslenmäni ugradanyňyz ücin sag boluň.",
+    "closedRestaurant": "Bu restoran ýapyk, başga bir ýeri saýlap gorüň."
   },
 
   "Footer": {

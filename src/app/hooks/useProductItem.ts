@@ -3,31 +3,43 @@ import { useCallback, useMemo } from "react";
 import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom, useSetAtom } from "jotai";
 
-//MEMOIZE
-import { DEFAULT_RESTAURANT_INFO } from "../data";
 import useToast from "./useToast";
 
-const useProductItem = () => {
+//MEMOIZE
+import { DEFAULT_RESTAURANT_INFO } from "../data";
+
+const useProductItem = (isRestaurantAvailable: boolean = true) => {
   const toast = useToast();
 
   const [selectedItems, setSelectedItems] = useAtom(atoms.selectedItems);
   const setClearModal = useSetAtom(atoms.isClearBucketModal);
 
-  const increaseItem = useCallback((itemToIncrease: any) => {
-    setSelectedItems((prev) => {
-      const increasedCount = prev.dishes.map((item) => {
-        if (item.id === itemToIncrease.id) {
-          if (item.count === item.availableAmount) {
-            toast("Actions.maxAvailableAmount", "info", { position: "bottom-left" });
-            return item;
+  const handleUnavailableWarning = () => {
+    toast("Actions.closedRestaurant", "warning");
+  };
+
+  const increaseItem = useCallback(
+    (itemToIncrease: any) => {
+      if (!isRestaurantAvailable) {
+        handleUnavailableWarning();
+        return;
+      }
+      setSelectedItems((prev) => {
+        const increasedCount = prev.dishes.map((item) => {
+          if (item.id === itemToIncrease.id) {
+            if (item.count === item.availableAmount) {
+              toast("Actions.maxAvailableAmount", "info", { position: "bottom-left" });
+              return item;
+            }
+            return { ...item, count: item.count + 1 };
           }
-          return { ...item, count: item.count + 1 };
-        }
-        return item;
+          return item;
+        });
+        return { ...prev, dishes: increasedCount };
       });
-      return { ...prev, dishes: increasedCount };
-    });
-  }, []);
+    },
+    [isRestaurantAvailable],
+  );
 
   const decreaseItem = useCallback(
     (itemToDecrease: any) => {
@@ -52,6 +64,10 @@ const useProductItem = () => {
 
   const addItem = useCallback(
     (itemToAdd: Dish, restaurantInfo: RestaurantLocalInfo) => {
+      if (!isRestaurantAvailable) {
+        handleUnavailableWarning();
+        return;
+      }
       const last = selectedItems?.dishes.at(-1);
 
       if (last && last.restaurant?.id !== restaurantInfo.id) {
@@ -70,7 +86,7 @@ const useProductItem = () => {
         }));
       }
     },
-    [selectedItems, setClearModal, setSelectedItems, increaseItem],
+    [selectedItems, isRestaurantAvailable, setClearModal, setSelectedItems, increaseItem],
   );
 
   const toggleDelivery = useCallback(
@@ -107,6 +123,7 @@ const useProductItem = () => {
     totalPrice,
     totalDishes,
     toggleDelivery,
+    handleUnavailableWarning,
   };
 };
 
