@@ -38,7 +38,8 @@
     "dishes": "Tagamlar",
     "freeDelivery": "Eltip bermek mugt",
     "availableLater": "Elýeter däl",
-    "deliveryPrice": "Dostawka"
+    "deliveryPrice": "Dostawka",
+    "clearFilters": "Arassala"
   },
 
   "Login": {
@@ -195,7 +196,8 @@
     "successAddress": "Täze salgyňyz üstünlikli goşuldy",
     "cooperation": "Sag boluň, biz siz bilen hökman habarlaşarys",
     "feedback": "Seslenmäni ugradanyňyz ücin sag boluň.",
-    "closedRestaurant": "Bu restoran ýapyk, başga bir ýeri saýlap gorüň."
+    "closedRestaurant": "Bu restoran ýapyk, başga bir ýeri saýlap gorüň.",
+    "notFound": "Hic zat tapylmady"
   },
 
   "Footer": {

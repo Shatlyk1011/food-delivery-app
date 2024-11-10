@@ -52,9 +52,9 @@ export default function Home() {
           </div>
           {filteredRestaurants && !filteredRestaurants[0].length && (
             <div className="w-full  gap-4 rounded-[14px] px-4 py-4 text-center">
-              <p className="rounded-[14px] px-4 py-2.5 text-base font-semibold">Ничего не найдено</p>
+              <p className="rounded-[14px] px-4 py-2.5 text-base font-semibold">{t("Actions.notFound")}</p>
               <button onClick={clearFilters} className="rounded-full bg-primary px-3 py-2 text-xs tracking-wide">
-                Очистить фильтры
+                {t("Index.clearFilters")}
               </button>
             </div>
           )}

@@ -47,11 +47,6 @@ const Index: FC<Props> = ({ t }) => {
               {isLogin ? t("Login.register") : t("Login.login")}
             </button>
           </p>
-          {/* {isLogin && (
-            <button className="mt-1 cursor-pointer border-b border-[transparent] py-0.5 transition hover:border-text-2">
-              {t("Login.resetPassword")}
-            </button>
-          )} */}
         </div>
       </DialogContent>
     </Dialog>

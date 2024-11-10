@@ -17,7 +17,7 @@ interface Props {
 const Index: FC<Props> = ({ form, deliveryTime, isDelivery, clearLocalStorage, t }) => {
   return (
     <div>
-      <h2 className="le/ading-6 mb-2.5 text-2xl font-bold md:text-base">{t("BucketForm.fillForm")}</h2>
+      <h2 className="mb-2.5 text-2xl font-bold leading-6 md:text-base">{t("BucketForm.fillForm")}</h2>
       <h3 className={`mb-2.5 text-base font-medium leading-5 md:text-sm `}>
         {t("Index.orderType")}: &nbsp;
         <span className={isDelivery ? "text-success" : "text-warning"}>
