@@ -2,7 +2,7 @@ import type { CollectionConfig } from "payload/types";
 
 import { admins } from "../../access/admins";
 
-import { checkRole } from "@/payload/access/checkRole";
+import { checkRole } from "../../access/checkRole";
 
 const FeedbackAndCooperations: CollectionConfig = {
   access: {

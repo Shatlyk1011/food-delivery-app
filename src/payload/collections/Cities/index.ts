@@ -1,6 +1,6 @@
 import type { CollectionConfig } from "payload/types";
 
-import { checkRole } from "@/payload/access/checkRole";
+import { checkRole } from "../../access/checkRole";
 import { admins } from "../../access/admins";
 
 const Cities: CollectionConfig = {

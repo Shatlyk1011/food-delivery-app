@@ -82,15 +82,15 @@ const OrdersComponent = () => {
 
   return (
     <div className={`${styles.container} ${isLight && styles.light}`}>
-      <h3>Заказы</h3>
+      <h3>Orders</h3>
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Район</th>
-            <th>Дом/кв</th>
-            <th className={styles.text_center}>Текущий статус</th>
-            <th className={styles.text_center}>Общая стоимость (с учетом доставки)</th>
-            <th>Дата создания</th>
+            <th>District</th>
+            <th>Home</th>
+            <th className={styles.text_center}>Status</th>
+            <th className={styles.text_center}>Price (delivery included)</th>
+            <th>Created at</th>
           </tr>
         </thead>
 
@@ -113,7 +113,7 @@ const OrdersComponent = () => {
       </table>
       {orders?.length === 0 && (
         <div className={styles.emptyBLock}>
-          <div className={styles.title}>Заказов пока нету</div>
+          <div className={styles.title}>No orders yet</div>
         </div>
       )}
     </div>
