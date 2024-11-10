@@ -52,7 +52,7 @@ const Orders: CollectionConfig = {
   fields: [
     {
       name: "city",
-      label: "Город",
+      label: "City",
       required: false,
       type: "text",
       admin: {
@@ -61,7 +61,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "district",
-      label: "Район",
+      label: "District",
       required: true,
       type: "text",
       admin: {
@@ -70,7 +70,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "apartment",
-      label: "Квартира",
+      label: "Apartment",
       required: true,
       type: "text",
       admin: {
@@ -79,7 +79,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "houseNumber",
-      label: "Номер дома",
+      label: "House number",
       required: true,
       type: "text",
       admin: {
@@ -88,7 +88,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "entrance",
-      label: "Подъезд",
+      label: "Entrance",
       required: false,
       type: "text",
       admin: {
@@ -97,7 +97,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "phoneNumber",
-      label: "Номер телефана",
+      label: "Phone number",
       required: true,
       type: "number",
       admin: {
@@ -118,26 +118,26 @@ const Orders: CollectionConfig = {
         },
       },
       defaultValue: "pending",
-      label: "Статус заказа ",
+      label: "Status ",
       options: [
         {
-          label: "Обработка",
+          label: "Pending",
           value: "pending",
         },
         {
-          label: "Принято",
+          label: "Recieved",
           value: "recieved",
         },
         {
-          label: "Отправлено",
+          label: "Sended",
           value: "sended",
         },
         {
-          label: "Доставлено",
+          label: "Delivered",
           value: "delivered",
         },
         {
-          label: "Отказано",
+          label: "Rejected",
           value: "rejected",
         },
       ],
@@ -148,7 +148,7 @@ const Orders: CollectionConfig = {
     {
       name: "totalAmount",
       type: "number",
-      label: "Общая сумма заказа",
+      label: "Total amount",
       admin: {
         position: "sidebar",
         readOnly: true,
@@ -156,7 +156,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "deliveryPrice",
-      label: "Стоимость доставки",
+      label: "Delivery price",
       required: false,
       type: "text",
       admin: {
@@ -167,7 +167,7 @@ const Orders: CollectionConfig = {
     {
       name: "restaurantName",
       type: "text",
-      label: "Название ресторана",
+      label: "Restaurant name",
       admin: {
         position: "sidebar",
         readOnly: true,
@@ -175,7 +175,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "commentToCourier",
-      label: "Коментарий курьеру",
+      label: "Comment to courier",
       required: false,
       type: "text",
       admin: {
@@ -185,7 +185,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "commentToRestaurant",
-      label: "Коментарий ресторану",
+      label: "Comment to restaurant",
       required: false,
       type: "text",
       admin: {
@@ -195,7 +195,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "isDelivery",
-      label: "Доставка?",
+      label: "Is delivery available? ",
       required: true,
       admin: {
         position: "sidebar",
@@ -208,7 +208,7 @@ const Orders: CollectionConfig = {
       fields: [
         {
           name: "dish",
-          label: "Блюдо",
+          label: "Dish",
           relationTo: "dishes",
           type: "relationship",
         },
@@ -225,7 +225,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "restaurantID",
-      label: "ID ресторана",
+      label: "Restaurant ID ",
       required: true,
       type: "text",
       admin: {
@@ -234,7 +234,7 @@ const Orders: CollectionConfig = {
     },
     {
       name: "orderedByUser",
-      label: "ID пользователя",
+      label: "User ID",
       required: true,
       type: "text",
       admin: {
@@ -242,7 +242,7 @@ const Orders: CollectionConfig = {
       },
     },
   ],
-  labels: { plural: "Заказы", singular: "Заказ" },
+  labels: { plural: "Orders", singular: "Order" },
   slug: "orders",
   timestamps: true,
   hooks: {
@@ -252,20 +252,21 @@ const Orders: CollectionConfig = {
 
         if (operation === "create") {
           const now = new Date();
-          const thirtyMinutesAgo = new Date(now.getTime() - 60 * 1000);
+          const hourAgo = new Date(now.getTime() - 60 * 1000);
 
           const recentOrders = await req.payload.find({
             collection: "orders",
             where: {
               orderedByUser: { equals: req.user.id },
-              createdAt: { greater_than: thirtyMinutesAgo },
+              createdAt: { greater_than: hourAgo },
             },
             limit: 0,
             depth: 0,
           });
           console.log("recentOrders", recentOrders);
-          if (recentOrders.totalDocs >= 5) {
-            throw new Error("Пожалуйста, подождите...");
+          // user cannot order more than 3 orders per hour
+          if (recentOrders.totalDocs >= 3) {
+            throw new Error("You are ordering to much. Please wait...");
           }
         }
 
@@ -296,11 +297,11 @@ const Orders: CollectionConfig = {
 
         const restaurant = restaurantResult.docs[0];
         if (!restaurant) {
-          throw new Error("Что-то пошло не так. Ресторан не найден");
+          throw new Error("Something went wrong. Restaurant not found.");
         }
 
         if (!foundDishes.docs.length) {
-          throw new Error("Что-то пошло не так. Выбранные блюда не найдены.");
+          throw new Error("Something went wrong. The selected dishes were not found.");
         }
 
         let totalAmount = 0;
@@ -314,7 +315,7 @@ const Orders: CollectionConfig = {
         data.dishes = findAndCountDishes;
         data.totalAmount = totalAmount;
         data.deliveryPrice = deliveryPrice;
-        data.restaurantName = restaurant.title || "Название ресторана не найдено...";
+        data.restaurantName = restaurant.title || "Restaurant name not found...";
       },
     ],
   },

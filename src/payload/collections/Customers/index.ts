@@ -40,20 +40,14 @@ const Customers: CollectionConfig = {
   fields: [
     {
       name: "name",
-      label: "Название ресторана",
+      label: "Username",
       type: "text",
     },
     {
       name: "phone",
-      label: "Номер телефона",
+      label: "Phone number",
       required: false,
       type: "text",
-      validate: (value) => {
-        if (!value || value.length < 8 || value.length > 8) {
-          return "payloadPhoneValidation";
-        }
-        return true;
-      },
     },
 
     {
@@ -63,23 +57,10 @@ const Customers: CollectionConfig = {
         update: admins,
       },
       hasMany: true,
-      label: "Ресторан",
+      label: "Restaurant",
       relationTo: "restaurants",
       type: "relationship",
     },
-
-    // {
-    //   name: "orders",
-    //   required: false,
-    //   access: {
-    //     read: admins,
-    //     update: admins,
-    //   },
-    //   hasMany: true,
-    //   label: "Заказы",
-    //   relationTo: "orders",
-    //   type: "relationship",
-    // },
 
     {
       name: "isBlocked",
@@ -88,7 +69,7 @@ const Customers: CollectionConfig = {
         update: admins,
       },
       defaultValue: false,
-      label: "Заблокирован",
+      label: "Is blocked?",
       required: false,
       type: "checkbox",
     },
@@ -102,23 +83,23 @@ const Customers: CollectionConfig = {
       },
       options: [
         {
-          label: "Админ",
+          label: "Admin",
           value: "admin",
         },
         {
-          label: "Ресторатор",
+          label: "Admin",
           value: "author",
         },
-        // {
-        //   label: "moderator",
-        //   value: "moderator",
-        // },
+        {
+          label: "Guest",
+          value: "guest",
+        },
       ],
       type: "select",
     },
   ],
 
-  labels: { plural: "Владельцы ресторанов", singular: "Владелец ресторана" },
+  labels: { plural: "Customers", singular: "Customer" },
   slug: "customers",
   timestamps: true,
 };

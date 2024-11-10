@@ -28,25 +28,25 @@ const Dishes: CollectionConfig = {
   fields: [
     {
       name: "title",
-      label: "Название блюда",
+      label: "Dish name",
       required: true,
       type: "text",
     },
     {
       name: "description",
-      label: "Описание (состав)",
+      label: "Description (compounds)",
       maxLength: 200,
       required: true,
       type: "textarea",
     },
     {
       name: "price",
-      label: "Цена (в манатах)",
+      label: "Price (usd)",
       required: true,
       type: "number",
       validate: (value) => {
         if (value < 0) {
-          return "Цена блюда не может быть меньше 0.";
+          return "The price of a dish cannot be less than 0.";
         }
         return true;
       },
@@ -54,12 +54,12 @@ const Dishes: CollectionConfig = {
 
     {
       name: "gram",
-      label: "Вес (в граммах)",
+      label: "weight of the dish (gram)",
       required: true,
       type: "number",
       validate: (value) => {
         if (value < 0) {
-          return "Вес блюда не может быть меньше 0.";
+          return "The weight of a dish cannot be less than 0.";
         }
         return true;
       },
@@ -70,12 +70,12 @@ const Dishes: CollectionConfig = {
         position: "sidebar",
       },
       defaultValue: 30,
-      label: "Доступно в наличии",
+      label: "Available amount",
       required: false,
       type: "number",
       validate: (value) => {
         if (value < 0) {
-          return "Значение не может быть меньше 0.";
+          return "The value cannot be less than 0.";
         }
         return true;
       },
@@ -84,12 +84,12 @@ const Dishes: CollectionConfig = {
     {
       name: "cookTime",
       defaultValue: 30,
-      label: "Время приготовления (в минутах)",
+      label: "Cooking time (in minutes)",
       required: true,
       type: "number",
       validate: (value) => {
         if (value < 0) {
-          return "Время приготовления не может быть меньше 0.";
+          return "Cooking time cannot be less than 0.";
         }
         return true;
       },
@@ -108,24 +108,22 @@ const Dishes: CollectionConfig = {
           equals: "dish",
         },
       },
-      label: "Категория блюда",
+      label: "Category of dish",
       relationTo: "categories",
       required: false,
       type: "relationship",
     },
     {
       name: "image",
-      label: "Изображение блюда",
+      label: "Image of the dish",
       relationTo: "media",
       required: false,
       type: "upload",
     },
     {
       name: "restaurant",
-      label: "Выберите свой ресторан",
+      label: "Choose your restaurant",
       relationTo: "restaurants",
-      //can me true to let 1 dish be available in several restaurants
-      // hasMany: true,
       required: true,
       type: "relationship",
     },
@@ -134,14 +132,14 @@ const Dishes: CollectionConfig = {
       admin: {
         hidden: true,
       },
-      label: "Пользователь",
+      label: "User",
       relationTo: "customers",
       type: "relationship",
     },
     {
       name: "isBlocked",
       defaultValue: false,
-      label: "Заблокировано",
+      label: "Is blocked?",
       required: false,
       type: "checkbox",
     },
@@ -156,7 +154,7 @@ const Dishes: CollectionConfig = {
       },
     ],
   },
-  labels: { plural: "Блюда", singular: "Блюдо" },
+  labels: { plural: "Dishes", singular: "Dish" },
   slug: "dishes",
   timestamps: true,
 };

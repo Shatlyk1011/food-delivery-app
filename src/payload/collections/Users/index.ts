@@ -43,58 +43,52 @@ const Users: CollectionConfig = {
   fields: [
     {
       name: "name",
-      label: "Имя пользователя",
+      label: "Username",
       required: true,
       type: "text",
     },
 
     {
       name: "phone",
-      label: "Номер телефона",
+      label: "Phone number",
       required: true,
       type: "text",
-      validate: (value) => {
-        if (!value || value.length < 8 || value.length > 8) {
-          return "payloadPhoneValidation";
-        }
-        return true;
-      },
     },
     {
       name: "addresses",
       fields: [
         {
           name: "city",
-          label: "Город",
+          label: "City",
           required: false,
           type: "text",
         },
         {
           name: "district",
-          label: "Район",
+          label: "District",
           required: true,
           type: "text",
         },
         {
           name: "apartment",
-          label: "Квартира",
+          label: "Apartment",
           required: true,
           type: "text",
         },
         {
           name: "houseNumber",
-          label: "Номер дома",
+          label: "House number",
           required: true,
           type: "text",
         },
         {
           name: "entrance",
-          label: "Подъезд",
+          label: "Entrance",
           required: false,
           type: "text",
         },
       ],
-      label: "Адреса",
+      label: "Adresses",
       required: false,
       type: "array",
     },
@@ -105,14 +99,14 @@ const Users: CollectionConfig = {
       hasMany: true,
       options: [
         {
-          label: "Пользователь",
+          label: "User",
           value: "user",
         },
       ],
       type: "select",
     },
   ],
-  labels: { plural: "Пользователи", singular: "Пользователь" },
+  labels: { plural: "Users", singular: "User" },
   slug: "users",
   timestamps: true,
 };

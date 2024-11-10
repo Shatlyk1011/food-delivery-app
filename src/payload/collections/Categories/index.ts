@@ -26,34 +26,34 @@ const Categories: CollectionConfig = {
   fields: [
     {
       name: "category",
-      label: "Категория",
+      label: "Categories",
       required: true,
       type: "text",
       unique: true,
     },
     {
       name: "value",
-      label: "Значение (value)",
+      label: "Value",
       required: true,
       type: "text",
       unique: true,
     },
     {
       name: "order",
-      label: "Порядок",
+      label: "Order",
       required: false,
       type: "number",
     },
     {
       name: "type",
-      label: "Тип (блюдо или ресторан)",
+      label: "Type",
       options: [
         {
-          label: "Блюдо",
+          label: "Dish",
           value: "dish",
         },
         {
-          label: "Ресторан",
+          label: "Restaurant",
           value: "restaurant",
         },
       ],
@@ -61,7 +61,7 @@ const Categories: CollectionConfig = {
       type: "select",
     },
   ],
-  labels: { plural: "Категории", singular: "Категория" },
+  labels: { plural: "Categories", singular: "Category" },
   slug: "categories",
   timestamps: false,
 };

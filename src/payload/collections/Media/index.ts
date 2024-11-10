@@ -2,9 +2,9 @@ import type { CollectionConfig } from "payload/types";
 
 import path from "path";
 
-import adminAndCreatedByUser from "../access/adminAndCreatedByUser";
-import { admins } from "../access/admins";
-import adminsAndUser from "../access/adminsAndUser";
+import adminAndCreatedByUser from "../../access/adminAndCreatedByUser";
+import { admins } from "../../access/admins";
+import adminsAndUser from "../../access/adminsAndUser";
 
 const Media: CollectionConfig = {
   access: {
@@ -26,7 +26,7 @@ const Media: CollectionConfig = {
   fields: [
     {
       name: "alt",
-      label: "Альтернативный текст",
+      label: "Image alt text",
       required: true,
       type: "text",
     },
@@ -35,7 +35,7 @@ const Media: CollectionConfig = {
       admin: {
         hidden: true,
       },
-      label: "Пользователь",
+      label: "Users",
       relationTo: "customers",
       type: "relationship",
     },
@@ -50,7 +50,7 @@ const Media: CollectionConfig = {
       },
     ],
   },
-  labels: { plural: "Изображении", singular: "Изображение" },
+  labels: { plural: "Images", singular: "Image" },
   slug: "media",
 
   upload: {

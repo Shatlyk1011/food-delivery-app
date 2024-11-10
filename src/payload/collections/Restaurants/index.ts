@@ -47,18 +47,18 @@ const Restaurants: CollectionConfig = {
       access: {
         update: admins,
       },
-      label: "Название ресторана",
+      label: "Restaurant name",
       required: true,
       type: "text",
     },
     {
       name: "description",
-      label: "Описание ресторана",
+      label: "Restaurant description",
       type: "text",
     },
     {
       name: "address",
-      label: "Адрес ресторана",
+      label: "Restaurant address",
       required: true,
       type: "text",
     },
@@ -68,7 +68,7 @@ const Restaurants: CollectionConfig = {
         position: "sidebar",
       },
       defaultValue: "60",
-      label: "Время доставки ",
+      label: "Delivery time",
       options: DELIVERY_TIMES,
       required: true,
       type: "select",
@@ -77,12 +77,12 @@ const Restaurants: CollectionConfig = {
     {
       name: "deliveryPrice",
       defaultValue: 5,
-      label: "Цена доставки (в манатах)",
+      label: "Delivery price (in usd)",
       required: true,
       type: "number",
       validate: (value) => {
         if (value < 0) {
-          return "Цена доставки не может быть меньше 0.";
+          return "Shipping price cannot be less than 0.";
         }
         return true;
       },
@@ -90,7 +90,7 @@ const Restaurants: CollectionConfig = {
     {
       name: "freeAfterAmount",
       defaultValue: 150,
-      label: "Бесплатно после (в манатах)",
+      label: "Free after amount (in usd)",
       required: false,
       type: "number",
     },
@@ -100,39 +100,39 @@ const Restaurants: CollectionConfig = {
       fields: [
         {
           name: "openTime",
-          label: "Время открытия",
+          label: "Open time",
           options: OPEN_HOURS,
           required: true,
           type: "select",
         },
         {
           name: "closeTime",
-          label: "Время закрытия",
+          label: "Close time",
           options: CLOSE_HOURS,
           required: true,
           type: "select",
         },
       ],
-      label: "Режим работы",
+      label: "Working hours",
       type: "group",
     },
     {
       name: "isClosed",
       defaultValue: false,
-      label: "Закрыто",
+      label: "Is closed?",
       required: false,
       type: "checkbox",
     },
     {
       name: "isDelivery",
       defaultValue: false,
-      label: "Доступна ли доставка?",
+      label: "Is delivery available?",
       required: true,
       type: "checkbox",
     },
     {
       name: "bannerImage",
-      label: "Главное изображение",
+      label: "Main image (banner)",
       relationTo: "media",
       type: "upload",
     },
@@ -144,7 +144,7 @@ const Restaurants: CollectionConfig = {
       },
       hasMany: true,
       required: false,
-      label: "Категории ресторана",
+      label: "Restaurant categories",
       relationTo: "categories",
       type: "relationship",
       filterOptions: {
@@ -158,7 +158,7 @@ const Restaurants: CollectionConfig = {
       hasMany: true,
       relationTo: "dishes",
       type: "relationship",
-      label: "Блюда (доступные)",
+      label: "Dishes",
       admin: {
         position: "sidebar",
       },
@@ -170,18 +170,18 @@ const Restaurants: CollectionConfig = {
         update: admins,
       },
       defaultValue: "2",
-      label: "Ценовая категория",
+      label: "Budget category",
       options: [
         {
-          label: "Не дорогой",
+          label: "Cheap",
           value: "1",
         },
         {
-          label: "Средний",
+          label: "Average",
           value: "2",
         },
         {
-          label: "Дорогой",
+          label: "Expensive",
           value: "3",
         },
       ],
@@ -196,7 +196,7 @@ const Restaurants: CollectionConfig = {
         update: admins,
       },
       defaultValue: true,
-      label: "Заблокировано",
+      label: "Is blocked?",
       required: false,
       type: "checkbox",
     },
@@ -206,7 +206,7 @@ const Restaurants: CollectionConfig = {
         read: () => true,
         update: admins,
       },
-      label: "Какой ресторан?",
+      label: "Which restaurant?",
       relationTo: "customers",
       required: true,
       type: "relationship",
@@ -218,7 +218,7 @@ const Restaurants: CollectionConfig = {
         update: admins,
       },
       hasMany: true,
-      label: "В каких городах есть этот ресторан?",
+      label: "In which cities is this restaurant located?",
       relationTo: "cities",
       required: false,
 
@@ -240,7 +240,7 @@ const Restaurants: CollectionConfig = {
       },
     ],
   },
-  labels: { plural: "Рестораны", singular: "Ресторан" },
+  labels: { plural: "Restaurants", singular: "Restaurant" },
   slug: "restaurants",
 };
 

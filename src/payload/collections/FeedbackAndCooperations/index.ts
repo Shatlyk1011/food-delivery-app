@@ -19,19 +19,19 @@ const FeedbackAndCooperations: CollectionConfig = {
     {
       name: "name",
       type: "text",
-      label: "Имя",
+      label: "Name",
       required: false,
     },
     {
       name: "phoneNumber",
       type: "text",
-      label: "Номер телефона",
+      label: "Phone number",
       required: false,
     },
     {
       name: "description",
       type: "textarea",
-      label: "Описание",
+      label: "Description",
       required: true,
     },
     {
@@ -40,17 +40,17 @@ const FeedbackAndCooperations: CollectionConfig = {
       required: true,
       options: [
         {
-          label: "Сотрудничество",
+          label: "Cooperation",
           value: "cooperation",
         },
         {
-          label: "Обратная связь",
+          label: "Feedback",
           value: "feedback",
         },
       ],
     },
   ],
-  labels: { plural: "Отзывы и предложения", singular: "Отзыв/предложение" },
+  labels: { plural: "Feedback and suggestions", singular: "Feedback and suggestions" },
   slug: "FeedbackAndCooperations",
   timestamps: true,
 };

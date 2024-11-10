@@ -1,26 +1,26 @@
 export const DELIVERY_TIMES = [
   {
-    label: "30 - мин",
+    label: "30 - min",
     value: "30",
   },
   {
-    label: "45 - мин",
+    label: "45 - min",
     value: "45",
   },
   {
-    label: "60 - мин",
+    label: "60 - min",
     value: "60",
   },
   {
-    label: "90 - мин",
+    label: "90 - min",
     value: "90",
   },
   {
-    label: "120 - мин",
+    label: "120 - min",
     value: "120",
   },
   {
-    label: "120+ - мин",
+    label: "120+ - min",
     value: "not_today",
   },
 ];
