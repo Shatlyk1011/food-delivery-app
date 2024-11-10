@@ -9,7 +9,7 @@ const Users: CollectionConfig = {
     create: () => true,
     delete: admins,
     read: ({ req: { user } }) => {
-      if (checkRole(["admin"], user)) {
+      if (checkRole(["admin", "guest"], user)) {
         return true;
       }
       if (checkRole(["user"], user)) {

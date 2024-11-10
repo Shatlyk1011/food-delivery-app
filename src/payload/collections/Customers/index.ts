@@ -1,8 +1,8 @@
 import type { CollectionConfig } from "payload/types";
 
-import { admins } from "../../access/admins";
-import { checkRole } from "../../access/checkRole";
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
+import { checkRole } from "../../access/checkRole";
+import { admins } from "../../access/admins";
 
 const Customers: CollectionConfig = {
   access: {
@@ -10,7 +10,7 @@ const Customers: CollectionConfig = {
     create: admins,
     delete: admins,
     read: ({ req }) => {
-      if (checkRole(["admin"], req.user)) {
+      if (checkRole(["admin", "guest"], req.user)) {
         return true;
       }
       if (req.user?.isBlocked) {

@@ -8,11 +8,10 @@ import OrderRefetchComponent from "../../components/OrdersRefetch";
 const Orders: CollectionConfig = {
   access: {
     create: ({ req: { user } }) => checkRole(["user"], user),
-    // create: () => true,
     delete: admins,
     read: ({ req }) => {
       if (req.user) {
-        if (checkRole(["admin"], req.user)) {
+        if (checkRole(["admin", "guest"], req.user)) {
           return true;
         }
         if (checkRole(["author"], req.user)) {

@@ -79,7 +79,7 @@ export interface Customer {
   phone?: string | null;
   restaurant?: (string | Restaurant)[] | null;
   isBlocked?: boolean | null;
-  roles?: ('admin' | 'author')[] | null;
+  roles?: ('admin' | 'author' | 'guest')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;

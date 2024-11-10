@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload/types";
 
 import adminAndCreatedByUser from "../../access/adminAndCreatedByUser";
+
 import { checkRole } from "../../access/checkRole";
 
 const Dishes: CollectionConfig = {
@@ -9,7 +10,7 @@ const Dishes: CollectionConfig = {
     delete: adminAndCreatedByUser,
     read: ({ req }) => {
       if (req.user) {
-        if (req.user.roles?.includes("admin")) return true;
+        if (checkRole(["admin", "guest"], req.user)) return true;
 
         if (req.headers.referer?.includes("/admin")) {
           return adminAndCreatedByUser({ req });

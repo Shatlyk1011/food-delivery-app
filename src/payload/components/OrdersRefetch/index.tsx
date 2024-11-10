@@ -9,11 +9,11 @@ import { getLocaleDate } from "../../../app//hooks/getLocaleData";
 import styles from "./styles.module.scss";
 
 export const ORDER_STATUSES = {
-  pending: "В ожидании",
-  recieved: "Принято",
-  sended: "Отправлено",
-  delivered: "Доставлено",
-  rejected: "Отказано",
+  pending: "Pending",
+  recieved: "Recieved",
+  sended: "Sended",
+  delivered: "Delivered",
+  rejected: "Rejected",
 };
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

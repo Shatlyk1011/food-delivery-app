@@ -1,12 +1,17 @@
 import type { CollectionConfig } from "payload/types";
 
+import { checkRole } from "@/payload/access/checkRole";
 import { admins } from "../../access/admins";
 
 const Cities: CollectionConfig = {
   access: {
     create: admins,
     delete: admins,
-    read: admins,
+    read: ({ req }) => {
+      if (checkRole(["admin", "guest"], req.user)) {
+        return true;
+      }
+    },
     update: admins,
   },
 
