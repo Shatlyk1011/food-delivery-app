@@ -6,7 +6,7 @@ import { USER_TOKEN } from "./app/shared/constants";
 
 // Custom middleware
 const middleware = createMiddleware({
-  defaultLocale: "ru",
+  defaultLocale: "en",
   locales,
   localePrefix,
 });

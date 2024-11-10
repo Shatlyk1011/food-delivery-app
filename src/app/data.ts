@@ -3,6 +3,7 @@ export const CITIES = [{ title: "Turkmenabat", value: "turkmenabat" }];
 export const LANGUAGES = [
   { title: "Русский", value: "ru" },
   { title: "Turkmen", value: "tk" },
+  { title: "English", value: "en" },
 ];
 
 export const BUCKET_INPUTS = [

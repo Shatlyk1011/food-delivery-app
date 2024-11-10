@@ -8,7 +8,7 @@ import { LANGUAGES } from "@/app/data";
 
 interface Props {
   languageTitle: string;
-  handleChange: (locale: "ru" | "tk") => void;
+  handleChange: (locale: "ru" | "tk" | "en") => void;
 }
 
 const Index: FC<Props> = ({ languageTitle, handleChange }) => {

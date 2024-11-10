@@ -17,6 +17,7 @@ export const ORDER_STATUSES = {
 };
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+//This custom component will remain the data up-to-date
 const OrdersComponent = () => {
   const { user } = useAuth();
   const history = useHistory();

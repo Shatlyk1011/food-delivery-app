@@ -1,0 +1,216 @@
+{
+  "Index": {
+    "search": "Search",
+    "searchPlaceholder": "Search for restaurants...",
+    "chooseCity": "Choose your city",
+    "city": "City",
+    "back": "Back",
+    "delivery": "Delivery",
+    "deliveryDetailed": "Delivery time",
+    "selfCare": "Pickup",
+    "selfCareTitle": "Pickup location",
+    "selfCareDetailed": "Preparation time",
+    "orderType": "Pickup method",
+    "gr": "g",
+    "clear": "Clear",
+    "bucket": "Cart",
+    "toBucket": "To cart",
+    "noItems": "You haven't added anything yet",
+    "emptyBucket": "Your cart is empty",
+    "add": "Add",
+    "phoneNumber": "Phone number",
+    "min": "min",
+    "now": "Now",
+    "show": "Show",
+    "account": "Account",
+    "profile": "Profile",
+    "logout": "Log out",
+    "language": "Language",
+    "home": "Home",
+    "categories": "Categories",
+    "save": "Save",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "noReview": "Few reviews",
+    "description": "Description",
+    "quantity": "Quantity",
+    "dishes": "Dishes",
+    "freeDelivery": "Free delivery",
+    "availableLater": "Available later",
+    "deliveryPrice": "Delivery cost",
+    "clearFilters": "Clear filters"
+  },
+
+  "Login": {
+    "login": "Login",
+    "rules": "By continuing, you agree to our terms",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "register": "Register",
+    "resetPassword": "Reset password",
+    "loginViaEmail": "Login using your email",
+    "registerAccount": "Create a free account using your email"
+  },
+
+  "MainPage": {
+    "heading": "Popular restaurants",
+
+    "sortBy": "Sort by",
+    "whichShow": "Which ones to show first?",
+    "trustOne": "I trust you",
+    "ratingOne": "Top rated",
+    "fastOne": "Fast",
+    "budgetOne": "Budget",
+    "expensiveOne": "Expensive",
+    "average": "On average",
+
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "workingHours": "Working hours",
+    "about": "About us",
+    "advertisement": "Advertisement",
+    "collab": "Collaboration",
+    "feedback": "Leave feedback",
+    "rights": "All rights reserved"
+  },
+
+  "RestaurantPage": {
+    "menu": "Menu",
+    "currentRestaurant": "Current restaurant",
+    "changeRestaurant1": "All previously added dishes from the restaurant",
+    "changeRestaurant2": "will be removed from the cart.",
+    "freeDeliveryAfter": "Free delivery for orders over {price} TMT"
+  },
+
+  "BucketForm": {
+    "fillForm": "Fill in the form",
+    "district": "District *",
+    "houseNumber": "House number *",
+    "kw": "Apt/Office *",
+    "phoneNumber": "Phone number *",
+    "entrance": "Entrance",
+    "leaveComment": "Comment for the courier (street name, etc.)",
+    "deliveryTime": "Delivery time",
+    "chooseAddress": "Choose an address",
+    "addNewAddress": "Add new address",
+    "createNewAddress": "Create new address"
+  },
+
+  "BucketPage": {
+    "orders": "Your order",
+    "tools": "Cutlery",
+    "summary": "Total",
+    "price": "Product cost",
+    "totalPrice": "Total cost",
+    "submit": "Confirm and order",
+    "menuReturn": "Return to the list of restaurants",
+    "clearTrash": "Clear cart",
+    "yesClear": "Clear",
+    "noClear": "No, keep",
+    "restaurantComment": "Comment for the restaurant",
+    "restaurantCommentPlaceholder": "You can add requests for your order..."
+  },
+
+  "ProfilePage": {
+    "yourProfile": "Your profile",
+    "yourName": "Your name",
+    "phoneNumber": "Phone number",
+    "deliveryAddress": "Delivery address",
+    "yourEmail": "Your email",
+    "chooseAddress": "Choose delivery address",
+    "history": "Order history",
+    "info": "In your profile, you can check your order history and current status of active requests. The status can be tracked in the 'Status' column. Information is updated in real time.",
+    "emptyHistory": "You haven't ordered anything yet",
+    "restaurantName": "Restaurant name",
+    "dishesName": "Dish names",
+    "price": "Price",
+    "deliveryType": "Order type",
+    "orderTime": "Order time",
+    "status": "Status",
+    "changeAddressSettings": "Change address settings",
+    "city": "City",
+    "houseNumber": "House *",
+    "appartmentOffice": "Apartment / Office *",
+
+    "dishTitle": "Dish name"
+  },
+
+  "Status": {
+    "pending": "Pending",
+    "recieved": "Received",
+    "sended": "Sent",
+    "delivered": "Delivered",
+    "rejected": "Rejected"
+  },
+
+  "Placeholder": {
+    "email": "Enter your email",
+    "password": "Password",
+    "name": "Enter your name",
+    "phone": "Enter phone number",
+    "enterDistrict": "Enter your district",
+    "enterCity": "Enter your city",
+    "enterHouseNumber": "Enter your house number",
+    "enterAppartmentOffice": "Enter apartment / office number"
+  },
+
+  "Categories": {
+    "all": "All",
+    "burgers": "Burgers",
+    "sushi": "Sushi",
+    "pasta": "Pasta",
+    "breakfasts": "Breakfast",
+    "lunches": "Lunch",
+    "dinner": "Dinner"
+  },
+
+  "Zod": {
+    "invalidEmail": "Please enter a valid email.",
+    "invalidPassLength": "Password must be at least 8 characters long.",
+
+    "invalidUsername": "Name must be at least 4 characters.",
+    "invalidPhone": "Last 8 characters of the phone number",
+
+    "invalidAddress": "Select your delivery city",
+    "invalidDistrict": "Enter your delivery district",
+    "invalidHome": "Enter your house number",
+    "invalidApartment": "Enter your apartment",
+    "invalidEntrance": "Enter entrance (if applicable)",
+    "invalidComment": "Leave a comment for the courier to help locate you"
+  },
+
+  "Errors": {
+    "somethingWentWrong": "Something went wrong..."
+  },
+
+  "Actions": {
+    "logoutUser": "Successfully logged out",
+    "maxAvailableAmount": "You've added the maximum available amount.",
+    "noDeliveryAvailable": "Currently, this restaurant does not provide delivery.",
+    "loginToAddAddresses": "Please log in to select your delivery addresses.",
+    "loginToOrder": "Authorization is required to place an order.",
+    "chooseRestaurant": "Please choose a restaurant",
+    "successOrder": "Order successfully placed. A manager may contact you for confirmation",
+    "successAddress": "New address added successfully",
+    "cooperation": "Thank you, we will contact you soon",
+    "feedback": "Thank you for your feedback.",
+    "closedRestaurant": "This restaurant is closed, please choose another.",
+    "notFound": "Nothing found"
+  },
+
+  "Footer": {
+    "coopHeading": "Collaboration",
+    "coopSubHead": "Want to expand your establishment and attract new customers? Leave a request, and we will contact you soon.",
+    "coopTellAbout": "Briefly tell us about your establishment and provide the address *",
+    "coopRestriction": "Note: Currently, our platform is only available in the city of Turkmenabat.",
+    "coopSend": "Send request",
+
+    "feedbackHeading": "Submit feedback on the service",
+    "feedbackSubHeading": "We value your attention to our service and appreciate your willingness to help us improve!",
+    "feedbackSend": "Send request",
+    "feedbackTitle": "Describe the issue",
+    "feedbackPlaceholder": "Tell us why you decided to submit feedback"
+  }
+}

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 //components
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/app/components/shared-ui/Collapsible";
@@ -17,6 +18,8 @@ interface Props {
 }
 
 const OrdersTable: FC<Props> = ({ userOrders, t }) => {
+  const { locale } = useRouter();
+
   return (
     <section className="h-[100vh-366px] w-full">
       <h1 className="mb-4 pt-2 text-2xl font-semibold">{t("ProfilePage.history")}</h1>
@@ -24,7 +27,7 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
       <div className="w-full overflow-auto">
         <div className="mt-4 min-w-[800px] border border-black/15 shadow-xl">
           {/* /header */}
-          <ul className="flex w-full items-center bg-gray-2/70 text-base font-bold text-black/80 md:text-xs xl:text-sm [&>*]:p-4 md:[&>*]:p-2 xl:[&>*]:p-2.5">
+          <ul className="flex w-full items-center bg-gray-2/70 text-base font-bold text-black/80 xl:text-sm md:text-xs [&>*]:p-4 xl:[&>*]:p-2.5 md:[&>*]:p-2">
             <li className="w-[5%]"></li>
             {PROFILE_OUTER_HEAD.map(({ title, className }) => (
               <li className={`${className}`} key={title}>
@@ -38,20 +41,10 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
           {/* //body */}
           <div className="w-full">
             {userOrders?.map(
-              ({
-                restaurantName,
-                district,
-                apartment,
-                totalAmount,
-                createdAt,
-                deliveryPrice,
-                isDelivery,
-                orderStatus,
-                dishes,
-              }) => (
+              ({ restaurantName, district, apartment, totalAmount, createdAt, deliveryPrice, orderStatus, dishes }) => (
                 <Collapsible key={createdAt}>
                   <div className="flex flex-col">
-                    <ul className="flex items-center break-words border-b border-black/20 md:text-xs xl:text-sm [&>*]:p-4 md:[&>*]:p-1.5 xl:[&>*]:p-2.5">
+                    <ul className="flex items-center break-words border-b border-black/20 xl:text-sm md:text-xs [&>*]:p-4 xl:[&>*]:p-2.5 md:[&>*]:p-1.5">
                       <li className="w-[5%] ">
                         <CollapsibleTrigger asChild>
                           <button className="justify-center rounded-full p-2 duration-150 hover:bg-gray-2">
@@ -64,10 +57,8 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
                         {district} / {apartment}
                       </li>
                       <li className="w-[11%] ">{totalAmount + +deliveryPrice} TMT</li>
-                      <li className={`w-[16%] ${isDelivery ? "text-success" : "text-warning"}`}>
-                        {isDelivery ? t("Index.delivery") : t("Index.selfCare")}
-                      </li>
-                      <li className="w-[17%] ">{getLocaleDate(createdAt)}</li>
+                      <li className={`w-[16%] text-success`}>{t("Index.delivery")}</li>
+                      <li className="w-[17%] ">{getLocaleDate(createdAt, locale)}</li>
                       <li className={`flex w-[16%] items-center space-x-2 ${STATUS_CLASSES[orderStatus]}`}>
                         <p>{t(ORDER_STATUSES[orderStatus])}</p>
                         {orderStatus !== "delivered" && orderStatus !== "rejected" && (

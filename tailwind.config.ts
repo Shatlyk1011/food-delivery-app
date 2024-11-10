@@ -10,8 +10,9 @@ module.exports = {
       "bg-2": "#f1f1f1",
 
       "bg-cover": "rgb(0,0,0,0.7)",
+
       black: "#000",
-      error: "#D00000",
+      white: "#fff",
 
       "gray-1": "#DCE1E7",
       "gray-2": "#E9ECEF",
@@ -21,6 +22,7 @@ module.exports = {
       onHover: "rgba(	251, 219, 101,0.8)",
       primary: "rgb(251, 219, 101)",
       success: "#208B3A",
+      error: "#D00000",
 
       "text-1": "#21201f",
       "text-2": "#404040",
@@ -28,7 +30,6 @@ module.exports = {
       "text-3": "#7D7C83",
       "text-4": "#888",
       warning: "#F8961E",
-      white: "#fff",
     },
     container: {
       center: true,
