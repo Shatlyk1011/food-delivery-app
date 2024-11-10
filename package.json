@@ -1,6 +1,6 @@
 {
-  "name": "@payloadcms/public-demo",
-  "description": "Public Demo for Payload",
+  "name": "Ashpez",
+  "description": "Multi Vendor e-commerce demo applictaion",
   "version": "1.0.0",
   "main": "dist/server.js",
   "license": "MIT",
@@ -14,21 +14,19 @@
     "build:next": "cross-env PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js NEXT_BUILD=true node dist/server.js",
     "build": "cross-env NODE_ENV=production yarn build:payload && yarn build:server && yarn copyfiles && yarn build:next",
     "serve": "cross-env PAYLOAD_CONFIG_PATH=dist/payload/payload.config.js NODE_ENV=production node dist/server.js",
-    "eject": "yarn remove next react react-dom @next/eslint-plugin-next && ts-node eject.ts",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
     "generate:types": "cross-env PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts payload generate:types",
     "generate:graphQLSchema": "cross-env PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts payload generate:graphQLSchema",
     "lint": "eslint src",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "resolutions": {
     "jackspeak": "2.1.1"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
-    "@lexical/clipboard": "0.13.1",
-    "@lexical/code": "0.13.1",
     "@lexical/file": "0.13.1",
     "@lexical/hashtag": "0.13.1",
     "@lexical/headless": "0.13.1",

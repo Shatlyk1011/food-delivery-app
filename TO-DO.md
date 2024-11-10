@@ -1,10 +1,3 @@
-# release
-
-10.09.2024
-
-- ci/cd
-- buy server
-
 ## api
 
 ✅ - learn to work with graphql
@@ -14,8 +7,6 @@
 
 - withCategories; make sure adding "others" to the end of list
 - .env in orders fetch component
-- FIX - es
-- comment to courier/rest about big amount of money
   ✅ - control working times (in backend?)
   ✅ - control whether the restaurant closed or not
 
@@ -24,8 +15,8 @@
 - remove unused libs
   ✅ - make restaurant blockable
 
-- seo (edil ozi)
-- add order field to restaurants
+  ✅ - seo (edil ozi)
+  ✅ - add order field to restaurants
 
 <!-- - add filter orders in profile -->
 
@@ -36,10 +27,6 @@
 
 - ✅ categories for dishes and restaurants (names)
 - ✅ request orders by users id in profile page (interval)
-- add description in collections
-<!-- ex: https://github.com/payloadcms/public-demo/blob/master/src/payload/collections/Media.ts -->
-
-- test test test
 
 ## client
 
@@ -84,7 +71,3 @@
 - phone validation
 
 // REFETCH INSTRUCTION
-
-# TEST BUGS
-
-- order creates with empty order list
