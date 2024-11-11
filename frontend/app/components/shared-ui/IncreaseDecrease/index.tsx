@@ -1,0 +1,26 @@
+import { MinusIcon, PlusIcon } from "@/icons";
+import { FC } from "react";
+
+interface Props {
+  count: string;
+  decrease: () => void;
+  increase: () => void;
+  className?: string;
+}
+
+const Index: FC<Props> = ({ count, decrease, increase, className }) => {
+  return (
+    <div
+      className={`max-w-22 flex h-8 w-full items-center justify-between rounded-[14px] bg-gray-2/80 p-1 px-2 md:h-7 md:p-[2px] sm:rounded-xl ${className}`}
+    >
+      <button type="button" onClick={decrease}>
+        <MinusIcon width={20} height={20} />
+      </button>
+      <p className="min-w-4 text-center md:text-sm">{count ?? 1}</p>
+      <button type="button" onClick={increase}>
+        <PlusIcon width={20} height={20} />
+      </button>
+    </div>
+  );
+};
+export default Index;
