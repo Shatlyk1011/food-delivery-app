@@ -1,0 +1,5 @@
+{
+  "ext": "ts",
+  "exec": "ts-node payload/server.ts -- -I",
+  "stdin": false
+}
