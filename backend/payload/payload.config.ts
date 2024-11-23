@@ -1,8 +1,9 @@
+import { buildConfig } from "payload/config";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
-import { slateEditor } from "@payloadcms/richtext-slate";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+
 import path from "path";
-import { buildConfig } from "payload/config";
 
 import Categories from "./collections/Categories";
 import Cities from "./collections/Cities";
@@ -31,7 +32,7 @@ export default buildConfig({
     bundler: webpackBundler(),
     user: Customers.slug,
   },
-  editor: slateEditor({}),
+  editor: lexicalEditor({}),
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),
