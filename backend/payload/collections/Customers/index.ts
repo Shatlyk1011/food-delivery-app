@@ -87,7 +87,7 @@ const Customers: CollectionConfig = {
           value: "admin",
         },
         {
-          label: "Admin",
+          label: "Author",
           value: "author",
         },
         {

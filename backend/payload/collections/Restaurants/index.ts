@@ -46,9 +46,6 @@ const Restaurants: CollectionConfig = {
   fields: [
     {
       name: "title",
-      access: {
-        update: admins,
-      },
       label: "Restaurant name",
       required: true,
       type: "text",
@@ -234,9 +231,9 @@ const Restaurants: CollectionConfig = {
           return doc;
         }
 
-        if (doc.isBlocked) {
-          throw new Error("Errors.isBlocked");
-        }
+        // if (doc.isBlocked) {
+        //   throw new Error("Errors.isBlocked");
+        // }
 
         return doc;
       },
