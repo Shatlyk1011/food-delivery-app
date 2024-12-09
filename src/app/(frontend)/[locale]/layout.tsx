@@ -33,13 +33,13 @@ interface Props {
 }
 
 export default async function RootLayout({ children, params: { locale } }: Props) {
-  // const messages = await getMessages();
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>
+      <body className={inter.className} >
         <JotaiProvider>
-          <NextIntlClientProvider locale={locale} >
+          <NextIntlClientProvider locale={locale} messages={messages}>
             <TanstackQueryProvider>
               <Header />
               <Sidebar />

@@ -2,7 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { locales, localePrefix } from "@/app/(frontend)/_providers/i18n/i18config";
 import { NextResponse } from "next/server";
 
-import { USER_TOKEN } from "./app/shared/constants";
+import { USER_TOKEN } from "@/app/shared/constants";
 
 // Custom middleware
 const middleware = createMiddleware({
@@ -11,9 +11,12 @@ const middleware = createMiddleware({
   localePrefix,
 });
 
-export default async function (req) {
+export default async function (req: any) {
   const { pathname } = req.nextUrl;
 
+  if (pathname.includes('/admin')) {
+    return NextResponse.next();
+  }
   if (pathname.includes("/profile")) {
     const cookie = req.cookies.get(USER_TOKEN);
     if (!cookie) {
