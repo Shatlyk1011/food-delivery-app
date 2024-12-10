@@ -1,20 +1,16 @@
 import createMiddleware from "next-intl/middleware";
-import { locales, localePrefix } from "@/app/(frontend)/_providers/i18n/i18config";
+import { routing } from "@/i18n/routing";
 import { NextResponse } from "next/server";
 
 import { USER_TOKEN } from "@/app/shared/constants";
 
 // Custom middleware
-const middleware = createMiddleware({
-  defaultLocale: "en",
-  locales,
-  localePrefix,
-});
+const middleware = createMiddleware(routing);
 
 export default async function (req: any) {
   const { pathname } = req.nextUrl;
 
-  if (pathname.includes('/admin')) {
+  if (pathname.includes("/admin")) {
     return NextResponse.next();
   }
   if (pathname.includes("/profile")) {
@@ -29,5 +25,5 @@ export default async function (req: any) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/public|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|_next/public|_next/image|favicon.ico ).*)", "/(tk|ru|en)/:path*"],
 };

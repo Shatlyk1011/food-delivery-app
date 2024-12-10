@@ -1,8 +1,8 @@
 import type { CollectionConfig } from "payload";
 
 import { ensureFirstUserIsAdmin } from "./hooks/ensureFirstUserIsAdmin";
-import { checkRole } from "../../access/checkRole";
-import { admins } from "../../access/admins";
+import { checkRole } from "../utils/access/checkRole";
+import { admins } from "../utils/access/admins";
 
 const Customers: CollectionConfig = {
   access: {
@@ -55,7 +55,7 @@ const Customers: CollectionConfig = {
       name: "restaurant",
       access: {
         read: () => true,
-        update: admins,
+        update: ({ req }) => checkRole(["admin"], req.user),
       },
       hasMany: true,
       label: "Restaurant",
@@ -66,8 +66,8 @@ const Customers: CollectionConfig = {
     {
       name: "isBlocked",
       access: {
-        read: admins,
-        update: admins,
+        read: ({ req }) => checkRole(["admin"], req.user),
+        update: ({ req }) => checkRole(["admin"], req.user),
       },
       defaultValue: false,
       label: "Is blocked?",

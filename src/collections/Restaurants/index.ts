@@ -1,9 +1,9 @@
 import type { CollectionConfig } from 'payload'
 
-import { admins } from '../../access/admins'
-import { checkRole } from '../../access/checkRole'
+import { admins } from "../utils/access/admins";
+import { checkRole } from "../utils/access/checkRole";
 
-import { CLOSE_HOURS, DELIVERY_TIMES, OPEN_HOURS } from './data'
+import { CLOSE_HOURS, DELIVERY_TIMES, OPEN_HOURS } from "./data";
 
 const Restaurants: CollectionConfig = {
   access: {
@@ -11,236 +11,236 @@ const Restaurants: CollectionConfig = {
     delete: admins,
     read: ({ req }) => {
       if (req.user) {
-        if (checkRole(['admin', 'guest'], req.user)) {
-          return true
+        if (checkRole(["admin", "guest"], req.user)) {
+          return true;
         }
 
-        if (req.url?.includes('/admin')) {
+        if (req.url?.includes("/admin")) {
           return {
             relatedToUser: {
               equals: req.user.id,
             },
-          }
+          };
         }
       }
-      return true
+      return true;
     },
     update: ({ req: { user } }) => {
-      if (user && checkRole(['admin'], user)) {
-        return true
+      if (user && checkRole(["admin"], user)) {
+        return true;
       } else {
         return {
           relatedToUser: {
             equals: user?.id,
           },
-        }
+        };
       }
     },
   },
 
   admin: {
-    defaultColumns: ['title', 'deliveryTime', 'deliveryPrice', 'isBlocked'],
-    useAsTitle: 'title',
+    defaultColumns: ["title", "deliveryTime", "deliveryPrice", "isBlocked"],
+    useAsTitle: "title",
   },
 
   fields: [
     {
-      name: 'title',
-      label: 'Restaurant name',
+      name: "title",
+      label: "Restaurant name",
       required: true,
-      type: 'text',
+      type: "text",
     },
     {
-      name: 'description',
-      label: 'Restaurant description',
-      type: 'text',
+      name: "description",
+      label: "Restaurant description",
+      type: "text",
     },
     {
-      name: 'address',
-      label: 'Restaurant address',
+      name: "address",
+      label: "Restaurant address",
       required: true,
-      type: 'text',
+      type: "text",
     },
     {
-      name: 'deliveryTime',
+      name: "deliveryTime",
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
       },
-      defaultValue: '60',
-      label: 'Delivery time',
+      defaultValue: "60",
+      label: "Delivery time",
       options: DELIVERY_TIMES,
       required: true,
-      type: 'select',
+      type: "select",
     },
 
     {
-      name: 'deliveryPrice',
+      name: "deliveryPrice",
       defaultValue: 5,
-      label: 'Delivery price (in usd)',
+      label: "Delivery price (in usd)",
       required: true,
-      type: 'number',
+      type: "number",
       validate: (value: any) => {
         if (value < 0) {
-          return 'Shipping price cannot be less than 0.'
+          return "Shipping price cannot be less than 0.";
         }
-        return true
+        return true;
       },
     },
     {
-      name: 'freeAfterAmount',
+      name: "freeAfterAmount",
       defaultValue: 150,
-      label: 'Free after amount (in usd)',
+      label: "Free after amount (in usd)",
       required: false,
-      type: 'number',
+      type: "number",
     },
     //open times close times
     {
-      name: 'workingHours',
+      name: "workingHours",
       fields: [
         {
-          name: 'openTime',
-          label: 'Open time',
+          name: "openTime",
+          label: "Open time",
           options: OPEN_HOURS,
           required: true,
-          type: 'select',
+          type: "select",
         },
         {
-          name: 'closeTime',
-          label: 'Close time',
+          name: "closeTime",
+          label: "Close time",
           options: CLOSE_HOURS,
           required: true,
-          type: 'select',
+          type: "select",
         },
       ],
-      label: 'Working hours',
-      type: 'group',
+      label: "Working hours",
+      type: "group",
     },
     {
-      name: 'isClosed',
+      name: "isClosed",
       defaultValue: false,
-      label: 'Is closed?',
+      label: "Is closed?",
       required: false,
-      type: 'checkbox',
+      type: "checkbox",
     },
     {
-      name: 'isDelivery',
+      name: "isDelivery",
       defaultValue: false,
-      label: 'Is delivery available?',
+      label: "Is delivery available?",
       required: true,
-      type: 'checkbox',
+      type: "checkbox",
     },
     {
-      name: 'bannerImage',
-      label: 'Main image (banner)',
-      relationTo: 'media',
-      type: 'upload',
+      name: "bannerImage",
+      label: "Main image (banner)",
+      relationTo: "media",
+      type: "upload",
     },
     {
-      name: 'categories',
+      name: "categories",
       access: {
-        create: admins,
+        create: ({ req }) => checkRole(["admin"], req.user),
         read: () => true,
       },
       hasMany: true,
       required: false,
-      label: 'Restaurant categories',
-      relationTo: 'categories',
-      type: 'relationship',
+      label: "Restaurant categories",
+      relationTo: "categories",
+      type: "relationship",
       filterOptions: {
         type: {
-          equals: 'restaurant',
+          equals: "restaurant",
         },
       },
     },
     {
-      name: 'dishes',
+      name: "dishes",
       hasMany: true,
-      relationTo: 'dishes',
-      type: 'relationship',
-      label: 'Dishes',
+      relationTo: "dishes",
+      type: "relationship",
+      label: "Dishes",
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
       },
     },
     {
-      name: 'budgetCategory',
+      name: "budgetCategory",
       access: {
         read: () => true,
-        update: admins,
+        update: ({ req }) => checkRole(["admin"], req.user),
       },
-      defaultValue: '2',
-      label: 'Budget category',
+      defaultValue: "2",
+      label: "Budget category",
       options: [
         {
-          label: 'Cheap',
-          value: '1',
+          label: "Cheap",
+          value: "1",
         },
         {
-          label: 'Average',
-          value: '2',
+          label: "Average",
+          value: "2",
         },
         {
-          label: 'Expensive',
-          value: '3',
+          label: "Expensive",
+          value: "3",
         },
       ],
       required: false,
-      type: 'radio',
+      type: "radio",
     },
     {
-      name: 'isBlocked',
+      name: "isBlocked",
       access: {
-        create: admins,
+        create: ({ req }) => checkRole(["admin"], req.user),
         read: () => true,
-        update: admins,
+        update: ({ req }) => checkRole(["admin"], req.user),
       },
       defaultValue: true,
-      label: 'Is blocked?',
+      label: "Is blocked?",
       required: false,
-      type: 'checkbox',
+      type: "checkbox",
     },
     {
-      name: 'relatedToUser',
+      name: "relatedToUser",
       access: {
         read: () => true,
-        update: admins,
+        update: ({ req }) => checkRole(["admin"], req.user),
       },
-      label: 'Which restaurant?',
-      relationTo: 'customers',
+      label: "Which restaurant?",
+      relationTo: "customers",
       required: true,
-      type: 'relationship',
+      type: "relationship",
     },
     {
-      name: 'cities',
+      name: "cities",
       access: {
-        read: admins,
-        update: admins,
+        read: ({ req }) => checkRole(["admin"], req.user),
+        update: ({ req }) => checkRole(["admin"], req.user),
       },
       hasMany: true,
-      label: 'In which cities is this restaurant located?',
-      relationTo: 'cities',
+      label: "In which cities is this restaurant located?",
+      relationTo: "cities",
       required: false,
 
-      type: 'relationship',
+      type: "relationship",
     },
   ],
   hooks: {
     beforeRead: [
       async ({ doc, req }) => {
-        if (checkRole(['admin', 'author'], req.user)) {
-          return doc
+        if (checkRole(["admin", "author"], req.user)) {
+          return doc;
         }
 
         // if (doc.isBlocked) {
         //   throw new Error("Errors.isBlocked");
         // }
 
-        return doc
+        return doc;
       },
     ],
   },
-  labels: { plural: 'Restaurants', singular: 'Restaurant' },
-  slug: 'restaurants',
-}
+  labels: { plural: "Restaurants", singular: "Restaurant" },
+  slug: "restaurants",
+};
 
 export default Restaurants

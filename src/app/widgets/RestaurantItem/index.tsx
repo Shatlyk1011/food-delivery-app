@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Link } from "@/app/(frontend)/_providers/i18n/i18config";
+import { Link } from "@/i18n/routing";
 
 import { MotocycleIcon, StarIcon, UsdIcon } from "@/app/icons";
 

@@ -2,9 +2,9 @@ import type { CollectionConfig } from "payload";
 
 import path from "path";
 
-import adminAndCreatedByUser from "../../access/adminAndCreatedByUser";
-import { admins } from "../../access/admins";
-import adminsAndUser from "../../access/adminsAndUser";
+import adminAndCreatedByUser from "../utils/access/adminAndCreatedByUser";
+import { admins } from "../utils/access/admins";
+import adminsAndUser from "../utils/access/adminsAndUser";
 
 const Media: CollectionConfig = {
   access: {

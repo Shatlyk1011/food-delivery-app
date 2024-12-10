@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
-import { admins } from '../../access/admins'
-import { checkRole } from '../../access/checkRole'
+import { admins } from "../utils/access/admins";
+import { checkRole } from "../utils/access/checkRole";
 
 const Orders: CollectionConfig = {
   access: {

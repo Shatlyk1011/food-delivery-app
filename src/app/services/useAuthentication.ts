@@ -7,7 +7,7 @@ import useToast from "../hooks/useToast";
 
 type LoginFn = (crededentials: LoginCredentials) => Promise<LoginResponse>;
 
-export const loginMe = () => {
+export const useLoginMe = () => {
   const { data } = useQuery<UserData>({
     queryFn: async () => {
       const { data } = await axios({

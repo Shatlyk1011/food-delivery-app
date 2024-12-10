@@ -1,13 +1,13 @@
 "use client";
 import { FC, useEffect } from "react";
-import { useRouter } from "@/app/(frontend)/_providers/i18n/navigation";
+import { useRouter } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 //hooks
 import useChangeLanguage from "@/app/hooks/useChangeLanguage";
-import { loginMe } from "@/app/services/useAuthentication";
+import { useLoginMe } from "@/app/services/useAuthentication";
 
 import { cn } from "@/app/shared/lib/utils";
 
@@ -43,11 +43,13 @@ const Index: FC<Props> = ({ }) => {
   const setUserProfile = useSetAtom(atoms.userProfile);
   const handleQuery = useSetAtom(atoms.query);
 
-  const { currentUser } = loginMe();
+  const { currentUser } = useLoginMe();
 
   useEffect(() => {
     setAuth(Boolean(currentUser));
-    setUserProfile(currentUser);
+    if (currentUser) {
+      setUserProfile(currentUser);
+    }
   }, [currentUser]);
 
   const isBucketPage = pathName.includes("bucket");

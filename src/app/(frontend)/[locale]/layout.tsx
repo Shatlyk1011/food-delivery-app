@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Provider as JotaiProvider } from "jotai";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
+import { routing } from '@/i18n/routing';
 
 //widgets
 import TailwindIndicator from "@/app/components/tailwind-indicator/tailwind-indicator";
@@ -29,17 +31,22 @@ export const metadata: Metadata = constructMetadata({
 
 interface Props {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>
 }
 
-export default async function RootLayout({ children, params: { locale } }: Props) {
+export default async function RootLayout({ children, params }: Props) {
+
+  const { locale } = await params
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale || 'en'}>
       <body className={inter.className} >
         <JotaiProvider>
-          <NextIntlClientProvider locale={locale} messages={messages}>
+          <NextIntlClientProvider messages={messages}>
             <TanstackQueryProvider>
               <Header />
               <Sidebar />

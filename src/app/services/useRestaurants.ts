@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "@/app/shared/lib/axios";
 
 import { DEFAULT_DELIVERY_TIME, DEFAULT_LIMIT } from "@/app/shared/constants";
@@ -5,7 +6,6 @@ import { DEFAULT_DELIVERY_TIME, DEFAULT_LIMIT } from "@/app/shared/constants";
 import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 
 import { RESTAURANT, RESTAURANTS } from "./query/restaurantQuery";
-import { useState } from "react";
 
 export const useGetRestaurantsQuery = (
   { sortBy, deliveryTime, tag }: Filters,
@@ -34,7 +34,7 @@ export const useGetRestaurantsQuery = (
   //use memo?
   //filter by delivery time
   const filteredRestaurants = data?.pages?.map((rests, idx): MainPageRestaurant[] => {
-    if (deliveryTime !== DEFAULT_DELIVERY_TIME) {
+    if (deliveryTime && deliveryTime !== DEFAULT_DELIVERY_TIME) {
       const res = [];
       const filterByTime = rests.filter((item) => +item.workingHours.closeTime.slice(1) >= deliveryTime);
       res[idx] = filterByTime;

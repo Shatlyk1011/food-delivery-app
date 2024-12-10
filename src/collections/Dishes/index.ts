@@ -1,8 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
-import adminAndCreatedByUser from '../../access/adminAndCreatedByUser'
+import adminAndCreatedByUser from "../utils/access/adminAndCreatedByUser";
 
-import { checkRole } from '../../access/checkRole'
+import { checkRole } from "../utils/access/checkRole";
 
 const Dishes: CollectionConfig = {
   access: {

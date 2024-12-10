@@ -1,7 +1,7 @@
 import { CollectionConfig } from "payload";
 
-import { checkRole } from "../../access/checkRole";
-import { admins } from "../../access/admins";
+import { checkRole } from "../utils/access/checkRole";
+import { admins } from "../utils/access/admins";
 
 const Cities: CollectionConfig = {
   access: {

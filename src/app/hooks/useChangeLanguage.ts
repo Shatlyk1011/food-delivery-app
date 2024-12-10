@@ -1,4 +1,4 @@
-import { usePathname, useRouter } from "@/app/(frontend)/_providers/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/routing";
 import atoms from "@/app/(frontend)/_providers/jotai";
 import { useAtom } from "jotai";
 
@@ -7,7 +7,7 @@ const useChangeLanguage = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleChange = (locale: "ru" | "tk") => {
+  const handleChange = (locale: "ru" | "tk" | "en") => {
     if (locale !== selectedLanguage) {
       setSelectedLanguage(locale);
       router.replace(pathname, { locale });
