@@ -22,7 +22,7 @@ const computedPriceNumber = (budgetCategory: string) => {
     case "_2":
       return 2;
 
-    case "_3":
+    default:
       return 3;
   }
 };

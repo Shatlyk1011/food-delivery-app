@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 
@@ -24,12 +24,15 @@ import { CakeIcon } from "@/app/icons";
 
 const AboutProduct = dynamic(() => import("@/app/widgets/RestaurantPage/Product/AboutProduct"));
 
-export default function RestaurantId({ params: { id } }) {
+export default function RestaurantId({ params }: any) {
+  const { id } = use(params) as any;
+
   const t = useTranslations();
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
   const selectedItems = useAtomValue(atoms.selectedItems);
 
-  const { restaurantInfo, withCategories, getRestaurant, isLoading } = useGetRestaurantById(null);
+  const { restaurantInfo, withCategories, getRestaurant, isLoading } = useGetRestaurantById();
+  console.log('restaurantInfo', restaurantInfo)
 
   const isRestaurantAvailable = isRestaurantOpen(
     restaurantInfo?.workingHours?.openTime,
@@ -48,8 +51,10 @@ export default function RestaurantId({ params: { id } }) {
   };
 
   useEffect(() => {
-    getRestaurant(id);
-  }, []);
+    if (id) {
+      getRestaurant(id);
+    }
+  }, [id]);
 
   return (
     <main className="box-content bg-bg-2">
@@ -87,13 +92,13 @@ export default function RestaurantId({ params: { id } }) {
                       <p>{t("RestaurantPage.freeDeliveryAfter", { price: restaurantInfo?.freeAfterAmount })}</p>
                     </div>
                   )}
-                  {withCategories?.map(({ dishes, category }) => {
+                  {withCategories?.map(({ dishes, category }: any) => {
                     const { title, deliveryPrice } = restaurantInfo;
                     return (
                       <div key={category} className="mt-5">
                         <p className="ml-1 text-2xl font-semibold capitalize">{category}</p>
                         <div className="manual_grid_220 mt-2 2xl:mt-4 md:w-full">
-                          {dishes?.map((d) => {
+                          {dishes?.map((d: Dish) => {
                             const isDishDisabled = d.availableAmount === 0;
                             return (
                               <Product
@@ -141,7 +146,7 @@ export default function RestaurantId({ params: { id } }) {
           className="fixed left-0 top-0 z-[10] h-screen w-full bg-white/30"
         ></button>
       )}
-      {isClearModal && (
+      {isClearModal && restaurantInfo && (
         <ClearCartModal
           t={t}
           handleClear={handleClear}

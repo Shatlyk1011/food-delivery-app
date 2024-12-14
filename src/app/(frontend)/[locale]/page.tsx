@@ -32,6 +32,7 @@ export default function Home() {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
+  //use "fetchNextPage" for infinite scroll
   const { isFetchingNextPage, filteredRestaurants, fetchNextPage, isLoading } = useGetRestaurantsQuery(filters, query);
 
   const { categories } = useGetCategories();

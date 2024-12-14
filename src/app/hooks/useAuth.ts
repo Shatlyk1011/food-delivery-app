@@ -17,7 +17,7 @@ const useAuth = () => {
 
   const queryClient = useQueryClient();
 
-  const login = async (variables: LoginCredentials): Promise<LoginResponse> => {
+  const login = async (variables: LoginCredentials): Promise<LoginResponse | undefined> => {
     try {
       const { data } = await axios({
         data: {
@@ -38,8 +38,10 @@ const useAuth = () => {
         location.reload();
       }
       return response;
-    } catch (err) {
-      toast(err, "error", { duration: 4000 });
+    } catch (err: any) {
+      if (err) {
+        toast(err, "error", { duration: 4000 });
+      }
     }
   };
 

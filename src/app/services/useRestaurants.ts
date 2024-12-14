@@ -49,7 +49,7 @@ export const useGetRestaurantById = (schema?: string) => {
   const [isLoading, setLoading] = useState(true);
   const { data, mutate } = useMutation<RestaurantId, { id: string }, any>({
     mutationKey: ["restaurantId"],
-    mutationFn: async (id: string): Promise<RestaurantId> => {
+    mutationFn: async (id: string) => {
       try {
         const { data } = await axios({
           data: {
@@ -57,7 +57,7 @@ export const useGetRestaurantById = (schema?: string) => {
             variables: { id },
           },
         });
-        console.log("data.data.Restaurant", data.data.Restaurant);
+        console.log(data.data.Restaurant);
         return data.data.Restaurant;
       } catch (err) {
         console.log("err", err);
@@ -67,16 +67,15 @@ export const useGetRestaurantById = (schema?: string) => {
     },
   });
 
-  const withCategories: WithCategories[] = data?.dishes?.reduce((acc, dish) => {
-    let category = dish.categories?.category || "Другие";
+  const withCategories: any = data?.dishes?.reduce((acc: any, dish) => {
+    let category = dish.categories?.category || "Others";
 
-    let categoryObj = acc.find((item) => item.category === category);
+    let categoryObj = acc.find((item: any) => item.category === category);
 
     if (!categoryObj) {
       categoryObj = { category, dishes: [] };
       acc.push(categoryObj);
     }
-
     categoryObj.dishes.push(dish);
 
     return acc;

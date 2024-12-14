@@ -13,7 +13,7 @@ import { useCreateAddressFormScheme } from "@/app/hooks/formSchemes";
 import { ADDRES_INPUTS } from "@/app/data";
 
 interface Props {
-  userProfile: UserData | null;
+  userProfile: UserData;
   setUserProfile: (user: UserData) => void;
   t: any;
 }

@@ -22,7 +22,7 @@ const Index: FC<Props> = ({ t, classes }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(login)} className={`space-y-3 text-start ${classes}`}>
-        {Object.keys(form.getValues()).map((key: "login" | "password") => (
+        {Object.keys(form.getValues()).map((key) => (
           <FormField
             key={key}
             control={form.control}
@@ -30,7 +30,7 @@ const Index: FC<Props> = ({ t, classes }) => {
             render={({ field }) => {
               const isPassword = key === "password";
               return (
-                <FormItem className={isPassword && "relative"}>
+                <FormItem className={isPassword ? "relative" : ''}>
                   <FormControl>
                     <Input
                       placeholder={t(`Placeholder.${key}`)}

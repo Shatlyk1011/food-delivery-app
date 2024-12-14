@@ -3,10 +3,9 @@ export const checkRole = (allRoles: ("admin" | "author" | "guest" | "user")[] = 
   if (user) {
     if (
       allRoles.some((role) => {
-        console.log('role', role)
         return user?.roles?.some((individualRole: any) => {
-          return individualRole === role
-        })
+          return individualRole === role;
+        });
       })
     )
       return true;

@@ -8,8 +8,7 @@ const Orders: CollectionConfig = {
     create: ({ req: { user } }) => checkRole(['user'], user),
     delete: admins,
     read: ({ req }): any => {
-      if (!req.user) return false
-      console.log('req.user', req.user)
+      if (!req.user) return false;
       if (req.user) {
         if (checkRole(['admin', 'guest'], req.user)) {
           return true
@@ -259,15 +258,14 @@ const Orders: CollectionConfig = {
           const hourAgo = new Date(now.getTime() - 60 * 1000)
 
           const recentOrders = await req.payload.find({
-            collection: 'orders',
+            collection: "orders",
             where: {
               orderedByUser: { equals: req.user?.id },
               createdAt: { greater_than: hourAgo },
             },
             limit: 0,
             depth: 0,
-          })
-          console.log('recentOrders', recentOrders)
+          });
           // user cannot order more than 3 orders per hour
           if (recentOrders.totalDocs >= 3) {
             throw new Error('You are ordering to much. Please wait...')

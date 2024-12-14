@@ -5,7 +5,7 @@ import axios from "../shared/lib/axios";
 import { LOGIN_ME, REGISTER_MUTATION } from "./query/authQuery";
 import useToast from "../hooks/useToast";
 
-type LoginFn = (crededentials: LoginCredentials) => Promise<LoginResponse>;
+type LoginType = (crededentials: LoginCredentials) => Promise<LoginResponse | undefined>;
 
 export const useLoginMe = () => {
   const { data } = useQuery<UserData>({
@@ -25,7 +25,7 @@ export const useLoginMe = () => {
   return { currentUser: data };
 };
 
-export const useRegister = (loginFn: LoginFn) => {
+export const useRegister = (loginFn: LoginType) => {
   const toast = useToast();
   const { data, mutateAsync } = useMutation<{ name: string }, any, any, any>({
     mutationFn: async (userData) => {

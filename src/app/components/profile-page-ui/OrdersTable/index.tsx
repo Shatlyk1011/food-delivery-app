@@ -13,7 +13,7 @@ import { getLocaleDate } from "@/app/hooks/getLocaleData";
 import { PROFILE_OUTER_HEAD, ORDER_STATUSES, STATUS_CLASSES } from "@/app/data";
 
 interface Props {
-  userOrders: UserOrder[];
+  userOrders?: UserOrder[];
   t: any;
 }
 

@@ -27,7 +27,7 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
       icon: <StarIcon className="md:h-5 md:w-5" />,
       title: t("Index.noReview"),
       //length of reviews
-      subtitle: null,
+      subtitle: undefined,
     },
   ];
 
@@ -38,8 +38,8 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
       </h3>
 
       <div className="flex space-x-2.5">
-        {items.map((item, index) => (
-          <InfoItem key={index} item={item} />
+        {items.map((item) => (
+          <InfoItem key={item.title} item={item} />
         ))}
         <Popover>
           <PopoverTrigger type="button" aria-label="button" className="rounded-[14px] bg-bg-1/85 px-3 py-3">

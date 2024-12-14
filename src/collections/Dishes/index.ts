@@ -12,9 +12,8 @@ const Dishes: CollectionConfig = {
       if (req.user) {
         if (checkRole(['admin', 'guest'], req.user)) return true
 
-        if (req.url?.includes('/admin')) {
-          console.log('dishes cheking', req.url?.includes('/admin'))
-          return adminAndCreatedByUser({ req })
+        if (req.url?.includes("/admin")) {
+          return adminAndCreatedByUser({ req });
         }
       }
       return true
