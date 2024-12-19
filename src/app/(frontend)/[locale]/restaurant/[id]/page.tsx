@@ -25,7 +25,7 @@ import { CakeIcon } from "@/app/icons";
 const AboutProduct = dynamic(() => import("@/app/widgets/RestaurantPage/Product/AboutProduct"));
 
 export default function RestaurantId({ params }: any) {
-  const { id } = use(params) as any;
+  const { id } = use(params) as any
 
   const t = useTranslations();
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);

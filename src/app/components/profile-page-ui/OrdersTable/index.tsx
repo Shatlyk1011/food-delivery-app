@@ -1,6 +1,7 @@
+'use client'
 import { FC } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useLocale } from "next-intl";
 
 //components
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/app/components/shared-ui/Collapsible";
@@ -18,7 +19,7 @@ interface Props {
 }
 
 const OrdersTable: FC<Props> = ({ userOrders, t }) => {
-  const { locale } = useRouter();
+  const locale = useLocale()
 
   return (
     <section className="h-[100vh-366px] w-full">

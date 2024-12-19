@@ -1,7 +1,3 @@
-// categories: {
-//   in: { title: "all" }
-// }
-
 export const RESTAURANTS = `
   query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String, $query:String) {
     Restaurants(
@@ -50,9 +46,7 @@ export const RESTAURANT = `
       }
       isClosed
       isDelivery
-      bannerImage(where: {
-        id: {equals: $id}
-      }) {
+      bannerImage{
         id
         url
         alt

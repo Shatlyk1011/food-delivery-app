@@ -15,6 +15,7 @@ const Restaurants: CollectionConfig = {
           return true;
         }
 
+        //show media only related to current user
         if (req.url?.includes("/admin")) {
           return {
             relatedToUser: {
