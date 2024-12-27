@@ -1,7 +1,5 @@
 import type { CollectionConfig } from "payload";
 
-import path from "path";
-
 import adminAndCreatedByUser from "../utils/access/adminAndCreatedByUser";
 import { admins } from "../utils/access/admins";
 import adminsAndUser from "../utils/access/adminsAndUser";
@@ -13,7 +11,8 @@ const Media: CollectionConfig = {
     read: ({ req }) => {
       if (req.user) {
         if (req.url?.includes('/admin')) {
-          return adminAndCreatedByUser({ req })
+          //fix `adminAndCreatedByUser` - does not work as expected
+          return adminAndCreatedByUser({ req });
         }
       }
       return true;

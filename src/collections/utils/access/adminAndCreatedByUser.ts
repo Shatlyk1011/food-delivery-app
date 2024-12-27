@@ -7,6 +7,7 @@ const adminAndCreatedByUser: Access = ({ req: { user } }) => {
     if (checkRole(['admin'], user)) {
       return true
     }
+
     return {
       createdBy: {
         equals: user.id,
