@@ -28,20 +28,20 @@ const Index: FC<Props> = ({ totalPrice, deliveryPrice, restaurantTitle, restaura
       <ul className="mb-3 space-y-3">
         <li className="flex justify-between sm:text-sm">
           {t("BucketPage.price")}
-          <span>{totalPrice}TMT</span>
+          <span>{totalPrice}$</span>
         </li>
         <li className="flex justify-between sm:text-sm">
           {t("Index.delivery")}
 
           <span className={deliveryPrice == 0 && "text-success" || ''}>
-            {deliveryPrice == 0 ? t("Index.freeDelivery") : `${deliveryPrice}TMT`}
+            {deliveryPrice == 0 ? t("Index.freeDelivery") : `${deliveryPrice}$`}
           </span>
         </li>
 
         <li className="flex justify-between py-2.5 font-medium">
           {t("BucketPage.totalPrice")}
           <span className="rounded-[14px] border border-primary bg-onHover px-2.5 py-1 leading-4 sm:text-sm">
-            {Number(totalPrice) + Number(deliveryPrice)} TMT
+            {Number(totalPrice) + Number(deliveryPrice)} $
           </span>
         </li>
       </ul>

@@ -29,7 +29,7 @@ const Index: FC<Props> = ({ t }) => {
       <PopoverTrigger asChild className="right-50 md:hidden">
         <button className="relative flex h-12 items-center space-x-1.5 rounded-[16px] bg-primary px-4 py-2.5 md:h-10 md:px-3">
           <BucketIcon />
-          <p className="font-medium xl:hidden">{totalPrice}TMT</p>
+          <p className="font-medium xl:hidden">{totalPrice}$</p>
           <MiniDishesCount count={totalDishes} className="absolute -right-2 -top-2 " />
         </button>
       </PopoverTrigger>
@@ -72,7 +72,7 @@ const Index: FC<Props> = ({ t }) => {
             className="mt-6 flex w-full justify-between rounded-[14px] bg-primary px-[18px] py-2.5 text-xl hover:bg-accent disabled:bg-black/10 disabled:text-black/50"
           >
             <p className="">{t("Index.toBucket")}</p>
-            <p className="font-medium">{totalPrice}TMT</p>
+            <p className="font-medium">{totalPrice}$</p>
           </PopoverClose>
         </div>
       </PopoverContent>

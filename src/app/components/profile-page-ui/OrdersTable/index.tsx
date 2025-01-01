@@ -57,7 +57,7 @@ const OrdersTable: FC<Props> = ({ userOrders, t }) => {
                       <li className="w-[15%] ">
                         {district} / {apartment}
                       </li>
-                      <li className="w-[11%] ">{totalAmount + +deliveryPrice} TMT</li>
+                      <li className="w-[11%] ">{totalAmount + +deliveryPrice} $</li>
                       <li className={`w-[16%] text-success`}>{t("Index.delivery")}</li>
                       <li className="w-[17%] ">{getLocaleDate(createdAt, locale)}</li>
                       <li className={`flex w-[16%] items-center space-x-2 ${STATUS_CLASSES[orderStatus]}`}>

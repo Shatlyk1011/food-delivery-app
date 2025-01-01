@@ -52,7 +52,7 @@ const Index: FC<Props> = ({ item, isDeliveryFree, t }) => {
         </figure>
       </Link>
       <div>
-        <h5 className="mb-0.5 line-clamp-2 text-2xl font-medium">{item.title}</h5>
+        <h5 className="mb-0.5 line-clamp-2 text-2xl">{item.title}</h5>
 
         <div className="flex items-center space-x-1.5">
           {/* fill-primary */}

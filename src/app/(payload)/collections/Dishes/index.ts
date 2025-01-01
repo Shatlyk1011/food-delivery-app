@@ -17,148 +17,148 @@ const Dishes: CollectionConfig = {
           return adminAndCreatedByUser({ req });
         }
       }
-      return true
+      return true;
     },
     update: adminAndCreatedByUser,
   },
 
   admin: {
-    defaultColumns: ['title', 'price', 'availableAmount', 'cookTime'],
+    defaultColumns: ["title", "price", "availableAmount", "cookTime"],
     hideAPIURL: true,
-    useAsTitle: 'title',
+    useAsTitle: "title",
   },
   fields: [
     {
-      name: 'title',
-      label: 'Dish name',
+      name: "title",
+      label: "Dish name",
       required: true,
-      type: 'text',
+      type: "text",
     },
     {
-      name: 'description',
-      label: 'Description (compounds)',
+      name: "description",
+      label: "Description (compounds)",
       maxLength: 200,
       required: true,
-      type: 'textarea',
+      type: "textarea",
     },
     {
-      name: 'price',
-      label: 'Price (usd)',
+      name: "price",
+      label: "Price (usd)",
       required: true,
-      type: 'number',
+      type: "number",
       validate: (value: any) => {
         if (value < 0) {
-          return 'The price of a dish cannot be less than 0.'
+          return "The price of a dish cannot be less than 0.";
         }
-        return true
+        return true;
       },
     },
 
     {
-      name: 'gram',
-      label: 'weight of the dish (gram)',
+      name: "gram",
+      label: "weight of the dish (gram)",
       required: true,
-      type: 'number',
+      type: "number",
       validate: (value: any) => {
         if (value < 0) {
-          return 'The weight of a dish cannot be less than 0.'
+          return "The weight of a dish cannot be less than 0.";
         }
-        return true
+        return true;
       },
     },
     {
-      name: 'availableAmount',
+      name: "availableAmount",
       admin: {
-        position: 'sidebar',
+        position: "sidebar",
       },
-      defaultValue: 30,
-      label: 'Available amount',
+      defaultValue: 10,
+      label: "Available amount",
       required: false,
-      type: 'number',
+      type: "number",
       validate: (value: any) => {
         if (value < 0) {
-          return 'The value cannot be less than 0.'
+          return "The value cannot be less than 0.";
         }
-        return true
+        return true;
       },
     },
 
     {
-      name: 'cookTime',
+      name: "cookTime",
       defaultValue: 30,
-      label: 'Cooking time (in minutes)',
+      label: "Cooking time (in minutes)",
       required: true,
-      type: 'number',
+      type: "number",
       validate: (value: any) => {
         if (value < 0) {
-          return 'Cooking time cannot be less than 0.'
+          return "Cooking time cannot be less than 0.";
         }
-        return true
+        return true;
       },
     },
 
     {
-      name: 'categories',
+      name: "categories",
       access: {
         read: () => true,
         update: ({ req: { user } }) => {
-          return checkRole(['admin', 'author'], user)
+          return checkRole(["admin", "author"], user);
         },
       },
       filterOptions: {
         type: {
-          equals: 'dish',
+          equals: "dish",
         },
       },
-      label: 'Category of dish',
-      relationTo: 'categories',
+      label: "Category of dish",
+      relationTo: "categories",
       required: false,
-      type: 'relationship',
+      type: "relationship",
     },
     {
-      name: 'image',
-      label: 'Image of the dish',
-      relationTo: 'media',
+      name: "image",
+      label: "Image of the dish",
+      relationTo: "media",
       required: false,
-      type: 'upload',
+      type: "upload",
     },
     {
-      name: 'restaurant',
-      label: 'Choose your restaurant',
-      relationTo: 'restaurants',
+      name: "restaurant",
+      label: "Choose your restaurant",
+      relationTo: "restaurants",
       required: true,
-      type: 'relationship',
+      type: "relationship",
     },
     {
-      name: 'createdBy',
+      name: "createdBy",
       admin: {
         hidden: true,
       },
-      label: 'User',
-      relationTo: 'customers',
-      type: 'relationship',
+      label: "User",
+      relationTo: "customers",
+      type: "relationship",
     },
     {
-      name: 'isBlocked',
+      name: "isBlocked",
       defaultValue: false,
-      label: 'Is blocked?',
+      label: "Is blocked?",
       required: false,
-      type: 'checkbox',
+      type: "checkbox",
     },
   ],
   hooks: {
     beforeValidate: [
       ({ data, req }) => {
         if (req.user && data && !data.createdBy) {
-          data.createdBy = req.user.id
+          data.createdBy = req.user.id;
         }
-        return data
+        return data;
       },
     ],
   },
-  labels: { plural: 'Dishes', singular: 'Dish' },
-  slug: 'dishes',
+  labels: { plural: "Dishes", singular: "Dish" },
+  slug: "dishes",
   timestamps: true,
-}
+};
 
 export default Dishes

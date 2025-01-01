@@ -81,7 +81,7 @@
     "currentRestaurant": "Текущий ресторан",
     "changeRestaurant1": "Все ранее добавленные блюда из ресторанa",
     "changeRestaurant2": "будут удалены из корзины.",
-    "freeDeliveryAfter": "Бесплатная доставка – действует на заказ от {price} TMT"
+    "freeDeliveryAfter": "Бесплатная доставка – действует на заказ от {price} $"
   },
 
   "BucketForm": {
