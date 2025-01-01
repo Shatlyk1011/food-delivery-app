@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 //hooks
 import useChangeLanguage from "@/app/hooks/useChangeLanguage";
 import { useLoginMe } from "@/app/services/useAuthentication";
+import { useGetCities } from "@/app/services/useCities";
 
 import { cn } from "@/app/shared/lib/utils";
 
@@ -45,6 +46,8 @@ const Index: FC<Props> = ({ }) => {
 
   const { currentUser } = useLoginMe();
 
+  const { cities } = useGetCities()
+
   useEffect(() => {
     setAuth(Boolean(currentUser));
     if (currentUser) {
@@ -80,7 +83,7 @@ const Index: FC<Props> = ({ }) => {
         )}
 
         {!isBucketPage && (
-          <Regions cities={CITIES} regionsTitle={t("Index.chooseCity")} regionTitle={t("Index.city")} />
+          <Regions cities={cities} regionsTitle={t("Index.chooseCity")} regionTitle={t("Index.city")} />
         )}
       </div>
       <div className="flex items-center space-x-4 md:space-x-3">

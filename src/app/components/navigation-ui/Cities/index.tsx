@@ -9,7 +9,7 @@ import { PopoverClose } from "@radix-ui/react-popover";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 import { LocationIcon } from "@/app/icons";
 interface Props {
-  cities: TitleValue[];
+  cities: City[] | undefined;
   regionsTitle: string;
   regionTitle: string;
 }
@@ -29,8 +29,8 @@ const Index: FC<Props> = ({ cities, regionsTitle, regionTitle }) => {
       </PopoverTrigger>
       <PopoverContent className="w-64">
         <ul>
-          {cities.map(({ title, value }) => (
-            <li key={value}>
+          {cities && cities.map(({ title }) => (
+            <li key={title}>
               <PopoverClose
                 className="h-12 w-full cursor-pointer px-4 py-3 text-start hover:bg-onHover"
                 role="listitem"
@@ -40,7 +40,6 @@ const Index: FC<Props> = ({ cities, regionsTitle, regionTitle }) => {
               </PopoverClose>
             </li>
           ))}
-          <li className="h-12 w-full px-4 py-3 text-text-3">Coming soon...</li>
         </ul>
       </PopoverContent>
     </Popover>

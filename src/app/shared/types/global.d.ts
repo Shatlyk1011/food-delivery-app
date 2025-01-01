@@ -23,11 +23,6 @@ type PaginationMeta = {
   total: number;
 };
 
-interface TitleValue {
-  title: string;
-  value: string;
-}
-
 interface RestaurantWithDishesInfo {
   dishes: any[];
   // isDelivery: boolean;
@@ -40,6 +35,8 @@ type AddressData = {
   apartment: string;
   city?: string;
 };
+
+type City = { id: string; title: string };
 
 type CategoryTypes = "dish" | "restaurant";
 

@@ -197,7 +197,9 @@
     "cooperation": "Thank you, we will contact you soon",
     "feedback": "Thank you for your feedback.",
     "closedRestaurant": "This restaurant is closed, please choose another.",
-    "notFound": "Nothing found"
+    "notFound": "Nothing found",
+    "restaurantNotFound": "Something went wrong, maybe this restaurant closed.",
+    "returnToMain": "Return to main page"
   },
 
   "Footer": {

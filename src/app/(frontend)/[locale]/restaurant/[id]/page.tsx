@@ -2,6 +2,7 @@
 import { use, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 
 //atoms
 import { useAtom, useAtomValue } from "jotai";
@@ -27,12 +28,13 @@ const AboutProduct = dynamic(() => import("@/app/widgets/RestaurantPage/Product/
 export default function RestaurantId({ params }: any) {
   const { id } = use(params) as any
 
+  const router = useRouter()
+
   const t = useTranslations();
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
   const selectedItems = useAtomValue(atoms.selectedItems);
 
   const { restaurantInfo, withCategories, getRestaurant, isLoading } = useGetRestaurantById();
-  console.log('restaurantInfo', restaurantInfo)
 
   const isRestaurantAvailable = isRestaurantOpen(
     restaurantInfo?.workingHours?.openTime,
@@ -60,9 +62,11 @@ export default function RestaurantId({ params }: any) {
     <main className="box-content bg-bg-2">
       <div className="mx-auto max-w-[1440px]">
         {restaurantInfo === null && (
-          <p className="flex h-[calc(100vh-315px)] items-center justify-center px-10 py-40 text-center text-2xl font-medium md:text-xl sm:text-lg">
-            Что то пошло не так, возможно этот ресторан закрылся (вернуться к главному)
-          </p>
+          <div className="flex h-[calc(100vh-315px)] flex-col items-center justify-center px-10 py-40 text-center text-2xl font-medium md:text-xl sm:text-lg">
+
+            <p>{t('Actions.restaurantNotFound')}</p>
+            <button onClick={() => router.push('/')} type="button" className="px-6 py-4 rounded-[18px] bg-primary mt-4 text-base font-medium">{t('Actions.returnToMain')}</button>
+          </div>
         )}
         {restaurantInfo && (
           <div className="flex justify-between px-4 py-8 2xl:py-6 lg:px-2.5 lg:py-4 md:px-2 md:py-2.5">
