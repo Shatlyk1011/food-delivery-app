@@ -1,5 +1,7 @@
 import { Dialog, DialogContent, DialogTitle } from "@/app/components/shared-ui/Dialog";
 
+import { DEFAULT_IMAGE_PATH } from "@/app/shared/constants";
+
 interface Props {
   dish: Dish;
   handleClose: () => void;
@@ -13,7 +15,7 @@ export default function AboutProduct({ dish, handleClose, t }: Props) {
           <figcaption className="relative my-auto min-h-[260px] min-w-[260px] flex-1 overflow-hidden rounded-xl md:h-[180px]">
             <img
               className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover md:object-contain"
-              src={dish.image?.url || ""}
+              src={dish.image?.url || DEFAULT_IMAGE_PATH}
               alt={dish.image?.alt || ""}
             />
           </figcaption>

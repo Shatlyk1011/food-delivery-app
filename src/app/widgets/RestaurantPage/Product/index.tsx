@@ -2,6 +2,8 @@ import { FC } from "react";
 
 import { PlusIcon } from "@/app/icons";
 
+import { DEFAULT_IMAGE_PATH } from "@/app/shared/constants";
+
 interface Props {
   dish: Dish;
   isDishDisabled: boolean;
@@ -16,7 +18,7 @@ const Index: FC<Props> = ({ dish, isDishDisabled, addItem, btnTitle, handleDish 
       <div className=" relative mb-2.5 h-44 w-full overflow-hidden rounded-[14px] " onClick={handleDish}>
         <img
           className="h-full w-full cursor-pointer object-cover duration-200 hover:brightness-105"
-          src={dish.image?.url || ""}
+          src={dish.image?.url || DEFAULT_IMAGE_PATH}
           alt={dish.image?.alt || "Тут должно было быть изображение"}
         />
       </div>

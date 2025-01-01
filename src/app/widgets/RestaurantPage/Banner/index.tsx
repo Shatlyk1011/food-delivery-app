@@ -2,6 +2,8 @@ import { FC } from "react";
 
 import BannerItems from "@/app/components/restaurant-page-ui/BannerItems";
 
+import { DEFAULT_BANNER_PATH } from "@/app/shared/constants";
+
 interface Props {
   bannerImageUrl: string;
   bannerInfo: BannerInfo;
@@ -14,7 +16,7 @@ const Index: FC<Props> = ({ bannerImageUrl, bannerInfo, t }) => {
       <div className="absolute left-0 top-0 z-10 h-full w-full bg-gradient-to-tr from-black/20 to-black/0"></div>
       <img
         className="absolute left-0 top-0 z-0 h-full w-full object-cover  object-top"
-        src={bannerImageUrl || ""}
+        src={bannerImageUrl || DEFAULT_BANNER_PATH}
         alt="banner image"
       />
 
