@@ -69,7 +69,7 @@ export const DEFAULT_RESTAURANT_INFO: RestaurantWithDishesInfo = {
 export const defaultFilters: Filters = {
   deliveryTime: 0,
   sortBy: null,
-  tag: "all",
+  tag: undefined,
 };
 
 export const PROFILE_OUTER_HEAD = [

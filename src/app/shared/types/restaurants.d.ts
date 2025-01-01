@@ -36,7 +36,7 @@ type SortBy = "" | "deliveryTime" | "budgetCategory" | "-budgetCategory";
 type Filters = {
   deliveryTime: number | null;
   sortBy: string | null;
-  tag: string;
+  tag: string | undefined;
 };
 
 interface RestaurantId {
