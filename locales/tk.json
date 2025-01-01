@@ -197,7 +197,9 @@
     "cooperation": "Sag boluň, biz siz bilen hökman habarlaşarys",
     "feedback": "Seslenmäni ugradanyňyz ücin sag boluň.",
     "closedRestaurant": "Bu restoran ýapyk, başga bir ýeri saýlap gorüň.",
-    "notFound": "Hic zat tapylmady"
+    "notFound": "Hic zat tapylmady",
+    "restaurantNotFound": "Bir zat ýalňyş boldy, belki bu restoran ýapyldy.",
+    "returnToMain": "Dolanmak"
   },
 
   "Footer": {
