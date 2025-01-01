@@ -1,11 +1,15 @@
+//for filtering by tags
+// $tag: JSON
+// {categories: { in: [$tag] }}
+
 export const RESTAURANTS = `
-  query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String, $query:String) {
+  query Restaurants($limit: Int!, $pageParam: Int!, $sortBy: String, $query:String, ) {
     Restaurants(
       where: {
         AND: [
           {isBlocked: { equals: false }},
           {isClosed: { equals: false }},
-          {title: { contains: $query }}
+          {title: { contains: $query }},
         ]
       },
       limit: $limit,
@@ -17,6 +21,10 @@ export const RESTAURANTS = `
         title
         budgetCategory
         deliveryTime
+        categories {
+          category
+          value
+        }
         bannerImage {
           url
           alt
@@ -103,6 +111,7 @@ query Categories($type: Category_type_Input!, $limit: Int!) {
     sort: "order"
       ) {
       docs {
+        id
         category
         value
       }

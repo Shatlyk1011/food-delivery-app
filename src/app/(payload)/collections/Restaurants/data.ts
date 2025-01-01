@@ -19,10 +19,6 @@ export const DELIVERY_TIMES = [
     label: "120 - min",
     value: "120",
   },
-  {
-    label: "120+ - min",
-    value: "not_today",
-  },
 ];
 
 export const OPEN_HOURS = [
