@@ -4,7 +4,6 @@ import { useAtom } from "jotai";
 
 const useChangeLanguage = () => {
   const [selectedLanguage, setSelectedLanguage] = useAtom(atoms.selectedLanguage);
-  console.log("selectedLanguage0", selectedLanguage);
   const router = useRouter();
   const pathname = usePathname();
 
