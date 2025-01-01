@@ -2,6 +2,8 @@ import { FC } from "react";
 
 import IncreseDecrease from "@/app/components/shared-ui/IncreaseDecrease";
 
+import { DEFAULT_IMAGE_PATH } from "@/app/shared/constants";
+
 interface Props {
   item: any;
   increaseItem: () => void;
@@ -12,7 +14,7 @@ const Index: FC<Props> = ({ item, increaseItem, decreaseItem }) => {
   return (
     <div className="flex items-center space-x-2">
       <div className="relative h-16 w-16 overflow-hidden rounded-xl">
-        <img className="h-full w-full object-cover" src={item.image?.url || ""} alt="dish photo" />
+        <img className="h-full w-full object-cover" src={item.image?.url || DEFAULT_IMAGE_PATH} alt="dish photo" />
       </div>
 
       <div className="flex-1 self-start">

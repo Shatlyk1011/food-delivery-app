@@ -4,6 +4,8 @@ import { Link } from "@/i18n/routing";
 
 import { MotocycleIcon, StarIcon, UsdIcon } from "@/app/icons";
 
+import { DEFAULT_IMAGE_PATH } from "@/app/shared/constants";
+
 interface Props {
   item: MainPageRestaurant;
   isDeliveryFree: boolean;
@@ -34,7 +36,7 @@ const Index: FC<Props> = ({ item, isDeliveryFree, t }) => {
         <figure className="relative mb-2 h-full max-h-52 min-h-52 w-full cursor-pointer overflow-hidden rounded-[14px] outline-none ring-text-2 ring-offset-2 group-focus-visible:ring-2">
           <img
             className="absolute h-full w-full bg-gray-2 object-cover"
-            src={item.bannerImage?.url || ""}
+            src={item.bannerImage?.url || DEFAULT_IMAGE_PATH}
             alt={item.bannerImage?.alt || "image"}
           />
           {isDeliveryFree && (
