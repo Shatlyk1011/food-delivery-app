@@ -10,9 +10,10 @@ const Dishes: CollectionConfig = {
     delete: adminAndCreatedByUser,
     read: ({ req }) => {
       if (req.user) {
-        if (checkRole(['admin', 'guest'], req.user)) return true
+        if (checkRole(["admin", "guest"], req.user)) return true;
 
-        if (req.url?.includes("/admin")) {
+        // We're in the admin panel
+        if (req?.payloadAPI) {
           return adminAndCreatedByUser({ req });
         }
       }

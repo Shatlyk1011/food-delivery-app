@@ -10,7 +10,8 @@ const Media: CollectionConfig = {
     delete: admins,
     read: ({ req }) => {
       if (req.user) {
-        if (req.url?.includes('/admin')) {
+        // We're in the admin panel
+        if (req?.payloadAPI) {
           //fix `adminAndCreatedByUser` - does not work as expected
           return adminAndCreatedByUser({ req });
         }
