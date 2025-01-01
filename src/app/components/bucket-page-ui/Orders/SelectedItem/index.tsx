@@ -33,7 +33,7 @@ const Index: FC<Props> = ({ item, decrease, increase }) => {
                 decrease={decrease}
                 className="w-20 space-x-3 md:w-[68px] md:space-x-1 xl:w-24"
               />
-              <p className="min-w-16 text-base font-medium md:text-sm">{item.price}TMT</p>
+              <p className="min-w-16 text-base font-medium md:text-sm">{item.price}$</p>
             </div>
           </div>
         </div>

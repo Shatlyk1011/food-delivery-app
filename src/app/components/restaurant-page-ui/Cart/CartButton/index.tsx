@@ -16,7 +16,7 @@ const Index: FC<Props> = ({ submitTitle, total }) => {
       type="button"
       onClick={() => router.push("/bucket")}
     >
-      {submitTitle} <span className="text-lg font-medium 2xl:text-base ">{total}TMT</span>
+      {submitTitle} <span className="text-lg font-medium 2xl:text-base ">{total}$</span>
     </button>
   );
 };

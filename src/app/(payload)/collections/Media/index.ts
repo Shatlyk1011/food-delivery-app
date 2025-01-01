@@ -27,6 +27,7 @@ const Media: CollectionConfig = {
     {
       name: "alt",
       label: "Image alt text",
+      defaultValue: "alt text sample",
       required: true,
       type: "text",
     },
@@ -44,7 +45,7 @@ const Media: CollectionConfig = {
     beforeValidate: [
       ({ data, req }) => {
         if (req.user && data && !data.createdBy) {
-          data.createdBy = req.user.id
+          data.createdBy = req.user.id;
         }
         return data;
       },

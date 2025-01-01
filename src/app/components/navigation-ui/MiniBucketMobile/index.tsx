@@ -23,7 +23,7 @@ const Index: FC<Props> = ({ t }) => {
     <Drawer>
       <DrawerTrigger className="relative hidden h-12 items-center space-x-1.5 rounded-[16px] bg-primary px-4 py-2.5 md:flex md:h-10 md:px-2.5">
         <BucketIcon />
-        <p className="font-medium xl:hidden">{totalPrice ?? 2000}TMT</p>
+        <p className="font-medium xl:hidden">{totalPrice ?? 2000}$</p>
         <MiniDishesCount count={totalDishes} className="absolute -right-3 -top-2 " />
       </DrawerTrigger>
       <DrawerContent>
@@ -56,7 +56,7 @@ const Index: FC<Props> = ({ t }) => {
               className="flex w-full justify-between rounded-[14px] bg-primary px-[18px] py-2.5 text-xl hover:bg-accent sm:text-base "
             >
               <p className="">{t("Index.toBucket")}</p>
-              <p className="font-medium">{totalPrice}TMT</p>
+              <p className="font-medium">{totalPrice}$</p>
             </DrawerClose>
           </DrawerFooter>
         </div>

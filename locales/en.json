@@ -81,7 +81,7 @@
     "currentRestaurant": "Current restaurant",
     "changeRestaurant1": "All previously added dishes from the restaurant",
     "changeRestaurant2": "will be removed from the cart.",
-    "freeDeliveryAfter": "Free delivery for orders over {price} TMT"
+    "freeDeliveryAfter": "Free delivery for orders over {price} $"
   },
 
   "BucketForm": {
