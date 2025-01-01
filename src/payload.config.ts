@@ -7,15 +7,15 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import Categories from "./collections/Categories";
-import Cities from "./collections/Cities";
-import Customers from "./collections/Customers";
-import Dishes from "./collections/Dishes";
-import FeedbackAndCooperations from "./collections/FeedbackAndCooperations";
-import Media from "./collections/Media";
-import Orders from "./collections/Orders";
-import Restaurants from "./collections/Restaurants";
-import Users from "./collections/Users";
+import Categories from "./app/(payload)/collections/Categories";
+import Cities from "./app/(payload)/collections/Cities";
+import Customers from "./app/(payload)/collections/Customers";
+import Dishes from "./app/(payload)/collections/Dishes";
+import FeedbackAndCooperations from "./app/(payload)/collections/FeedbackAndCooperations";
+import Media from "./app/(payload)/collections/Media";
+import Orders from "./app/(payload)/collections/Orders";
+import Restaurants from "./app/(payload)/collections/Restaurants";
+import Users from "./app/(payload)/collections/Users";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
