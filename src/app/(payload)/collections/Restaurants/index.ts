@@ -15,8 +15,8 @@ const Restaurants: CollectionConfig = {
           return true;
         }
 
-        //show media only related to current user
-        if (req.url?.includes("/admin")) {
+        // We're in the admin panel
+        if (req?.payloadAPI) {
           return {
             relatedToUser: {
               equals: req.user.id,
@@ -49,6 +49,9 @@ const Restaurants: CollectionConfig = {
       name: "title",
       label: "Restaurant name",
       required: true,
+      access: {
+        update: admins,
+      },
       type: "text",
     },
     {
