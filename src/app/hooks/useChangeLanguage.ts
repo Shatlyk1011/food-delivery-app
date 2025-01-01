@@ -4,10 +4,11 @@ import { useAtom } from "jotai";
 
 const useChangeLanguage = () => {
   const [selectedLanguage, setSelectedLanguage] = useAtom(atoms.selectedLanguage);
+  console.log("selectedLanguage0", selectedLanguage);
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleChange = (locale: "ru" | "tk" | "en") => {
+  const handleChange = (locale: I18N) => {
     if (locale !== selectedLanguage) {
       setSelectedLanguage(locale);
       router.replace(pathname, { locale });
@@ -18,6 +19,9 @@ const useChangeLanguage = () => {
     switch (selectedLanguage) {
       case "tk": {
         return "Turkmen";
+      }
+      case "en": {
+        return "English";
       }
       default:
         return "Русский";

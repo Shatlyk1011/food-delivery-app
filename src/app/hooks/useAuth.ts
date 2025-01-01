@@ -7,7 +7,7 @@ import atoms from "@/app/(frontend)/_providers/jotai";
 import { LOGIN_MUTATION, LOGOUT_MUTATION } from "../services/query/authQuery";
 import { useQueryClient } from "@tanstack/react-query";
 import useToast from "./useToast";
-import { DISHES } from "../shared/constants";
+import { DISHES, USER_PROFILE } from "../shared/constants";
 
 const useAuth = () => {
   const setAuth = useSetAtom(atoms.isAuth);
@@ -40,6 +40,7 @@ const useAuth = () => {
       return response;
     } catch (err: any) {
       if (err) {
+        localStorage.removeItem(USER_PROFILE);
         toast(err, "error", { duration: 4000 });
       }
     }

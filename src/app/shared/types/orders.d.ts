@@ -19,7 +19,7 @@ interface OrderData {
 
 interface OrderResponse {
   id: string;
-  totalAmount: 972;
+  totalAmount: number;
 }
 
 interface UserOrder {
