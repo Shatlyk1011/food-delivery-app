@@ -15,7 +15,6 @@ export const useOrderSubmit = () => {
           variables: { orderData },
         },
       });
-      console.log("data.data", data.data);
       return data.data.createOrder;
     },
     onError: (err) => console.log("register mutation error", err),

@@ -13,7 +13,6 @@ export const useGetCities = () => {
           variables: { limit: 30 },
         },
       });
-      console.log("data.data", data.data);
       return await data.data.Cities.docs;
     },
     staleTime: Infinity,

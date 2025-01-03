@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import path from "path";
 
 import adminAndCreatedByUser from "../utils/access/adminAndCreatedByUser";
 import { admins } from "../utils/access/admins";
@@ -62,7 +63,7 @@ const Media: CollectionConfig = {
       },
     },
     mimeTypes: ["image/*"],
-    // staticDir: path.resolve(__dirname, "../../../media"),
+    staticDir: path.resolve(__dirname, "../../../../../public/api/media/file/"),
     // staticURL: "/media",
   },
 };
