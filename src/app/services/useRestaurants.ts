@@ -58,7 +58,6 @@ export const useGetRestaurantById = (schema?: string) => {
             variables: { id },
           },
         });
-        console.log(data.data.Restaurant);
         return data.data.Restaurant;
       } catch (err) {
         console.log("err", err);
