@@ -103,7 +103,7 @@ export interface Restaurant {
   title: string;
   description?: string | null;
   address: string;
-  deliveryTime: '30' | '45' | '60' | '90' | '120' | 'not_today';
+  deliveryTime: '30' | '45' | '60' | '90' | '120';
   deliveryPrice: number;
   freeAfterAmount?: number | null;
   workingHours: {
