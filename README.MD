@@ -1,7 +1,7 @@
 # Ashpez - Multivendor Food delivery Application
 
 <p align="center">
-  <a href="https://ashpez-food-delivery-app.vercel.app/en"><img height="300" src="public/ashpez-banner.jpg?raw=true" alt="Ashpez food delivery application"></a>
+  <a href="https://ashpez-food-delivery-app.vercel.app/en" target="_blank"><img height="360" src="public/ashpez-banner.jpg?raw=true" alt="Ashpez food delivery application"></a>
 </p>
 
 Fullstack food ordering application build with Payload CMS and Next 15. <br/>
