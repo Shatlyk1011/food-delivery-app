@@ -9,7 +9,8 @@ This application supports both user-facing features for ordering food and an adm
 
 ### Demo
 
-**Live demo: [Ashpez](https://ashpez-food-delivery-app.vercel.app/)**
+**Live demo: [Ashpez Client](https://ashpez-food-delivery-app.vercel.app/)**
+**Admin panel: [Ashpez Admin](https://ashpez-food-delivery-app.vercel.app/admin)**
 
 
 ## **Technology Stack**
@@ -113,15 +114,13 @@ Follow these steps to set up and run the application locally:
 
 2. Open your browser and visit `http://localhost:3000` to see the application in action.
 
-//here
 ## Contributing
 
-We welcome contributions to improve the Multivendor Application! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on the process.
+Contributions to the project are highly appreciated. Feel free to fork the repo, make your changes, and submit a pull request. You can also open issues to suggest improvements or report bugs.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+Licensed under the [MIT license](https://github.com/Shatlyk1011/food-delivery-app/blob/main/LICENCE.md).
+
 
 ---
-
-Stay tuned for more updates and enhancements. If you encounter any issues, feel free to create an issue in the repository.
