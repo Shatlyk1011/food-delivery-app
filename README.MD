@@ -1,24 +1,25 @@
 # Ashpez - Multivendor Food delivery Application
 
-<p align="center">
+<!-- <p align="center">
   <a href="https://ashpez-food-delivery-app.vercel.app/en" target="_blank"><img height="360" src="public/ashpez-banner.jpg?raw=true" alt="Ashpez food delivery application"></a>
-</p>
+</p> -->
 
 Fullstack food ordering application build with Payload CMS and Next 15. <br/>
 This application supports both user-facing features for ordering food and an admin panel for restaurant management. The application is fully responsive, ensuring optimal usability on mobile devices.
 
-### Demo
+### Demo 🎥
 
-**Live demo: [Ashpez Client](https://ashpez-food-delivery-app.vercel.app/)**
-**Admin panel: [Ashpez Admin](https://ashpez-food-delivery-app.vercel.app/admin)**
+*Live demo:* [Ashpez Client](https://ashpez-food-delivery-app.vercel.app/) <br/>
+*Admin panel:* [Ashpez Admin](https://ashpez-food-delivery-app.vercel.app/admin)
 
+//demo accounts here
 
-## **Technology Stack**
+## **Technology Stack** 🛠️
 
-### Design
+### Design 🎨
 - Figma design - [link](https://www.figma.com/design/Br44bFbR9vLmNzTNTmilvp/%D0%A1%D0%A1Client?node-id=2-9&t=wYkMxqeS3T0EnBK0-1)
 
-### Frontend
+### Frontend 💻
 - **Next.js 15**: with app router and i18n.
 - **ShadCN**: Styled with ShadCN components for consistent and aesthetic design.
 - **GraphQL**: Integrated with GraphQL for efficient and flexible querying of data from the backend.
@@ -28,13 +29,13 @@ This application supports both user-facing features for ordering food and an adm
 - **Next-intl**: Implemented using next-intl to support multilingual user interfaces.
 - **Seo Friendly**: 
 
-### Backend and Database
+### Backend and Database ⚙️🗄️
 - **Payload CMS**: for flexible and scalable data management.
 - **MongoDB**: A NoSQL database for efficient data storage and retrieval.
 
-## **Features**
+## **Features** ✨
 
-### Client side features
+### Client side features 🖥️
 
 - **Registration and Login**: Users can create an account or log in to access personalized features.
 - **Order Foods**: Browse, select, and order food from restaurants.
@@ -43,17 +44,18 @@ This application supports both user-facing features for ordering food and an adm
 - **Order History**:  A dedicated profile page for users to view their past or current orders.
 - **City Selection**:  Choose the delivery city for location-specific offerings. (planned)
 - **Feedback Submission**:  Users can send feedback to improve services or rate their experience. (planned)
-- **Multivendor Support**: Allows multiple restaurants to list, manage, and sell products on a single platform.
 
 
-### Admin Panel Features
+
+### Admin Panel Features 🛡️
+   * **Multivendor Support**: Allows multiple restaurants to list, manage, and sell products on a single platform.
 
    * The admin panel provides role-based access, supporting the following roles:
       * Admin (admin): full access to all featuers and settings.
       * Restaurant Owner (author): control the restaurant, dishes and orders for his own restaurants
       * Guest (guest): viewing purposes only.
 
-### How it works
+### How it works 🌀
 1)  Admin Creates Restaurant Owners (Authors):
 
    * The first admin user creates restaurant owners by adding their login credentials (email and password) in the **Customers** schema.
@@ -69,7 +71,7 @@ This application supports both user-facing features for ordering food and an adm
 
 4) Managing Restaurant Information:
 
-   * The restaurant owner can update the restaurant's profile, description, images etc.
+   * The restaurant owner can update the restaurant's profile, description, images etc (except the name of the Restaurant).
    * They can create, edit, or delete dishes associated with their restaurant.
    * The created dishes need to be added to the restaurant's menu.
 
@@ -79,18 +81,27 @@ This application supports both user-facing features for ordering food and an adm
    * They can update the order statuses, which will reflect directly in the user profiles.
 
 
-## Getting Started
+## Getting Started 🚀
 
 Follow these steps to set up and run the application locally:
 
-### Requirement 
+### Requirements 📋
 1. **Node.js**: Ensure you have Node.js (version 18 or higher) installed.
 2. **MongoDB**: Set up a MongoDB instance.
-3. **Environment variables**: Set up database URI and payload_secret .
+3. **Environment variables**: Set up `DATABASE_URI` and `PAYLOAD_SECRET` .
+
+###  Important Note on Local Development ⚠️
+When developing locally, **avoid logging into both the app and the admin panel in the same browser session**. This is because the authentication token names for the client and admin panel are identical, and this can cause unexpected behavior or conflicts.
+
+To avoid conflicts:
+
+   * Use a **different browser** for the admin panel and the app.
+   * Alternatively, open the admin panel in a **private/incognito window**.
+
 
 ###### for more information visit [Payload MongoDB setup section](https://payloadcms.com/docs/database/mongodb)
 
-### Installation
+### Installation 📦
 
 1. Clone the repository:
    ```bash
@@ -105,20 +116,22 @@ Follow these steps to set up and run the application locally:
    npm install
    ```
 
-### Running the Application
+### Running the Application ⚙️
 
-1. Start the Payload CMS backend:
+4. Start the appliaction with admin panel:
    ```bash
    npm run dev
    ```
 
-2. Open your browser and visit `http://localhost:3000` to see the application in action.
+5. Open `http://localhost:3000` to see the application in action.
 
-## Contributing
+3. Open `http://localhost:3000/admin`. Register your first user with **admin** role and see the Payload CMS admin panel in action.
+
+## Contributing 🤝
 
 Contributions to the project are highly appreciated. Feel free to fork the repo, make your changes, and submit a pull request. You can also open issues to suggest improvements or report bugs.
 
-## License
+## License 📜
 
 Licensed under the [MIT license](https://github.com/Shatlyk1011/food-delivery-app/blob/main/LICENCE.md).
 
