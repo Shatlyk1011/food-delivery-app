@@ -41,7 +41,7 @@ const Index: FC<Props> = ({ handleFilters, t }) => {
         <div className="w-full rounded-[14px] bg-bg-1 shadow-md">
           <div>
             <div className="flex items-center justify-between border-b border-gray-2">
-              <h4 className="px-5 pb-2 pt-3 text-xl font-bold tracking-wide md:px-4 md:text-sm md:tracking-normal">
+              <h4 className="px-5 py-4 text-xl font-bold tracking-wide md:px-4 md:text-sm md:tracking-normal">
                 {t("MainPage.whichShow")}{" "}
               </h4>
               <PopoverClose className="mr-2 rounded-full bg-gray-1 p-[2px]">
@@ -67,7 +67,7 @@ const Index: FC<Props> = ({ handleFilters, t }) => {
             </RadioGroup>
           </div>
 
-          <div className="mt-2 border-t border-gray-2 p-5 md:p-3">
+          <div className="mt-2 border-t border-gray-2 p-4 md:p-3">
             <PopoverClose
               type="button"
               onClick={handleSubmit}

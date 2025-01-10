@@ -15,8 +15,7 @@ const Restaurants: CollectionConfig = {
           return true;
         }
 
-        // We're in the admin panel
-        if (req?.payloadAPI) {
+        if (checkRole(["author"], req.user)) {
           return {
             relatedToUser: {
               equals: req.user.id,
