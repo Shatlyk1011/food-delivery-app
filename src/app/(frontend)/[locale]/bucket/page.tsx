@@ -83,7 +83,6 @@ export default function Bucket() {
           toast("Actions.successOrder", "success", { duration: 15000, closeButton: true });
           clearLocalStorage();
         }
-        console.log("res", res);
       } catch (err) {
         console.log("error", err);
       } finally {

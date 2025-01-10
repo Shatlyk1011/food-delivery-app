@@ -21,6 +21,7 @@ const Index: FC<Props> = ({ t, classes }) => {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
 
+  //register, then login
   const { register } = useRegister(login);
 
   const handleLogin = async (values: any) => {
