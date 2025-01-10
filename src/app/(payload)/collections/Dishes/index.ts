@@ -12,8 +12,7 @@ const Dishes: CollectionConfig = {
       if (req.user) {
         if (checkRole(["admin", "guest"], req.user)) return true;
 
-        // We're in the admin panel
-        if (req?.payloadAPI) {
+        if (checkRole(["author"], req.user)) {
           return adminAndCreatedByUser({ req });
         }
       }

@@ -4,6 +4,7 @@ import path from "path";
 import adminAndCreatedByUser from "../utils/access/adminAndCreatedByUser";
 import { admins } from "../utils/access/admins";
 import adminsAndUser from "../utils/access/adminsAndUser";
+import { checkRole } from "../utils/access/checkRole";
 
 const Media: CollectionConfig = {
   access: {
@@ -12,7 +13,7 @@ const Media: CollectionConfig = {
     read: ({ req }) => {
       if (req.user) {
         // We're in the admin panel
-        if (req?.payloadAPI) {
+        if (checkRole(["author"], req.user)) {
           //fix `adminAndCreatedByUser` - does not work as expected
           return adminAndCreatedByUser({ req });
         }

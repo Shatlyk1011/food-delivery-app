@@ -1,2 +1,3 @@
 * clear local user data if cannot self auth
-* check media upload "path"
+* login/register error
+* add favicons
