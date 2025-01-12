@@ -1,4 +1,4 @@
-# Ashpez - Multivendor Food delivery Application
+# Ashpez - Food Delivery Application
 <!-- 
 <p align="center">
   <a href="https://ashpez-food-delivery-app.vercel.app/en" target="_blank"><img height="360" src="public/ashpez-banner.jpg?raw=true" alt="Ashpez food delivery application"></a>
@@ -14,6 +14,41 @@ This application supports both user-facing features for ordering food and an adm
 
 //demo accounts here
 
+### Project structure 🗂️
+
+```shell
+.
+├── README.md                       # README file
+├── .github                         # GitHub folder
+├── .husky                          # Husky configuration
+├── public                          # Static assets folder
+│   └── api/media/file              # Locally stored images
+├── src                             # Source code directory
+│   ├── app                         # Core application folder
+│   │   ├── (frontend)              # Frontend part of the application
+│   │   │   ├── _providers          # Global Provider configurations (e.g., Jotai, TanStack)
+│   │   │   └── [locale]            # Locale-specific pages wrapped for i18n
+│   │   ├── (payload)               # Payload CMS (backend-related configurations)
+│   │   │   ├── admin               # Payload Admin Panel (auto-generated)
+│   │   │   ├── api                 # Payload API configurations (auto-generated)
+│   │   │   └── collections         # Payload CMS collections and schemas
+│   │   ├── components              # UI components grouped by page or feature (widget)
+│   │   ├── hooks                   # Reusable custom hooks
+│   │   ├── icons                   # JSX component icons
+│   │   ├── services                # TanStack-based service layer
+│   │   │   └── query               # GraphQL query and mutation schemas
+│   │   ├── shared                  # Shared utilities and helpers
+│   │   └── widgets                 # Groups of components forming self-contained widgets
+│   ├── i18n                        # next-intl configuration files
+│   ├── payload-types.ts            # Auto-generated Payload CMS type definitions
+│   └── payload.config.ts           # Payload CMS configuration file
+├── tailwind.config.js              # Tailwind CSS configuration
+└── tsconfig.json                   # TypeScript configuration file
+
+```
+
+#### for more information about payload.config.ts, payload collections and docker configuration visit the official [payload docs](http://payloadcms.com/)
+
 ## **Technology Stack** 🛠️
 
 ### Design 🎨
@@ -27,6 +62,7 @@ This application supports both user-facing features for ordering food and an adm
 - **Jotai**: Managed with Jotai for flexible and simple state handling.
 - **Zod**: Validation library with Zod in pair with `react-hook-form`
 - **Next-intl**: Implemented using next-intl to support multilingual user interfaces.
+- **Responsive** - Full Responsive Web App with custom sidebar and menu drawer component for mobile devices.
 - **A11Y** -  Keyboard control over all interactive elements
 - **Seo Friendly**
 
