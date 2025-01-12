@@ -30,7 +30,7 @@ interface UserOrder {
   orderStatus: OrderStatus;
   isDelivery: boolean;
   totalAmount: number;
-  deliveryPrice: number;
+  deliveryPrice: number | string;
   restaurantName: string;
   dishes: UserOrderDish[];
   createdAt: string;
