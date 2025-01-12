@@ -30,6 +30,8 @@ export function constructMetadata({
       "Restoran",
       "Turkmenabat",
       "Lebap",
+      "Ashgabat Dostawka",
+      "Ашхабад доставка",
     ],
     openGraph: {
       title,
@@ -55,8 +57,7 @@ export function constructMetadata({
       shortcut: "/favicon-16x16.png",
       apple: "/apple-touch-icon.png",
     },
-    //FIX
-    metadataBase: new URL("https://edilozi.pro"),
+    metadataBase: new URL("https://ashpez-food-delivery-app.vercel.app/"),
     ...props,
   };
 }
