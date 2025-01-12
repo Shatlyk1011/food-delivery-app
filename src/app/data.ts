@@ -1,5 +1,3 @@
-export const CITIES = [{ title: "Turkmenabat", value: "turkmenabat" }];
-
 export const LANGUAGES = [
   { title: "English", value: "en" },
   { title: "Русский", value: "ru" },
@@ -80,6 +78,7 @@ export const PROFILE_OUTER_HEAD = [
   { title: "ProfilePage.orderTime", className: "w-[17%]" },
 ];
 
+// make sure the amount of percentages equal to "100%"
 export const PROFILE_INNER_HEAD = [
   { title: "ProfilePage.dishTitle", className: "w-[40%]" },
   { title: "ProfilePage.price", className: "w-[30%]" },

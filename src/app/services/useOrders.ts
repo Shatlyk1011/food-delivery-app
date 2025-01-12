@@ -9,7 +9,6 @@ export const useOrderSubmit = () => {
     mutationFn: async (orderData: OrderData) => {
       console.log("orderData", orderData);
       const { data } = await axios({
-        // withCredentials: true,
         data: {
           query: ORDER_MUTATION,
           variables: { orderData },

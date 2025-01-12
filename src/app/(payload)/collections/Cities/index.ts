@@ -8,10 +8,10 @@ const Cities: CollectionConfig = {
     create: admins,
     delete: admins,
     read: ({ req }) => {
-      if (checkRole(["admin", "guest"], req.user)) {
+      if (checkRole(["admin", "guest", "user"], req.user)) {
         return true;
       } else {
-        return false
+        return false;
       }
     },
     update: admins,

@@ -10,15 +10,18 @@ import { atom, useAtom, useAtomValue } from "jotai";
 import useAuth from "./useAuth";
 import useChangeLanguage from "./useChangeLanguage";
 import useProductItem from "./useProductItem";
+import { useGetCities } from "../services/useCities";
 
 //components
 import { BucketIcon, EarthIcon, ExitIcon, HomeIcon, LocationIcon, ProfileIcon } from "../icons";
 import MiniDishesCount from "@/app/components/navigation-ui/TotalDishesCount";
-import { CITIES, LANGUAGES } from "../data";
+import { LANGUAGES } from "../data";
 
 const useSidebar = () => {
   const router = useRouter();
   const isAuth = useAtomValue(atoms.isAuth);
+
+  const { cities } = useGetCities()
 
   const { totalDishes } = useProductItem();
 
@@ -99,7 +102,7 @@ const useSidebar = () => {
     },
   ];
   const sidebarList = (() => (!isAuth ? list.filter((item) => item.authRequired === false) : list))();
-  const overlapList = overlap === "language" ? LANGUAGES : CITIES;
+  const overlapList = overlap === "language" ? LANGUAGES : cities;
 
   return {
     isSidebarOpen,

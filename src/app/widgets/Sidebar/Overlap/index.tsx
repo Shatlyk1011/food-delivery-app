@@ -7,8 +7,8 @@ import OverlapList from "./OverlapList";
 interface Props {
   overlap: string;
   closeOverlap: (str: string) => void;
-  overlapList: { title: string; value?: string }[];
-  handleLanguageChange: (locale: "ru" | "tk") => void;
+  overlapList: { title: string; value?: string }[] | undefined;
+  handleLanguageChange: (locale: I18N) => void;
   handleCitySelect: (str: string) => void;
   t: any;
 }

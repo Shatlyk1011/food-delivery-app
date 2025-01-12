@@ -24,8 +24,6 @@ import Search from "@/app/components/navigation-ui/Search";
 import SidebarTrigger from "@/app/components/navigation-ui/SidebarItems";
 import { BackIcon, LogoIcon } from "@/app/icons";
 
-import { CITIES } from "@/app/data";
-
 //jotai
 import { useAtom, useSetAtom } from "jotai";
 import atoms from "@/app/(frontend)/_providers/jotai";
