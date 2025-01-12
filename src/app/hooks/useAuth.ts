@@ -7,7 +7,7 @@ import atoms from "@/app/(frontend)/_providers/jotai";
 import { LOGIN_MUTATION, LOGOUT_MUTATION } from "../services/query/authQuery";
 import { useQueryClient } from "@tanstack/react-query";
 import useToast from "./useToast";
-import { DISHES, USER_PROFILE } from "../shared/constants";
+import { DISHES } from "../shared/constants";
 
 const useAuth = () => {
   const setAuth = useSetAtom(atoms.isAuth);
@@ -28,10 +28,13 @@ const useAuth = () => {
 
       const response = (await data.data.loginUser) as LoginResponse;
 
+      //graphql error
       if (data.errors) {
+        setUserProfile(null);
         throw new Error(data.errors[0].message);
       }
 
+      //if login success
       if (response?.token) {
         setAuth(true);
         setUserProfile(response?.user);
@@ -40,7 +43,7 @@ const useAuth = () => {
       return response;
     } catch (err: any) {
       if (err) {
-        localStorage.removeItem(USER_PROFILE);
+        setUserProfile(null);
         toast(err, "error", { duration: 4000 });
       }
     }
