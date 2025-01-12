@@ -25,7 +25,7 @@ const Index: FC<Props> = ({ languageTitle, handleChange }) => {
           {LANGUAGES.map(({ title, value }) => (
             <li
               key={title}
-              onClick={() => handleChange(value as "ru" | "tk")}
+              onClick={() => handleChange(value as I18N)}
               className="flex cursor-pointer items-center justify-between space-x-3  border-b border-gray-1 py-2  last:border-none hover:text-text-3"
             >
               <p>{title}</p>

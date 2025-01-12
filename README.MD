@@ -1,6 +1,6 @@
 # Ashpez - Multivendor Food delivery Application
-
-<!-- <p align="center">
+<!-- 
+<p align="center">
   <a href="https://ashpez-food-delivery-app.vercel.app/en" target="_blank"><img height="360" src="public/ashpez-banner.jpg?raw=true" alt="Ashpez food delivery application"></a>
 </p> -->
 
@@ -25,9 +25,10 @@ This application supports both user-facing features for ordering food and an adm
 - **GraphQL**: Integrated with GraphQL for efficient and flexible querying of data from the backend.
 - **TanStack Query**: for client-side data fetching and caching.
 - **Jotai**: Managed with Jotai for flexible and simple state handling.
-- **Zod**: Validation library with Zod
+- **Zod**: Validation library with Zod in pair with `react-hook-form`
 - **Next-intl**: Implemented using next-intl to support multilingual user interfaces.
-- **Seo Friendly**: 
+- **A11Y** -  Keyboard control over all interactive elements
+- **Seo Friendly**
 
 ### Backend and Database ⚙️🗄️
 - **Payload CMS**: for flexible and scalable data management.
@@ -90,6 +91,10 @@ Follow these steps to set up and run the application locally:
 2. **MongoDB**: Set up a MongoDB instance.
 3. **Environment variables**: Set up `DATABASE_URI` and `PAYLOAD_SECRET` .
 
+
+##### for more information visit [Payload MongoDB setup section](https://payloadcms.com/docs/database/mongodb)
+
+
 ###  Important Note on Local Development ⚠️
 When developing locally, **avoid logging into both the app and the admin panel in the same browser session**. This is because the authentication token names for the client and admin panel are identical, and this can cause unexpected behavior or conflicts.
 
@@ -98,8 +103,6 @@ To avoid conflicts:
    * Use a **different browser** for the admin panel and the app.
    * Alternatively, open the admin panel in a **private/incognito window**.
 
-
-###### for more information visit [Payload MongoDB setup section](https://payloadcms.com/docs/database/mongodb)
 
 ### Installation 📦
 

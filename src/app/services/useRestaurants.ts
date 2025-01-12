@@ -32,7 +32,6 @@ export const useGetRestaurantsQuery = (
     initialPageParam: 1,
   });
 
-  //use memo?
   //filter by delivery time
   const filteredRestaurants = data?.pages?.map((rests, idx): MainPageRestaurant[] => {
     if (deliveryTime && deliveryTime !== DEFAULT_DELIVERY_TIME) {
