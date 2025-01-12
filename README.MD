@@ -1,8 +1,8 @@
 # Ashpez - Food Delivery Application
-<!-- 
+
 <p align="center">
   <a href="https://ashpez-food-delivery-app.vercel.app/en" target="_blank"><img height="360" src="public/ashpez-banner.jpg?raw=true" alt="Ashpez food delivery application"></a>
-</p> -->
+</p>
 
 Fullstack food ordering application build with Payload CMS and Next 15. <br/>
 This application supports both user-facing features for ordering food and an admin panel for restaurant management. The application is fully responsive, ensuring optimal usability on mobile devices.
