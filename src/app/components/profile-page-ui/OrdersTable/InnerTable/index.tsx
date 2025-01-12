@@ -3,7 +3,7 @@ import { FC } from "react";
 import { PROFILE_INNER_HEAD } from "@/app/data";
 
 interface Props {
-  deliveryPrice: string;
+  deliveryPrice: string | number;
   dishes: UserOrderDish[];
   t: any;
 }
