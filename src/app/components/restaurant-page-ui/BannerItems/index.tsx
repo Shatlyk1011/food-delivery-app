@@ -45,7 +45,7 @@ const Index: FC<Props> = ({ bannerInfo, t }) => {
           <PopoverTrigger type="button" aria-label="button" className="rounded-[14px] bg-bg-1/85 px-3 py-3">
             <InfoIcon />
           </PopoverTrigger>
-          <PopoverContent className="font-base px-5 py-3 text-base font-medium tracking-wide">
+          <PopoverContent className="font-base px-5 py-3 text-sm font-medium tracking-wide">
             <div>
               {t("MainPage.workingHours")}:{" "}
               <span className="font-normal">

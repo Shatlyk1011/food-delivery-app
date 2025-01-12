@@ -3,7 +3,7 @@ import { FC } from "react";
 import { PROFILE_INNER_HEAD } from "@/app/data";
 
 interface Props {
-  deliveryPrice: number;
+  deliveryPrice: string;
   dishes: UserOrderDish[];
   t: any;
 }
@@ -41,7 +41,7 @@ const Index: FC<Props> = ({ deliveryPrice, dishes, t }) => {
         ) : (
           <span className="text-success">{t("Index.freeDelivery")}</span>
         )}
-        <span className="font-medium text-info">
+        <span className="font-medium text-info ">
           {t("BucketPage.totalPrice")}: {totalPrice + +deliveryPrice}
         </span>
       </p>
