@@ -3,6 +3,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { ChevronRightIcon } from "@/app/icons";
+
 interface Props {
   categories: Categories[] | undefined;
   active: number;
@@ -13,7 +14,7 @@ interface Props {
 const Index: FC<Props> = ({ categories, active, setActive, t }) => {
   return (
     <Popover>
-      <PopoverTrigger className="space-x-2,5 ml-2 flex cursor-pointer items-center rounded-xl px-[18px] py-2 text-base font-medium leading-[200%] hover:bg-gray-1 2xl:h-10  2xl:px-3 2xl:py-1 2xl:text-sm 2xl:leading-8 md:text-sm">
+      <PopoverTrigger className="space-x-2.5 ml-2 flex cursor-pointer items-center rounded-xl px-[18px] py-2 text-base font-medium leading-[200%] hover:bg-gray-1 2xl:h-10  2xl:px-3 2xl:py-1 2xl:text-sm 2xl:leading-8 md:text-sm">
         <p>{t("Index.categories")}</p>
         <ChevronRightIcon className="xl-5 h-6 w-6 rotate-90 xl:w-5" />
       </PopoverTrigger>
