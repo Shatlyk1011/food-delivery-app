@@ -21,18 +21,7 @@ export function constructMetadata({
   return {
     title,
     description,
-    keywords: [
-      "Доставка",
-      "Dostawka",
-      "Доставка еды",
-      "Iýmit getirmek",
-      "Ресторан",
-      "Restoran",
-      "Turkmenabat",
-      "Lebap",
-      "Ashgabat Dostawka",
-      "Ашхабад доставка",
-    ],
+    keywords: ["Доставка", "Dostawka", "Доставка еды", "Ресторан", "Restoran"],
     openGraph: {
       title,
       description,

@@ -7,12 +7,13 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
 import { routing } from '@/i18n/routing';
+import dynamic from "next/dynamic";
 
 //widgets
 import TailwindIndicator from "@/app/components/tailwind-indicator/tailwind-indicator";
 import Footer from "@/app/widgets/Footer";
-import Header from "@/app/widgets/Navigation";
-import Sidebar from "@/app/widgets/Sidebar";
+const Header = dynamic(() => import('@/app/widgets/Navigation'), { ssr: true })
+const Sidebar = dynamic(() => import('@/app/widgets/Sidebar'), { ssr: true })
 
 import { siteConfig } from "@/app/shared/site";
 import { constructMetadata } from "@/app/shared/lib/utils";
