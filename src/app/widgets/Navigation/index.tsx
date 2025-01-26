@@ -28,9 +28,9 @@ import { BackIcon, LogoIcon } from "@/app/icons";
 import { useAtom, useSetAtom } from "jotai";
 import atoms from "@/app/(frontend)/_providers/jotai";
 
-interface Props { }
+interface Props {}
 
-const Index: FC<Props> = ({ }) => {
+const Index: FC<Props> = ({}) => {
   const { back } = useRouter();
 
   const t = useTranslations();
@@ -44,7 +44,7 @@ const Index: FC<Props> = ({ }) => {
 
   const { currentUser } = useLoginMe();
 
-  const { cities } = useGetCities()
+  const { cities } = useGetCities();
 
   useEffect(() => {
     setAuth(Boolean(currentUser));

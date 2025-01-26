@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { FC } from "react";
 import Link from "next/link";
 import { useLocale } from "next-intl";
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const OrdersTable: FC<Props> = ({ userOrders, t }) => {
-  const locale = useLocale()
+  const locale = useLocale();
 
   return (
     <section className="h-[100vh-366px] w-full">

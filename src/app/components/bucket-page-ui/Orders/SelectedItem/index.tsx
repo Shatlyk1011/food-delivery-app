@@ -31,7 +31,7 @@ const Index: FC<Props> = ({ item, decrease, increase }) => {
                 count={item.count}
                 increase={increase}
                 decrease={decrease}
-                className="w-20 space-x-3 md:w-[68px] md:space-x-1 xl:w-24"
+                className="w-20 space-x-3 xl:w-24 md:w-[68px] md:space-x-1"
               />
               <p className="min-w-16 text-base font-medium md:text-sm">{item.price}$</p>
             </div>

@@ -1,21 +1,21 @@
-import type { Access } from 'payload'
+import type { Access } from "payload";
 
-import { checkRole } from './checkRole'
+import { checkRole } from "./checkRole";
 
 const adminAndCreatedByUser: Access = ({ req: { user } }) => {
   if (user) {
-    if (checkRole(['admin'], user)) {
-      return true
+    if (checkRole(["admin"], user)) {
+      return true;
     }
 
     return {
       createdBy: {
         equals: user.id,
       },
-    }
+    };
   }
 
-  return false
-}
+  return false;
+};
 
-export default adminAndCreatedByUser
+export default adminAndCreatedByUser;

@@ -24,8 +24,8 @@ const Index: FC<Props> = ({ handleClose, submit, disabled, t }) => {
     if (res.id) handleClose();
   };
   return (
-    <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-7 md:px-4 md:py-5 xl:px-5 xl:py-6">
-      <h2 className="mb-3 text-center text-3xl font-semibold md:mb-2 md:text-xl xl:text-2xl">
+    <div className="relative w-[90%] max-w-2xl rounded-[14px] bg-white px-6 py-7 xl:px-5 xl:py-6 md:px-4 md:py-5">
+      <h2 className="mb-3 text-center text-3xl font-semibold xl:text-2xl md:mb-2 md:text-xl">
         {t("Footer.feedbackHeading")}
       </h2>
       <button

@@ -26,9 +26,9 @@ import { CakeIcon } from "@/app/icons";
 const AboutProduct = dynamic(() => import("@/app/widgets/RestaurantPage/Product/AboutProduct"));
 
 export default function RestaurantId({ params }: any) {
-  const { id } = use(params) as any
+  const { id } = use(params) as any;
 
-  const router = useRouter()
+  const router = useRouter();
 
   const t = useTranslations();
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);
@@ -63,9 +63,14 @@ export default function RestaurantId({ params }: any) {
       <div className="mx-auto max-w-[1440px]">
         {restaurantInfo === null && (
           <div className="flex h-[calc(100vh-315px)] flex-col items-center justify-center px-10 py-40 text-center text-2xl font-medium md:text-xl sm:text-lg">
-
-            <p>{t('Actions.restaurantNotFound')}</p>
-            <button onClick={() => router.push('/')} type="button" className="px-6 py-4 rounded-[18px] bg-primary mt-4 text-base font-medium">{t('Actions.returnToMain')}</button>
+            <p>{t("Actions.restaurantNotFound")}</p>
+            <button
+              onClick={() => router.push("/")}
+              type="button"
+              className="mt-4 rounded-[18px] bg-primary px-6 py-4 text-base font-medium"
+            >
+              {t("Actions.returnToMain")}
+            </button>
           </div>
         )}
         {restaurantInfo && (

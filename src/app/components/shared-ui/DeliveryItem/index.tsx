@@ -21,11 +21,7 @@ const Index: FC<Props> = ({ isDelivery, deliveryTime, deliveryTitle, deliveryPri
 
       <p className={`text-sm font-medium leading-3 ${isDeliveryFree && "text-success"}`}>
         {deliveryTitle} {deliveryPrice && deliveryPrice}
-        {deliveryTime && (
-          <>
-            {!isNaN(deliveryTime) && `${deliveryTime - 10} - ${deliveryTime + t("Index.min")}`}
-          </>
-        )}
+        {deliveryTime && <>{!isNaN(deliveryTime) && `${deliveryTime - 10} - ${deliveryTime + t("Index.min")}`}</>}
       </p>
     </div>
   );

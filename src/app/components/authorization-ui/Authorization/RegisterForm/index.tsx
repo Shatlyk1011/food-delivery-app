@@ -40,7 +40,7 @@ const Index: FC<Props> = ({ t, classes }) => {
               const isPassword = key === "password";
 
               return (
-                <FormItem className={isPassword ? "relative" : ''}>
+                <FormItem className={isPassword ? "relative" : ""}>
                   <FormControl>
                     <Input
                       placeholder={t(`Placeholder.${key}`)}

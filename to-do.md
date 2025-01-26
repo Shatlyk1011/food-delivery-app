@@ -1,1 +1,1 @@
-* clear local user data if cannot self auth
+- clear local user data if cannot self auth

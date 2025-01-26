@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 import { admins } from "../utils/access/admins";
 
@@ -9,57 +9,57 @@ const FeedbackAndCooperations: CollectionConfig = {
     create: () => true,
     delete: admins,
     read: ({ req }) => {
-      if (checkRole(['admin', 'guest'], req.user)) {
-        return true
+      if (checkRole(["admin", "guest"], req.user)) {
+        return true;
       }
-      return false
+      return false;
     },
     update: admins,
   },
 
   admin: {
-    defaultColumns: ['name', 'phoneNumber', 'type'],
-    useAsTitle: 'type',
+    defaultColumns: ["name", "phoneNumber", "type"],
+    useAsTitle: "type",
   },
 
   fields: [
     {
-      name: 'name',
-      type: 'text',
-      label: 'Name',
+      name: "name",
+      type: "text",
+      label: "Name",
       required: false,
     },
     {
-      name: 'phoneNumber',
-      type: 'text',
-      label: 'Phone number',
+      name: "phoneNumber",
+      type: "text",
+      label: "Phone number",
       required: false,
     },
     {
-      name: 'description',
-      type: 'textarea',
-      label: 'Description',
+      name: "description",
+      type: "textarea",
+      label: "Description",
       required: true,
     },
     {
-      name: 'type',
-      type: 'select',
+      name: "type",
+      type: "select",
       required: true,
       options: [
         {
-          label: 'Cooperation',
-          value: 'cooperation',
+          label: "Cooperation",
+          value: "cooperation",
         },
         {
-          label: 'Feedback',
-          value: 'feedback',
+          label: "Feedback",
+          value: "feedback",
         },
       ],
     },
   ],
-  labels: { plural: 'Feedback and suggestions', singular: 'Feedback and suggestions' },
-  slug: 'FeedbackAndCooperations',
+  labels: { plural: "Feedback and suggestions", singular: "Feedback and suggestions" },
+  slug: "FeedbackAndCooperations",
   timestamps: true,
-}
+};
 
-export default FeedbackAndCooperations
+export default FeedbackAndCooperations;

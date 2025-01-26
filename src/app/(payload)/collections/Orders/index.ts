@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 import { admins } from "../utils/access/admins";
 import { checkRole } from "../utils/access/checkRole";
@@ -320,4 +320,4 @@ const Orders: CollectionConfig = {
   },
 };
 
-export default Orders
+export default Orders;

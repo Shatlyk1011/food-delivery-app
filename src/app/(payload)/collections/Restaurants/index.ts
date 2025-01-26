@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 import { admins } from "../utils/access/admins";
 import { checkRole } from "../utils/access/checkRole";
@@ -246,4 +246,4 @@ const Restaurants: CollectionConfig = {
   slug: "restaurants",
 };
 
-export default Restaurants
+export default Restaurants;

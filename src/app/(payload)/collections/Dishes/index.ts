@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 import adminAndCreatedByUser from "../utils/access/adminAndCreatedByUser";
 
@@ -160,4 +160,4 @@ const Dishes: CollectionConfig = {
   timestamps: true,
 };
 
-export default Dishes
+export default Dishes;

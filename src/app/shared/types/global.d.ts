@@ -1,7 +1,7 @@
 type LoginCredentials = { email: string; password: string };
 type LoginResponse = { exp: number; token: string; user: any };
 
-type I18N = "ru" | "tk" | "en"; 
+type I18N = "ru" | "tk" | "en";
 
 type UserData = { id: string; phone: string; addresses: AddressData[] };
 

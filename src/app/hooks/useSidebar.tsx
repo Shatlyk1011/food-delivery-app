@@ -21,7 +21,7 @@ const useSidebar = () => {
   const router = useRouter();
   const isAuth = useAtomValue(atoms.isAuth);
 
-  const { cities } = useGetCities()
+  const { cities } = useGetCities();
 
   const { totalDishes } = useProductItem();
 

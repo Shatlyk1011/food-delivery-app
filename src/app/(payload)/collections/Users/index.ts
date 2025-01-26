@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 import { admins } from "../utils/access/admins";
 import { checkRole } from "../utils/access/checkRole";
@@ -12,26 +12,26 @@ const Users: CollectionConfig = {
       if (checkRole(["admin", "guest"], user)) {
         return true;
       }
-      if (checkRole(['user'], user)) {
+      if (checkRole(["user"], user)) {
         return {
           id: {
             equals: user?.id,
           },
-        }
+        };
       }
-      return false
+      return false;
     },
     update: ({ req: { user } }) => {
-      if (checkRole(['user'], user)) {
-        return true
+      if (checkRole(["user"], user)) {
+        return true;
       }
-      return false
+      return false;
     },
   },
 
   admin: {
-    defaultColumns: ['name', 'email'],
-    useAsTitle: 'name',
+    defaultColumns: ["name", "email"],
+    useAsTitle: "name",
   },
 
   auth: {
@@ -42,73 +42,73 @@ const Users: CollectionConfig = {
   },
   fields: [
     {
-      name: 'name',
-      label: 'Username',
+      name: "name",
+      label: "Username",
       required: true,
-      type: 'text',
+      type: "text",
     },
 
     {
-      name: 'phone',
-      label: 'Phone number',
+      name: "phone",
+      label: "Phone number",
       required: true,
-      type: 'text',
+      type: "text",
     },
     {
-      name: 'addresses',
+      name: "addresses",
       fields: [
         {
-          name: 'city',
-          label: 'City',
+          name: "city",
+          label: "City",
           required: false,
-          type: 'text',
+          type: "text",
         },
         {
-          name: 'district',
-          label: 'District',
+          name: "district",
+          label: "District",
           required: true,
-          type: 'text',
+          type: "text",
         },
         {
-          name: 'apartment',
-          label: 'Apartment',
+          name: "apartment",
+          label: "Apartment",
           required: true,
-          type: 'text',
+          type: "text",
         },
         {
-          name: 'houseNumber',
-          label: 'House number',
+          name: "houseNumber",
+          label: "House number",
           required: true,
-          type: 'text',
+          type: "text",
         },
         {
-          name: 'entrance',
-          label: 'Entrance',
+          name: "entrance",
+          label: "Entrance",
           required: false,
-          type: 'text',
+          type: "text",
         },
       ],
-      label: 'Adresses',
+      label: "Adresses",
       required: false,
-      type: 'array',
+      type: "array",
     },
 
     {
-      name: 'roles',
-      defaultValue: 'user',
+      name: "roles",
+      defaultValue: "user",
       hasMany: true,
       options: [
         {
-          label: 'User',
-          value: 'user',
+          label: "User",
+          value: "user",
         },
       ],
-      type: 'select',
+      type: "select",
     },
   ],
-  labels: { plural: 'Users', singular: 'User' },
-  slug: 'users',
+  labels: { plural: "Users", singular: "User" },
+  slug: "users",
   timestamps: true,
-}
+};
 
-export default Users
+export default Users;

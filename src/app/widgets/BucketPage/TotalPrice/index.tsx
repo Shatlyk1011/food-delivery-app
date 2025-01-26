@@ -33,7 +33,7 @@ const Index: FC<Props> = ({ totalPrice, deliveryPrice, restaurantTitle, restaura
         <li className="flex justify-between sm:text-sm">
           {t("Index.delivery")}
 
-          <span className={deliveryPrice == 0 && "text-success" || ''}>
+          <span className={(deliveryPrice == 0 && "text-success") || ""}>
             {deliveryPrice == 0 ? t("Index.freeDelivery") : `${deliveryPrice}$`}
           </span>
         </li>

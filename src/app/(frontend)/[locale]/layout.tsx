@@ -6,14 +6,14 @@ import { Provider as JotaiProvider } from "jotai";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 import NextTopLoader from "nextjs-toploader";
-import { routing } from '@/i18n/routing';
+import { routing } from "@/i18n/routing";
 import dynamic from "next/dynamic";
 
 //widgets
 import TailwindIndicator from "@/app/components/tailwind-indicator/tailwind-indicator";
 import Footer from "@/app/widgets/Footer";
-const Header = dynamic(() => import('@/app/widgets/Navigation'), { ssr: true })
-const Sidebar = dynamic(() => import('@/app/widgets/Sidebar'), { ssr: true })
+const Header = dynamic(() => import("@/app/widgets/Navigation"), { ssr: true });
+const Sidebar = dynamic(() => import("@/app/widgets/Sidebar"), { ssr: true });
 
 import { siteConfig } from "@/app/shared/site";
 import { constructMetadata } from "@/app/shared/lib/utils";
@@ -32,20 +32,19 @@ export const metadata: Metadata = constructMetadata({
 
 interface Props {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }
 
 export default async function RootLayout({ children, params }: Props) {
-
-  const { locale } = await params
+  const { locale } = await params;
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
   const messages = await getMessages();
 
   return (
-    <html lang={locale || 'en'}>
-      <body className={inter.className} >
+    <html lang={locale || "en"}>
+      <body className={inter.className}>
         <JotaiProvider>
           <NextIntlClientProvider messages={messages}>
             <TanstackQueryProvider>

@@ -3,7 +3,7 @@ import { FC } from "react";
 import ProductSkeleton from "@/app/widgets/RestaurantPage/RestaurantPageSkeleton/ProductSkeleton";
 import { Skeleton } from "@/app/components/shared-ui/Skeleton";
 
-interface Props { }
+interface Props {}
 
 const Index: FC<Props> = () => {
   return (
