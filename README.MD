@@ -1,18 +1,31 @@
 # Ashpez - Food Delivery Application
 
-<!-- <p align="center">
+<p align="center">
   <a href="https://ashpez-food-delivery-app.vercel.app/en" target="_blank"><img height="360" src="public/ashpez-banner.jpg?raw=true" alt="Ashpez food delivery application"></a>
-</p> -->
+</p>
 
-Fullstack food ordering application build with Payload CMS and Next 15. <br/>
+Fullstack food ordering application build with Payload CMS and Next 14. <br/>
 This application supports both user-facing features for ordering food and an admin panel for restaurant management. The application is fully responsive, ensuring optimal usability on mobile devices.
 
 ### Demo 🎥
-<!-- 
-*Live demo:* [Ashpez Client](https://ashpez-food-delivery-app.vercel.app/) <br/>
-*Admin panel:* [Ashpez Admin](https://ashpez-food-delivery-app.vercel.app/admin) -->
 
-//demo accounts here
+*Live demo:* [Ashpez Client](https://ashpez-food-delivery-app.vercel.app/) <br/>
+*Admin panel:* [Ashpez Admin](https://ashpez-food-delivery-app.vercel.app/admin)
+
+### Demo Accounts
+
+The following accounts have **Admin** rights but cannot make any changes:
+
+- **Guest Account 1**
+  - **Login:** `guest1@gmail.ru`
+  - **Password:** `guest123`
+
+- **Guest Account 2**
+  - **Login:** `guest2@gmail.ru`
+  - **Password:** `guest456`
+
+## If you found this project useful, please consider giving it a ⭐️ on [GitHub](https://github.com/Shatlyk1011/food-delivery-app). It helps a lot and motivates further improvements!
+
 
 ### Project structure 🗂️
 
@@ -21,6 +34,7 @@ This application supports both user-facing features for ordering food and an adm
 ├── README.md                       # README file
 ├── .github                         # GitHub folder
 ├── .husky                          # Husky configuration
+├── locales                         # I18N files 
 ├── public                          # Static assets folder
 │   └── api/media/file              # Locally stored images
 ├── src                             # Source code directory
@@ -55,14 +69,14 @@ This application supports both user-facing features for ordering food and an adm
 - Figma design - [link](https://www.figma.com/design/Br44bFbR9vLmNzTNTmilvp/%D0%A1%D0%A1Client?node-id=2-9&t=wYkMxqeS3T0EnBK0-1)
 
 ### Frontend 💻
-- **Next.js 15**: with app router and i18n.
+- **Next.js 14**: with app router and i18n (upgraded to 15).
 - **ShadCN**: Styled with ShadCN components for consistent and aesthetic design.
 - **GraphQL**: Integrated with GraphQL for efficient and flexible querying of data from the backend.
 - **TanStack Query**: for client-side data fetching and caching.
 - **Jotai**: Managed with Jotai for flexible and simple state handling.
 - **Zod**: Validation library with Zod in pair with `react-hook-form`
-- **Next-intl**: Implemented using next-intl to support multilingual user interfaces.
-- **Responsive** - Full Responsive Web App with custom sidebar and menu drawer component for mobile devices.
+- **I18N**: Implemented using next-intl to support multilingual user interfaces.
+- **Responsive** - Full Responsive Desktop First Web App with custom sidebar and menu drawer component for mobile devices.
 - **A11Y** -  Keyboard control over all interactive elements
 - **Seo Friendly**
 
@@ -80,7 +94,7 @@ This application supports both user-facing features for ordering food and an adm
 - **Order Amount**: Display of the total cost of an order.
 - **Order History**:  A dedicated profile page for users to view their past or current orders.
 - **City Selection**:  Choose the delivery city for location-specific offerings. (planned)
-- **Feedback Submission**:  Users can send feedback to improve services or rate their experience. (planned)
+- **Feedback Submission**:  Users can send feedback to improve services or rate their experience. (rate planned)
 
 
 
@@ -132,7 +146,7 @@ Follow these steps to set up and run the application locally:
 
 
 ###  Important Note on Local Development ⚠️
-When developing locally, **avoid logging into both the app and the admin panel in the same browser session**. This is because the authentication token names for the client and admin panel are identical, and this can cause unexpected behavior or conflicts.
+When developing locally, **avoid logging into both the app and the admin panel in the same browser session**. This is because the authentication token names for the client and admin panel are identical, and this can cause unexpected behavior or conflicts. If this already happened, clear your `cookie` and `localStorage`.
 
 To avoid conflicts:
 

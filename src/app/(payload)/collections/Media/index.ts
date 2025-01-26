@@ -12,9 +12,7 @@ const Media: CollectionConfig = {
     delete: admins,
     read: ({ req }) => {
       if (req.user) {
-        // We're in the admin panel
         if (checkRole(["author"], req.user)) {
-          //fix `adminAndCreatedByUser` - does not work as expected
           return adminAndCreatedByUser({ req });
         }
       }

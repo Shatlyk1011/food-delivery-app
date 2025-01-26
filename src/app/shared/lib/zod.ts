@@ -71,8 +71,7 @@ export const profileFormScheme = (t: (arg: string) => string) =>
       .min(8, {
         message: t("Zod.invalidPhone"),
       })
-      .length(8, { message: "Номер телефона должен содержать 8 цифр." })
-      .regex(/^\d+$/, { message: "Номер телефона должен содержать только цифры." }),
+      .length(8, { message: "Zod.invalidPhone" }),
     address: z.string().min(8, { message: t("Zod.invalidDistrict") }),
   });
 
