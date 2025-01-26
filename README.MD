@@ -140,7 +140,6 @@ The following accounts have **Admin** rights but cannot make any changes:
 Follow these steps to set up and run the application locally:
 
 ### Requirements 📋
-
 1. **Node.js**: Ensure you have Node.js (version 18 or higher) installed.
 2. **MongoDB**: Set up a MongoDB instance.
 3. **Environment variables**: Set up `DATABASE_URI` and `PAYLOAD_SECRET` .
@@ -174,7 +173,6 @@ To avoid conflicts:
 ### Running the Application ⚙️
 
 4. Start the appliaction with admin panel:
-
    ```bash
    npm run dev
    ```

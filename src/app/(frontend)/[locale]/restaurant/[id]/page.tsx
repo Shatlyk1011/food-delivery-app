@@ -28,7 +28,7 @@ const AboutProduct = dynamic(() => import("@/app/widgets/RestaurantPage/Product/
 export default function RestaurantId({ params }: any) {
   const { id } = use(params) as any;
 
-  const router = useRouter();
+  const router = useRouter()
 
   const t = useTranslations();
   const [isClearModal, setIsClearModal] = useAtom(atoms.isClearBucketModal);

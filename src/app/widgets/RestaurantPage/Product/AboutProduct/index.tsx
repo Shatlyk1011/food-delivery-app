@@ -16,7 +16,7 @@ export default function AboutProduct({ dish, handleClose, t }: Props) {
             <img
               className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover md:object-contain"
               src={dish.image?.url || DEFAULT_IMAGE_PATH}
-              alt={dish.image?.alt || ""}
+              alt={dish.image?.alt || "alt image text"}
             />
           </figcaption>
           <div className="flex w-full flex-col">
