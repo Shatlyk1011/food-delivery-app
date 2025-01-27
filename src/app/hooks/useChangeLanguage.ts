@@ -1,5 +1,5 @@
 import { usePathname, useRouter } from "@/i18n/routing";
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom } from "jotai";
 
 const useChangeLanguage = () => {
@@ -7,6 +7,7 @@ const useChangeLanguage = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  console.log("here");
   const handleChange = (locale: I18N) => {
     if (locale !== selectedLanguage) {
       setSelectedLanguage(locale);

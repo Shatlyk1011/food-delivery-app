@@ -2,7 +2,7 @@ import axios from "../shared/lib/axios";
 
 //jotai
 import { useSetAtom } from "jotai";
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 import { LOGIN_MUTATION, LOGOUT_MUTATION } from "../services/query/authQuery";
 import { useQueryClient } from "@tanstack/react-query";

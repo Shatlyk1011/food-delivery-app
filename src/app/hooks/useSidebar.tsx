@@ -3,8 +3,8 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 //jotai
-import atoms from "@/app/(frontend)/_providers/jotai";
-import { atom, useAtom, useAtomValue } from "jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 //hooks
 import useAuth from "./useAuth";

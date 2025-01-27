@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 
 //jotai
 import { useAtom } from "jotai";
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 //services
 import { useGetCategories } from "@/app/services/useCategories";

@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { FC, useState } from "react";
 
 import { useAtom } from "jotai";
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 //components
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/app/components/shared-ui/Popover";

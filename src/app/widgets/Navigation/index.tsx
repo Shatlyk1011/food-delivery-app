@@ -26,7 +26,7 @@ import { BackIcon, LogoIcon } from "@/app/icons";
 
 //jotai
 import { useAtom, useSetAtom } from "jotai";
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 interface Props {}
 

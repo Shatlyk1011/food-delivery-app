@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 //atoms
 import { useAtom, useAtomValue } from "jotai";
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 //hooks
 import useProductItem from "@/app/hooks/useProductItem";

@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 //jotai
 import { useAtomValue } from "jotai";
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 //widgets
 import BucketForm from "@/app/widgets/BucketPage/BucketForm";

@@ -39,7 +39,7 @@ The following accounts have **Admin** rights but cannot make any changes:
 │   └── api/media/file              # Locally stored images
 ├── src                             # Source code directory
 │   ├── app                         # Core application folder
-│   │   ├── (frontend)              # Frontend part of the application
+│   │   ├── (pages)              # Frontend part of the application
 │   │   │   ├── _providers          # Global Provider configurations (e.g., Jotai, TanStack)
 │   │   │   └── [locale]            # Locale-specific pages wrapped for i18n
 │   │   ├── (payload)               # Payload CMS (backend-related configurations)

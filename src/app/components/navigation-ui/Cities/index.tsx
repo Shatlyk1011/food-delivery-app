@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 //jotai
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom } from "jotai";
 
 //components

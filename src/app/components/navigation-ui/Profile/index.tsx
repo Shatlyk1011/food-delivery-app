@@ -15,7 +15,7 @@ import useAuth from "@/app/hooks/useAuth";
 
 //jotai
 import { useSetAtom } from "jotai";
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 
 interface Props {
   t: any;

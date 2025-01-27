@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 //jotai
-import atoms from "@/app/(frontend)/_providers/jotai";
+import atoms from "@/app/(pages)/_providers/jotai";
 import { useAtom, useSetAtom } from "jotai";
 
 import useToast from "./useToast";

@@ -18,7 +18,7 @@ const Sidebar = dynamic(() => import("@/app/widgets/Sidebar"), { ssr: true });
 import { siteConfig } from "@/app/shared/site";
 import { constructMetadata } from "@/app/shared/lib/utils";
 
-import TanstackQueryProvider from "@/app/(frontend)/_providers/tanstack-query";
+import TanstackQueryProvider from "@/app/(pages)/_providers/tanstack-query";
 
 import "@/app/shared/styles/globals.scss";
 
