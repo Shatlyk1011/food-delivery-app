@@ -7,7 +7,6 @@ const useChangeLanguage = () => {
   const router = useRouter();
   const pathname = usePathname();
 
-  console.log("here");
   const handleChange = (locale: I18N) => {
     if (locale !== selectedLanguage) {
       setSelectedLanguage(locale);

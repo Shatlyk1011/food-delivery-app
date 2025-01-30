@@ -27,6 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  cookiePrefix: "ashpez",
   collections: [Restaurants, Orders, Dishes, Cities, Users, Customers, Media, Categories, FeedbackAndCooperations],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

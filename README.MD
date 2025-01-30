@@ -25,7 +25,7 @@ The following accounts have **Admin** rights but cannot make any changes:
   - **Login:** `guest2@gmail.ru`
   - **Password:** `guest456`
 
-## If you found this project useful, please consider giving it a ⭐️ on [GitHub](https://github.com/Shatlyk1011/food-delivery-app). It helps a lot and motivates further improvements!
+## If you found this project useful, please consider giving it a ⭐️ on [GitHub](https://github.com/Shatlyk1011/food-delivery-app). <br/> It helps a lot and motivates for further improvements!
 
 ### Project structure 🗂️
 
@@ -39,7 +39,7 @@ The following accounts have **Admin** rights but cannot make any changes:
 │   └── api/media/file              # Locally stored images
 ├── src                             # Source code directory
 │   ├── app                         # Core application folder
-│   │   ├── (pages)              # Frontend part of the application
+│   │   ├── (pages)                 # Frontend part of the application
 │   │   │   ├── _providers          # Global Provider configurations (e.g., Jotai, TanStack)
 │   │   │   └── [locale]            # Locale-specific pages wrapped for i18n
 │   │   ├── (payload)               # Payload CMS (backend-related configurations)
