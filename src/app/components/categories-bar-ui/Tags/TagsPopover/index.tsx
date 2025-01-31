@@ -26,6 +26,7 @@ const Index: FC<Props> = ({ categories, active, setActive, t }) => {
                 <PopoverClose
                   type="button"
                   className={`h-12 w-full cursor-pointer rounded-xl px-[18px] text-start leading-[48px] transition duration-100 hover:bg-onHover disabled:cursor-text disabled:bg-white disabled:text-text-3 2xl:h-11 2xl:px-4 2xl:leading-10 md:h-10 md:text-sm md:leading-[36px] ${active === idx && "bg-accent"}`}
+                  disabled
                 >
                   {category}
                 </PopoverClose>

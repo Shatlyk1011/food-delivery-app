@@ -6,7 +6,12 @@ import { checkRole } from "../utils/access/checkRole";
 
 const FeedbackAndCooperations: CollectionConfig = {
   access: {
-    create: () => true,
+    create: ({ req }) => {
+      if (checkRole(["guest"], req.user)) {
+        return false;
+      }
+      return true;
+    },
     delete: admins,
     read: ({ req }) => {
       if (checkRole(["admin", "guest"], req.user)) {

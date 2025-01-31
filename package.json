@@ -1,7 +1,7 @@
 {
-  "name": "food-app-v3",
+  "name": "Ashpez-Food-App",
   "version": "1.0.0",
-  "description": "A blank template to get started with Payload 3.0",
+  "description": "Fullstack Food Delivery application build with Nextjs and Payload CMS",
   "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",

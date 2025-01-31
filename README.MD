@@ -14,6 +14,12 @@ _Admin panel:_ [Ashpez Admin](https://ashpez-food-delivery-app.vercel.app/admin)
 
 ### Demo Accounts
 
+#### Important Note ⚠️
+
+**Avoid logging into both the app and the admin panel in the same browser session**. The authentication token names for the client and admin panel are identical, and this can cause unexpected behavior or conflicts. Please use **different browser** for the admin panel and the app or open the admin panel in a **private/incognito** window
+
+ If this already happened, clear your `cookie` and `localStorage`.
+
 The following accounts have **Admin** rights but cannot make any changes:
 
 - **Guest Account 1**
