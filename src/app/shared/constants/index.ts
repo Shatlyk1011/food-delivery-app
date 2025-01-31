@@ -1,4 +1,4 @@
-export const USER_TOKEN = "payload-token";
+export const USER_TOKEN = "ashpez-token";
 
 export const USER_PROFILE = "USER_PROFILE";
 export const DISHES = "DISHES";
