@@ -265,7 +265,7 @@ const Orders: CollectionConfig = {
         }
 
         //if changes appear in admin panel, change only orderStatus, and return data
-        if (checkRole(["author"], req.user)) {
+        if (checkRole(["author", "admin"], req.user)) {
           if (originalDoc.orderStatus === "delivered") {
             return originalDoc;
           }
@@ -276,7 +276,7 @@ const Orders: CollectionConfig = {
           return data;
         }
 
-        // The user can change the values in localStorage so we need validate order to show the right amount information
+        // The user can change the values in localStorage so we need validate order (by id) to show the right amount information
         const [restaurantResult, foundDishes] = await Promise.all([
           req.payload.find({
             collection: "restaurants",
@@ -302,7 +302,7 @@ const Orders: CollectionConfig = {
 
         let totalAmount = 0;
 
-        //Even if user changes the data in localStorage and sends us the incorrect data, we validate it here by dishes id
+        //Even if user changes the data in localStorage and sends the incorrect data, we validate it here by dishes id
         const findAndCountDishes = foundDishes.docs.map((dish) => {
           const quantity = dishes.find((d: any) => d.id === dish.id)?.quantity || 1;
           totalAmount += dish.price * quantity;
