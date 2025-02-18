@@ -16,7 +16,7 @@ _Admin panel:_ [Ashpez Admin](https://ashpez-food-delivery-app.vercel.app/admin)
 
 #### Important Note ⚠️
 
-** Please use **different browser** for the admin panel and the app or open the admin panel in a **private/incognito** window. The authentication token names for the client and admin panel are **identical**, and this can cause unexpected behavior or conflicts. Avoid logging into both the app and the admin panel in the same browser session
+Please use **different browser** for the admin panel and the app or open the admin panel in a **private/incognito** window. The authentication token names for the client and admin panel are **identical** (payload generates them automatically), and this can cause unexpected behavior or conflicts. Avoid logging into both the app and the admin panel in the same browser session
 
  If this already happened, clear your `cookie` and `localStorage`.
 
