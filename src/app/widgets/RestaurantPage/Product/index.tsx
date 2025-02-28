@@ -19,7 +19,7 @@ const Index: FC<Props> = ({ dish, isDishDisabled, addItem, btnTitle, handleDish 
         <img
           className="h-full w-full cursor-pointer object-cover duration-200 hover:brightness-105"
           src={dish.image?.url || DEFAULT_IMAGE_PATH}
-          alt={dish.image?.alt || "Тут должно было быть изображение"}
+          alt={dish.image?.alt || "image"}
         />
       </div>
       <div className="mb-2.5 h-fit font-medium">

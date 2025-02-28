@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
 //jotai
@@ -11,6 +11,7 @@ import { useGetCategories } from "@/app/services/useCategories";
 import { useGetRestaurantsQuery } from "@/app/services/useRestaurants";
 
 import { defaultFilters } from "@/app/data";
+import { USER_TOKEN } from "@/app/shared/constants";
 
 //components
 import RestaurantItemSkeleton from "@/app/widgets/RestaurantItem/Skeleton";
@@ -36,6 +37,11 @@ export default function Home() {
   const { isFetchingNextPage, filteredRestaurants, fetchNextPage, isLoading } = useGetRestaurantsQuery(filters, query);
 
   const { categories } = useGetCategories();
+
+  // demo purpose. remove this lines in production version
+  useEffect(() => {
+    localStorage.removeItem(USER_TOKEN)
+  }, [])
 
   return (
     <main className="min-h-[calc(100vh-313px)]">
