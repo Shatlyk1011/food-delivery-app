@@ -56,3 +56,8 @@ interface FeedbackOrCoopResponse {
 }
 
 type ToastTypes = "error" | "success" | "warning" | "info";
+
+type SortTypes = {
+  title: string;
+  value: SortBy;
+};

@@ -6,25 +6,15 @@ import { RadioGroup, RadioGroupItem } from "@/app/components/shared-ui/RadioGrou
 import { CloseIcon, SortIcon } from "@/app/icons";
 import { PopoverClose } from "@radix-ui/react-popover";
 
+import { SORT_LIST_ITEMS } from "@/app/data";
+
 interface Props {
   handleFilters: (key: keyof Filters, value: string | null) => void;
   t: any;
 }
 
-type SortTypes = {
-  title: string;
-  value: SortBy;
-};
-
 const Index: FC<Props> = ({ handleFilters, t }) => {
   const [sortBy, setSortBy] = useState("");
-
-  const sortList: SortTypes[] = [
-    { title: "MainPage.trustOne", value: "" },
-    { title: "MainPage.fastOne", value: "deliveryTime" },
-    { title: "MainPage.budgetOne", value: "budgetCategory" },
-    { title: "MainPage.expensiveOne", value: "-budgetCategory" },
-  ];
 
   const handleSubmit = () => {
     handleFilters("sortBy", sortBy);
@@ -49,7 +39,7 @@ const Index: FC<Props> = ({ handleFilters, t }) => {
               </PopoverClose>
             </div>
             <RadioGroup defaultValue="012" className="px-5 py-2 md:px-4 md:text-sm">
-              {sortList.map(({ title, value }) => (
+              {SORT_LIST_ITEMS.map(({ title, value }) => (
                 <label
                   htmlFor={title}
                   key={title}

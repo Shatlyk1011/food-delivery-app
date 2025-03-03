@@ -100,3 +100,10 @@ export const STATUS_CLASSES = {
   delivered: "text-[#008000]",
   rejected: "text-[#FF4500]",
 };
+
+export const SORT_LIST_ITEMS: SortTypes[] = [
+  { title: "MainPage.trustOne", value: "" },
+  { title: "MainPage.fastOne", value: "deliveryTime" },
+  { title: "MainPage.budgetOne", value: "budgetCategory" },
+  { title: "MainPage.expensiveOne", value: "-budgetCategory" },
+];
