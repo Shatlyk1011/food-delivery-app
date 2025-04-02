@@ -38,11 +38,6 @@ export default function Home() {
 
   const { categories } = useGetCategories();
 
-  // demo purpose. remove this lines in production version
-  useEffect(() => {
-    localStorage.removeItem(USER_TOKEN)
-  }, [])
-
   return (
     <main className="min-h-[calc(100vh-313px)]">
       <div className="mx-auto box-content max-w-[1440px] px-8 pt-12 2xl:pt-8 xl:px-5 xl:pt-6 md:px-3 md:pt-4">
