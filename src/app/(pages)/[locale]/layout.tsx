@@ -44,7 +44,7 @@ export default async function RootLayout({ children, params }: Props) {
 
   return (
     <html lang={locale || "en"}>
-      <body className={inter.className}>
+      <body className={`${inter.className} antialiased`}>
         <JotaiProvider>
           <NextIntlClientProvider messages={messages}>
             <TanstackQueryProvider>
