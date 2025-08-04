@@ -12,6 +12,10 @@ This application supports both user-facing features for ordering food and an adm
 _Live demo:_ [Ashpez Client](https://ashpez-food-delivery-app.vercel.app/) <br/>
 _Admin panel:_ [Ashpez Admin](https://ashpez-food-delivery-app.vercel.app/admin)
 
+### Design 🎨
+
+- Figma design - [link](https://www.figma.com/design/Br44bFbR9vLmNzTNTmilvp/%D0%A1%D0%A1Client?node-id=2-9&t=wYkMxqeS3T0EnBK0-1)
+
 ### Demo Accounts
 
 #### Important Note ⚠️
@@ -70,10 +74,6 @@ The following accounts have **Admin** rights but cannot make any changes:
 #### for more information about payload.config.ts, payload collections and docker configuration visit the official [payload docs](http://payloadcms.com/)
 
 ## **Technology Stack** 🛠️
-
-### Design 🎨
-
-- Figma design - [link](https://www.figma.com/design/Br44bFbR9vLmNzTNTmilvp/%D0%A1%D0%A1Client?node-id=2-9&t=wYkMxqeS3T0EnBK0-1)
 
 ### Frontend 💻
 
